@@ -8,7 +8,10 @@ class NavBar extends React.Component {
 
   render() {
     return (
-      <div>This is the 'NavBar' component</div>
+      <div>
+        <div>This is the 'NavBar' component</div>
+        <p>---------------------------------</p>
+      </div>
     );
   }
 }
