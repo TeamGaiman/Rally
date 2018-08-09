@@ -1,3 +1,4 @@
 node_modules/
 config/
 client/dist/bundle.js
+package-lock.json

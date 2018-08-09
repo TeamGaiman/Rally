@@ -1,4 +1,11 @@
 import React from 'react';
+import {
+  Navbar,
+  Nav,
+  NavItem
+
+} from 'react-bootstrap';
+
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -8,10 +15,27 @@ class NavBar extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>This is the 'NavBar' component</div>
-        <p>---------------------------------</p>
-      </div>
+
+      <Navbar>
+        <Navbar.Header>
+          <Navbar.Brand>
+            Deuce (Title Pending)
+          </Navbar.Brand>
+        </Navbar.Header>
+        <Nav>
+          <NavItem >
+            Matchmaker
+          </NavItem>
+          <NavItem >
+            Profile
+          </NavItem>
+          <NavItem>
+            Badges
+          </NavItem>
+        </Nav>
+      </Navbar>
+
+
     );
   }
 }
