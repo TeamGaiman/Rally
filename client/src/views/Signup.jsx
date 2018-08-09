@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Main extends React.Component {
+class Signup extends React.Component {
   constructor(props) {
     super(props);
 
@@ -8,10 +8,10 @@ class Main extends React.Component {
 
   render() {
     return (
-      <div>This is the 'Main' component</div>
+      <div>This is the 'Sigup' component</div>
     );
   }
 }
 
 
-export default Main;
+export default Signup;
