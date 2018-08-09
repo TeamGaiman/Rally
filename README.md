@@ -24,9 +24,7 @@
 
 ## Requirements
 
-- TODO:
-- DEBUG:
-- HACK:
+- <TODO>
 
 ## Development
 
