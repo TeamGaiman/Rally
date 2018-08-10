@@ -12,6 +12,7 @@ class Routing extends React.Component {
       <BrowserRouter>
         <div>
           <NavBar />
+          <Login />
           <Switch>
             <Route exact path="/" render={() => <Main />} />
             <Route exact path="/login" render={() => <Login />} />
