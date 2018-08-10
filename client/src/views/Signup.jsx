@@ -2,12 +2,12 @@ import React from 'react';
 
 class Signup extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       loggedIn: false,
       username: '',
       password: ''
-    }
+    };
     // this.renderUsenameInput = this.renderUsenameInput.bind(this)
   }
 
@@ -53,11 +53,11 @@ class Signup extends React.Component {
 
 
 
-      <div>This is the 'Sigup' component
-      <input onChange={ this.renderUsenameInput }>
-      </input>
-      <button></button>
-      </div>
+    // <div>This is the 'Sigup' component
+    // <input onChange={ this.renderUsenameInput }>
+    // </input>
+    // <button></button>
+    // </div>
     );
   }
 }
