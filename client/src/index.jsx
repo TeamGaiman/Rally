@@ -7,12 +7,17 @@ import Signup from './views/Signup.jsx';
 import NavBar from './views/NavBar.jsx';
 
 class Routing extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loggedIn: false
+    };
+  }
   render() {
     return (
       <BrowserRouter>
         <div>
-          <NavBar />
-          <Login />
+          <NavBar loggedIn={this.state.loggedIn} />
           <Switch>
             <Route exact path="/" render={() => <Main />} />
             <Route exact path="/login" render={() => <Login />} />

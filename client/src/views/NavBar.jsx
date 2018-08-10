@@ -32,6 +32,9 @@ class NavBar extends React.Component {
           <NavItem>
             Badges
           </NavItem>
+          <NavItem>
+            {this.props.loggedIn ? 'Logout' : 'Login'}
+          </NavItem>
         </Nav>
       </Navbar>
 
