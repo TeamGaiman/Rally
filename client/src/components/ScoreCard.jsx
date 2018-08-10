@@ -1,6 +1,6 @@
 import React from 'react';
 
-class App extends React.Component {
+class ScoreCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,7 +10,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        This is the 'App' component
+        This is the 'ScoreCard' component
         
       </div>
     );
@@ -18,4 +18,4 @@ class App extends React.Component {
 }
 
 
-export default App;
+export default ScoreCard;

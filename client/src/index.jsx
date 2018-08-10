@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Main from './views/Main.jsx';
 import Login from './views/Login.jsx';
 import Signup from './views/Signup.jsx';
-import NavBar from './views/NavBar.jsx';
+import NavBar from './components/NavBar.jsx';
 
 class Routing extends React.Component {
   constructor(props) {

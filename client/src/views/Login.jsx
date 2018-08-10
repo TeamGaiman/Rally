@@ -43,7 +43,7 @@ class Login extends React.Component {
               Email
             </Col>
             <Col sm={10}>
-              <FormControl type="username" placeholder="Username" />
+              <FormControl type="username" placeholder="Email" />
             </Col>
           </FormGroup>
 
