@@ -1,4 +1,4 @@
-### We will be styling out Application according to the AirBnB style guide:
+### We will be styling our application according to the AirBnB style guide:
   https://github.com/airbnb/javascript
 
 ### Indentation
