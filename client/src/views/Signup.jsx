@@ -14,11 +14,18 @@ class Signup extends React.Component {
     super(props);
     this.state = {
       loggedIn: false,
-      username: '',
+      email: '',
       password: ''
     };
     this.renderUsenameInput = this.renderUsenameInput.bind(this);
     this.renderPassword = this.renderPassword.bind(this);
+    this.renderEmailInput = this.renderEmailInput.bind(this);
+  }
+
+  renderEmailInput() {
+    e.preventDefault();
+    console.log(e.target.value);
+    this.setState({email: e.target.value});
   }
 
   renderUsenameInput(e) {
@@ -45,7 +52,16 @@ class Signup extends React.Component {
       <div>
         <h3>Signup</h3>
         <Form horizontal>
-          <FormGroup controlId="formHorizontalSignup" >
+          <FormGroup controlId="formHorizontalEmail" >
+            <Col sm={2}>
+              Email
+            </Col>
+            <Col sm={10}>
+              <FormControl type="username" placeholder="Username" />
+            </Col>
+          </FormGroup>
+
+          <FormGroup controlId="formHorizontalUsername" >
             <Col sm={2}>
               Username
             </Col>
