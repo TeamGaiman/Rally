@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server-dev": "nodemon server/index.js",
     "react-dev": "webpack -d --watch",
-    "start": "webpack -d && node server/index.js"
+    "start": "webpack -d --watch && nodemon server/index.js"
   },
   "repository": {
     "type": "git",
