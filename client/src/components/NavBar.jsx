@@ -16,26 +16,32 @@ class NavBar extends React.Component {
   render() {
     return (
 
-      <Navbar>
+      <Navbar staticTop>
         <Navbar.Header>
           <Navbar.Brand>
-            Deuce (Title Pending)
+            <a href="/">Deuce (Title Pending)</a>
           </Navbar.Brand>
+          <Navbar.Toggle />
         </Navbar.Header>
-        <Nav>
-          <NavItem >
-            Matchmaker
-          </NavItem>
-          <NavItem >
-            Profile
-          </NavItem>
-          <NavItem>
-            Badges
-          </NavItem>
-          <NavItem>
-            {this.props.loggedIn ? 'Logout' : 'Login'}
-          </NavItem>
-        </Nav>
+        <Navbar.Collapse>
+          <Nav pullRight>
+            <NavItem >
+              Matchmaker
+            </NavItem>
+            <NavItem >
+              Profile
+            </NavItem>
+            <NavItem>
+              Badges
+            </NavItem>
+            <NavItem>
+              {this.props.loggedIn ? 'Logout' : 'Login'}
+            </NavItem>
+            <NavItem>
+              Sign up
+            </NavItem>
+          </Nav>
+        </Navbar.Collapse>
       </Navbar>
 
 
