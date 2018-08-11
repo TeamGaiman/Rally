@@ -17,8 +17,11 @@ class Login extends React.Component {
       email: '',
       password: ''
     };
+
     this.renderEmailInput = this.renderEmailInput.bind(this);
     this.renderPassword = this.renderPassword.bind(this);
+    this.onSignIn = this.onSignIn.bind(this);
+    this.signOut = this.signOut.bind(this);
   }
 
   renderEmailInput(e) {
@@ -31,6 +34,20 @@ class Login extends React.Component {
     e.preventDefault();
     console.log(e.target.value);
     this.setState({password: e.target.value});
+  }
+
+  onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+  }
+
+  signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut()
+      .then(() => console.log('User signed out.'));
   }
 
   render() {
@@ -68,6 +85,10 @@ class Login extends React.Component {
             </Col>
           </FormGroup>
         </Form>
+        <div className="g-signin2" data-onsuccess="onSignIn"></div>
+
+        <a href="#" onClick={this.signOut}>Sign out</a>
+
       </div>
     );
   }
