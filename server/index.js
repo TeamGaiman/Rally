@@ -1,11 +1,25 @@
 const express = require('express');
-const parser = require('body-parser');
+const graphqlHTTP = require('express-graphql');
+const schema = require('./schema.js');
 const models = require('../db/models');
 const port = process.env.PORT || 8080;
 
 const app = express();
-app.use(parser.json());
 app.use(express.static(__dirname + '/../client/dist'));
+
+const root = {
+  hello: () => { 'Welcome!'; },
+  user: () => {
+    return {
+      name: 'test'
+    };
+  }
+};
+app.use('/graphql', graphqlHTTP({
+  schema: schema,
+  rootValue: root,
+  graphiql: true
+}));
 
 models.sequelize.sync({ force: true })
   .then(() => {
