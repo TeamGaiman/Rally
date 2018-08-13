@@ -46,3 +46,12 @@ module.exports.userStats = {
   elo: 4400,
   tier: 2
 };
+
+module.exports.user = {
+  bobby: {
+    name: 'bobby',
+    fullName: 'Bobby Hill',
+    email: 'bhill@tomlandrymiddleschool.edu',
+    phoneNumber: '1 (409) 661 - 9768'
+  }
+};
