@@ -21,3 +21,10 @@ const calcNewElos = (winner, loser, k) => {
 
   return [winnerElo, loserElo];
 };
+
+const eloCalculations = {
+  calcProbabilityOfWin,
+  calcNewElos
+};
+
+module.exports = eloCalculations;
