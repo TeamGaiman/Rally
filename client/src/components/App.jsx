@@ -11,7 +11,7 @@ class App extends React.Component {
     return (
       <div>
         This is the 'App' component
-        
+      
       </div>
     );
   }
