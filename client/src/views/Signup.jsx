@@ -9,11 +9,9 @@ class Signup extends React.Component {
       email: '',
       password: '',
       username: '',
-      elo: '',
-      phone: '',
+      phone: ''
     };
     this.handleUsename = this.handleUsername.bind(this);
-    this.handleElo = this.handleElo.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
     this.handlePhone = this.handlePhone.bind(this);
@@ -22,11 +20,6 @@ class Signup extends React.Component {
   handleUsername(e) {
     console.log(e.target.value);
     this.setState({username: e.target.value});
-  }
-
-  handleElo(e) {
-    console.log(e.target.value);
-    this.setState({password: e.target.value});
   }
 
   handleEmail(e) {
@@ -62,14 +55,6 @@ class Signup extends React.Component {
             </Col>
             <Col sm={4}>
               <FormControl type="username" placeholder="Username" />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formHorizontalUsername" >
-            <Col sm={2}>
-              Elo
-            </Col>
-            <Col sm={4}>
-              <FormControl type="username" placeholder="Elo" />
             </Col>
           </FormGroup>
 
