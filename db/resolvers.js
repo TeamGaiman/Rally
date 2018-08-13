@@ -1,14 +1,15 @@
-const User = require('./models/user.js');
 const models = require('./index.js');
-const _ = require('lodash');
 
 const resolvers = {
+  Query: {
+    getAllUsers: async (_) => {
+      return await models.User.findAll({})
+    }
+  },
   Mutation: {
-    createUser: (_, {input}) => {
-      let user = {};
-      user = input;
-      models.User.create(user);
-      return { input };
+    createUser: async (_, {input}) => {
+      models.User.create(input);
+      return await input;
     }
   }
 };

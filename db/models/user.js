@@ -11,6 +11,7 @@ const user = (sequelize, DataTypes) => {
     elo: {
       type: DataTypes.INTEGER
     }
+    // TODO: Define other fields
   });
 
   return User;
