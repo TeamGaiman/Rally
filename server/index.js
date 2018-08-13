@@ -1,7 +1,7 @@
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const schema = require('./schema.js');
-const models = require('../db/models');
+const models = require('../db/index.js');
 const resolvers = require('../db/resolvers.js');
 const port = process.env.PORT || 8080;
 
@@ -18,4 +18,5 @@ app.use('/graphql', graphqlHTTP({
 models.sequelize.sync({ force: true })
   .then(() => {
     app.listen(port, () => console.log('listening on port: ', port));
+    models.User.create({name: 'bob', elo: 2000});
   });
