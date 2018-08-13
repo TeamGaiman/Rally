@@ -2,38 +2,38 @@
 
 module.exports.upcoming = [
   {
-    participants: {a: 'john', b: 'jay'},
+    participants: {a: 'John', b: 'Jay'},
     time: '7:00',
     loc: 'Park A'
   },
   {
-    participants: {a: 'john', b: 'sara'},
+    participants: {a: 'John', b: 'Sara'},
     time: '7:00',
     loc: 'Park A'
   },
   {
-    participants: {a: 'john', b: 'bill'},
+    participants: {a: 'John', b: 'Bill'},
     time: '7:00',
     loc: 'Park B'
   },
 ];
 
 
-module.exports.completed = [
+module.exports.history = [
   {
-    participants: {a: 'john', b: 'beth'},
+    participants: {a: 'John', b: 'Beth'},
     time: '7:00',
     loc: 'Park C',
     results: 'W 6-0, 6-1, 6-2'
   },
   {
-    participants: {a: 'john', b: 'kyle'},
+    participants: {a: 'John', b: 'Kyle'},
     time: '7:00',
     loc: 'Park B',
     results: 'W 6-3, 4-6, 6-2'
   },
   {
-    participants: {a: 'john', b: 'joe'},
+    participants: {a: 'John', b: 'Joe'},
     time: '7:00',
     loc: 'Park A',
     results: 'L 3-6, 4-6, 0-6'
