@@ -1,4 +1,5 @@
 import React from 'react';
+import Trophies from './Trophies.jsx';
 
 class Stats extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class Stats extends React.Component {
     return (
       <div>
         This is the 'Stats' component
-        
+        <Trophies />
       </div>
     );
   }
