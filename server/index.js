@@ -21,7 +21,9 @@ app.use('/graphql', graphqlHTTP({
   graphiql: true
 }));
 
-// models.sequelize.sync({ force: true })
-//   .then(() => {
+app.get('/*', (req, res) => res.redirect('/'));
+
+models.sequelize.sync({ force: true })
+  .then(() => {
     app.listen(port, () => console.log('listening on port: ', port));
-  // });
+  });
