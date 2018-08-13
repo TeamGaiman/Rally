@@ -39,3 +39,10 @@ module.exports.history = [
     results: 'L 3-6, 4-6, 0-6'
   },
 ];
+
+module.exports.userStats = {
+  wins: 2,
+  losses: 1,
+  elo: 4400,
+  tier: 2
+};

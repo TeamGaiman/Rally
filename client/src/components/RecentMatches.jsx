@@ -2,7 +2,6 @@ import React from 'react';
 import { Row, Col} from 'react-bootstrap';
 
 const RecentMatches = (props) => {
-  console.log(props.history)
   return (
     <div>
       <h4>Recent Matches</h4>
