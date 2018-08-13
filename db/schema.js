@@ -5,22 +5,24 @@ const typeDefs = `
   type User {
     id: ID!
     name: String!
-    email: String
-    elo: Int
-    fullname: String
-    phoneNumber: String
-    location: String
-    wins: Int
-    losses: Int
-    matches: [String]
+    fullName: String!
+    email: String!
+    phoneNumber: String!
+    wins: Int!
+    losses: Int!
+    elo: Int!
   }
   type Query {
     getUser(username: String): [User]
     getAllUsers: [User]
   }
   input UserInput {
-    id: ID
     name: String
+    fullName: String
+    email: String
+    phoneNumber: String
+    wins: Int
+    losses: Int
     elo: Int
   }
   type Mutation {

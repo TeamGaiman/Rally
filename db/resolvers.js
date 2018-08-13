@@ -4,6 +4,9 @@ const resolvers = {
   Query: {
     getAllUsers: async (_) => {
       return await models.User.findAll({})
+    },
+    getUser: async (_, {name}) => {
+      return await models.User.findOne({ where: { name }})
     }
   },
   Mutation: {
