@@ -1,5 +1,5 @@
 // The hard-coded value 400 represents the relevant point differential. For every 400 points of difference between the two scores the probablity of a win changes by a factor of 10.
-// The value 400 can be adjusted but should not change on a case-by-case basic. This value must be consistent for the scores to be relevant. 400 is the elo standard for this value and 2000 is the standard starting score.
+// The value 400 can be adjusted but should not change on a case-by-case basis. This value must be consistent for the scores to be relevant. 400 is the elo standard for this value and 2000 is the standard starting elo score.
 
 // Enter two elo ratings as arguments and return the probability that the player corresponding to elo 1 will win.
 // To get the probablity that the player corresponding to elo2 will win, subtract the return value from 1.
