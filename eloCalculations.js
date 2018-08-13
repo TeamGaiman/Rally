@@ -11,7 +11,7 @@ const calcProbabilityOfWin = (elo1, elo2) => {
 };
 
 // Enter the elo ratings of the winner and loser and the k value that represents the elo rate of change
-const calcNewEloForWinner = (winner, loser, k) => {
+const calcNewElos = (winner, loser, k) => {
   let probabilityOfWin = calcProbabilityOfWin(winner, loser);
   let x = k * (1 - probabilityOfWin);
   let winnerElo = winner + x;

@@ -7,6 +7,10 @@ const resolvers = {
     },
     getUser: async (_, {name}) => {
       return await models.User.findOne({ where: { name }})
+    },
+    checkEmailIsUnique: async(_, {email}) => {
+      return await (models.User.findOne({ where: { email }}))
+       ? false : true
     }
   },
   Mutation: {

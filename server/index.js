@@ -23,4 +23,5 @@ models.sequelize.sync({ force: true })
   .then(() => {
     app.listen(port, () => console.log('listening on port: ', port));
     models.User.create(fakeUser);
-  });
+  })
+  .catch(err => { console.error(err); });
