@@ -1,8 +1,7 @@
 import React from 'react';
 import UpcomingMatches from './UpcomingMatches.jsx';
 import RecentMatches from './RecentMatches.jsx';
-import Trophies from './Trophies.jsx';
-import Stats from './Stats.jsx';
+
 
 class Profile extends React.Component {
   constructor(props) {
@@ -17,8 +16,6 @@ class Profile extends React.Component {
         This is the 'Profile' component
         <UpcomingMatches />
         <RecentMatches />
-        <Trophies />
-        <Stats />
       </div>
     );
   }
