@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  Form,
-  FormGroup,
-  FormControl,
-  Col,
-  Checkbox,
-  Button
-
-} from 'react-bootstrap';
+import { Form, FormGroup, FormControl, Col, Button } from 'react-bootstrap';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -15,33 +7,39 @@ class Signup extends React.Component {
     this.state = {
       loggedIn: false,
       email: '',
-      password: ''
+      password: '',
+      username: '',
+      elo: '',
     };
-    this.renderUsenameInput = this.renderUsenameInput.bind(this);
-    this.renderPassword = this.renderPassword.bind(this);
-    this.renderEmailInput = this.renderEmailInput.bind(this);
+    this.handleUsename = this.handleUsername.bind(this);
+    this.handleElo = this.handleElo.bind(this);
+    this.handleEmail = this.handleEmail.bind(this);
+    this.handlePassword = this.handlePassword.bind(this);
   }
 
-  renderEmailInput() {
-    e.preventDefault();
-    console.log(e.target.value);
-    this.setState({email: e.target.value});
-  }
-
-  renderUsenameInput(e) {
-    e.preventDefault();
+  handleUsername(e) {
     console.log(e.target.value);
     this.setState({username: e.target.value});
   }
 
-  renderPassword(e) {
-    e.preventDefault();
+  handleElo(e) {
     console.log(e.target.value);
     this.setState({password: e.target.value});
   }
 
+  handleEmail(e) {
+    console.log(e.target.value);
+    this.setState({email: e.target.value});
+  }
+
+
+  handlePassword(e) {
+    console.log(e.target.value);
+    this.setState({password: e.target.value});
+  }
+
+
   // handleSubmit() {
-  //   this.setState({loggedIn: true});
   //   //graphQL requests
   // }
 
@@ -52,42 +50,46 @@ class Signup extends React.Component {
       <div>
         <h3>Signup</h3>
         <Form horizontal>
-          <FormGroup controlId="formHorizontalEmail" >
-            <Col sm={2}>
-              Email
-            </Col>
-            <Col sm={10}>
-              <FormControl type="username" placeholder="Email" />
-            </Col>
-          </FormGroup>
-
           <FormGroup controlId="formHorizontalUsername" >
             <Col sm={2}>
               Username
             </Col>
-            <Col sm={10}>
+            <Col sm={4}>
               <FormControl type="username" placeholder="Username" />
             </Col>
           </FormGroup>
+          <FormGroup controlId="formHorizontalUsername" >
+            <Col sm={2}>
+              Elo
+            </Col>
+            <Col sm={4}>
+              <FormControl type="username" placeholder="Elo" />
+            </Col>
+          </FormGroup>
+          
+          <FormGroup controlId="formHorizontalEmail" >
+            <Col sm={2}>
+              Email (not req)
+            </Col>
+            <Col sm={4}>
+              <FormControl type="username" placeholder="Email" />
+            </Col>
+          </FormGroup>
+
 
           <FormGroup controlId="formHorizontalPassword">
             <Col sm={2}>
-              Password
+              Password (not req)
             </Col>
-            <Col sm={10}>
+            <Col sm={4}>
               <FormControl type="password" placeholder="Password" />
             </Col>
           </FormGroup>
 
-          <FormGroup>
-            <Col smOffset={2} sm={10}>
-              <Checkbox>Remember me</Checkbox>
-            </Col>
-          </FormGroup>
 
           <FormGroup>
-            <Col smOffset={2} sm={10}>
-              <Button type="submit">Sign in</Button>
+            <Col smOffset={2} sm={4}>
+              <Button type="submit">Submit</Button>
             </Col>
           </FormGroup>
         </Form>
