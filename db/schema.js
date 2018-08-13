@@ -11,19 +11,20 @@ const typeDefs = `
     wins: Int!
     losses: Int!
     elo: Int!
+    tier: Int!
+    joinDate: String!
+    userNumber: Int!
   }
   type Query {
-    getUser(name: String!): User
+    getUser(name: String): User
     getAllUsers: [User]
+    checkEmailIsUnique(email: String): Boolean
   }
   input UserInput {
     name: String
     fullName: String
     email: String
     phoneNumber: String
-    wins: Int
-    losses: Int
-    elo: Int
   }
   type Mutation {
     createUser(input: UserInput) : User

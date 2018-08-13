@@ -23,4 +23,4 @@
     date: String
     result: String
   }
-`
+`;
