@@ -11,6 +11,8 @@ import {ApolloLink} from 'apollo-client-preset';
 import {ApolloClient} from 'apollo-client';
 import gql from 'graphql-tag';
 import {withClientState} from 'apollo-link-state';
+import { HttpLink } from 'apollo-link-http';
+import { Query } from 'react-apollo';
 import Profile from './components/Profile.jsx';
 import Matchmaking from './components/Matchmaking.jsx';
 import Stats from './components/Stats.jsx';
@@ -22,13 +24,20 @@ class Routing extends React.Component {
       loggedIn: false
     };
   }
+
+  
+
   render() {
 
     // Set up Cache
     const cache = new InMemoryCache();
 
     const defaultState = {
-
+      currentUser: {
+        __typename: CurrentUser,
+        Username: 'guest'
+      }
+      
     };
 
     // Set up Local State
@@ -47,16 +56,32 @@ class Routing extends React.Component {
       link: ApolloLink.from([
         stateLink,
         new HTTPLink({
-
+          uri: '/graphql'
         })
       ]),
       cache: cache,
     });
 
+    const getUserQuery = gql `
+      query {
+        currentUser @ client {
+          username
+        }
+      }
+    `;
+
     return (
       <BrowserRouter>
         <div>
           <NavBar loggedIn={this.state.loggedIn} />
+          <Query query={getUserQuery}>
+            {({ loading, error, data }) => {
+              if (error) return <h1>Error...</h1>;
+              if (loading || !data) return <h1>Loading...</h1>;
+
+              return <h1>Welcome, {data.data.currentUser.username}</h1>;
+            }}
+          </Query>
           <Switch>
             <Route exact path="/" render={() => <Main />} />
             <Route exact path="/login" render={() => <Login />} />
