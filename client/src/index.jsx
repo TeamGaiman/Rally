@@ -5,6 +5,12 @@ import Main from './views/Main.jsx';
 import Login from './views/Login.jsx';
 import Signup from './views/Signup.jsx';
 import NavBar from './components/NavBar.jsx';
+import { ApolloProvider } from 'react-apollo';
+import {InMemoryCache} from 'apollo-cache-inmemory';
+import {ApolloLink} from 'apollo-client-preset';
+import {ApolloClient} from 'apollo-client';
+import gql from 'graphql-tag';
+import {withClientState} from 'apollo-link-state';
 
 class Routing extends React.Component {
   constructor(props) {
@@ -14,6 +20,36 @@ class Routing extends React.Component {
     };
   }
   render() {
+
+    // Set up Cache
+    const cache = new InMemoryCache();
+
+    const defaultState = {
+
+    };
+
+    // Set up Local State
+    const stateLink = withClientState({
+      cache,
+      defaults: defaultState,
+      resolvers: {
+        Mutation: {
+          firstMutation
+        },
+      },
+    });
+
+    // Initialize the Apollo Client
+    const Client = new ApolloClient({
+      link: ApolloLink.from([
+        stateLink,
+        new HTTPLink({
+
+        })
+      ]),
+      cache: cache,
+    });
+
     return (
       <BrowserRouter>
         <div>
@@ -31,4 +67,8 @@ class Routing extends React.Component {
 }
 
 
-ReactDOM.render(<Routing />, document.getElementById('app'));
+ReactDOM.render(
+  <ApolloProvider client={Client}>
+    <Routing />
+  </ApolloProvider >,
+  document.getElementById('app'));
