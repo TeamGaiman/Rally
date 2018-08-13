@@ -13,7 +13,7 @@ const typeDefs = `
     elo: Int!
   }
   type Query {
-    getUser(username: String): [User]
+    getUser(name: String!): User
     getAllUsers: [User]
   }
   input UserInput {
