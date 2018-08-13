@@ -5,8 +5,8 @@ const sequelize = new Sequelize('gaiman', 'postgres', 'postgres', {
 });
 
 const models = {
-  User: sequelize.import('./user'),
-  Match: sequelize.import('./match')
+  User: sequelize.import('./models/user'),
+  Match: sequelize.import('./models/match')
 };
 
 Object.keys(models).forEach(key => {
