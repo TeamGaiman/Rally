@@ -32,10 +32,13 @@ class Routing extends React.Component {
     // Set up Cache
     const cache = new InMemoryCache();
 
+    //sets default state
     const defaultState = {
+      //can have multiple objects
       currentUser: {
-        __typename: CurrentUser,
-        Username: 'guest'
+        __typename: 'CurrentUser',
+        Username: 'guest',
+        Email: 'email@email.com'
       }
       
     };
@@ -65,7 +68,7 @@ class Routing extends React.Component {
     });
 
     //set basic query
-    const getUserQuery = gql `
+    const getUserInfo = gql `
       query {
         currentUser @ client {
           username
@@ -77,7 +80,7 @@ class Routing extends React.Component {
       <BrowserRouter>
         <div>
           <NavBar loggedIn={this.state.loggedIn} />
-          <Query query={getUserQuery}>
+          <Query query={getUserInfo}>
             {({ loading, error, data }) => {
               if (error) return <h1>Error...</h1>;
               if (loading || !data) return <h1>Loading...</h1>;
