@@ -16,6 +16,7 @@ class Signup extends React.Component {
     this.handlePassword = this.handlePassword.bind(this);
     this.handlePhone = this.handlePhone.bind(this);
     this.googleSignUp = this.googleSignUp.bind(this);
+    this.googleSignOut = this.googleSignOut.bind(this);
   }
 
   handleUsername(e) {
@@ -45,26 +46,26 @@ class Signup extends React.Component {
 
   googleSignUp() {
     var provider = new firebase.auth.GoogleAuthProvider();
-    provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-    firebase.auth().useDeviceLanguage();
+    // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+    // firebase.auth().useDeviceLanguage();
     firebase.auth().signInWithRedirect(provider)
-    firebase.auth().getRedirectResult().then(result => {
-      if (result.credential) {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        var token = result.credential.accessToken;
-      }
-      // The signed-in user info.
-      var user = result.user;
-    }).catch(error => {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // The email of the user's account used.
-      var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
-      // ...
-    });
+    // firebase.auth().getRedirectResult().then(result => {
+    //   if (result.credential) {
+    //     // This gives you a Google Access Token. You can use it to access the Google API.
+    //     var token = result.credential.accessToken;
+    //   }
+    //   // The signed-in user info.
+    //   var user = result.user;
+    // }).catch(error => {
+    //   // Handle Errors here.
+    //   var errorCode = error.code;
+    //   var errorMessage = error.message;
+    //   // The email of the user's account used.
+    //   var email = error.email;
+    //   // The firebase.auth.AuthCredential type that was used.
+    //   var credential = error.credential;
+    //   // ...
+    // });
   }
 
   googleSignOut() {
@@ -91,12 +92,12 @@ class Signup extends React.Component {
             </Col>
           </FormGroup>
 
-          <FormGroup controlId="formHorizontalUsername" >
+          <FormGroup  >
             <Col sm={2}>
               Phone Number
             </Col>
             <Col sm={4}>
-              <FormControl type="username" placeholder="Phone Number" />
+              <FormControl placeholder="Phone Number" />
             </Col>
           </FormGroup>
           
@@ -105,7 +106,7 @@ class Signup extends React.Component {
               Email
             </Col>
             <Col sm={4}>
-              <FormControl type="username" placeholder="Email" />
+              <FormControl placeholder="Email" />
             </Col>
           </FormGroup>
 
@@ -127,8 +128,8 @@ class Signup extends React.Component {
           </FormGroup>
         </Form>
 
-        <Button onClick={this.googleSignUp}>Sign in with Google</Button>
-        <Button onClick={this.googleSignOut}>Sign out with Google</Button>
+        <Button onClick={this.googleSignUp}>Sign up with Google</Button>
+        {/* <Button onClick={this.googleSignOut}>Sign out with Google</Button> */}
       </div>
     );
   }

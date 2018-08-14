@@ -17,10 +17,13 @@ const resolvers = {
     createUser: async (_, {input}) => {
       models.User.create(input);
       return await input;
+<<<<<<< HEAD
+=======
     },
     createMatch: async (_, {input}) => {
       models.Match.create(input);
       return await input;
+>>>>>>> f26cf7cbdc0f1e53d0c6a06a6d9ac4f42c3a3833
     }
   }
 };
