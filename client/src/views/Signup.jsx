@@ -9,22 +9,17 @@ class Signup extends React.Component {
       email: '',
       password: '',
       username: '',
-      elo: '',
+      phone: ''
     };
     this.handleUsename = this.handleUsername.bind(this);
-    this.handleElo = this.handleElo.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
+    this.handlePhone = this.handlePhone.bind(this);
   }
 
   handleUsername(e) {
     console.log(e.target.value);
     this.setState({username: e.target.value});
-  }
-
-  handleElo(e) {
-    console.log(e.target.value);
-    this.setState({password: e.target.value});
   }
 
   handleEmail(e) {
@@ -36,6 +31,10 @@ class Signup extends React.Component {
   handlePassword(e) {
     console.log(e.target.value);
     this.setState({password: e.target.value});
+  }
+  handlePhone(e) {
+    console.log(e.target.value);
+    this.setState({phone: e.target.value});
   }
 
 
@@ -58,18 +57,19 @@ class Signup extends React.Component {
               <FormControl type="username" placeholder="Username" />
             </Col>
           </FormGroup>
+
           <FormGroup controlId="formHorizontalUsername" >
             <Col sm={2}>
-              Elo
+              Phone Number
             </Col>
             <Col sm={4}>
-              <FormControl type="username" placeholder="Elo" />
+              <FormControl type="username" placeholder="Phone Number" />
             </Col>
           </FormGroup>
           
           <FormGroup controlId="formHorizontalEmail" >
             <Col sm={2}>
-              Email (not req)
+              Email
             </Col>
             <Col sm={4}>
               <FormControl type="username" placeholder="Email" />
@@ -79,7 +79,7 @@ class Signup extends React.Component {
 
           <FormGroup controlId="formHorizontalPassword">
             <Col sm={2}>
-              Password (not req)
+              Password
             </Col>
             <Col sm={4}>
               <FormControl type="password" placeholder="Password" />
