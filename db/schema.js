@@ -15,6 +15,17 @@ const typeDefs = `
     joinDate: String!
     userNumber: Int!
   }
+  type Match {
+    id: ID!
+    participantA: String!
+    participantB: String!
+    startTime: String!
+    location: String!
+    complete: Boolean
+    winner: String
+    score: String
+    matchId: Int!
+  }
   type Query {
     getUser(name: String): User
     getAllUsers: [User]
@@ -26,19 +37,17 @@ const typeDefs = `
     email: String
     phoneNumber: String
   }
-  type Mutation {
-    createUser(input: UserInput) : User
-  }
   input MatchInput {
     participantA: String
     participantB: String
-    startTime: Date
-    location: 
+    startTime: String
+    location: String 
   }
   type Mutation {
-    createMatch(input: MatchIinput) : Match
+    createUser(input: UserInput) : User
+    createMatch(input: MatchInput) : Match
   }
-`;
+  `;
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
