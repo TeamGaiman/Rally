@@ -26,3 +26,5 @@ models.sequelize.sync({ force: true })
     models.User.create(fakeUser);
   })
   .catch(err => { console.error(err); });
+  
+app.listen(port, () => console.log('listening on port: ', port));
