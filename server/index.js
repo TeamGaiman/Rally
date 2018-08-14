@@ -5,7 +5,7 @@ const models = require('../db/index.js');
 const resolvers = require('../db/resolvers.js');
 const port = process.env.PORT || 8080;
 
-const fakeUser = require('../dummyData.js').bobby;
+const fakeUser = require('../dummyData/dummyData.js').user.bobby;
 
 const app = express();
 app.use(express.static(__dirname + '/../client/dist'));
@@ -17,6 +17,7 @@ app.use('/graphql', graphqlHTTP({
   graphiql: true
 }));
 
+//Page refresh handler
 app.get('/*', (req, res) => res.redirect('/'));
 
 models.sequelize.sync({ force: true })

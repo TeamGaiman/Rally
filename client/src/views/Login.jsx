@@ -59,7 +59,7 @@ class Login extends React.Component {
             <Col sm={2}>
               Email
             </Col>
-            <Col sm={10}>
+            <Col sm={4}>
               <FormControl type="username" placeholder="Email" />
             </Col>
           </FormGroup>
@@ -68,19 +68,13 @@ class Login extends React.Component {
             <Col sm={2}>
               Password
             </Col>
-            <Col sm={10}>
+            <Col sm={4}>
               <FormControl type="password" placeholder="Password" />
             </Col>
           </FormGroup>
 
           <FormGroup>
-            <Col smOffset={2} sm={10}>
-              <Checkbox>Remember me</Checkbox>
-            </Col>
-          </FormGroup>
-
-          <FormGroup>
-            <Col smOffset={2} sm={10}>
+            <Col smOffset={2} sm={4}>
               <Button type="submit">Sign in</Button>
             </Col>
           </FormGroup>
