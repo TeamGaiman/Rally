@@ -27,8 +27,9 @@ const typeDefs = `
     matchId: Int!
   }
   type Query {
-    getUser(name: String): User
     getAllUsers: [User]
+    getUsersByTier(tier: Int): [User]
+    getUser(name: String): User
     checkEmailIsUnique(email: String): Boolean
   }
   input UserInput {
