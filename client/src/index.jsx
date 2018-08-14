@@ -49,8 +49,9 @@ class Routing extends React.Component {
       defaults: defaultState,
       resolvers: {
         Mutation: {
-          firstMutation: (_, { username }, { cache }) => {
-            cache.writeData({data: { username }});
+          addUser: (_, { username, email/*value sent in as mutation (params?)*/ }, { cache }) => {
+            console.log('Mutation: ')
+            cache.writeData({ query, data });
           }
         },
       },
@@ -72,9 +73,19 @@ class Routing extends React.Component {
       query {
         currentUser @ client {
           username
+          email
         }
       }
     `;
+
+    const addUser = gql `
+      mutation addUser($username: String!, value: String!) {
+        addUser(username: $username, email: $email) @ client {
+          username
+          email
+        }
+      }
+    `
 
     return (
       <BrowserRouter>
