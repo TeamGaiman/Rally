@@ -20,11 +20,11 @@ app.use('/graphql', graphqlHTTP({
 //Page refresh handler
 app.get('/*', (req, res) => res.redirect('/'));
 
-// models.sequelize.sync({ force: true })
-//   .then(() => {
-//     app.listen(port, () => console.log('listening on port: ', port));
-//     models.User.create(fakeUser);
-//   })
-//   .catch(err => { console.error(err); });
+models.sequelize.sync({ force: true })
+  .then(() => {
+    app.listen(port, () => console.log('listening on port: ', port));
+    models.User.create(fakeUser);
+  })
+  .catch(err => { console.error(err); });
   
 app.listen(port, () => console.log('listening on port: ', port));
