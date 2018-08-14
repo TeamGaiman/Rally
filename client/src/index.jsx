@@ -46,7 +46,9 @@ class Routing extends React.Component {
       defaults: defaultState,
       resolvers: {
         Mutation: {
-          firstMutation
+          firstMutation: (_, { username }, { cache }) => {
+            cache.writeData({data: { username }});
+          }
         },
       },
     });
@@ -62,6 +64,7 @@ class Routing extends React.Component {
       cache: cache,
     });
 
+    //set basic query
     const getUserQuery = gql `
       query {
         currentUser @ client {
