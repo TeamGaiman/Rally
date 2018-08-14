@@ -128,8 +128,8 @@ class Signup extends React.Component {
           </FormGroup>
         </Form>
 
-        <Button onClick={this.googleSignUp}>Sign in with Google</Button>
-        <Button onClick={this.googleSignOut}>Sign out with Google</Button>
+        <Button onClick={this.googleSignUp}>Sign up with Google</Button>
+        {/* <Button onClick={this.googleSignOut}>Sign out with Google</Button> */}
       </div>
     );
   }
