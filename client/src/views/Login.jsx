@@ -20,8 +20,8 @@ class Login extends React.Component {
 
     this.renderEmailInput = this.renderEmailInput.bind(this);
     this.renderPassword = this.renderPassword.bind(this);
-    this.onSignIn = this.onSignIn.bind(this);
-    this.signOut = this.signOut.bind(this);
+    // this.onSignIn = this.onSignIn.bind(this);
+    // this.signOut = this.signOut.bind(this);
   }
 
   renderEmailInput(e) {
