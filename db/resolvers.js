@@ -17,6 +17,10 @@ const resolvers = {
     createUser: async (_, {input}) => {
       models.User.create(input);
       return await input;
+    },
+    createMatch: async (_, {input}) => {
+      models.Match.create(input);
+      return await input;
     }
   }
 };

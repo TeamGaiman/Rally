@@ -60,5 +60,5 @@ module.exports.match = {
   participantA: 'Joseph',
   participantB: 'bobby',
   startTime: '2018-08-29 04:00:00',
-  location: 'bhill@tomlandrymiddleschool.edu'
+  location: 'Central Park'
 };

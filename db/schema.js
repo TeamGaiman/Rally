@@ -29,6 +29,15 @@ const typeDefs = `
   type Mutation {
     createUser(input: UserInput) : User
   }
+  input MatchInput {
+    participantA: String
+    participantB: String
+    startTime: Date
+    location: 
+  }
+  type Mutation {
+    createMatch(input: MatchIinput) : Match
+  }
 `;
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
