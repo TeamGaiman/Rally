@@ -6,6 +6,7 @@ const resolvers = require('../db/resolvers.js');
 const port = process.env.PORT || 8080;
 
 const fakeUser = require('../dummyData/dummyData.js').user.bobby;
+const fakeMatch = require('../dummyData/dummyData.js').match;
 
 const app = express();
 app.use(express.static(__dirname + '/../client/dist'));
@@ -23,6 +24,8 @@ app.get('/*', (req, res) => res.redirect('/'));
 models.sequelize.sync({ force: true })
   .then(() => {
     app.listen(port, () => console.log('listening on port: ', port));
+    //Temp functions for insert first User and Match
     models.User.create(fakeUser);
+    models.Match.create(fakeMatch);
   })
   .catch(err => { console.error(err); });
