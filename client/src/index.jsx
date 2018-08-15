@@ -6,21 +6,18 @@ import { ApolloLink, ApolloClient } from 'apollo-client-preset';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { withClientState } from 'apollo-link-state';
 import { HttpLink } from 'apollo-link-http';
-import gql from 'graphql-tag';
 
 import NavBar from './components/NavBar.jsx';
 import Main from './views/Main.jsx';
 import Login from './views/Login.jsx';
 import Signup from './views/Signup.jsx';
 
-
 import Profile from './components/Profile.jsx';
 import Matchmaking from './components/Matchmaking.jsx';
 import Stats from './components/Stats.jsx';
-import defaultStates from './Apollo/defaultStates';
+import defaultStates from './apollo/defaultStates';
 import { getUserInfo } from './apollo/localQueries.js';
-import { addUser } from './Apollo/localQueries';
-
+import { addUser } from './apollo/localQueries';
 
 class Routing extends React.Component {
   constructor(props) {
@@ -30,21 +27,20 @@ class Routing extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount () {
     firebase.auth().getRedirectResult()
       .then(result => {
-        result.credential
-          ? this.setState({ loggedIn: true }) : null;
+        if ( result.credential ) {
+          this.setState({ loggedIn: true });
+        }
       });
   }
 
-  render() {
-
-
+  render () {
     return (
       <BrowserRouter>
         <div>
-          <NavBar loggedIn={this.state.loggedIn} />
+          <NavBar loggedIn={ this.state.loggedIn } />
           {/* example query */}
           {/* <Query query={getUserInfo}>
             {({ loading, error, data }) => {
@@ -55,8 +51,13 @@ class Routing extends React.Component {
             }}
           </Query> */}
           <Switch>
-            <Route exact path="/" render={() => <Main />} />
-            <Route exact path="/login" render={() => <Login handleLogin={this.handleLogin} loggedIn={this.state.loggedIn} />} />
+            <Route exact path="/" render={ () =>
+              <Main /> } />
+            <Route exact path="/login" render={ () =>
+              <Login
+                handleLogin={ this.handleLogin }
+                loggedIn={ this.state.loggedIn } /> }/>
+
             <Route exact path="/signup" render={() => <Signup />} />
             <Route exact path="/matchmaker" render={() => <Matchmaking />} />
             <Route exact path="/profile" render={() => <Profile />} />
