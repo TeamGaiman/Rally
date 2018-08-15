@@ -8,7 +8,7 @@ import Signup from './views/Signup.jsx';
 import { ApolloProvider } from 'react-apollo';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {ApolloLink} from 'apollo-client-preset';
-import {ApolloClient} from 'apollo-client';
+import {ApolloClient} from 'apollo-client-preset';
 import gql from 'graphql-tag';
 import {withClientState} from 'apollo-link-state';
 import { HttpLink } from 'apollo-link-http';
@@ -29,63 +29,6 @@ class Routing extends React.Component {
 
   render() {
 
-    // Set up Cache
-    const cache = new InMemoryCache();
-
-    //sets default state
-    const defaultState = {
-      //can have multiple objects
-      currentUser: {
-        __typename: 'CurrentUser',
-        Username: 'guest',
-        Email: 'email@email.com'
-      }
-      
-    };
-
-    // Set up Local State
-    const stateLink = withClientState({
-      cache,
-      defaults: defaultState,
-      resolvers: {
-        Mutation: {
-          addUser: (_, { username, email/*value sent in as mutation (params?)*/ }, { cache }) => {
-            console.log('Mutation: ')
-            cache.writeData({ query, data });
-          }
-        },
-      },
-    });
-
-    // Initialize the Apollo Client
-    const Client = new ApolloClient({
-      link: ApolloLink.from([
-        stateLink,
-        new HTTPLink({
-          uri: '/graphql'
-        })
-      ]),
-      cache: cache,
-    });
-
-    //set basic query
-    const getUserInfo = gql `
-      query {
-        currentUser @ client {
-          username
-          email
-        }
-      }
-    `;
-
-    const addUser = gql `
-      mutation addUser($username: String!, value: String!) {
-        addUser(username: $username, email: $email) @ client {
-          username
-          email
-        }
-      }
-    `
 
     return (
       <BrowserRouter>
@@ -96,7 +39,7 @@ class Routing extends React.Component {
               if (error) return <h1>Error...</h1>;
               if (loading || !data) return <h1>Loading...</h1>;
 
-              return <h1>Welcome, {data.data.currentUser.username}</h1>;
+              return <h1>Welcome, {data.currentUser.username}</h1>;
             }}
           </Query>
           <Switch>
@@ -113,9 +56,66 @@ class Routing extends React.Component {
   }
 }
 
+// Set up Cache
+const cache = new InMemoryCache();
+
+//sets default state
+const defaultState = {
+  //can have multiple objects
+  currentUser: {
+    __typename: 'CurrentUser',
+    username: 'guest',
+    email: 'email@email.com'
+  }
+  
+};
+
+// Set up Local State
+const stateLink = withClientState({
+  cache,
+  defaults: defaultState,
+  resolvers: {
+    Mutation: {
+      addUser: (_, { username, email/*value sent in as mutation (params?)*/ }, { cache }) => {
+        console.log('Mutation: ');
+        cache.writeData({ query, data });
+      }
+    },
+  },
+});
+
+// Initialize the Apollo Client
+const client = new ApolloClient({
+  link: ApolloLink.from([
+    stateLink,
+    new HttpLink({
+      uri: '/graphql'
+    })
+  ]),
+  cache: cache,
+});
+
+//set basic query
+const getUserInfo = gql `
+  query {
+    currentUser @ client {
+      username
+      email
+    }
+  }
+`;
+
+const addUser = gql `
+  mutation addUser($username: String!, $value: String!) {
+    addUser(username: $username, email: $email) @ client {
+      username
+      email
+    }
+  }
+`;
 
 ReactDOM.render(
-  <ApolloProvider client={Client}>
+  <ApolloProvider client={client}>
     <Routing />
   </ApolloProvider >,
   document.getElementById('app'));
