@@ -16,7 +16,7 @@ class NavBar extends React.Component {
 
   render() {
     return (
-      <Navbar staticTop>
+      <Navbar staticTop className="nav">
         <Navbar.Header>
           <Navbar.Brand>
             <Link to="/">Rally (Title Pending)</Link>
