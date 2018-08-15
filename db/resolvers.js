@@ -13,7 +13,7 @@ const resolvers = {
     },
     checkEmailIsUnique: async (_, {email}) => {
       return await (models.User.findOne({ where: { email }}))
-       ? false : true;
+        ? false : true;
     }
   },
   Mutation: {
