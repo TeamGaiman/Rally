@@ -16,6 +16,9 @@ import { Query } from 'react-apollo';
 import Profile from './components/Profile.jsx';
 import Matchmaking from './components/Matchmaking.jsx';
 import Stats from './components/Stats.jsx';
+import defaultStates from './Apollo/defaultStates';
+import { getUserInfo } from './apollo/localQueries.js';
+
 
 class Routing extends React.Component {
   constructor(props) {
@@ -39,7 +42,7 @@ class Routing extends React.Component {
               if (error) return <h1>Error...</h1>;
               if (loading || !data) return <h1>Loading...</h1>;
 
-              return <h1>Welcome, {data.currentUser.username}</h1>;
+              return <h1>Welcome, {data.currentUser.name}</h1>;
             }}
           </Query>
           <Switch>
@@ -59,21 +62,11 @@ class Routing extends React.Component {
 // Set up Cache
 const cache = new InMemoryCache();
 
-//sets default state
-const defaultState = {
-  //can have multiple objects
-  currentUser: {
-    __typename: 'CurrentUser',
-    username: 'guest',
-    email: 'email@email.com'
-  }
-  
-};
 
 // Set up Local State
 const stateLink = withClientState({
   cache,
-  defaults: defaultState,
+  defaults: defaultStates,
   resolvers: {
     Mutation: {
       addUser: (_, { username, email/*value sent in as mutation (params?)*/ }, { cache }) => {
@@ -95,15 +88,7 @@ const client = new ApolloClient({
   cache: cache,
 });
 
-//set basic query
-const getUserInfo = gql `
-  query {
-    currentUser @ client {
-      username
-      email
-    }
-  }
-`;
+
 
 const addUser = gql `
   mutation addUser($username: String!, $value: String!) {
