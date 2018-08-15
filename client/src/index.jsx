@@ -1,18 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { ApolloProvider, Query } from 'react-apollo';
+import { ApolloLink, ApolloClient } from 'apollo-client-preset';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { withClientState } from 'apollo-link-state';
+import { HttpLink } from 'apollo-link-http';
+import gql from 'graphql-tag';
+
 import NavBar from './components/NavBar.jsx';
 import Main from './views/Main.jsx';
 import Login from './views/Login.jsx';
 import Signup from './views/Signup.jsx';
-import { ApolloProvider } from 'react-apollo';
-import {InMemoryCache} from 'apollo-cache-inmemory';
-import {ApolloLink} from 'apollo-client-preset';
-import {ApolloClient} from 'apollo-client-preset';
-import gql from 'graphql-tag';
-import {withClientState} from 'apollo-link-state';
-import { HttpLink } from 'apollo-link-http';
-import { Query } from 'react-apollo';
+
+
 import Profile from './components/Profile.jsx';
 import Matchmaking from './components/Matchmaking.jsx';
 import Stats from './components/Stats.jsx';
