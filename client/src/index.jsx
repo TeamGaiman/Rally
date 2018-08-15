@@ -30,7 +30,6 @@ class Routing extends React.Component {
     };
   }
 
-<<<<<<< HEAD
   componentDidMount() {
     firebase.auth().getRedirectResult()
       .then(result => {
@@ -38,9 +37,6 @@ class Routing extends React.Component {
           ? this.setState({ loggedIn: true }) : null;
       });
   }
-=======
-  
->>>>>>> dev
 
   render() {
 
