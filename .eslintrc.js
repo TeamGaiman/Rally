@@ -9,6 +9,7 @@ module.exports = {
     'es6': true
   },
   parserOptions: {
+    'ecmaVersion': 2018,
     ecmaFeatures: {
       'jsx': true
     },
