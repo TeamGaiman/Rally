@@ -18,6 +18,7 @@ import Matchmaking from './components/Matchmaking.jsx';
 import Stats from './components/Stats.jsx';
 import defaultStates from './Apollo/defaultStates';
 import { getUserInfo } from './apollo/localQueries.js';
+import { addUser } from './Apollo/localQueries';
 
 
 class Routing extends React.Component {
@@ -37,14 +38,15 @@ class Routing extends React.Component {
       <BrowserRouter>
         <div>
           <NavBar loggedIn={this.state.loggedIn} />
-          <Query query={getUserInfo}>
+          {/* example query */}
+          {/* <Query query={getUserInfo}>
             {({ loading, error, data }) => {
               if (error) return <h1>Error...</h1>;
               if (loading || !data) return <h1>Loading...</h1>;
 
               return <h1>Welcome, {data.currentUser.name}</h1>;
             }}
-          </Query>
+          </Query> */}
           <Switch>
             <Route exact path="/" render={() => <Main />} />
             <Route exact path="/login" render={() => <Login />} />
@@ -67,9 +69,10 @@ const cache = new InMemoryCache();
 const stateLink = withClientState({
   cache,
   defaults: defaultStates,
+  //still working on resolvers/mutations part of this function, but it doesn't break anything 
   resolvers: {
     Mutation: {
-      addUser: (_, { username, email/*value sent in as mutation (params?)*/ }, { cache }) => {
+      addUser: (_, { id, name, fullName, email, phoneNumber, wins, losses, elo, tier, joinDate, userNumber}, { cache }) => {
         console.log('Mutation: ');
         cache.writeData({ query, data });
       }
@@ -89,15 +92,6 @@ const client = new ApolloClient({
 });
 
 
-
-const addUser = gql `
-  mutation addUser($username: String!, $value: String!) {
-    addUser(username: $username, email: $email) @ client {
-      username
-      email
-    }
-  }
-`;
 
 ReactDOM.render(
   <ApolloProvider client={client}>
