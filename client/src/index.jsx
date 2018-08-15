@@ -30,7 +30,17 @@ class Routing extends React.Component {
     };
   }
 
+<<<<<<< HEAD
+  componentDidMount() {
+    firebase.auth().getRedirectResult()
+      .then(result => {
+        result.credential
+          ? this.setState({ loggedIn: true }) : null;
+      });
+  }
+=======
   
+>>>>>>> dev
 
   render() {
 
@@ -50,7 +60,7 @@ class Routing extends React.Component {
           </Query> */}
           <Switch>
             <Route exact path="/" render={() => <Main />} />
-            <Route exact path="/login" render={() => <Login />} />
+            <Route exact path="/login" render={() => <Login handleLogin={this.handleLogin} loggedIn={this.state.loggedIn} />} />
             <Route exact path="/signup" render={() => <Signup />} />
             <Route exact path="/matchmaker" render={() => <Matchmaking />} />
             <Route exact path="/profile" render={() => <Profile />} />
