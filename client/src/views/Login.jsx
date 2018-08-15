@@ -13,7 +13,6 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
       email: '',
       password: ''
     };
@@ -25,19 +24,17 @@ class Login extends React.Component {
 
   renderEmailInput(e) {
     e.preventDefault();
-    console.log(e.target.value);
     this.setState({email: e.target.value});
   }
 
   renderPassword(e) {
     e.preventDefault();
-    console.log(e.target.value);
     this.setState({password: e.target.value});
   }
 
   googleSignIn() {
     var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithRedirect(provider)
+    firebase.auth().signInWithRedirect(provider);
   }
 
   render() {

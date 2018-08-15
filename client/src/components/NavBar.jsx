@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
-
   }
 
   render() {
@@ -19,42 +18,36 @@ class NavBar extends React.Component {
       <Navbar staticTop className="nav">
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/">Rally (Title Pending)</Link>
+            <Link to="/">Rally {this.props.loggedIn.toString()}</Link>
           </Navbar.Brand>
-          <Navbar.Toggle />
         </Navbar.Header>
-        <Navbar.Collapse>
-          <Nav pullRight>
-            <LinkContainer to='/matchmaker'>
-              <NavItem >
-                Matchmaker
-              </NavItem>
-            </LinkContainer>
-            <LinkContainer to='/profile'>
-              <NavItem >
-                Profile
-              </NavItem>
-            </LinkContainer>
-            <LinkContainer to='/stats'>
-              <NavItem>
-                Stats
-              </NavItem>
-            </LinkContainer>
-            <LinkContainer to='/signup'>
-              <NavItem>
-                Sign up
-              </NavItem>
-            </LinkContainer>
-            {/* <NavItem>
-              {this.props.loggedIn ? 'Logout' : 'Login'}
-            </NavItem> */}
-            <LinkContainer to='/login'>
-              <NavItem>
-                Login
-              </NavItem>
-            </LinkContainer>
-          </Nav>
-        </Navbar.Collapse>
+        <Nav pullRight>
+          <LinkContainer to='/matchmaker'>
+            <NavItem >
+              Matchmaker
+            </NavItem>
+          </LinkContainer>
+          <LinkContainer to='/profile'>
+            <NavItem >
+              Profile
+            </NavItem>
+          </LinkContainer>
+          <LinkContainer to='/stats'>
+            <NavItem>
+              Stats
+            </NavItem>
+          </LinkContainer>
+          <LinkContainer to='/signup'>
+            <NavItem>
+              Sign up
+            </NavItem>
+          </LinkContainer>
+          <LinkContainer to='/login'>
+            <NavItem onClick={this.props.handleLogin}>
+              Login
+            </NavItem>
+          </LinkContainer>
+        </Nav>
       </Navbar>
     );
   }
