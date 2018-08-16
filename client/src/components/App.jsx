@@ -13,47 +13,61 @@ class App extends React.Component {
     this.state = {
       loggedIn: false
     };
+
+    this.handleLoggedIn = this.handleLoggedIn.bind(this);
   }
 
   componentDidMount () {
-    firebase.auth().getRedirectResult()
-      .then(result => {
-        if ( result.credential ) {
-          this.setState({ loggedIn: true });
-        }
-      });
+    // firebase.auth().getRedirectResult()
+    //   .then(result => {
+    //     if ( result.credential ) {
+    //       this.setState({ loggedIn: true });
+    //     }
+    //   });
+  }
+
+  handleLoggedIn() {
+    this.setState({
+      loggedIn: !this.state.loggedIn
+    });
   }
 
   render() {
     return (
       <div>
         <div>
-          <NavBar loggedIn={ this.state.loggedIn } />
-          {/* example query */}
-          {/* <Query query={getUserInfo}>
-            {({ loading, error, data }) => {
-              if (error) return <h1>Error...</h1>;
-              if (loading || !data) return <h1>Loading...</h1>;
-
-              return <h1>Welcome, {data.currentUser.name}</h1>;
-            }}
-          </Query> */}
+          {this.state.loggedIn &&
+            <NavBar
+              loggedIn={this.state.loggedIn}
+              handleLoggedIn={this.handleLoggedIn}
+            />}
           <Switch>
-            <Route exact path="/" render={ () =>
-              <Redirect to="/matchmaker"/> } />
-            <Route exact path="/login" render={ () =>
-              <Login
-                loggedIn={ this.state.loggedIn } /> }/>
-            <Route exact path="/signup" render={() => <Signup />} />
-            <Route exact path="/matchmaker" render={() => <Matchmaking />} />
-            <Route exact path="/profile" render={() => <Profile />} />
-            <Route exact path="/stats" render={() => <Stats />} />
+            <Route exact path="/" render={() => {
+              if (this.state.loggedIn) {
+                return <Redirect to="/matchmaker" />;
+              } else {
+                return <Redirect to="/login" />;
+              }
+            }} />
+            <Route path="/login" render={() => {
+              if (this.state.loggedIn) {
+                return <Redirect to="/matchmaker" />;
+              } else {
+                return <Login
+                  loggedIn={this.state.loggedIn}
+                  handleLoggedIn={this.handleLoggedIn}
+                />;
+              }
+            }} />
+            <Route path="/signup" render={() => <Signup />} />
+            <Route path="/matchmaker" render={() => <Matchmaking />} />
+            <Route path="/profile" render={() => <Profile />} />
+            <Route path="/stats" render={() => <Stats />} />
           </Switch>
         </div>
       </div>
     );
   }
 }
-
 
 export default App;
