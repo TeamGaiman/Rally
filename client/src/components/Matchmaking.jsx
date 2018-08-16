@@ -22,18 +22,14 @@ class Matchmaking extends React.Component {
             return <p>Error</p>;
           }
           return (
-            <RecommendedMatches users={ data.getAllUsers }/>
+            <div>
+              <RecommendedMatches users={ data.getAllUsers }/>
+              <Challenges />
+            </div>
           );
         }}
       </Query>
     );
-    <div>
-      <div>
-        <p>This is the 'Matchmaking' component</p>
-
-        <Challenges />
-      </div>
-    </div>
   }
 }
 
