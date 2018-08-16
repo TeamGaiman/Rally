@@ -11,20 +11,20 @@ class NavBar extends React.Component {
     this.googleSignOut = this.googleSignOut.bind(this);
   }
 
-  googleSignOut() {
+  googleSignOut () {
     this.props.handleLoggedIn();
     
     firebase.auth().signOut()
-      .then(() => {
-        console.log('Logout successful');
+      .then( () => {
+        console.log( 'Logout successful' );
       })
-      .catch(function (error) {
-        console.log('Error logging out from google: ', error);
+      .catch( function ( error ) {
+        console.log( 'Error logging out from google: ', error );
       });
   }
 
-  render() {
-    console.log('loggedIn props = ', this.props.loggedIn);
+  render () {
+    console.log( 'loggedIn props = ', this.props.loggedIn );
     return (
       <Navbar staticTop className="nav">
         <Navbar.Header>

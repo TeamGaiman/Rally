@@ -15,7 +15,7 @@ class Matchmaking extends React.Component {
     };
   }
 
-  render() {
+  render () {
     return (
       <Query query={ GET_USERS_BY_TIER }
         variables={ this.state.player }>
@@ -23,14 +23,12 @@ class Matchmaking extends React.Component {
           if ( loading ) {
             return <p>Loading...</p>;
           } else if ( error ) {
-            console.log(this.state.player);
             return <p>Error</p>;
           }
-          console.log(data.getUsersByTier);
           return (
             <div>
               <RecommendedMatches users={ data.getUsersByTier }/>
-              <Challenges />
+              <Challenges/>
             </div>
           );
         }}

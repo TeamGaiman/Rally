@@ -53,8 +53,7 @@ const typeDefs = `
     acceptMatch(input: MatchInput) : User
     updateUser(email: String, input: UserInput) : User
   }
-  `;
+`;
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
-
 module.exports = schema;
