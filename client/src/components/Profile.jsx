@@ -17,10 +17,12 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
+    
     this.setState({
       upcoming: dummyData.upcoming,
       history: dummyData.history
     });
+    console.log(this.state.history);
   }
 
   handleProfileLinkClick() {
@@ -28,15 +30,15 @@ class Profile extends React.Component {
   }
 
   render() {
-    const showProfileInfo = true;
+    const showProfileInfo = this.state.showProfileInfo;
     let view1;
-    let view2;
+    let view2 = <div></div>;
 
     if (showProfileInfo) {
       view1 = <ProfileInfo />;
     } else {
-      view1 = <UpcomingMatches upcoming={this.state.upcoming} />;
-      view2 = <UpcomingMatches upcoming={this.state.upcoming} />;
+      view1 = <UpcomingMatches upcoming={this.state.upcoming} />, <RecentMatches upcoming={this.state.history} />;
+      view2 = <RecentMatches history={this.state.history} />;
     }
 
     return (
