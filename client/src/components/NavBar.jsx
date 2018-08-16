@@ -1,16 +1,25 @@
 import React from 'react';
-import {
-  Navbar,
-  Nav,
-  NavItem
-
-} from 'react-bootstrap';
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
 
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
+
+
+    this.googleSignOut = this.googleSignOut.bind(this);
+  }
+
+  googleSignOut() {
+    firebase.auth().signOut()
+      .then(() => {
+        this.props.handleLoggedIn();
+        console.log('Logout successful');
+      })
+      .catch(function (error) {
+        console.log('Error logging out from google: ', error);
+      });
   }
 
   render() {
@@ -38,16 +47,18 @@ class NavBar extends React.Component {
               Stats
             </NavItem>
           </LinkContainer>
-          <LinkContainer to='/signup'>
+          {/* <LinkContainer to='/signup'>
             <NavItem>
               Sign up
             </NavItem>
-          </LinkContainer>
-          <LinkContainer to='/login'>
-            <NavItem onClick={this.props.handleLogin}>
-              Login
+          </LinkContainer> */}
+          {this.props.loggedIn && 
+          // <LinkContainer to='/login'>
+            <NavItem onClick={this.googleSignOut}>
+              Logout
             </NavItem>
-          </LinkContainer>
+          // </LinkContainer>
+          }
         </Nav>
       </Navbar>
     );
