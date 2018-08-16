@@ -6,8 +6,8 @@ const RecentMatches = (props) => {
     <div>
       <h4>Recent Matches</h4>
       <Row className="show-grid">
-        {props.history.map(match =>
-          <Col sm={6} md={3}>
+        {props.history.map((match, i) =>
+          <Col sm={6} md={3} key={i}>
             {match.participants.b} <br/>
             {match.time} <br/>
             {match.loc} <br/>
