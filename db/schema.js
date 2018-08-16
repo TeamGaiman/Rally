@@ -4,10 +4,10 @@ const resolvers = require('../db/resolvers.js');
 const typeDefs = `
   type User {
     id: ID!
-    name: String!
-    fullName: String!
+    name: String
+    fullName: String
     email: String!
-    phoneNumber: String!
+    phoneNumber: String
     wins: Int!
     losses: Int!
     elo: Int!
@@ -32,10 +32,12 @@ const typeDefs = `
     getUser(name: String): User
     checkEmailIsUnique(email: String): Boolean
   }
+  input EmailInput {
+    email: String
+  }
   input UserInput {
     name: String
     fullName: String
-    email: String
     phoneNumber: String
   }
   input MatchInput {
@@ -45,7 +47,7 @@ const typeDefs = `
     location: String 
   }
   type Mutation {
-    createUser(input: UserInput) : User
+    createUser(input: EmailInput) : User
     createMatch(input: MatchInput) : Match
   }
   `;
