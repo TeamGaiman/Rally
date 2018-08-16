@@ -6,8 +6,8 @@ class RecommendedMatches extends React.Component {
     super(props);
     this.state = {
       matches: [
-        {particpantB: 'Acer123', startTime: '2018-08-29 04:00:00', location: 'Central Park'},
-        {particpantB: 'TennisPro', startTime: '2019-08-29 04:00:00', location: 'Bryant Park'},
+        {particpantB: 'Acer123', startTime: '2018-08-29 04:00:00', location: 'Central Park', id: 1},
+        {particpantB: 'TennisPro', startTime: '2019-08-29 04:00:00', location: 'Bryant Park', id: 2},
       ]
     };
   }
@@ -30,7 +30,7 @@ class RecommendedMatches extends React.Component {
           </thead>
           <tbody>
             {this.state.matches.map(match => (
-              <tr>
+              <tr key={match.id}>
                 <td>{match.particpantB}</td>
                 <td>{match.startTime}</td>
                 <td>{match.location}</td>
