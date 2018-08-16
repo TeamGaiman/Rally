@@ -14,7 +14,7 @@ class NavBar extends React.Component {
   }
 
   render() {
-    console.log('loggedIn props = ', this.props.loggedIn.toString());
+    console.log('loggedIn props = ', this.props.loggedIn);
     return (
       <Navbar staticTop className="nav">
         <Navbar.Header>

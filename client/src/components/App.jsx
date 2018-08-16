@@ -15,6 +15,15 @@ class App extends React.Component {
     };
   }
 
+  componentDidMount () {
+    firebase.auth().getRedirectResult()
+      .then(result => {
+        if ( result.credential ) {
+          this.setState({ loggedIn: true });
+        }
+      });
+  }
+
   render() {
     return (
       <div>
