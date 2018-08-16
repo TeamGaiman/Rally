@@ -8,7 +8,6 @@ import Signup from './Signup.jsx';
 import Profile from './Profile.jsx';
 import Matchmaking from './Matchmaking.jsx';
 import Stats from './Stats.jsx';
-import { ApolloClient } from 'apollo-client';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,7 +15,6 @@ class App extends React.Component {
     this.state = {
       loggedIn: false
     };
-
     this.handleLoggedIn = this.handleLoggedIn.bind(this);
   }
 
