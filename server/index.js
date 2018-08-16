@@ -19,7 +19,7 @@ app.use('/graphql', graphqlHTTP({
 }));
 
 //Page refresh handler
-app.get('/*', (req, res) => res.redirect('/'));
+app.get( '/*', (req, res) => res.redirect('/') );
 
 models.sequelize.sync({ force: true })
   .then(() => {

@@ -29,7 +29,6 @@ class Signup extends React.Component {
     this.setState({email: e.target.value});
   }
 
-
   handlePassword(e) {
     console.log(e.target.value);
     this.setState({password: e.target.value});
@@ -38,7 +37,6 @@ class Signup extends React.Component {
     console.log(e.target.value);
     this.setState({phone: e.target.value});
   }
-
 
   // handleSubmit() {
   //   //graphQL requests
@@ -83,15 +81,6 @@ class Signup extends React.Component {
       // The firebase.auth.AuthCredential type that was used.
       var credential = error.credential;
       // ...
-    });
-  }
-
-  googleSignOut() {
-    firebase.auth().signOut().then(() => {
-      // Sign-out successful.
-      console.log('Sign-out successful')
-    }).catch(function(error) {
-      // An error happened.
     });
   }
 
