@@ -15,45 +15,45 @@ class App extends React.Component {
     this.state = {
       loggedIn: false
     };
-    this.handleLoggedIn = this.handleLoggedIn.bind(this);
+    this.handleLoggedIn = this.handleLoggedIn.bind( this );
   }
 
-  handleLoggedIn() {
+  handleLoggedIn () {
     this.setState({
       loggedIn: !this.state.loggedIn
     });
   }
 
-  render() {
+  render () {
     return (
-      <ApolloProvider client={this.props.client}>
+      <ApolloProvider client={ this.props.client }>
         {this.state.loggedIn &&
           <NavBar
-            loggedIn={this.state.loggedIn}
-            handleLoggedIn={this.handleLoggedIn}
+            loggedIn={ this.state.loggedIn }
+            handleLoggedIn={ this.handleLoggedIn }
           />}
         <Switch>
-          <Route exact path="/" render={() => {
-            if (this.state.loggedIn) {
+          <Route exact path="/" render={ () => {
+            if ( this.state.loggedIn ) {
               return <Redirect to="/matchmaker" />;
             } else {
               return <Redirect to="/login" />;
             }
-          }} />
-          <Route path="/login" render={() => {
-            if (this.state.loggedIn) {
+          }}/>
+          <Route path="/login" render={ () => {
+            if ( this.state.loggedIn ) {
               return <Redirect to="/matchmaker" />;
             } else {
               return <Login
-                loggedIn={this.state.loggedIn}
-                handleLoggedIn={this.handleLoggedIn}
+                loggedIn={ this.state.loggedIn }
+                handleLoggedIn={ this.handleLoggedIn }
               />;
             }
-          }} />
-          <Route path="/signup" render={() => <Signup />} />
-          <Route path="/matchmaker" render={() => <Matchmaking />} />
-          <Route path="/profile" render={() => <Profile />} />
-          <Route path="/stats" render={() => <Stats />} />
+          }}/>
+          <Route path="/signup" render={ () => <Signup /> }/>
+          <Route path="/matchmaker" render={ () => <Matchmaking /> }/>
+          <Route path="/profile" render={ () => <Profile /> }/>
+          <Route path="/stats" render={ () => <Stats /> }/>
         </Switch>
       </ApolloProvider>
     );
