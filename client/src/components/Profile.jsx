@@ -2,14 +2,18 @@ import React from 'react';
 import UpcomingMatches from './UpcomingMatches.jsx';
 import RecentMatches from './RecentMatches.jsx';
 import dummyData from '../../../dummyData/dummyData.js';
+import { Button } from 'react-bootstrap';
+import ProfileInfo from './ProfileInfo.jsx';
 
 class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       upcoming: [],
-      history: []
+      history: [],
+      showProfileInfo: false
     };
+    this.handleProfileLinkClick = this.handleProfileLinkClick.bind(this);
   }
 
   componentDidMount() {
@@ -19,11 +23,29 @@ class Profile extends React.Component {
     });
   }
 
+  handleProfileLinkClick() {
+    this.setState({showProfileInfo: true});
+  }
+
   render() {
+    const showProfileInfo = true;
+    let view1;
+    let view2;
+
+    if (showProfileInfo) {
+      view1 = <ProfileInfo />;
+    } else {
+      view1 = <UpcomingMatches upcoming={this.state.upcoming} />;
+      view2 = <UpcomingMatches upcoming={this.state.upcoming} />;
+    }
+
     return (
       <div>
-        <UpcomingMatches upcoming={this.state.upcoming} />
-        <RecentMatches history={this.state.history} />
+        Want to get better matches?
+        <Button onClick={this.handleProfileLinkClick} bsStyle="success">Add Profile Info</Button>
+        {view1}
+        {view2}
+        
       </div>
     );
   }
