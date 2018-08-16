@@ -5,15 +5,14 @@ class RecommendedMatches extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      matches: [
-        {particpantB: 'Acer123', startTime: '2018-08-29 04:00:00', location: 'Central Park', id: 1},
-        {particpantB: 'TennisPro', startTime: '2019-08-29 04:00:00', location: 'Bryant Park', id: 2},
-      ]
+      matches: []
     };
   }
 
-  getAllMatches() {
-
+  componentDidMount () {
+    this.setState({
+      matches: this.props.users
+    });
   }
 
   render() {
@@ -31,9 +30,9 @@ class RecommendedMatches extends React.Component {
           <tbody>
             {this.state.matches.map(match => (
               <tr key={match.id}>
-                <td>{match.particpantB}</td>
-                <td>{match.startTime}</td>
-                <td>{match.location}</td>
+                <td>{match.name}</td>
+                <td>{match.phoneNumber}</td>
+                <td>{match.email}</td>
               </tr>
             ))}
           </tbody>
