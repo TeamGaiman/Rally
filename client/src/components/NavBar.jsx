@@ -12,9 +12,10 @@ class NavBar extends React.Component {
   }
 
   googleSignOut() {
+    this.props.handleLoggedIn();
+    
     firebase.auth().signOut()
       .then(() => {
-        this.props.handleLoggedIn();
         console.log('Logout successful');
       })
       .catch(function (error) {
