@@ -14,11 +14,12 @@ class NavBar extends React.Component {
   }
 
   render() {
+    console.log('loggedIn props = ', this.props.loggedIn);
     return (
       <Navbar staticTop className="nav">
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/">Rally {this.props.loggedIn.toString()}</Link>
+            <Link to="/"> 🎾 Rally </Link>
           </Navbar.Brand>
         </Navbar.Header>
         <Nav pullRight>
@@ -52,6 +53,5 @@ class NavBar extends React.Component {
     );
   }
 }
-
 
 export default NavBar;
