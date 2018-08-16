@@ -5,6 +5,7 @@ const models = require('../db/index.js');
 const resolvers = require('../db/resolvers.js');
 const port = process.env.PORT || 8080;
 
+const dummies = require('../dummyData/dummies.json');
 const fakeUsers = require('../dummyData/dummyData.js').users;
 const fakeMatch = require('../dummyData/dummyData.js').match;
 
@@ -28,6 +29,9 @@ models.sequelize.sync( { force: true } )
     fakeUsers.forEach( user => {
       models.User.create( user );
     });
+    // dummies.forEach( dummy => {
+    //   models.User.create( dummy );
+    // });
     models.Match.create( fakeMatch );
   })
   .catch( err => { console.error( err ); } );
