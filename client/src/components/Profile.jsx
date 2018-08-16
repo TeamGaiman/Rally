@@ -22,7 +22,6 @@ class Profile extends React.Component {
       upcoming: dummyData.upcoming,
       history: dummyData.history
     });
-    console.log(this.state.history);
   }
 
   handleProfileLinkClick() {
@@ -31,8 +30,7 @@ class Profile extends React.Component {
 
   render() {
     const showProfileInfo = this.state.showProfileInfo;
-    let view1;
-    let view2 = <div></div>;
+    let view1, view2;
 
     if (showProfileInfo) {
       view1 = <ProfileInfo />;
@@ -43,8 +41,8 @@ class Profile extends React.Component {
 
     return (
       <div>
-        Want to get better matches?
-        <Button onClick={this.handleProfileLinkClick} bsStyle="success">Add Profile Info</Button>
+        {this.state.showProfileInfo ? <div></div> : <div>Want to get personalized matches? <Button onClick={this.handleProfileLinkClick} bsStyle="success">Add Profile Info</Button></div>}
+        
         {view1}
         {view2}
         
