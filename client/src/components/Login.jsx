@@ -7,19 +7,19 @@ class Login extends React.Component {
     this.state = {
     };
 
-    this.googleSignIn = this.googleSignIn.bind(this);
+    this.googleSignIn = this.googleSignIn.bind( this );
   }
 
-  googleSignIn() {
+  googleSignIn () {
     var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider)
+    firebase.auth().signInWithPopup( provider )
       .then((result) => {
-        console.log('GOOGLE SIGN IN RESULT', result);
+        console.log( 'GOOGLE SIGN IN RESULT', result );
         this.props.handleLoggedIn();
       });
   }
 
-  render() {
+  render () {
     return (
       <div style={{ margin: '40px' }}>
         <Button
