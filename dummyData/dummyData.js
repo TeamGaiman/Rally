@@ -52,25 +52,29 @@ module.exports.users = [
     name: 'bobby',
     fullName: 'Bobby Hill',
     email: 'bhill@tomlandrymiddleschool.edu',
-    phoneNumber: '(409) 661 - 9768'
+    phoneNumber: '(409) 661 - 9768',
+    elo: 2001
   },
   {
     name: 'Ed',
     fullName: 'Eduardo Vanderbilt',
     email: 'iameddyvan@gmail.com',
-    phoneNumber: '(666) 723 - 1237'
+    phoneNumber: '(666) 723 - 1237',
+    elo: 2973
   },
   {
     name: 'Jeff',
     fullName: 'Jefferiah Montenegro',
     email: 'wineinacan@alanon.org',
-    phoneNumber: '(212) 937 - 6419'
+    phoneNumber: '(212) 937 - 6419',
+    elo: 5434
   },
   {
     name: 'Kento',
     fullName: 'Kent Anderson',
     email: 'yuri@hungarianbeverageconsortium.com',
-    phoneNumber: '(748) 252 - 1661'
+    phoneNumber: '(748) 252 - 1661',
+    elo: 17
   }
 ];
 

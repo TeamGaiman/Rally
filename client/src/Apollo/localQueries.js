@@ -1,12 +1,17 @@
 import gql from 'graphql-tag';
 
-const CHECK_EMAIL_IS_UNIQUE = gql `
-  query
-    checkEmailIsUnique($email: String!) {
-    Boolean
+const GET_ALL_USERS = gql`
+  {
+    getAllUsers{
+      id
+      name
+      phoneNumber
+      email
+      elo
+    }
   }
 `;
 
 module.exports = {
-  CHECK_EMAIL_IS_UNIQUE
+  GET_ALL_USERS
 };

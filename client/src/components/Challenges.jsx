@@ -64,8 +64,9 @@ class Challenges extends React.Component {
             ))}
           </tbody>
         </Table>
-        {this.state.matchClick ? 
-          <div className="static-modal">
+
+        { this.state.matchClick
+          ? <div className="static-modal">
             <Modal.Dialog className="modal">
               <Modal.Header>
                 <Modal.Title>Accept Challenge?</Modal.Title>
@@ -76,7 +77,8 @@ class Challenges extends React.Component {
               </Modal.Footer>
             </Modal.Dialog>
           </div>
-          : null}
+          : null }
+          
       </div>
     );
   }
