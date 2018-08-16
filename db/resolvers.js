@@ -6,6 +6,7 @@ const resolvers = {
       return await models.User.findAll({});
     },
     getUsersByTier: async ( _, { tier } ) => {
+      console.log(tier);
       return await models.User.findAll({ where: { tier }});
     },
     getUser: async ( _, { name } ) => {

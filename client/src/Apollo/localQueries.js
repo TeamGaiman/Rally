@@ -14,7 +14,7 @@ const GET_ALL_USERS = gql`
 `;
 
 const GET_USERS_BY_TIER = gql`
-  {
+  query GetUsersByTier($tier: Int) {
     getUsersByTier(tier: $tier){
       id
       name

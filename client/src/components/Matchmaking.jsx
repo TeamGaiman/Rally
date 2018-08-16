@@ -9,18 +9,21 @@ class Matchmaking extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      player: {
+        tier: 1
+      }
     };
   }
 
   render() {
-    let tier = 1;
     return (
       <Query query={ GET_USERS_BY_TIER }
-        variables={{ tier }}>
+        variables={ this.state.player }>
         {( { loading, error, data } ) => {
           if ( loading ) {
             return <p>Loading...</p>;
           } else if ( error ) {
+            console.log(this.state.player);
             return <p>Error</p>;
           }
           console.log(data.getUsersByTier);
