@@ -49,6 +49,7 @@ const typeDefs = `
   type Mutation {
     createUser(input: EmailInput) : User
     createMatch(input: MatchInput) : Match
+    updateUser(email: String, input: UserInput) : User
   }
   `;
 
