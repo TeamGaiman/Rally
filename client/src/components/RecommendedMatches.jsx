@@ -1,19 +1,21 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
 
+import matchmakeByElo from '../../../workers/matchmaking.js';
+
 class RecommendedMatches extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      matches: [
-        {particpantB: 'Acer123', startTime: '2018-08-29 04:00:00', location: 'Central Park', id: 1},
-        {particpantB: 'TennisPro', startTime: '2019-08-29 04:00:00', location: 'Bryant Park', id: 2},
-      ]
+      matchedUsers: []
     };
   }
 
-  getAllMatches() {
-
+  componentDidMount () {
+    let newMatches = matchmakeByElo(2000, this.props.users);
+    this.setState({
+      matchedUsers: newMatches
+    });
   }
 
   render() {
@@ -29,11 +31,11 @@ class RecommendedMatches extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.matches.map(match => (
-              <tr key={match.id}>
-                <td>{match.particpantB}</td>
-                <td>{match.startTime}</td>
-                <td>{match.location}</td>
+            { this.state.matchedUsers.map( matchedUser => (
+              <tr key={ matchedUser.id }>
+                <td>{ matchedUser.name }</td>
+                <td>{ matchedUser.phoneNumber }</td>
+                <td>{ matchedUser.elo }</td>
               </tr>
             ))}
           </tbody>
