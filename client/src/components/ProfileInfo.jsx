@@ -9,12 +9,13 @@ class ProfileInfo extends React.Component {
       username: '',
       phoneNumber: '',
       location: '',
-      skillTier: ''
+      skillTier: 'Elo Tier'
     };
     this.handleHide = this.handleHide.bind(this);
     this.handleUsernameInput = this.handleUsernameInput.bind(this);
     this.handlePhoneNumberInput = this.handlePhoneNumberInput.bind(this);
     this.handleLocationInput = this.handleLocationInput.bind(this);
+    this.handleSkillSelect = this.handleSkillSelect.bind(this);
   }
 
   handleHide() {
@@ -34,8 +35,9 @@ class ProfileInfo extends React.Component {
     this.setState({location: e.target.value});
   }
 
-  handleSkillSelect() {
-    this.setState({skillTier: e.target.value});
+  handleSkillSelect(e) {
+    console.log(e);
+    this.setState({skillTier: e});
   }
 
 
@@ -73,9 +75,9 @@ class ProfileInfo extends React.Component {
               <FormControl placeholder="Location" />
             </Col>
           </FormGroup>
-          <DropdownButton
+          <DropdownButton onSelect={this.handleSkillSelect}
             bsSize="large"
-            title="Elo Tier"
+            title={this.state.skillTier}
             id="dropdown-size-large"
           >
             <MenuItem eventKey="1">1</MenuItem>
