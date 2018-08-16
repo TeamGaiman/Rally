@@ -1,9 +1,4 @@
 @import url("./stylesheets/Navbar.css");
-
-.modal {
-  position: absolute;
-  left: 50%;
-  top: 60%;
-  width: 100%;
-  transform: translate(-50%, -50%);
-}
+@import url("./stylesheets/Matchmaking.css");
+@import url("./stylesheets/Login.css");
+@import url("./stylesheets/Profile.css");
