@@ -13,30 +13,6 @@ class Matchmaking extends React.Component {
   }
 
   render() {
-    // Uncomment to demo query from client, this will be gone in next update
-    {/*     <Query query={gql` */}
-    //       {
-    //         getAllUsers{
-    //           name
-    //           userNumber
-    //         }
-    //       }
-    //     `}>
-    //       {( { loading, error, data } ) => {
-    //         if ( loading ) {
-    //           return <p>Loading...</p>;
-    //         } else if ( error ) {
-    //           return <p>Error</p>;
-    //         }
-    //         console.log(data.getAllUsers);
-
-    //         return data.getAllUsers.map( ( { name, userNumber } ) => (
-    //           <div key={userNumber}>
-    //             <p>{name}</p>
-    //           </div>
-    //         ));
-    //       }}
-    //     </Query> */}
     return (
       <div>
         <div>

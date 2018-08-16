@@ -1,11 +1,14 @@
-const eloCalculations = require('../eloCalculations');
+const { eloCalculations } = require('./eloCalculations');
 
-const getMatchesByElo = ( eloToMatch, users ) => {
-  let validMatches = [];
-  users.forEach(user => {
-    if ( eloCalculations.calcProbabilityOfWin(eloToMatch, user.elo) >= 0.33 ) {
-      validMatches.push(user.name);
-    }
+const matchmakeByElo = ( eloToMatch, users ) => {
+  let sortedUserMatches = users.slice(0);
+  sortedUserMatches.sort( ( a, b ) => {
+    let oddsAWillWin = calcProbabilityOfWin( eloToMatch, a.elo );
+    let oddsBWillWin = calcProbabilityOfWin( eloToMatch, b.elo );
+    return oddsBWillWin - oddsAWillWin;
+    // return b.elo - a.elo;
   });
-  return validMatches;
+  return sortedUserMatches;
 };
+
+module.exports = matchmakeByElo;
