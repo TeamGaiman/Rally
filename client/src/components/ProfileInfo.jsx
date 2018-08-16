@@ -5,14 +5,41 @@ class ProfileInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      openElo: false
+      openElo: false,
+      username: '',
+      phoneNumber: '',
+      location: '',
+      skillTier: ''
     };
     this.handleHide = this.handleHide.bind(this);
+    this.handleUsernameInput = this.handleUsernameInput.bind(this);
+    this.handlePhoneNumberInput = this.handlePhoneNumberInput.bind(this);
+    this.handleLocationInput = this.handleLocationInput.bind(this);
   }
 
   handleHide() {
     this.setState({ openElo: false });
   }
+
+  handleUsernameInput(e) {
+    console.log(e.target.value);
+    this.setState({username: e.target.value});
+  }
+
+  handlePhoneNumberInput(e) {
+    this.setState({phoneNumber: e.target.value});
+  }
+
+  handleLocationInput(e) {
+    this.setState({location: e.target.value});
+  }
+
+  handleSkillSelect() {
+    this.setState({skillTier: e.target.value});
+  }
+
+
+
 
 
   render() {
@@ -20,7 +47,7 @@ class ProfileInfo extends React.Component {
       <div>
         <h3>Add Info</h3>
         <Form horizontal>
-          <FormGroup controlId="formHorizontalUsername" >
+          <FormGroup onChange={this.handleUsernameInput} controlId="formHorizontalUsername" >
             <Col sm={2}>
               Username
             </Col>
@@ -64,7 +91,7 @@ class ProfileInfo extends React.Component {
 
           <FormGroup>
             <Col smOffset={2} sm={4}>
-              <Button type="submit">Submit</Button>
+              <Button onClick={this.props.handleSubmit} >Submit</Button>
             </Col>
           </FormGroup>
         </Form>
