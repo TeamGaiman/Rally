@@ -28,7 +28,7 @@ class InGame extends React.Component {
         </Button>
         <Modal
           show={this.state.submitted}
-          onHide={ this.handleHide }
+          onHide={this.handleHide}
         >
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title">

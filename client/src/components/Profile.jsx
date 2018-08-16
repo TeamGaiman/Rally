@@ -14,9 +14,11 @@ class Profile extends React.Component {
       showProfileInfo: false
     };
     this.handleProfileLinkClick = this.handleProfileLinkClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
+    
     this.setState({
       upcoming: dummyData.upcoming,
       history: dummyData.history
@@ -27,22 +29,25 @@ class Profile extends React.Component {
     this.setState({showProfileInfo: true});
   }
 
+  handleSubmit() {
+    this.setState({showProfileInfo: false});
+  }
+
   render() {
-    const showProfileInfo = true;
-    let view1;
-    let view2;
+    const showProfileInfo = this.state.showProfileInfo;
+    let view1, view2;
 
     if (showProfileInfo) {
-      view1 = <ProfileInfo />;
+      view1 = <ProfileInfo handleSubmit={this.handleSubmit}/>;
     } else {
       view1 = <UpcomingMatches upcoming={this.state.upcoming} />;
-      view2 = <UpcomingMatches upcoming={this.state.upcoming} />;
+      view2 = <RecentMatches history={this.state.history} />;
     }
 
     return (
       <div>
-        Want to get better matches?
-        <Button onClick={this.handleProfileLinkClick} bsStyle="success">Add Profile Info</Button>
+        {this.state.showProfileInfo ? <div></div> : <div>Want to get personalized matches? <Button onClick={this.handleProfileLinkClick} bsStyle="success">Add Profile Info</Button></div>}
+        
         {view1}
         {view2}
         
