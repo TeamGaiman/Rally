@@ -50,9 +50,11 @@ const typeDefs = `
   type Mutation {
     createUser(input: EmailInput) : User
     createMatch(input: MatchInput) : Match
-    acceptMatch(input: MatchInput) : User
     updateUser(email: String, input: UserInput) : User
+    acceptMatch(input: MatchInput) : User
   }
+
+
 `;
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
