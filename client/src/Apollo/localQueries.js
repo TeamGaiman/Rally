@@ -7,6 +7,7 @@ const GET_ALL_USERS = gql`
       name
       phoneNumber
       email
+      elo
     }
   }
 `;
