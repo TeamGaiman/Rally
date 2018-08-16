@@ -28,6 +28,6 @@ models.sequelize.sync( { force: true } )
     fakeUsers.forEach( user => {
       models.User.create( user );
     });
-    models.Match.create( fakeMatch);
+    models.Match.create( fakeMatch );
   })
   .catch( err => { console.error( err ); } );
