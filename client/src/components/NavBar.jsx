@@ -52,10 +52,10 @@ class NavBar extends React.Component {
               Sign up
             </NavItem>
           </LinkContainer> */}
-          {this.props.loggedIn && 
-          // <LinkContainer to='/login'>
+          {this.props.loggedIn &&
+          // <LinkContainer to='/'>
             <NavItem onClick={this.googleSignOut}>
-              Logout
+                Logout
             </NavItem>
           // </LinkContainer>
           }

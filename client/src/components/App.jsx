@@ -30,7 +30,6 @@ class App extends React.Component {
     this.setState({
       loggedIn: !this.state.loggedIn
     });
-    console.log('New state loggedIn: ', this.state.loggedIn)
   }
 
   render() {
@@ -50,16 +49,20 @@ class App extends React.Component {
                 return <Redirect to="/login" />;
               }
             }} />
-            <Route exact path="/login" render={() =>
-              <Login
-                loggedIn={this.state.loggedIn}
-                handleLoggedIn={this.handleLoggedIn}
-              />
-            } />
-            <Route exact path="/signup" render={() => <Signup />} />
-            <Route exact path="/matchmaker" render={() => <Matchmaking />} />
-            <Route exact path="/profile" render={() => <Profile />} />
-            <Route exact path="/stats" render={() => <Stats />} />
+            <Route path="/login" render={() => {
+              if (this.state.loggedIn) {
+                return <Redirect to="/matchmaker" />;
+              } else {
+                return <Login
+                  loggedIn={this.state.loggedIn}
+                  handleLoggedIn={this.handleLoggedIn}
+                />;
+              }
+            }} />
+            <Route path="/signup" render={() => <Signup />} />
+            <Route path="/matchmaker" render={() => <Matchmaking />} />
+            <Route path="/profile" render={() => <Profile />} />
+            <Route path="/stats" render={() => <Stats />} />
           </Switch>
         </div>
       </div>
