@@ -1,6 +1,8 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
 
+import matchmakeByElo from '../../../workers/matchmaking.js';
+
 class RecommendedMatches extends React.Component {
   constructor(props) {
     super(props);
@@ -10,8 +12,9 @@ class RecommendedMatches extends React.Component {
   }
 
   componentDidMount () {
+    let newMatches = matchmakeByElo(2000, this.props.users);
     this.setState({
-      matches: this.props.users
+      matches: newMatches
     });
   }
 
@@ -32,7 +35,7 @@ class RecommendedMatches extends React.Component {
               <tr key={match.id}>
                 <td>{match.name}</td>
                 <td>{match.phoneNumber}</td>
-                <td>{match.email}</td>
+                <td>{match.elo}</td>
               </tr>
             ))}
           </tbody>

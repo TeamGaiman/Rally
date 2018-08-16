@@ -13,10 +13,6 @@ class Matchmaking extends React.Component {
   }
 
   render() {
-<<<<<<< HEAD
-=======
-    // Uncomment to demo query from client, this will be gone in next update
->>>>>>> setMatchesFromDB
     return (
       <Query query={ GET_ALL_USERS }>
         {( { loading, error, data } ) => {
@@ -31,14 +27,13 @@ class Matchmaking extends React.Component {
         }}
       </Query>
     );
+    <div>
+      <div>
+        <p>This is the 'Matchmaking' component</p>
 
-    // <div>
-    //   <div>
-    //     <p>This is the 'Matchmaking' component</p>
-
-    //     <Challenges />
-    //   </div>
-    // </div>
+        <Challenges />
+      </div>
+    </div>
   }
 }
 
