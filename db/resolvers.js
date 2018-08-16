@@ -22,8 +22,11 @@ const resolvers = {
   },
   Mutation: {
     createUser: async ( _, { input } ) => {
-      models.User.create(input);
-      return await input;
+      try {
+        return await models.User.create( input );
+      } catch ( error ) {
+        console.error( error );
+      }
     },
     createMatch: async ( _, { input } ) => {
       models.Match.create(input);
