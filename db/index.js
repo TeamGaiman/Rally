@@ -1,7 +1,8 @@
 const Sequelize = require('sequelize');
 
 const sequelize = new Sequelize('gaiman', 'postgres', 'postgres', {
-  dialect: 'postgres'
+  dialect: 'postgres',
+  logging: false
 });
 
 const models = {
