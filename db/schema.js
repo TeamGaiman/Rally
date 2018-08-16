@@ -14,6 +14,7 @@ const typeDefs = `
     tier: Int!
     joinDate: String!
     userNumber: Int!
+    matches: [Match]
   }
   type Match {
     id: ID!
@@ -49,6 +50,7 @@ const typeDefs = `
   type Mutation {
     createUser(input: EmailInput) : User
     createMatch(input: MatchInput) : Match
+    acceptMatch(input: MatchInput) : User
   }
   `;
 

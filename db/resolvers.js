@@ -33,9 +33,13 @@ const resolvers = {
       models.Match.create(input);
       return await input;
     },
-    // acceptMatch: async ( _, { input } ) => {
-
-    // }
+    acceptMatch: async ( _, { input } ) => {
+      try {
+        return await models.User.matches.update( input );
+      } catch ( error ) {
+        console.log( error );
+      }
+    }
   }
 };
 
