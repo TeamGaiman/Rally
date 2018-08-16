@@ -7,14 +7,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { withClientState } from 'apollo-link-state';
 import { HttpLink } from 'apollo-link-http';
 
-import NavBar from './components/NavBar.jsx';
-import Main from './views/Main.jsx';
-import Login from './views/Login.jsx';
-import Signup from './views/Signup.jsx';
-
-import Profile from './components/Profile.jsx';
-import Matchmaking from './components/Matchmaking.jsx';
-import Stats from './components/Stats.jsx';
+import App from './components/App.jsx';
 import defaultStates from './apollo/defaultStates';
 import { getUserInfo } from './apollo/localQueries.js';
 import { addUser } from './apollo/localQueries';
@@ -38,33 +31,7 @@ class Routing extends React.Component {
 
   render () {
     return (
-      <BrowserRouter>
-        <div>
-          <NavBar loggedIn={ this.state.loggedIn } />
-          {/* example query */}
-          {/* <Query query={getUserInfo}>
-            {({ loading, error, data }) => {
-              if (error) return <h1>Error...</h1>;
-              if (loading || !data) return <h1>Loading...</h1>;
-
-              return <h1>Welcome, {data.currentUser.name}</h1>;
-            }}
-          </Query> */}
-          <Switch>
-            <Route exact path="/" render={ () =>
-              <Main /> } />
-            <Route exact path="/login" render={ () =>
-              <Login
-                handleLogin={ this.handleLogin }
-                loggedIn={ this.state.loggedIn } /> }/>
-
-            <Route exact path="/signup" render={() => <Signup />} />
-            <Route exact path="/matchmaker" render={() => <Matchmaking />} />
-            <Route exact path="/profile" render={() => <Profile />} />
-            <Route exact path="/stats" render={() => <Stats />} />
-          </Switch>
-        </div>
-      </BrowserRouter>
+      <div></div>
     );
   }
 }
@@ -99,10 +66,10 @@ const client = new ApolloClient({
   cache: cache,
 });
 
-
-
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <Routing />
-  </ApolloProvider >,
+  <BrowserRouter>
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider >
+  </BrowserRouter>,
   document.getElementById('app'));
