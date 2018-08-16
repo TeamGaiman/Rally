@@ -28,7 +28,10 @@ const resolvers = {
     createMatch: async ( _, { input } ) => {
       models.Match.create(input);
       return await input;
-    }
+    },
+    // acceptMatch: async ( _, { input } ) => {
+
+    // }
   }
 };
 

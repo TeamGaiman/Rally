@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormGroup, FormControl, Col, Button, DropdownButton, MenuItem, Modal  } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, Col, Button, DropdownButton, MenuItem, Modal } from 'react-bootstrap';
 
 class ProfileInfo extends React.Component {
   constructor(props) {
@@ -56,7 +56,7 @@ class ProfileInfo extends React.Component {
             </Col>
           </FormGroup>
 
-          <FormGroup  >
+          <FormGroup>
             <Col sm={2}>
               Phone Number
             </Col>

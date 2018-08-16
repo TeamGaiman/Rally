@@ -56,7 +56,7 @@ class Challenges extends React.Component {
           </thead>
           <tbody>
             {this.state.matches.map(match => (
-              <tr key={ match.id } onClick={ () => this.handleMatchClick( match.id ) }>
+              <tr key={ match.id } onClick={ () => this.handleMatchClick( match.id ) } style={{ cursor: 'pointer' }}>
                 <td>{ match.particpantB }</td>
                 <td>{ match.startTime }</td>
                 <td>{ match.location }</td>

@@ -20,9 +20,13 @@ const user = (sequelize, DataTypes) => {
 
     // METADATA
     joinDate: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
-    userNumber: { type: DataTypes.INTEGER, autoIncrement: true }
+    userNumber: { type: DataTypes.INTEGER, autoIncrement: true },
 
-    // TODO: location, matches
+    // MATCHES
+    // upcoming: { type: DataTypes.ARRAY }
+
+    // TODO: location
+
   });
   return User;
 };

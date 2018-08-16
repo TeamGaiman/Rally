@@ -24,16 +24,17 @@ class RecommendedMatches extends React.Component {
     });
   }
 
-  handleMatchClick(id) {
-    console.log('CLICKED??', id);
+  handleMatchClick(user) {
+    console.log('CLICKED??', user);
     this.setState({
       matchClick: true,
-      matchClickId: id
+      matchClickId: user
     });
   }
 
   handleAcceptMatch() {
     this.setState({ matchClick: false });
+    
   }
   
   handleDeclineMatch() {
@@ -55,7 +56,7 @@ class RecommendedMatches extends React.Component {
           </thead>
           <tbody>
             { this.state.matchedUsers.map( matchedUser => (
-              <tr key={ matchedUser.id } onClick={ () => this.handleMatchClick( matchedUser.id ) }>
+              <tr key={ matchedUser.id } onClick={ () => this.handleMatchClick( matchedUser ) } style={{ cursor: 'pointer' }}>
                 <td>{ matchedUser.name }</td>
                 <td>{ matchedUser.phoneNumber }</td>
                 <td>{ matchedUser.elo }</td>
@@ -70,6 +71,7 @@ class RecommendedMatches extends React.Component {
               <Modal.Header>
                 <Modal.Title>Accept Challenge?</Modal.Title>
               </Modal.Header>
+              <Modal.Body>Pic | Stats | Tier | Elo | Trophies</Modal.Body>
               <Modal.Footer>
                 <Button onClick={ this.handleDeclineMatch }>Decline</Button>
                 <Button bsStyle="primary" onClick={ this.handleAcceptMatch }>Accept</Button>
