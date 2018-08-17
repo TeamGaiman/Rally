@@ -1,17 +1,17 @@
 .nav {
-  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+  /* box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
   padding-left: 30px;
   padding-right: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  z-index: 1;
+  z-index: 1; */
 }
 
-.nav-tabs {
+/* .nav-tabs {
   box-shadow: 0 0 0 0;
-}
+} */
 
 /* @media only screen and (max-width: 768px) {
   [class*="nav-"] {

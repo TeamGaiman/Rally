@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormGroup, FormControl, Col, Button } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, Col, Button, Navbar, Nav, NavItem } from 'react-bootstrap';
 
 class Login extends React.Component {
   constructor(props) {
@@ -19,10 +19,46 @@ class Login extends React.Component {
       });
   }
 
+  // fullPage() {
+  //   new fullpage('#fullpage', {
+  //     autoScrolling: true,
+  //     scrollHorizontally: true
+  //   });
+    
+  //   //methods
+  //   fullpage_api.setAllowScrolling(false);
+  // }
+
   render () {
     return (
-      <div style={{ margin: '40px', width: '200px' }} className="button">
-        <Button
+      <div className="splash">
+        <Navbar inverse collapseOnSelect staticTop>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <a href="#">Rally</a>
+            </Navbar.Brand>
+            <Navbar.Toggle />
+          </Navbar.Header>
+          <Navbar.Collapse>
+            <Nav pullRight>
+              <NavItem eventKey={1} href="#">
+                Sign in
+              </NavItem>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+
+        {/* <div id="fullpage">
+          <div className="section">
+            <div className="splash"></div>
+          </div>
+          <div className="section">
+            <div className="splash"></div>
+          </div>
+        </div> */}
+
+
+        {/* <Button
           // bsSize="large"
           onClick={this.googleSignIn}>
           <img
@@ -30,7 +66,7 @@ class Login extends React.Component {
             style={{ width: '20%', height: '20%' }}
           />
           Continue
-        </Button>
+        </Button> */}
       </div>
     );
   }
