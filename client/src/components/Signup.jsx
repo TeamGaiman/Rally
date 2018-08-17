@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, ControlLabel, Button, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 class Signup extends React.Component {
   constructor(props) {
@@ -11,7 +11,8 @@ class Signup extends React.Component {
       fullName: '',
       phone: '',
       location: '',
-      skillTier: '4'
+      skillTier: '4',
+      openElo: false
     };
 
     this.handleUsername = this.handleUsername.bind(this);
@@ -20,6 +21,10 @@ class Signup extends React.Component {
     this.handlePhone = this.handlePhone.bind(this);
     this.handleSkillSelect = this.handleSkillSelect.bind(this);
     this.handlehandleFullName = this.handlehandleFullName.bind(this);
+    this.handleHide = this.handleHide.bind(this);
+  }
+  handleHide() {
+    this.setState({ openElo: false });
   }
 
   handleUsername(e) {
@@ -43,6 +48,11 @@ class Signup extends React.Component {
   handleSkillSelect(e) {
     this.setState({skillTier: e.target.value});
   }
+
+  handleHide() {
+    this.setState({ openElo: false });
+  }
+
 
   render() {
     if (this.props.loggedIn) {
@@ -76,7 +86,7 @@ class Signup extends React.Component {
               <FormControl onChange={this.handleLocation} placeholder='optional' />
             </FormGroup>
             <FormGroup controlId="formControlsSelect">
-              <ControlLabel>Starting Tier</ControlLabel>
+              <ControlLabel>Starting Tier - <Button onClick={() => this.setState({ openElo: true })}> ❔ </Button> </ControlLabel>
               <FormControl componentClass="select" onChange={this.handleSkillSelect}>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -90,6 +100,30 @@ class Signup extends React.Component {
               </Link>
             </FormGroup>
           </Form>
+
+          <Modal
+            show={this.state.openElo}
+            onHide={this.handleHide}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="contained-modal-title">
+                Tier Explanation
+            </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <h4>Tier One:</h4>
+              <p>A tier one player may have just started playing tennis or is still lacking significant experience. A player in this tier may have obvious stroke weaknesses, limitted court coverage or may be able to sustain a short rally with other beginners.</p>
+              <h4>Tier Two:</h4>
+              <p>A tier two player can consistently hit medium-paced shots. A player in this tier may not be comfortable with all strokes although he or she may have developed dependable directional control with forehand and backhand strokes. Players on the high end of this tier may be able to occasionally force errors when serving.</p>
+              <h4>Tier Three:</h4>
+              <p>A tier three player should at least be starting to master power and spins. A player at this level should be beginning to handle his or her pace, control shot depth and generally adjust strategy based on his or her opponent. First serves can be executed with power and accuracy. Overhitting difficult shots may still be common at this tier.</p>
+              <h4>Tier Four:</h4>
+              <p>A tier four player has solid shot anticipation and frequently has an outstanding shot. Exceptional consistency, regular forcing of errors off of short balls, volleys, lobs, drop shots, half volleys and overhead smashes are all available to a player at this level. Power and consistency may be major weapons for these players as well as varying strategies and style of play.</p>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={this.handleHide}>Close</Button>
+            </Modal.Footer>
+          </Modal>
         </div>
       );
     } else {
