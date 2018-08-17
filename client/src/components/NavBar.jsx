@@ -26,10 +26,10 @@ class NavBar extends React.Component {
   render () {
     console.log( 'loggedIn props = ', this.props.loggedIn );
     return (
-      <Navbar staticTop className="nav">
+      <Navbar inverse collapseOnSelect staticTop className="nav">
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/"> 🎾 Rally </Link>
+            <Link to="/">Rally</Link>
           </Navbar.Brand>
         </Navbar.Header>
         <Nav pullRight>

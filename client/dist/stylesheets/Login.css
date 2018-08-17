@@ -3,7 +3,7 @@ body {
 }
 
 .splash {
-  background-image: url("BG1.jpg") ;
+  background-image: url('../lib/BG1.jpg') ;
 
   background-size:cover;
   background-position:center;
@@ -18,4 +18,3 @@ body {
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
 }
-

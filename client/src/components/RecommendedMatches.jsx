@@ -8,13 +8,13 @@ class RecommendedMatches extends React.Component {
     super(props);
     this.state = {
       matchedUsers: [],
-      matchClick: false,
-      matchClickId: null
+      showMatch: false,
+      matchClickUser: null
     };
 
     this.handleMatchClick = this.handleMatchClick.bind(this);
     this.handleAcceptMatch = this.handleAcceptMatch.bind(this);
-    this.handleDeclineMatch = this.handleDeclineMatch.bind(this);
+    this.handleHideMatch = this.handleHideMatch.bind(this);
   }
 
   componentDidMount () {
@@ -27,19 +27,18 @@ class RecommendedMatches extends React.Component {
   handleMatchClick(user) {
     console.log('CLICKED??', user);
     this.setState({
-      matchClick: true,
-      matchClickId: user
+      showMatch: true,
+      matchClickUser: user
     });
   }
 
   handleAcceptMatch() {
-    this.setState({ matchClick: false });
+    this.setState({ showMatch: false });
     
   }
-  
-  handleDeclineMatch() {
-    this.setState({ matchClick: false });
 
+  handleHideMatch() {
+    this.setState({ showMatch: false });
   }
 
   render() {
@@ -50,36 +49,47 @@ class RecommendedMatches extends React.Component {
           <thead>
             <tr>
               <th>User</th>
-              <th>Date</th>
-              <th>Location</th>
+              <th>Number</th>
+              <th>Email</th>
             </tr>
           </thead>
           <tbody>
             { this.state.matchedUsers.slice(0, 5).map( matchedUser => (
-              <tr className='match-row' key={ matchedUser.id } onClick={ () => this.handleMatchClick( matchedUser.id ) }>
+              <tr className='match-row' key={ matchedUser.id } onClick={ () => this.handleMatchClick( matchedUser ) }>
                 <td>{ matchedUser.name }</td>
                 <td>{ matchedUser.phoneNumber }</td>
-                <td>{ matchedUser.elo }</td>
+                <td>{ matchedUser.email }</td>
               </tr>
             ))}
           </tbody>
         </Table>
-        
-        { this.state.matchClick
-          ? <div className="static-modal">
-            <Modal.Dialog className="modal">
-              <Modal.Header>
-                <Modal.Title>Accept Challenge?</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>Pic | Stats | Tier | Elo | Trophies</Modal.Body>
-              <Modal.Footer>
-                <Button onClick={ this.handleDeclineMatch }>Decline</Button>
-                <Button bsStyle="primary" onClick={ this.handleAcceptMatch }>Accept</Button>
-              </Modal.Footer>
-            </Modal.Dialog>
-          </div>
+        { this.state.showMatch
+          ? <Modal
+            show={ this.state.showMatch }
+            onHide={ this.handleHideMatch }
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="contained-modal-title">
+                {this.state.matchClickUser ? this.state.matchClickUser.name : null}
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div>
+                {/* Profile Pic
+                <br/>
+                <br/> */}
+                W: {this.state.matchClickUser.wins} L: {this.state.matchClickUser.losses}
+                <br/>
+                <br/>
+                Trophies:
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={ this.handleHideMatch }>Cancel</Button>
+              <Button bsStyle="primary" onClick={ this.handleAcceptMatch }>Challenge</Button>
+            </Modal.Footer>
+          </Modal>
           : null }
-
       </div>
     );
   }
