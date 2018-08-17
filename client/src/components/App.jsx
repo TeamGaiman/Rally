@@ -13,14 +13,22 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false
+      loggedIn: false,
+      googleUser: null
     };
     this.handleLoggedIn = this.handleLoggedIn.bind( this );
+    this.updateGoogleUser = this.updateGoogleUser.bind( this );
   }
 
   handleLoggedIn () {
     this.setState({
       loggedIn: !this.state.loggedIn
+    });
+  }
+
+  updateGoogleUser(googleUser) {
+    this.setState({
+      googleUser
     });
   }
 
@@ -47,10 +55,16 @@ class App extends React.Component {
               return <Login
                 loggedIn={ this.state.loggedIn }
                 handleLoggedIn={ this.handleLoggedIn }
+                updateGoogleUser= { this.updateGoogleUser }
               />;
             }
-          }}/>
-          <Route path="/signup" render={ () => <Signup /> }/>
+          }} />
+          <Route path="/signup" render={() =>
+            <Signup
+              loggedIn={this.state.loggedIn}
+              googleUser={this.state.googleUser}
+            />} 
+          />
           <Route path="/matchmaker" render={ () => <Matchmaking /> }/>
           <Route path="/profile" render={ () => <Profile /> }/>
           <Route path="/stats" render={ () => <Stats /> }/>

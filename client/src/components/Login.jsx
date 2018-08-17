@@ -1,5 +1,7 @@
 import React from 'react';
-import { Form, FormGroup, FormControl, Col, Button, Navbar, Nav, NavItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
 
 class Login extends React.Component {
   constructor(props) {
@@ -14,7 +16,7 @@ class Login extends React.Component {
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup( provider )
       .then((result) => {
-        console.log( 'GOOGLE SIGN IN RESULT', result );
+        console.log( 'GOOGLE SIGN IN RESULT', result.additionalUserInfo.profile.email );
         this.props.handleLoggedIn();
       });
   }
@@ -40,11 +42,13 @@ class Login extends React.Component {
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
-            <Nav pullRight>
-              <NavItem onClick={this.googleSignIn}>
-                Sign in with Google
+              <Nav pullRight>
+            <LinkContainer to='/signup'>
+                <NavItem onClick={this.googleSignIn}>
+                  Sign in with Google
               </NavItem>
-            </Nav>
+            </LinkContainer>
+              </Nav>
           </Navbar.Collapse>
         </Navbar>
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, FormGroup, FormControl, Col, Button } from 'react-bootstrap';
-
+import { Link } from 'react-router-dom';
 class Signup extends React.Component {
   constructor(props) {
     super(props);
@@ -11,31 +11,30 @@ class Signup extends React.Component {
       username: '',
       phone: ''
     };
-    this.handleUsename = this.handleUsername.bind(this);
+    this.handleUsername = this.handleUsername.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
     this.handlePhone = this.handlePhone.bind(this);
-    this.googleSignUp = this.googleSignUp.bind(this);
-    this.googleSignOut = this.googleSignOut.bind(this);
+
   }
 
   handleUsername(e) {
     console.log(e.target.value);
-    this.setState({username: e.target.value});
+    this.setState({ username: e.target.value });
   }
 
   handleEmail(e) {
     console.log(e.target.value);
-    this.setState({email: e.target.value});
+    this.setState({ email: e.target.value });
   }
 
   handlePassword(e) {
     console.log(e.target.value);
-    this.setState({password: e.target.value});
+    this.setState({ password: e.target.value });
   }
   handlePhone(e) {
     console.log(e.target.value);
-    this.setState({phone: e.target.value});
+    this.setState({ phone: e.target.value });
   }
 
   // handleSubmit() {
@@ -65,14 +64,14 @@ class Signup extends React.Component {
     //   var credential = error.credential;
     //   // ...
     // });
-    firebase.auth().signInWithPopup(provider).then(function(result) {
+    firebase.auth().signInWithPopup(provider).then(function (result) {
       console.log('GOOGLE SIGN IN RESULT', result);
       // This gives you a Google Access Token. You can use it to access the Google API.
       var token = result.credential.accessToken;
       // The signed-in user info.
       var user = result.user;
       // ...
-    }).catch(function(error) {
+    }).catch(function (error) {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
@@ -85,60 +84,60 @@ class Signup extends React.Component {
   }
 
   render() {
-    return (
+    if (this.props.loggedIn) {
+      return (
+        <div>
+          <h3>Signup</h3>
+          <Form horizontal>
+            <FormGroup controlId="formHorizontalUsername" >
+              <Col sm={2}>
+                Username
+              </Col>
+              <Col sm={4}>
+                <FormControl type="username" placeholder="Username" />
+              </Col>
+            </FormGroup>
 
-      <div>
-        <h3>Signup</h3>
-        <Form horizontal>
-          <FormGroup controlId="formHorizontalUsername" >
-            <Col sm={2}>
-              Username
-            </Col>
-            <Col sm={4}>
-              <FormControl type="username" placeholder="Username" />
-            </Col>
-          </FormGroup>
+            <FormGroup  >
+              <Col sm={2}>
+                Phone Number
+              </Col>
+              <Col sm={4}>
+                <FormControl placeholder="Phone Number" />
+              </Col>
+            </FormGroup>
 
-          <FormGroup  >
-            <Col sm={2}>
-              Phone Number
-            </Col>
-            <Col sm={4}>
-              <FormControl placeholder="Phone Number" />
-            </Col>
-          </FormGroup>
-          
-          <FormGroup controlId="formHorizontalEmail" >
-            <Col sm={2}>
-              Email
-            </Col>
-            <Col sm={4}>
-              <FormControl placeholder="Email" />
-            </Col>
-          </FormGroup>
+            <FormGroup controlId="formHorizontalEmail" >
+              <Col sm={2}>
+                Email
+              </Col>
+              <Col sm={4}>
+                <FormControl placeholder="Email" />
+              </Col>
+            </FormGroup>
 
+            <FormGroup controlId="formHorizontalPassword">
+              <Col sm={2}>
+                Password
+              </Col>
+              <Col sm={4}>
+                <FormControl type="password" placeholder="Password" />
+              </Col>
+            </FormGroup>
 
-          <FormGroup controlId="formHorizontalPassword">
-            <Col sm={2}>
-              Password
-            </Col>
-            <Col sm={4}>
-              <FormControl type="password" placeholder="Password" />
-            </Col>
-          </FormGroup>
-
-
-          <FormGroup>
-            <Col smOffset={2} sm={4}>
-              <Button type="submit">Submit</Button>
-            </Col>
-          </FormGroup>
-        </Form>
-
-        <Button onClick={this.googleSignUp}>Sign up with Google</Button>
-        {/* <Button onClick={this.googleSignOut}>Sign out with Google</Button> */}
-      </div>
-    );
+            <FormGroup>
+              <Col smOffset={2} sm={4}>
+              <Link to='/matchmaker'>
+                <Button type="submit">Submit</Button>
+              </Link>
+              </Col>
+            </FormGroup>
+          </Form>
+        </div>
+      );
+    } else {
+      return null;
+    }
   }
 }
 
