@@ -50,14 +50,20 @@ const resolvers = {
       return await input;
     },
 
-    acceptMatch: async ( _, input ) => {
+    acceptMatch: async ( _, { matches, email }) => {
       // const user = await models.User.findOne({ where: { name: input.name }});
       // user.set('matches', input);
       // console.log('acceptMatch--', user);
       // return user.save();
-      models.User.update(
-        { matches: inp}
-      )
+      models.User.findOne({
+        where: { email: email }
+      })
+        .then(user => {
+          console.log('acceptMatch', user);
+          user.updateAttributes(matches);
+        })
+        .catch(err => err);
+      return await matches;
     },
   }
 };
