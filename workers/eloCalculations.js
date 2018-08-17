@@ -3,23 +3,23 @@
 
 // Enter two elo ratings as arguments and return the probability that the player corresponding to elo 1 will win.
 // To get the probablity that the player corresponding to elo2 will win, subtract the return value from 1.
-const calcProbabilityOfWin = (elo1, elo2) => {
+const calcProbabilityOfWin = ( elo1, elo2 ) => {
   let x = elo2 - elo1;
   let y = x / 400;
-  let z = Math.pow(10, y) + 1;
+  let z = Math.pow( 10, y ) + 1;
   return 1 / z;
 };
 
 // Enter the elo ratings of the winner and loser and the k value that represents the elo rate of change
-const calcNewElos = (winner, loser, k) => {
-  let probabilityOfWin = calcProbabilityOfWin(winner, loser);
-  let x = k * (1 - probabilityOfWin);
+const calcNewElos = ( winner, loser, k ) => {
+  let probabilityOfWin = calcProbabilityOfWin( winner, loser );
+  let x = k * ( 1 - probabilityOfWin );
   let winnerElo = winner + x;
 
-  let y = k * (0 - (1 - probabilityOfWin));
+  let y = k * ( 0 - ( 1 - probabilityOfWin ));
   let loserElo = loser + y;
 
-  return [winnerElo, loserElo];
+  return [ winnerElo, loserElo ];
 };
 
 const eloCalculations = {
