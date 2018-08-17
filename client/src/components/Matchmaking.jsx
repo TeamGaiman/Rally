@@ -3,7 +3,7 @@ import RecommendedMatches from './RecommendedMatches.jsx';
 import Challenges from './Challenges.jsx';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
-import { GET_ALL_USERS, GET_USERS_BY_TIER } from '../apollo/localQueries.js';
+import { GET_ALL_USERS, GET_USERS_BY_TIER, CHECK_EMAIL_IS_UNIQUE } from '../apollo/localQueries.js';
 
 class Matchmaking extends React.Component {
   constructor(props) {
