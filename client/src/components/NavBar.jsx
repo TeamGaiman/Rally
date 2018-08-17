@@ -26,42 +26,47 @@ class NavBar extends React.Component {
   render () {
     console.log( 'loggedIn props = ', this.props.loggedIn );
     return (
-      <Navbar inverse collapseOnSelect staticTop className="nav">
-        <Navbar.Header>
-          <Navbar.Brand>
-            <Link to="/">Rally</Link>
-          </Navbar.Brand>
-        </Navbar.Header>
-        <Nav pullRight>
-          <LinkContainer to='/matchmaker'>
-            <NavItem >
-              Matchmaker
-            </NavItem>
-          </LinkContainer>
-          <LinkContainer to='/profile'>
-            <NavItem >
-              Profile
-            </NavItem>
-          </LinkContainer>
-          <LinkContainer to='/stats'>
-            <NavItem>
-              Stats
-            </NavItem>
-          </LinkContainer>
-          {/* <LinkContainer to='/signup'>
-            <NavItem>
-              Sign up
-            </NavItem>
-          </LinkContainer> */}
-          {this.props.loggedIn &&
-          // <LinkContainer to='/'>
-            <NavItem onClick={this.googleSignOut}>
-                Logout
-            </NavItem>
-          // </LinkContainer>
-          }
-        </Nav>
-      </Navbar>
+      <div>
+        <Navbar inverse collapseOnSelect staticTop>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <Link to="/">Rally</Link>
+            </Navbar.Brand>
+            <Navbar.Toggle />
+          </Navbar.Header>
+          <Navbar.Collapse>
+            <Nav pullRight>
+              <LinkContainer to='/matchmaker'>
+                <NavItem >
+                  Matchmaker
+                </NavItem>
+              </LinkContainer>
+              <LinkContainer to='/profile'>
+                <NavItem >
+                  Profile
+                </NavItem>
+              </LinkContainer>
+              <LinkContainer to='/stats'>
+                <NavItem>
+                  Stats
+                </NavItem>
+              </LinkContainer>
+              {/* <LinkContainer to='/signup'>
+                <NavItem>
+                Sign up
+                </NavItem>
+              </LinkContainer> */}
+              {this.props.loggedIn &&
+              // <LinkContainer to='/'>
+              <NavItem onClick={this.googleSignOut}>
+                    Logout
+              </NavItem>
+              // </LinkContainer>
+              }
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+      </div>
     );
   }
 }
