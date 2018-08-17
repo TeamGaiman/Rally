@@ -3,7 +3,7 @@ body {
 }
 
 .splash {
-  background-image: url("BG1.jpg") ;
+  background-image: url('../lib/BG1.jpg') ;
 
   background-size:cover;
   background-position:center;

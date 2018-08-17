@@ -1,5 +1,4 @@
 .modal {
-  position: absolute;
   left: 50%;
   top: 60%;
   width: 100%;
@@ -8,8 +7,8 @@
 
 .match-row:hover{
   cursor: pointer;
- }
+}
 
- .matches-container {
-   margin: 10%
- }
+.matches-container {
+  margin: 10%
+}

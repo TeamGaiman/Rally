@@ -22,6 +22,8 @@ const GET_USERS_BY_TIER = gql`
       phoneNumber
       email
       elo
+      wins
+      losses
     }
   }
 `;
