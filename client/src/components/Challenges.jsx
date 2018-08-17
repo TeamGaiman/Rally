@@ -44,7 +44,7 @@ class Challenges extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='matches-container'>
         <h2>Challenges</h2>
         <Table striped bordered condensed hover>
           <thead>
@@ -55,8 +55,8 @@ class Challenges extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.matches.map(match => (
-              <tr key={ match.id } onClick={ () => this.handleMatchClick( match.id ) } style={{ cursor: 'pointer' }}>
+            {this.state.matches.slice(0, 5).map(match => (
+              <tr className='match-row' key={ match.id } onClick={ () => this.handleMatchClick( match.id ) }>
                 <td>{ match.particpantB }</td>
                 <td>{ match.startTime }</td>
                 <td>{ match.location }</td>

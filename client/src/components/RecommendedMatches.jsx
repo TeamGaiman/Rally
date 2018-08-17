@@ -44,7 +44,7 @@ class RecommendedMatches extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='matches-container'>
         <h2>Recommended Matches</h2>
         <Table striped bordered condensed hover>
           <thead>
@@ -55,8 +55,8 @@ class RecommendedMatches extends React.Component {
             </tr>
           </thead>
           <tbody>
-            { this.state.matchedUsers.map( matchedUser => (
-              <tr key={ matchedUser.id } onClick={ () => this.handleMatchClick( matchedUser ) } style={{ cursor: 'pointer' }}>
+            { this.state.matchedUsers.slice(0, 5).map( matchedUser => (
+              <tr className='match-row' key={ matchedUser.id } onClick={ () => this.handleMatchClick( matchedUser.id ) }>
                 <td>{ matchedUser.name }</td>
                 <td>{ matchedUser.phoneNumber }</td>
                 <td>{ matchedUser.elo }</td>
