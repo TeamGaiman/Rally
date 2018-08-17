@@ -24,15 +24,26 @@ const CREATE_MATCH = gql `
     participantB
     startTime
     location
-    
   }
 }
 `;
 
+const UPDATE_USER = gql `
+mutation ($email: String!, $name: String!, $fullName: String!, $phoneNumber: String!){
+  updateUser(email: $email, input: {
+      name: $name,
+      fullName: $fullName
+      phoneNumber: $phoneNumber
+    }){
+      name
+    }
+  }
+`;
 
 
 // ¡UNTESTED MUTATION NOT EXPORTED!
 module.exports = {
   CREATE_USER,
-  CREATE_MATCH
+  CREATE_MATCH,
+  UPDATE_USER
 };
