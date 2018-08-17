@@ -31,7 +31,7 @@ class Login extends React.Component {
   //   fullpage_api.setAllowScrolling(false);
   // }
 
-  render () {
+  render() {
     return (
       <div className="splash">
         <Navbar inverse collapseOnSelect staticTop>
@@ -42,13 +42,13 @@ class Login extends React.Component {
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
-              <Nav pullRight>
-            <LinkContainer to='/signup'>
+            <Nav pullRight>
+              <LinkContainer to='/signup'>
                 <NavItem onClick={this.googleSignIn}>
                   Sign in with Google
-              </NavItem>
-            </LinkContainer>
-              </Nav>
+                </NavItem>
+              </LinkContainer>
+            </Nav>
           </Navbar.Collapse>
         </Navbar>
 
