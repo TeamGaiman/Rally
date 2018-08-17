@@ -63,7 +63,6 @@ class RecommendedMatches extends React.Component {
             ))}
           </tbody>
         </Table>
-        
         { this.state.showMatch
           ? <Modal
             show={ this.state.showMatch }
