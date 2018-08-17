@@ -1,144 +1,100 @@
 import React from 'react';
-import { Form, FormGroup, FormControl, Col, Button } from 'react-bootstrap';
-
+import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loggedIn: false,
       email: '',
-      password: '',
       username: '',
-      phone: ''
+      fullName: '',
+      phone: '',
+      location: '',
+      skillTier: '4'
     };
-    this.handleUsename = this.handleUsername.bind(this);
+
+    this.handleUsername = this.handleUsername.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
-    this.handlePassword = this.handlePassword.bind(this);
+    this.handleLocation = this.handleLocation.bind(this);
     this.handlePhone = this.handlePhone.bind(this);
-    this.googleSignUp = this.googleSignUp.bind(this);
-    this.googleSignOut = this.googleSignOut.bind(this);
+    this.handleSkillSelect = this.handleSkillSelect.bind(this);
+    this.handlehandleFullName = this.handlehandleFullName.bind(this);
   }
 
   handleUsername(e) {
-    console.log(e.target.value);
-    this.setState({username: e.target.value});
+    this.setState({ username: e.target.value });
+  }
+  handlehandleFullName(e) {
+    this.setState({ fullName: e.target.value });
   }
 
   handleEmail(e) {
-    console.log(e.target.value);
-    this.setState({email: e.target.value});
+    this.setState({ email: e.target.value });
   }
 
-  handlePassword(e) {
-    console.log(e.target.value);
-    this.setState({password: e.target.value});
+  handleLocation(e) {
+    this.setState({ location: e.target.value });
   }
   handlePhone(e) {
-    console.log(e.target.value);
-    this.setState({phone: e.target.value});
+    this.setState({ phone: e.target.value });
   }
 
-  // handleSubmit() {
-  //   //graphQL requests
-  // }
-
-  googleSignUp() {
-    var provider = new firebase.auth.GoogleAuthProvider();
-    // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-    // firebase.auth().useDeviceLanguage();
-    // firebase.auth().signInWithRedirect(provider)
-    // firebase.auth().getRedirectResult().then(result => {
-    //   console.log('RESULT', result)
-    //   if (result.credential) {
-    //     // This gives you a Google Access Token. You can use it to access the Google API.
-    //     var token = result.credential.accessToken;
-    //   }
-    //   // The signed-in user info.
-    //   var user = result.user;
-    // }).catch(error => {
-    //   // Handle Errors here.
-    //   var errorCode = error.code;
-    //   var errorMessage = error.message;
-    //   // The email of the user's account used.
-    //   var email = error.email;
-    //   // The firebase.auth.AuthCredential type that was used.
-    //   var credential = error.credential;
-    //   // ...
-    // });
-    firebase.auth().signInWithPopup(provider).then(function(result) {
-      console.log('GOOGLE SIGN IN RESULT', result);
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      var token = result.credential.accessToken;
-      // The signed-in user info.
-      var user = result.user;
-      // ...
-    }).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // The email of the user's account used.
-      var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
-      // ...
-    });
+  handleSkillSelect(e) {
+    this.setState({skillTier: e.target.value});
   }
 
   render() {
-    return (
-
-      <div>
-        <h3>Signup</h3>
-        <Form horizontal>
-          <FormGroup controlId="formHorizontalUsername" >
-            <Col sm={2}>
-              Username
-            </Col>
-            <Col sm={4}>
-              <FormControl type="username" placeholder="Username" />
-            </Col>
-          </FormGroup>
-
-          <FormGroup  >
-            <Col sm={2}>
-              Phone Number
-            </Col>
-            <Col sm={4}>
-              <FormControl placeholder="Phone Number" />
-            </Col>
-          </FormGroup>
-          
-          <FormGroup controlId="formHorizontalEmail" >
-            <Col sm={2}>
-              Email
-            </Col>
-            <Col sm={4}>
-              <FormControl placeholder="Email" />
-            </Col>
-          </FormGroup>
-
-
-          <FormGroup controlId="formHorizontalPassword">
-            <Col sm={2}>
-              Password
-            </Col>
-            <Col sm={4}>
-              <FormControl type="password" placeholder="Password" />
-            </Col>
-          </FormGroup>
-
-
-          <FormGroup>
-            <Col smOffset={2} sm={4}>
-              <Button type="submit">Submit</Button>
-            </Col>
-          </FormGroup>
-        </Form>
-
-        <Button onClick={this.googleSignUp}>Sign up with Google</Button>
-        {/* <Button onClick={this.googleSignOut}>Sign out with Google</Button> */}
-      </div>
-    );
+    if (this.props.loggedIn) {
+      return (
+        <div className='signup-form'>
+          <h3>Get Started</h3>
+          <Form horizontal>
+            {/* *****************
+            Temporarily comment out below I can figure out 
+            how to auto populate from google
+            **********************
+            */}
+            {/* <FormGroup controlId="formHorizontalEmail" >
+              <ControlLabel>Email</ControlLabel>
+              <FormControl onChange={ this.handleEmail }/>
+            </FormGroup> */}
+            {/* <FormGroup controlId="formHorizontalEmail" >
+              <ControlLabel>Full Name</ControlLabel>
+              <FormControl onChange={ this.handleFullName } />
+            </FormGroup> */}
+            <FormGroup controlId="formHorizontalUsername" >
+              <ControlLabel>Username</ControlLabel>
+              <FormControl type="username" value={this.state.username} onChange={this.handleUsername} />
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>Phone Number</ControlLabel>
+              <FormControl onChange={this.handlePhone} placeholder='optional' />
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>Preferred Location</ControlLabel>
+              <FormControl onChange={this.handleLocation} placeholder='optional' />
+            </FormGroup>
+            <FormGroup controlId="formControlsSelect">
+              <ControlLabel>Starting Tier</ControlLabel>
+              <FormControl componentClass="select" onChange={this.handleSkillSelect}>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </FormControl>
+            </FormGroup>
+            <FormGroup>
+              <Link to='/matchmaker'>
+                <Button type="submit" className='pull-right' >Enter Matchmaking</Button>
+              </Link>
+            </FormGroup>
+          </Form>
+        </div>
+      );
+    } else {
+      return null;
+    }
   }
 }
 
