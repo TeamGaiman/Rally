@@ -26,7 +26,16 @@ const GET_USERS_BY_TIER = gql`
   }
 `;
 
+const CHECK_EMAIL_IS_UNIQUE = gql`
+  query CheckEmailIsUnique($email: String) {
+    checkEmailIsUnique(email: $email){
+      Boolean
+    }
+  }
+`;
+
 module.exports = {
   GET_ALL_USERS,
-  GET_USERS_BY_TIER
+  GET_USERS_BY_TIER,
+  CHECK_EMAIL_IS_UNIQUE
 };

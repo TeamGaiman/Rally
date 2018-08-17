@@ -9,7 +9,7 @@ const CREATE_USER = gql `
       email
     }
   }
-  `;
+`;
 
 
 const CREATE_MATCH = gql `

@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App.jsx';
 import { BrowserRouter } from 'react-router-dom';
-import { ApolloProvider, Query } from 'react-apollo';
 import { ApolloLink, ApolloClient } from 'apollo-client-preset';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { withClientState } from 'apollo-link-state';
 import { HttpLink } from 'apollo-link-http';
 import defaultStates from './apollo/defaultStates';
-import { getUserInfo, addUser } from './apollo/localQueries.js';
+
+
 
 const cache = new InMemoryCache();
 const stateLink = withClientState({
