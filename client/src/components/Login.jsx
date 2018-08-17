@@ -41,8 +41,8 @@ class Login extends React.Component {
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav pullRight>
-              <NavItem eventKey={1} href="#">
-                Sign in
+              <NavItem onClick={this.googleSignIn}>
+                Sign in with Google
               </NavItem>
             </Nav>
           </Navbar.Collapse>
