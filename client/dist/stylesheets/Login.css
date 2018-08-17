@@ -1,0 +1,21 @@
+body {
+  font-family: 'Comfortaa', cursive;
+}
+
+.splash {
+  background-image: url("BG1.jpg") ;
+
+  background-size:cover;
+  background-position:center;
+  height: 100vh;
+  /* margin: auto */
+}
+
+.button {
+  position: fixed;
+  top: 40;
+  left: 47%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
