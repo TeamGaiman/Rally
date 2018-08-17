@@ -49,8 +49,8 @@ class RecommendedMatches extends React.Component {
           <thead>
             <tr>
               <th>User</th>
-              <th>Date</th>
-              <th>Location</th>
+              <th>Number</th>
+              <th>Email</th>
             </tr>
           </thead>
           <tbody>
@@ -58,7 +58,7 @@ class RecommendedMatches extends React.Component {
               <tr className='match-row' key={ matchedUser.id } onClick={ () => this.handleMatchClick( matchedUser ) }>
                 <td>{ matchedUser.name }</td>
                 <td>{ matchedUser.phoneNumber }</td>
-                <td>{ matchedUser.elo }</td>
+                <td>{ matchedUser.email }</td>
               </tr>
             ))}
           </tbody>
@@ -79,9 +79,6 @@ class RecommendedMatches extends React.Component {
                 {/* Profile Pic
                 <br/>
                 <br/> */}
-                Elo: {this.state.matchClickUser.elo}
-                <br/>
-                <br/>
                 W: {this.state.matchClickUser.wins} L: {this.state.matchClickUser.losses}
                 <br/>
                 <br/>
