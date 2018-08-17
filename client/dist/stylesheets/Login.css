@@ -1,0 +1,14 @@
+body {
+  background-image: url("BG1.jpg");
+  background-repeat: no-repeat;  
+  background-position: 0% 0%;
+  background-size: 100%;           
+}
+
+.button {
+  position: fixed;
+  top: 40;
+  left: 47%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}

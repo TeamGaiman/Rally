@@ -21,15 +21,15 @@ class Login extends React.Component {
 
   render () {
     return (
-      <div style={{ margin: '40px' }}>
+      <div style={{ margin: '40px', width: '200px' }} className="button">
         <Button
-          bsSize="large"
+          // bsSize="large"
           onClick={this.googleSignIn}>
-          Continue with Google
           <img
             src="https://www.bergeyselectric.com/content/wp-content/uploads/2011/11/google.jpg"
-            style={{ width: '3%', height: '3%' }}
+            style={{ width: '20%', height: '20%' }}
           />
+          Continue
         </Button>
       </div>
     );
