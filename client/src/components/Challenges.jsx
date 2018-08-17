@@ -13,33 +13,38 @@ class Challenges extends React.Component {
         {particpantB: 'DeuceLove', startTime: '2019-010-29 05:00:00', location: 'Sunset Park', id: 5},
         {particpantB: 'SliceMaster55', startTime: '2019-010-29 06:00:00', location: 'Sunset Park', id: 6},
       ],
-      matchClick: false,
-      matchClickId: null,
+      showMatch: false,
+      matchClickUser: null,
     };
 
     this.handleMatchClick = this.handleMatchClick.bind(this);
     this.handleAcceptMatch = this.handleAcceptMatch.bind(this);
     this.handleDeclineMatch = this.handleDeclineMatch.bind(this);
+    this.handleHideMatch = this.handleHideMatch.bind(this);
   }
 
   getAllChallenges() {
 
   }
 
-  handleMatchClick(id) {
-    console.log('CLICKED??', id);
+  handleMatchClick(user) {
+    console.log('CLICKED??', user);
     this.setState({
-      matchClick: true,
-      matchClickId: id
+      showMatch: true,
+      matchClickUser: user
     });
   }
 
   handleAcceptMatch() {
-    this.setState({ matchClick: false });
+    this.setState({ showMatch: false });
   }
   
   handleDeclineMatch() {
     this.setState({ matchClick: false });
+  }
+
+  handleHideMatch() {
+    this.setState({ showMatch: false });
   }
 
   render() {
@@ -55,28 +60,45 @@ class Challenges extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.matches.slice(0, 5).map(match => (
-              <tr className='match-row' key={ match.id } onClick={ () => this.handleMatchClick( match.id ) }>
-                <td>{ match.particpantB }</td>
-                <td>{ match.startTime }</td>
-                <td>{ match.location }</td>
+            {this.state.matches.slice(0, 5).map(user => (
+              <tr className='match-row' key={ user.id } onClick={ () => this.handleMatchClick( user ) }>
+                <td>{ user.particpantB }</td>
+                <td>{ user.startTime }</td>
+                <td>{ user.location }</td>
               </tr>
             ))}
           </tbody>
         </Table>
 
-        { this.state.matchClick
-          ? <div className="static-modal">
-            <Modal.Dialog className="modal">
-              <Modal.Header>
-                <Modal.Title>Accept Challenge?</Modal.Title>
-              </Modal.Header>
-              <Modal.Footer>
-                <Button onClick={ this.handleDeclineMatch }>Decline</Button>
-                <Button bsStyle="primary" onClick={ this.handleAcceptMatch }>Accept</Button>
-              </Modal.Footer>
-            </Modal.Dialog>
-          </div>
+        { this.state.showMatch
+          ? <Modal
+            show={ this.state.showMatch }
+            onHide={ this.handleHideMatch }
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="contained-modal-title">
+                { this.state.matchClickUser.particpantB }
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div>
+                {/* Profile Pic <img src={this.state.matchClickUser.}>
+                <br/>
+                <br/> */}
+                W: { this.state.matchClickUser.wins } L: { this.state.matchClickUser.losses }
+                <br/>
+                <br/>
+                Tier: { this.state.matchClickUser.tier }
+                <br/>
+                <br/>
+                Trophies:
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={ this.handleHideMatch }>Decline</Button>
+              <Button bsStyle="primary" onClick={ this.handleAcceptMatch }>Accept Challenge</Button>
+            </Modal.Footer>
+          </Modal>
           : null }
           
       </div>

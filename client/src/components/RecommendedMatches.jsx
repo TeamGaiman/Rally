@@ -63,6 +63,7 @@ class RecommendedMatches extends React.Component {
             ))}
           </tbody>
         </Table>
+
         { this.state.showMatch
           ? <Modal
             show={ this.state.showMatch }
@@ -70,7 +71,7 @@ class RecommendedMatches extends React.Component {
           >
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title">
-                {this.state.matchClickUser ? this.state.matchClickUser.name : null}
+                { this.state.matchClickUser.name }
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -78,7 +79,7 @@ class RecommendedMatches extends React.Component {
                 {/* Profile Pic
                 <br/>
                 <br/> */}
-                W: {this.state.matchClickUser.wins} L: {this.state.matchClickUser.losses}
+                W: { this.state.matchClickUser.wins  } L: {this.state.matchClickUser.losses }
                 <br/>
                 <br/>
                 Trophies:
@@ -86,10 +87,11 @@ class RecommendedMatches extends React.Component {
             </Modal.Body>
             <Modal.Footer>
               <Button onClick={ this.handleHideMatch }>Cancel</Button>
-              <Button bsStyle="primary" onClick={ this.handleAcceptMatch }>Challenge</Button>
+              <Button bsStyle="primary" onClick={ this.handleAcceptMatch }>Send Challenge</Button>
             </Modal.Footer>
           </Modal>
           : null }
+
       </div>
     );
   }
