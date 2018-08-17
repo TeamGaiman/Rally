@@ -8,13 +8,12 @@ const typeDefs = `
     fullName: String
     email: String!
     phoneNumber: String
-    wins: Int!
-    losses: Int!
-    elo: Int!
-    tier: Int!
-    joinDate: String!
-    userNumber: Int!
-    matches: [Match]
+    wins: Int
+    losses: Int
+    elo: Int
+    tier: Int
+    joinDate: String
+    userNumber: Int
   }
   type Match {
     id: ID!
@@ -40,6 +39,11 @@ const typeDefs = `
     name: String
     fullName: String
     phoneNumber: String
+    phoneNumber: String
+    wins: Int
+    losses: Int
+    elo: Int
+    tier: Int
   }
   input MatchInput {
     participantA: String
