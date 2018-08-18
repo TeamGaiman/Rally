@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider, Query } from 'react-apollo';
 
 import NavBar from './NavBar.jsx';
 import Login from './Login.jsx';
@@ -8,13 +8,18 @@ import Signup from './Signup.jsx';
 import Profile from './Profile.jsx';
 import Matchmaking from './Matchmaking.jsx';
 import Stats from './Stats.jsx';
+import { CHECK_EMAIL_IS_UNIQUE } from '../apollo/localQueries.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loggedIn: false,
-      googleUserData: null
+      googleUserData: {
+        profile: {
+          email: ''
+        }
+      }
     };
     this.googleSignIn = this.googleSignIn.bind( this );
     this.handleLoggedIn = this.handleLoggedIn.bind( this );
@@ -68,9 +73,7 @@ class App extends React.Component {
             if ( this.state.loggedIn ) {
               return <Redirect to="/matchmaker" />;
             } else {
-              return <Login
-                googleSignIn={ this.googleSignIn }
-              />;
+              return <Login/>;
             }
           }} />
           <Route path="/signup" render={() =>
@@ -79,7 +82,23 @@ class App extends React.Component {
               googleUserData={ this.state.googleUserData }
             />} 
           />
-          <Route path="/matchmaker" render={ () => <Matchmaking /> }/>
+          <Query query={ CHECK_EMAIL_IS_UNIQUE }
+            variables={{ email: this.state.googleUserData.profile.email }}>
+            {( { loading, error, data } ) => {
+              if ( loading ) {
+                return <p>Loading...</p>;
+              } else if ( error ) {
+                return <p>Error</p>;
+              }
+              return (
+                <div>
+                  {console.log(data)}
+                  <Route path="/matchmaker" render={ () =>
+                    <Matchmaking /> }/>
+                </div>
+              );
+            }}
+          </Query>
           <Route path="/profile" render={ () => <Profile /> }/>
           <Route path="/stats" render={ () => <Stats /> }/>
         </Switch>
