@@ -37,11 +37,11 @@ const NavBar = (props) => {
                 </NavItem>
               </LinkContainer> */}
             {props.loggedIn &&
-              // <LinkContainer to='/'>
-              <NavItem onClick={props.googleSignOut}>
+              <LinkContainer to='/login'>
+                <NavItem onClick={ props.googleSignOut }>
                     Logout
-              </NavItem>
-              // </LinkContainer>
+                </NavItem>
+              </LinkContainer>
             }
           </Nav>
         </Navbar.Collapse>
