@@ -1,21 +1,16 @@
 import React from 'react';
 
-class Trophies extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-
-  render() {
-    return (
-      <div>
+const Trophies = (props) => {
+  return (
+    <div>
         This is the 'Trophies' component
         
-      </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+  
+    
 
 
 export default Trophies;
