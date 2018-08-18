@@ -31,6 +31,7 @@ class App extends React.Component {
 
   googleSignOut () {
     this.handleLoggedIn();
+    this.setState({ loggedIn: false });
     firebase.auth().signOut()
       .then( () => {
         console.log( 'Logout successful' );
