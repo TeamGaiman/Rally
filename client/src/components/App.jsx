@@ -29,10 +29,10 @@ class App extends React.Component {
   }
 
   handleLoggedIn ( userData ) {
-    this.setState( prevState => ({
+    this.setState({
       loggedIn: true,
       googleUserData: Object.assign( {}, userData )
-    }));
+    });
   }
 
   render () {
@@ -56,16 +56,14 @@ class App extends React.Component {
               return <Redirect to="/matchmaker" />;
             } else {
               return <Login
-                loggedIn={ this.state.loggedIn }
                 googleSignIn={ this.googleSignIn }
-                updateGoogleUser= { this.updateGoogleUser }
               />;
             }
           }} />
           <Route path="/signup" render={() =>
             <Signup
               loggedIn={ this.state.loggedIn }
-              googleUser={ this.state.googleUser }
+              googleUserData={ this.state.googleUserData }
             />} 
           />
           <Route path="/matchmaker" render={ () => <Matchmaking /> }/>
