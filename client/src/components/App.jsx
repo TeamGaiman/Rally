@@ -50,12 +50,12 @@ class App extends React.Component {
 
   render () {
     return (
-      <ApolloProvider client={ this.props.client }>
-        {this.state.loggedIn &&
-          <NavBar
-            loggedIn={ this.state.loggedIn }
-            googleSignOut={ this.googleSignOut }
-          />}
+      <ApolloProvider client={this.props.client}>
+        <NavBar
+          loggedIn={this.state.loggedIn}
+          googleSignOut={this.googleSignOut}
+          googleSignIn={this.googleSignIn}
+        />
         <Switch>
           <Route exact path="/" render={ () => {
             if ( this.state.loggedIn ) {
