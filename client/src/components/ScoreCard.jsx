@@ -1,21 +1,15 @@
 import React from 'react';
 
-class ScoreCard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
+const ScoreCard = (props) => {
 
-  render() {
-    return (
-      <div>
-        This is the 'ScoreCard' component
-        
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      This is the 'ScoreCard' component
+      
+    </div>
+  );
+};
+
 
 
 export default ScoreCard;
