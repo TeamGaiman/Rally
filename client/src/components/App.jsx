@@ -14,22 +14,25 @@ class App extends React.Component {
     super(props);
     this.state = {
       loggedIn: false,
-      googleUser: null
+      googleUserData: null
     };
+    this.googleSignIn = this.googleSignIn.bind( this );
     this.handleLoggedIn = this.handleLoggedIn.bind( this );
-    this.updateGoogleUser = this.updateGoogleUser.bind( this );
   }
 
-  handleLoggedIn () {
-    this.setState({
-      loggedIn: !this.state.loggedIn
-    });
+  googleSignIn () {
+    var provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup( provider )
+      .then(( result ) => {
+        this.handleLoggedIn( result.additionalUserInfo );
+      });
   }
 
-  updateGoogleUser(googleUser) {
-    this.setState({
-      googleUser
-    });
+  handleLoggedIn ( userData ) {
+    this.setState( prevState => ({
+      loggedIn: true,
+      googleUserData: Object.assign( {}, userData )
+    }));
   }
 
   render () {
@@ -54,15 +57,15 @@ class App extends React.Component {
             } else {
               return <Login
                 loggedIn={ this.state.loggedIn }
-                handleLoggedIn={ this.handleLoggedIn }
+                googleSignIn={ this.googleSignIn }
                 updateGoogleUser= { this.updateGoogleUser }
               />;
             }
           }} />
           <Route path="/signup" render={() =>
             <Signup
-              loggedIn={this.state.loggedIn}
-              googleUser={this.state.googleUser}
+              loggedIn={ this.state.loggedIn }
+              googleUser={ this.state.googleUser }
             />} 
           />
           <Route path="/matchmaker" render={ () => <Matchmaking /> }/>
