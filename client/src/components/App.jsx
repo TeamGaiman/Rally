@@ -18,6 +18,7 @@ class App extends React.Component {
     };
     this.googleSignIn = this.googleSignIn.bind( this );
     this.handleLoggedIn = this.handleLoggedIn.bind( this );
+    this.googleSignOut = this.googleSignOut.bind( this );
   }
 
   googleSignIn () {
@@ -25,6 +26,17 @@ class App extends React.Component {
     firebase.auth().signInWithPopup( provider )
       .then(( result ) => {
         this.handleLoggedIn( result.additionalUserInfo );
+      });
+  }
+
+  googleSignOut () {
+    this.handleLoggedIn();
+    firebase.auth().signOut()
+      .then( () => {
+        console.log( 'Logout successful' );
+      })
+      .catch( function ( error ) {
+        console.log( 'Error logging out from google: ', error );
       });
   }
 
@@ -41,7 +53,7 @@ class App extends React.Component {
         {this.state.loggedIn &&
           <NavBar
             loggedIn={ this.state.loggedIn }
-            handleLoggedIn={ this.handleLoggedIn }
+            googleSignOut={ this.googleSignOut }
           />}
         <Switch>
           <Route exact path="/" render={ () => {
