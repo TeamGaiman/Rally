@@ -32,7 +32,7 @@ class Signup extends React.Component {
   }
 
   render() {
-    if (this.props.loggedIn) {
+    if (this.props.googleUserData) {
       return (
         <div className='signup-form'>
           <h3>Get Started</h3>
@@ -42,13 +42,21 @@ class Signup extends React.Component {
             how to auto populate from google
             **********************
             */}
-            <FormGroup controlId="email" >
+            <FormGroup controlId="email">
               <ControlLabel>Email</ControlLabel>
-              <FormControl onChange={ this.handleFieldChange }/>
+              <FormControl
+                onChange={this.handleFieldChange}
+                value={this.props.googleUserData.profile.email}
+                disabled="true" 
+              />
             </FormGroup>
             <FormGroup controlId="fullName" >
               <ControlLabel>Full Name</ControlLabel>
-              <FormControl onChange={ this.handleFieldChange } />
+              <FormControl
+                onChange={this.handleFieldChange}
+                value={this.props.googleUserData.profile.name}
+                disabled="true" 
+              />
             </FormGroup>
             <FormGroup controlId="username" >
               <ControlLabel>Username</ControlLabel>
