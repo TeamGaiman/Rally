@@ -12,47 +12,24 @@ class Signup extends React.Component {
       phone: '',
       location: '',
       skillTier: '4',
-      openElo: false
+      tierModal: false
     };
 
-    this.handleUsername = this.handleUsername.bind(this);
-    this.handleEmail = this.handleEmail.bind(this);
-    this.handleLocation = this.handleLocation.bind(this);
-    this.handlePhone = this.handlePhone.bind(this);
-    this.handleSkillSelect = this.handleSkillSelect.bind(this);
-    this.handlehandleFullName = this.handlehandleFullName.bind(this);
-    this.handleHide = this.handleHide.bind(this);
-  }
-  handleHide() {
-    this.setState({ openElo: false });
+    this.handleFieldChange = this.handleFieldChange.bind(this);
+    this.toggleTierModal = this.toggleTierModal.bind(this);
   }
 
-  handleUsername(e) {
-    this.setState({ username: e.target.value });
-  }
-  handlehandleFullName(e) {
-    this.setState({ fullName: e.target.value });
-  }
-
-  handleEmail(e) {
-    this.setState({ email: e.target.value });
+  toggleTierModal() {
+    this.setState({ 
+      tierModal: !this.state.tierModal 
+    });
   }
 
-  handleLocation(e) {
-    this.setState({ location: e.target.value });
+  handleFieldChange(e) {
+    this.setState({
+      [e.target.id]: e.target.value
+    });
   }
-  handlePhone(e) {
-    this.setState({ phone: e.target.value });
-  }
-
-  handleSkillSelect(e) {
-    this.setState({skillTier: e.target.value});
-  }
-
-  handleHide() {
-    this.setState({ openElo: false });
-  }
-
 
   render() {
     if (this.props.loggedIn) {
@@ -65,29 +42,29 @@ class Signup extends React.Component {
             how to auto populate from google
             **********************
             */}
-            {/* <FormGroup controlId="formHorizontalEmail" >
+            <FormGroup controlId="email" >
               <ControlLabel>Email</ControlLabel>
-              <FormControl onChange={ this.handleEmail }/>
-            </FormGroup> */}
-            {/* <FormGroup controlId="formHorizontalEmail" >
+              <FormControl onChange={ this.handleFieldChange }/>
+            </FormGroup>
+            <FormGroup controlId="fullName" >
               <ControlLabel>Full Name</ControlLabel>
-              <FormControl onChange={ this.handleFullName } />
-            </FormGroup> */}
-            <FormGroup controlId="formHorizontalUsername" >
+              <FormControl onChange={ this.handleFieldChange } />
+            </FormGroup>
+            <FormGroup controlId="username" >
               <ControlLabel>Username</ControlLabel>
-              <FormControl type="username" value={this.state.username} onChange={this.handleUsername} />
+              <FormControl onChange={ this.handleFieldChange } />
             </FormGroup>
-            <FormGroup>
+            <FormGroup controlId="phone">
               <ControlLabel>Phone Number</ControlLabel>
-              <FormControl onChange={this.handlePhone} placeholder='optional' />
+              <FormControl onChange={ this.handleFieldChange } placeholder='optional' />
             </FormGroup>
-            <FormGroup>
+            <FormGroup controlId="location">
               <ControlLabel>Preferred Location</ControlLabel>
-              <FormControl onChange={this.handleLocation} placeholder='optional' />
+              <FormControl onChange={ this.handleFieldChange } placeholder='optional' />
             </FormGroup>
-            <FormGroup controlId="formControlsSelect">
-              <ControlLabel>Starting Tier - <Button onClick={() => this.setState({ openElo: true })}> ❔ </Button> </ControlLabel>
-              <FormControl componentClass="select" onChange={this.handleSkillSelect}>
+            <FormGroup controlId="skillTier">
+              <ControlLabel>Starting Tier - <Button onClick={ this.toggleTierModal }> ❔ </Button> </ControlLabel>
+              <FormControl componentClass="select" onChange={ this.handleFieldChange }>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -102,13 +79,15 @@ class Signup extends React.Component {
           </Form>
 
           <Modal
-            show={this.state.openElo}
-            onHide={this.handleHide}
+            bsSize="large"
+            className='tier-modal'
+            show={this.state.tierModal}
+            onHide={ this.toggleTierModal }
           >
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title">
                 Tier Explanation
-            </Modal.Title>
+              </Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <h4>Tier One:</h4>
@@ -121,7 +100,10 @@ class Signup extends React.Component {
               <p>A tier four player has solid shot anticipation and frequently has an outstanding shot. Exceptional consistency, regular forcing of errors off of short balls, volleys, lobs, drop shots, half volleys and overhead smashes are all available to a player at this level. Power and consistency may be major weapons for these players as well as varying strategies and style of play.</p>
             </Modal.Body>
             <Modal.Footer>
-              <Button onClick={this.handleHide}>Close</Button>
+              <Button 
+                onClick={this.toggleTierModal}>
+                Close
+              </Button>
             </Modal.Footer>
           </Modal>
         </div>
@@ -131,6 +113,5 @@ class Signup extends React.Component {
     }
   }
 }
-
 
 export default Signup;
