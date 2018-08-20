@@ -37,30 +37,30 @@ const NavBar = (props) => {
               </NavItem>
             </LinkContainer> */}
             <NavDropdown eventKey={3} title={props.googleUserData.profile.given_name} id="basic-nav-dropdown">
-            <LinkContainer to='/profile'>
-              <NavItem >
-                Profile
-              </NavItem>
-            </LinkContainer>
-            <LinkContainer to='/stats'>
-              <NavItem>
-                Stats
-              </NavItem>
-            </LinkContainer>
+              <LinkContainer to='/profile'>
+                <NavItem >
+                  Profile
+                </NavItem>
+              </LinkContainer>
+              <LinkContainer to='/stats'>
+                <NavItem>
+                  Stats
+                </NavItem>
+              </LinkContainer>
               <MenuItem divider />
               <LinkContainer to='/login'>
-              <NavItem onClick={props.googleSignOut}>
-              Logout
-              </NavItem>
-            </LinkContainer>
+                <NavItem onClick={props.googleSignOut}>
+                  Logout
+                </NavItem>
+              </LinkContainer>
             </NavDropdown>
             <Navbar.Brand className="profile-image">
-            <Image
-                  src={props.googleUserData.profile.picture}
-                  
-                  circle
-                  responsive
-                />
+              <Image
+                src={props.googleUserData.profile.picture}
+
+                circle
+                responsive
+              />
             </Navbar.Brand>
           </Nav>
         }
