@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table, Modal, Button } from 'react-bootstrap';
+import Datetime from 'react-datetime';
 
 import matchmakeByElo from '../../../workers/matchmaking.js';
 
@@ -13,7 +14,7 @@ class RecommendedMatches extends React.Component {
     };
 
     this.handleMatchClick = this.handleMatchClick.bind(this);
-    this.handleAcceptMatch = this.handleAcceptMatch.bind(this);
+    this.handleSendChallenge = this.handleSendChallenge.bind(this);
     this.handleHideMatch = this.handleHideMatch.bind(this);
   }
 
@@ -32,7 +33,7 @@ class RecommendedMatches extends React.Component {
     });
   }
 
-  handleAcceptMatch() {
+  handleSendChallenge() {
     this.setState({ showMatch: false });
     
   }
@@ -42,6 +43,7 @@ class RecommendedMatches extends React.Component {
   }
 
   render() {
+    var date = new Date();
     return (
       <div className='matches-container'>
         <h2>Recommended Matches</h2>
@@ -68,26 +70,29 @@ class RecommendedMatches extends React.Component {
           ? <Modal
             show={ this.state.showMatch }
             onHide={ this.handleHideMatch }
+            className="challenge-modal"
           >
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title">
                 { this.state.matchClickUser.name }
+                <div>
+                  {/* Profile Pic
+                  <br/>
+                  <br/> */}
+                  W: { this.state.matchClickUser.wins  } L: {this.state.matchClickUser.losses }
+                  <br/>
+                  Trophies:
+                </div>
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <div>
-                {/* Profile Pic
-                <br/>
-                <br/> */}
-                W: { this.state.matchClickUser.wins  } L: {this.state.matchClickUser.losses }
-                <br/>
-                <br/>
-                Trophies:
-              </div>
+
+              Select Date: <Datetime className="calendar" />
+
             </Modal.Body>
             <Modal.Footer>
               <Button onClick={ this.handleHideMatch }>Cancel</Button>
-              <Button bsStyle="primary" onClick={ this.handleAcceptMatch }>Send Challenge</Button>
+              <Button bsStyle="primary" onClick={ this.handleSendChallenge }>Send Challenge</Button>
             </Modal.Footer>
           </Modal>
           : null }

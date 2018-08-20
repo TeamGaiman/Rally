@@ -11,7 +11,6 @@ const CREATE_USER = gql `
   }
 `;
 
-
 const CREATE_MATCH = gql `
   mutation ($participantA: String!, $participantB: String!, $startTime: String!, $location: String!) {
   createMatch(input: {

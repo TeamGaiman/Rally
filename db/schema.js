@@ -25,6 +25,8 @@ const typeDefs = `
     winner: String
     score: String
     matchId: Int!
+    upcoming: Boolean
+    accepted: Boolean
   }
   type Query {
     getAllUsers: [User]
