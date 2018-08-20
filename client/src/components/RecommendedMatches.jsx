@@ -17,9 +17,10 @@ class RecommendedMatches extends React.Component {
     this.handleMatchClick = this.handleMatchClick.bind(this);
     this.handleSendChallenge = this.handleSendChallenge.bind(this);
     this.handleHideMatch = this.handleHideMatch.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
   }
 
-  componentDidMount () {
+  componentDidMount() {
     let newMatches = matchmakeByElo(2000, this.props.users);
     this.setState({
       matchedUsers: newMatches
@@ -37,11 +38,10 @@ class RecommendedMatches extends React.Component {
   handleDateChange(e) {
     console.log('calendar change', e._d);
     this.setState({ calendarDate: e._d });
-    // onChange({target: {value: ''}});
   }
 
   handleSendChallenge() {
-    this.setState({ showMatch: false });
+    this.setState({ showMatch: false, calendarDate: '' });
     
   }
 
