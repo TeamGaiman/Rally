@@ -36,7 +36,7 @@ class RecommendedMatches extends React.Component {
   }
 
   handleDateChange(e) {
-    console.log('calendar change', e._d);
+    console.log('calendar change--', e._d);
     this.setState({ calendarDate: e._d });
   }
 
