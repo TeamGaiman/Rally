@@ -3,6 +3,9 @@ import { Grid, Row, Col, Navbar } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Query } from 'react-apollo';
 import { SectionsContainer, Section } from 'react-fullpage';
+import icon1 from '../icon1.png';
+import icon2 from '../icon2.png';
+import icon3 from '../icon3.png';
 
 export default (props) => {
   let options = {
@@ -23,7 +26,7 @@ export default (props) => {
         <Section>
           <Grid>
             <Row className="show-grid">
-              {/* <Col xs={12} md={4} className="text-center">
+              <Col xs={12} md={4} className="text-center">
                 <img src={icon1} className="icons"/>
                 <h2>Get Matches</h2>
                 Get recommended matches from our elo ranking system.
@@ -46,7 +49,7 @@ export default (props) => {
                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla posuere.
                 <br/>
                 <br/>
-              </Col> */}
+              </Col>
             </Row>
           </Grid>
         </Section>
