@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table, Modal, Button } from 'react-bootstrap';
+import Datetime from 'react-datetime';
 
 import matchmakeByElo from '../../../workers/matchmaking.js';
 
@@ -9,15 +10,17 @@ class RecommendedMatches extends React.Component {
     this.state = {
       matchedUsers: [],
       showMatch: false,
-      matchClickUser: null
+      matchClickUser: null,
+      calendarDate: ''
     };
 
     this.handleMatchClick = this.handleMatchClick.bind(this);
-    this.handleAcceptMatch = this.handleAcceptMatch.bind(this);
+    this.handleSendChallenge = this.handleSendChallenge.bind(this);
     this.handleHideMatch = this.handleHideMatch.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
   }
 
-  componentDidMount () {
+  componentDidMount() {
     let newMatches = matchmakeByElo(2000, this.props.users);
     this.setState({
       matchedUsers: newMatches
@@ -32,8 +35,13 @@ class RecommendedMatches extends React.Component {
     });
   }
 
-  handleAcceptMatch() {
-    this.setState({ showMatch: false });
+  handleDateChange(e) {
+    console.log('calendar change--', e._d);
+    this.setState({ calendarDate: e._d });
+  }
+
+  handleSendChallenge() {
+    this.setState({ showMatch: false, calendarDate: '' });
     
   }
 
@@ -42,6 +50,11 @@ class RecommendedMatches extends React.Component {
   }
 
   render() {
+    var yesterday = Datetime.moment().subtract(1, 'day');
+    var valid = ( current ) => {
+      return current.isAfter( yesterday );
+    };
+
     return (
       <div className='matches-container'>
         <h2>Recommended Matches</h2>
@@ -68,26 +81,34 @@ class RecommendedMatches extends React.Component {
           ? <Modal
             show={ this.state.showMatch }
             onHide={ this.handleHideMatch }
+            className="challenge-modal"
           >
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title">
                 { this.state.matchClickUser.name }
+                <div>
+                  {/* Profile Pic
+                  <br/>
+                  <br/> */}
+                  W: { this.state.matchClickUser.wins } L: {this.state.matchClickUser.losses }
+                  <br/>
+                  Trophies:
+                </div>
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <div>
-                {/* Profile Pic
-                <br/>
-                <br/> */}
-                W: { this.state.matchClickUser.wins  } L: {this.state.matchClickUser.losses }
-                <br/>
-                <br/>
-                Trophies:
-              </div>
+              <Datetime 
+                isValidDate={ valid } 
+                className="form-width" 
+                closeOnSelect={ true } 
+                inputProps={{ placeholder: 'Select Date' }}
+                onChange={ this.handleDateChange }
+                value={ this.state.calendarDate }
+              />
             </Modal.Body>
             <Modal.Footer>
               <Button onClick={ this.handleHideMatch }>Cancel</Button>
-              <Button bsStyle="primary" onClick={ this.handleAcceptMatch }>Send Challenge</Button>
+              <Button bsStyle="primary" onClick={ this.handleSendChallenge }>Send Challenge</Button>
             </Modal.Footer>
           </Modal>
           : null }
