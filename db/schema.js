@@ -21,10 +21,10 @@ const typeDefs = `
     participantB: String!
     startTime: String!
     location: String!
-    complete: Boolean
+    accepted: Boolean
+    completed: Boolean
     winner: String
     score: String
-    matchId: Int!
   }
   type Query {
     getAllUsers: [User]
@@ -49,13 +49,17 @@ const typeDefs = `
     participantA: String
     participantB: String
     startTime: String
-    location: String 
+    location: String
+    accepted: Boolean
+    completed: Boolean
+    winner: String
+    score: String
   }
   type Mutation {
     createUser(input: EmailInput) : User
-    createMatch(input: MatchInput) : Match
     updateUser(email: String, input: UserInput) : User
-    acceptMatch(email: String, matches: MatchInput) : User
+    createMatch(input: MatchInput) : Match
+    updateMatch(id: String, input: MatchInput) : Match
   }
 `;
 
