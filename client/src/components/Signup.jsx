@@ -1,51 +1,58 @@
 import React from 'react';
 import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Mutation } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 
 import TierModal from './TierModal.jsx';
+import { CHECK_EMAIL_IS_UNIQUE } from '../apollo/queries.js';
 import { CREATE_USER } from '../apollo/mutations.js';
+
+const CheckEmail = () => (
+  <Query query={ CHECK_EMAIL_IS_UNIQUE }>
+    {({ loading, error, data }) => {
+      if ( loading ) { return null; }
+      if ( error ) { return null; }
+      console.log(data);
+      return (
+        data.checkEmailIsUnique
+      );
+    }}
+  </Query>
+);
 
 class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      username: '',
-      fullName: '',
-      phone: '',
-      location: '',
-      skillTier: '4',
       tierModal: false
     };
-
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.toggleTierModal = this.toggleTierModal.bind(this);
   }
 
   toggleTierModal() {
-    this.setState({ 
+    this.setState({
       tierModal: !this.state.tierModal 
     });
   }
 
   handleFieldChange(e) {
     this.setState({
-      [e.target.id]: e.target.value
+      [ e.target.id ]: e.target.value
     });
   }
 
   render() {
-    if (this.props.googleUserData) {
-      return (
+    if ( this.props.googleUserData ) {
+      return (    
         <div className='signup-form'>
           <h3>Get Started</h3>
           <Form horizontal>
             <FormGroup controlId="email">
               <ControlLabel>Email</ControlLabel>
               <FormControl
-                onChange={this.handleFieldChange}
-                value={this.props.googleUserData.email}
+                onChange={ this.handleFieldChange }
+                value={ this.props.googleUserData.email }
                 disabled="true" 
               />
             </FormGroup>
@@ -87,7 +94,8 @@ class Signup extends React.Component {
                     <Button 
                       type="submit"
                       className='pull-right' 
-                      onClick={createUser}>
+                      onClick={ createUser }>
+                      
                       Enter Matchmaking
                     </Button>
                   ) }
@@ -95,12 +103,10 @@ class Signup extends React.Component {
               </Link>
             </FormGroup>
           </Form>
-
           <TierModal
             tierModal={ this.state.tierModal }
             toggleTierModal={ this.toggleTierModal }
           />
-          
         </div>
       );
     } else {
