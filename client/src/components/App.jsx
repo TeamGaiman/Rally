@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider, Query } from 'react-apollo';
 
 import NavBar from './NavBar.jsx';
 import Login from './Login.jsx';
@@ -8,6 +8,33 @@ import Signup from './Signup.jsx';
 import Profile from './Profile.jsx';
 import Matchmaking from './Matchmaking.jsx';
 import Stats from './Stats.jsx';
+import { CHECK_EMAIL_IS_UNIQUE } from '../apollo/queries.js';
+
+const CheckEmail = ( input ) => {
+  if ( input ) {
+    return (
+      <Query query={ CHECK_EMAIL_IS_UNIQUE }
+        variables={{ email: input.email }}>
+        {({ loading, error, data }) => {
+          if ( loading ) {
+            console.log('loading...');
+            return null;
+          }
+          if ( error ) {
+            console.log( error );
+            return null;
+          }
+          console.log(data);
+          return (
+            <p>{data.checkEmailIsUnique}</p>
+          );
+        }}
+      </Query>
+    );
+  } else {
+    return null;
+  }
+};
 
 class App extends React.Component {
   constructor(props) {
@@ -15,7 +42,8 @@ class App extends React.Component {
     this.state = {
       googleUserData: null,
       userProfile: null,
-      playerData: null
+      playerData: null,
+      firstVisit: true
     };
 
     this.authListener = this.authListener.bind(this);
@@ -79,6 +107,7 @@ class App extends React.Component {
   render () {
     return (
       <ApolloProvider client={ this.props.client }>
+        {CheckEmail('davisstevens@grainspot.com')}
         <NavBar
           googleSignOut={ this.googleSignOut }
           googleSignIn={ this.googleSignIn }
@@ -107,7 +136,8 @@ class App extends React.Component {
               mapGoogleDataToProfile={ this.mapGoogleDataToProfile }
             />} 
           />
-          <Route path="/matchmaker" render={ () => <Matchmaking testState={this.state} mapGoogleDataToProfile={ this.mapGoogleDataToProfile }/> }/>
+          <Route path="/matchmaker" render={ () => <Matchmaking mapGoogleDataToProfile={ this.mapGoogleDataToProfile }/>
+          }/>
           <Route path="/profile" render={ () => <Profile /> }/>
           <Route path="/stats" render={ () => <Stats /> }/>
         </Switch>

@@ -17,7 +17,6 @@ class Matchmaking extends React.Component {
 
   componentDidMount () {
     this.props.mapGoogleDataToProfile();
-    console.log(this.props.testState);
   }
 
   render () {

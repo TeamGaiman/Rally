@@ -1,10 +1,24 @@
 import React from 'react';
 import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Mutation } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 
 import TierModal from './TierModal.jsx';
+import { CHECK_EMAIL_IS_UNIQUE } from '../apollo/queries.js';
 import { CREATE_USER } from '../apollo/mutations.js';
+
+const CheckEmail = () => (
+  <Query query={ CHECK_EMAIL_IS_UNIQUE }>
+    {({ loading, error, data }) => {
+      if ( loading ) { return null; }
+      if ( error ) { return null; }
+      console.log(data);
+      return (
+        data.checkEmailIsUnique
+      );
+    }}
+  </Query>
+);
 
 class Signup extends React.Component {
   constructor(props) {
@@ -30,7 +44,7 @@ class Signup extends React.Component {
 
   render() {
     if ( this.props.googleUserData ) {
-      return (
+      return (    
         <div className='signup-form'>
           <h3>Get Started</h3>
           <Form horizontal>
@@ -89,12 +103,10 @@ class Signup extends React.Component {
               </Link>
             </FormGroup>
           </Form>
-
           <TierModal
             tierModal={ this.state.tierModal }
             toggleTierModal={ this.toggleTierModal }
           />
-          
         </div>
       );
     } else {
