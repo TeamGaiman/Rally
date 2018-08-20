@@ -8,8 +8,6 @@ import { withClientState } from 'apollo-link-state';
 import { HttpLink } from 'apollo-link-http';
 import defaultStates from './apollo/defaultStates';
 
-
-
 const cache = new InMemoryCache();
 const stateLink = withClientState({
   cache,

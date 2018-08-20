@@ -1,7 +1,11 @@
 import React from 'react';
 import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { Mutation } from 'react-apollo';
+
 import TierModal from './TierModal.jsx';
+import { CREATE_USER } from '../apollo/mutations.js';
+
 class Signup extends React.Component {
   constructor(props) {
     super(props);
@@ -33,6 +37,7 @@ class Signup extends React.Component {
   }
 
   render() {
+    let email = 'test';
     if (this.props.loggedIn) {
       return (
         <div className='signup-form'>
@@ -77,7 +82,18 @@ class Signup extends React.Component {
             </FormGroup>
             <FormGroup>
               <Link to='/matchmaker'>
-                <Button type="submit" className='pull-right' >Enter Matchmaking</Button>
+                <Mutation 
+                  mutation={ CREATE_USER }
+                  variables={{ email: this.props.googleUserData.profile.email }}>
+                  { createUser => (
+                    <Button 
+                      type="submit"
+                      className='pull-right' 
+                      onClick={createUser}>
+                      Enter Matchmaking
+                    </Button>
+                  ) }
+                </Mutation>
               </Link>
             </FormGroup>
           </Form>
