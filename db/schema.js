@@ -30,7 +30,7 @@ const typeDefs = `
     getAllUsers: [User]
     getUsersByTier(tier: Int): [User]
     getUser(name: String): User
-    checkEmailIsUnique(email: String): Boolean
+    checkEmailIsUnique(email: String!): Boolean
     getUserByEmail(email: String): User
   }
   input EmailInput {

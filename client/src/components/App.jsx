@@ -11,29 +11,28 @@ import Stats from './Stats.jsx';
 import { CHECK_EMAIL_IS_UNIQUE } from '../apollo/queries.js';
 
 const CheckEmail = ( input ) => {
-  if ( input ) {
-    return (
-      <Query query={ CHECK_EMAIL_IS_UNIQUE }
-        variables={{ email: input.email }}>
-        {({ loading, error, data }) => {
-          if ( loading ) {
-            console.log('loading...');
-            return null;
-          }
-          if ( error ) {
-            console.log( error );
-            return null;
-          }
-          console.log(data);
-          return (
-            <p>{data.checkEmailIsUnique}</p>
-          );
-        }}
-      </Query>
-    );
-  } else {
-    return null;
-  }
+  return (
+    <Query query={ CHECK_EMAIL_IS_UNIQUE }
+      variables={ input }
+      fetchPolicy='no-cache'>
+      {({ loading, error, data }) => {
+        if ( loading ) {
+          console.log('loading...');
+          return null;
+        }
+        if ( error ) {
+          console.log( error );
+          return null;
+        }
+        let result = data.checkEmailIsUnique || false;
+        if ( result === false ) {
+          console.log('Welcome back!');
+          return result;
+        }
+        return null;
+      }}
+    </Query>
+  );
 };
 
 class App extends React.Component {
@@ -104,10 +103,16 @@ class App extends React.Component {
     });
   }
 
+  checkForNewUser () {
+    console.log('hi');
+  }
+
   render () {
     return (
       <ApolloProvider client={ this.props.client }>
-        {CheckEmail('davisstevens@grainspot.com')}
+        {/* {this.checkForNewUser()} */}
+        {( this.state.googleUserData !== null && this.state.firstVisit )
+          ? CheckEmail({ email: this.state.googleUserData.email }) : null }
         <NavBar
           googleSignOut={ this.googleSignOut }
           googleSignIn={ this.googleSignIn }
@@ -138,8 +143,8 @@ class App extends React.Component {
           />
           <Route path="/matchmaker" render={ () => <Matchmaking mapGoogleDataToProfile={ this.mapGoogleDataToProfile }/>
           }/>
-          <Route path="/profile" render={ () => <Profile /> }/>
-          <Route path="/stats" render={ () => <Stats /> }/>
+          <Route path="/profile" render={ () => <Profile/> }/>
+          <Route path="/stats" render={ () => <Stats/> }/>
         </Switch>
       </ApolloProvider>
     );

@@ -22,6 +22,7 @@ const client = new ApolloClient({
     })
   ]),
   cache: cache,
+  connectToDevTools: true
 });
 
 ReactDOM.render(

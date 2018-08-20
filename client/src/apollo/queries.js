@@ -44,7 +44,7 @@ const GET_USER_BY_EMAIL = gql`
 `;
 
 const CHECK_EMAIL_IS_UNIQUE = gql`
-  query CheckEmailIsUnique($email: String) {
+  query CheckEmailIsUnique($email: String!) {
     checkEmailIsUnique(email: $email)
   }
 `;
