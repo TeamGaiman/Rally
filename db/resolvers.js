@@ -18,6 +18,9 @@ const resolvers = {
       } else {
         return false;
       }
+    },
+    getUserByEmail: async(_, { email }) => {
+      return await models.User.findOne({where: { email }});
     }
   },
   Mutation: {
