@@ -13,60 +13,74 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
       googleUserData: null
     };
+
+    this.authListener = this.authListener.bind( this );
     this.googleSignIn = this.googleSignIn.bind( this );
-    this.handleLoggedIn = this.handleLoggedIn.bind( this );
     this.googleSignOut = this.googleSignOut.bind( this );
+  }
+
+  componentDidMount() {
+    this.authListener();
+  }
+
+  authListener() {
+    firebase.auth().onAuthStateChanged( (user) => {
+      if (user) {
+        this.setState({
+          googleUserData: Object.assign( {}, user.providerData[0] )
+        });
+        console.log('Session found for user: ', user.providerData[0]);
+      } else {
+        this.setState({
+          googleUserData: null
+        });
+        console.log('Session ended for user.');
+      }
+    });
   }
 
   googleSignIn () {
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup( provider )
-      .then(( result ) => {
-        this.handleLoggedIn( result.additionalUserInfo );
+      .then(() => {
+        return;
+      })
+      .catch((err) => {
+        console.log('Error signing in: ', err);
       });
   }
 
   googleSignOut () {
-    this.handleLoggedIn();
-    this.setState({ loggedIn: false });
+    this.setState({ googleUserData: null });
     firebase.auth().signOut()
-      .then( () => {
-        console.log( 'Logout successful' );
+      .then(() => {
+        return;
       })
-      .catch( function ( error ) {
-        console.log( 'Error logging out from google: ', error );
+      .catch( ( err ) => {
+        console.log( 'Error logging out from google: ', err );
       });
-  }
-
-  handleLoggedIn ( userData ) {
-    this.setState({
-      loggedIn: true,
-      googleUserData: Object.assign( {}, userData )
-    });
   }
 
   render () {
     return (
-      <ApolloProvider client={this.props.client}>
+      <ApolloProvider client={ this.props.client }>
         <NavBar
-          loggedIn={this.state.loggedIn}
-          googleSignOut={this.googleSignOut}
-          googleSignIn={this.googleSignIn}
-          googleUserData={this.state.googleUserData}
+          googleSignOut={ this.googleSignOut }
+          googleSignIn={ this.googleSignIn }
+          googleUserData={ this.state.googleUserData }
         />
         <Switch>
           <Route exact path="/" render={ () => {
-            if ( this.state.loggedIn ) {
+            if ( this.state.googleUserData ) {
               return <Redirect to="/matchmaker" />;
             } else {
               return <Redirect to="/login" />;
             }
-          }}/>
+          }} />
           <Route path="/login" render={ () => {
-            if ( this.state.loggedIn ) {
+            if ( this.state.googleUserData ) {
               return <Redirect to="/matchmaker" />;
             } else {
               return <Login
@@ -76,7 +90,6 @@ class App extends React.Component {
           }} />
           <Route path="/signup" render={() =>
             <Signup
-              loggedIn={ this.state.loggedIn }
               googleUserData={ this.state.googleUserData }
             />} 
           />

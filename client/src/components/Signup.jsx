@@ -10,7 +10,6 @@ class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
       email: '',
       username: '',
       fullName: '',
@@ -37,8 +36,7 @@ class Signup extends React.Component {
   }
 
   render() {
-    let email = 'test';
-    if (this.props.loggedIn) {
+    if (this.props.googleUserData) {
       return (
         <div className='signup-form'>
           <h3>Get Started</h3>
@@ -47,7 +45,7 @@ class Signup extends React.Component {
               <ControlLabel>Email</ControlLabel>
               <FormControl
                 onChange={this.handleFieldChange}
-                value={this.props.googleUserData.profile.email}
+                value={this.props.googleUserData.email}
                 disabled="true" 
               />
             </FormGroup>
@@ -55,7 +53,7 @@ class Signup extends React.Component {
               <ControlLabel>Full Name</ControlLabel>
               <FormControl
                 onChange={this.handleFieldChange}
-                value={this.props.googleUserData.profile.name}
+                value={this.props.googleUserData.displayName}
                 disabled="true" 
               />
             </FormGroup>
@@ -84,7 +82,7 @@ class Signup extends React.Component {
               <Link to='/matchmaker'>
                 <Mutation 
                   mutation={ CREATE_USER }
-                  variables={{ email: this.props.googleUserData.profile.email }}>
+                  variables={{ email: this.props.googleUserData.email }}>
                   { createUser => (
                     <Button 
                       type="submit"
@@ -99,8 +97,8 @@ class Signup extends React.Component {
           </Form>
 
           <TierModal
-            tierModal={this.state.tierModal}
-            toggleTierModal={this.toggleTierModal}
+            tierModal={ this.state.tierModal }
+            toggleTierModal={ this.toggleTierModal }
           />
           
         </div>
