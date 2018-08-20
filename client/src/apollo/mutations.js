@@ -2,10 +2,8 @@ import gql from 'graphql-tag';
 
 // ¡UNTESTED!
 const CREATE_USER = gql `
-  mutation ($email: String!) {
-    createUser(input: {
-      email: $email
-    }){
+  mutation CreateUser($email: String!) {
+    createUser(input:{email: $email}) {
       email
     }
   }
