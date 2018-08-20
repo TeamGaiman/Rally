@@ -10,39 +10,13 @@ import Matchmaking from './Matchmaking.jsx';
 import Stats from './Stats.jsx';
 import { CHECK_EMAIL_IS_UNIQUE } from '../apollo/queries.js';
 
-const CheckEmail = ( input ) => {
-  return (
-    <Query query={ CHECK_EMAIL_IS_UNIQUE }
-      variables={ input }
-      fetchPolicy='no-cache'>
-      {({ loading, error, data }) => {
-        if ( loading ) {
-          console.log('loading...');
-          return null;
-        }
-        if ( error ) {
-          console.log( error );
-          return null;
-        }
-        let result = data.checkEmailIsUnique || false;
-        if ( result === false ) {
-          console.log('Welcome back!');
-          return result;
-        }
-        return null;
-      }}
-    </Query>
-  );
-};
-
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       googleUserData: null,
       userProfile: null,
-      playerData: null,
-      firstVisit: true
+      playerData: null
     };
 
     this.authListener = this.authListener.bind(this);
@@ -94,25 +68,20 @@ class App extends React.Component {
 
   /* --- ACCOUNT CREATION --- */
   mapGoogleDataToProfile () {
-    this.setState({
-      userProfile: {
-        fullName: this.state.googleUserData.displayName,
-        email: this.state.googleUserData.email,
-        phoneNumber: this.state.googleUserData.phoneNumber
-      }
-    });
-  }
-
-  checkForNewUser () {
-    console.log('hi');
+    return () => {
+      this.setState({
+        userProfile: {
+          fullName: this.state.googleUserData.displayName,
+          email: this.state.googleUserData.email,
+          phoneNumber: this.state.googleUserData.phoneNumber
+        }
+      });
+    };
   }
 
   render () {
     return (
       <ApolloProvider client={ this.props.client }>
-        {/* {this.checkForNewUser()} */}
-        {( this.state.googleUserData !== null && this.state.firstVisit )
-          ? CheckEmail({ email: this.state.googleUserData.email }) : null }
         <NavBar
           googleSignOut={ this.googleSignOut }
           googleSignIn={ this.googleSignIn }
@@ -141,8 +110,28 @@ class App extends React.Component {
               mapGoogleDataToProfile={ this.mapGoogleDataToProfile }
             />} 
           />
-          <Route path="/matchmaker" render={ () => <Matchmaking mapGoogleDataToProfile={ this.mapGoogleDataToProfile }/>
-          }/>
+          <Route path="/matchmaker" render={ () => {
+            { if (this.state.googleUserData !== null) {
+              return (
+                <Query query={ CHECK_EMAIL_IS_UNIQUE }
+                  variables={{ email: this.state.googleUserData.email }}
+                  fetchPolicy='no-cache'>
+                  {({ loading, error, data }) => {
+                    if ( loading ) { return <p>Loading...</p>; }
+                    if ( error ) { return <p>Error! ${error}</p>; }
+                    let result = data.checkEmailIsUnique || false;
+                    if ( result === false ) {
+                      console.log('Welcome back!');
+                      return <Matchmaking mapGoogleDataToProfile={ this.mapGoogleDataToProfile }/>;
+                    }
+                    return null;
+                  }}
+                </Query>
+              );
+            } else {
+              return null;
+            } }
+          }}/>
           <Route path="/profile" render={ () => <Profile/> }/>
           <Route path="/stats" render={ () => <Stats/> }/>
         </Switch>
