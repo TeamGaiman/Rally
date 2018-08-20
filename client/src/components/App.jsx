@@ -13,18 +13,22 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      googleUserData: null
+      googleUserData: null,
+      userProfile: null,
+      playerData: null
     };
 
-    this.authListener = this.authListener.bind( this );
-    this.googleSignIn = this.googleSignIn.bind( this );
-    this.googleSignOut = this.googleSignOut.bind( this );
+    this.authListener = this.authListener.bind(this);
+    this.googleSignIn = this.googleSignIn.bind(this);
+    this.googleSignOut = this.googleSignOut.bind(this);
+    this.mapGoogleDataToProfile = this.mapGoogleDataToProfile.bind(this);
   }
 
   componentDidMount() {
     this.authListener();
   }
 
+  /* --- GOOGLE AUTH FUNCTIONS --- */
   authListener() {
     firebase.auth().onAuthStateChanged( (user) => {
       if (user) {
@@ -40,7 +44,6 @@ class App extends React.Component {
       }
     });
   }
-
   googleSignIn () {
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup( provider )
@@ -51,7 +54,6 @@ class App extends React.Component {
         console.log('Error signing in: ', err);
       });
   }
-
   googleSignOut () {
     this.setState({ googleUserData: null });
     firebase.auth().signOut()
@@ -61,6 +63,17 @@ class App extends React.Component {
       .catch( ( err ) => {
         console.log( 'Error logging out from google: ', err );
       });
+  }
+
+  /* --- ACCOUNT CREATION --- */
+  mapGoogleDataToProfile () {
+    this.setState({
+      userProfile: {
+        fullName: this.state.googleUserData.displayName,
+        email: this.state.googleUserData.email,
+        phoneNumber: this.state.googleUserData.phoneNumber
+      }
+    });
   }
 
   render () {
@@ -81,7 +94,7 @@ class App extends React.Component {
           }} />
           <Route path="/login" render={ () => {
             if ( this.state.googleUserData ) {
-              return <Redirect to="/matchmaker" />;
+              return <Redirect to="/matchmaker"/>;
             } else {
               return <Login
                 googleSignIn={ this.googleSignIn }
@@ -91,9 +104,10 @@ class App extends React.Component {
           <Route path="/signup" render={() =>
             <Signup
               googleUserData={ this.state.googleUserData }
+              mapGoogleDataToProfile={ this.mapGoogleDataToProfile }
             />} 
           />
-          <Route path="/matchmaker" render={ () => <Matchmaking /> }/>
+          <Route path="/matchmaker" render={ () => <Matchmaking testState={this.state} mapGoogleDataToProfile={ this.mapGoogleDataToProfile }/> }/>
           <Route path="/profile" render={ () => <Profile /> }/>
           <Route path="/stats" render={ () => <Stats /> }/>
         </Switch>

@@ -15,6 +15,11 @@ class Matchmaking extends React.Component {
     };
   }
 
+  componentDidMount () {
+    this.props.mapGoogleDataToProfile();
+    console.log(this.props.testState);
+  }
+
   render () {
     return (
       <Query query={ GET_USERS_BY_TIER }

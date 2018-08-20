@@ -10,33 +10,26 @@ class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      username: '',
-      fullName: '',
-      phone: '',
-      location: '',
-      skillTier: '4',
       tierModal: false
     };
-
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.toggleTierModal = this.toggleTierModal.bind(this);
   }
 
   toggleTierModal() {
-    this.setState({ 
+    this.setState({
       tierModal: !this.state.tierModal 
     });
   }
 
   handleFieldChange(e) {
     this.setState({
-      [e.target.id]: e.target.value
+      [ e.target.id ]: e.target.value
     });
   }
 
   render() {
-    if (this.props.googleUserData) {
+    if ( this.props.googleUserData ) {
       return (
         <div className='signup-form'>
           <h3>Get Started</h3>
@@ -44,8 +37,8 @@ class Signup extends React.Component {
             <FormGroup controlId="email">
               <ControlLabel>Email</ControlLabel>
               <FormControl
-                onChange={this.handleFieldChange}
-                value={this.props.googleUserData.email}
+                onChange={ this.handleFieldChange }
+                value={ this.props.googleUserData.email }
                 disabled="true" 
               />
             </FormGroup>
@@ -87,7 +80,8 @@ class Signup extends React.Component {
                     <Button 
                       type="submit"
                       className='pull-right' 
-                      onClick={createUser}>
+                      onClick={ createUser }>
+                      
                       Enter Matchmaking
                     </Button>
                   ) }
