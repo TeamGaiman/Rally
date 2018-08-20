@@ -23,7 +23,6 @@ class ProfileInfo extends React.Component {
   }
 
   handleUsernameInput(e) {
-    console.log(e.target.value);
     this.setState({username: e.target.value});
   }
 
@@ -36,7 +35,6 @@ class ProfileInfo extends React.Component {
   }
 
   handleSkillSelect(e) {
-    console.log(e);
     this.setState({skillTier: e});
   }
 
