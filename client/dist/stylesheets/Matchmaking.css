@@ -17,7 +17,12 @@
   height: 90%;
 }
 
-/* Calendar */
+.form-width {
+  width: 44%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .rdt {
   position: relative;
 }

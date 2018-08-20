@@ -10,7 +10,8 @@ class RecommendedMatches extends React.Component {
     this.state = {
       matchedUsers: [],
       showMatch: false,
-      matchClickUser: null
+      matchClickUser: null,
+      calendarDate: ''
     };
 
     this.handleMatchClick = this.handleMatchClick.bind(this);
@@ -33,6 +34,12 @@ class RecommendedMatches extends React.Component {
     });
   }
 
+  handleDateChange(e) {
+    console.log('calendar change', e._d);
+    this.setState({ calendarDate: e._d });
+    // onChange({target: {value: ''}});
+  }
+
   handleSendChallenge() {
     this.setState({ showMatch: false });
     
@@ -43,7 +50,11 @@ class RecommendedMatches extends React.Component {
   }
 
   render() {
-    var date = new Date();
+    var yesterday = Datetime.moment().subtract(1, 'day');
+    var valid = ( current ) => {
+      return current.isAfter( yesterday );
+    };
+
     return (
       <div className='matches-container'>
         <h2>Recommended Matches</h2>
@@ -79,16 +90,21 @@ class RecommendedMatches extends React.Component {
                   {/* Profile Pic
                   <br/>
                   <br/> */}
-                  W: { this.state.matchClickUser.wins  } L: {this.state.matchClickUser.losses }
+                  W: { this.state.matchClickUser.wins } L: {this.state.matchClickUser.losses }
                   <br/>
                   Trophies:
                 </div>
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-
-              Select Date: <Datetime className="calendar" />
-
+              <Datetime 
+                isValidDate={ valid } 
+                className="form-width" 
+                closeOnSelect={ true } 
+                inputProps={{ placeholder: 'Select Date' }}
+                onChange={ this.handleDateChange }
+                value={ this.state.calendarDate }
+              />
             </Modal.Body>
             <Modal.Footer>
               <Button onClick={ this.handleHideMatch }>Cancel</Button>
