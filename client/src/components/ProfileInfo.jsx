@@ -38,10 +38,6 @@ class ProfileInfo extends React.Component {
     this.setState({skillTier: e});
   }
 
-
-
-
-
   render() {
     return (
       <div>
