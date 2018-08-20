@@ -13,12 +13,10 @@ const match = (sequelize, DataTypes) => {
     //MATCH INFO
     startTime: DataTypes.DATE,
     location: DataTypes.STRING,
+    accepted: { type: DataTypes.BOOLEAN, defaultValue: false },
     completed: { type: DataTypes.BOOLEAN, defaultValue: false },
     winner: { type: DataTypes.STRING, defaultValue: null },
     score: { type: DataTypes.STRING, defaultValue: null },
-
-    //METADATA
-    matchId: { type: DataTypes.INTEGER, autoIncrement: true }
   });
 
   return Match;

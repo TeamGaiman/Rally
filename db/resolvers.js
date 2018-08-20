@@ -32,11 +32,6 @@ const resolvers = {
       }
     },
 
-    createMatch: async (_, { input }) => {
-      models.Match.create( input );
-      return await input;
-    },
-
     updateUser: async (_, { input, email }) => {
       models.User.findOne({
         where: { email: email }
@@ -48,21 +43,37 @@ const resolvers = {
       return await input;
     },
 
-    acceptMatch: async ( _, { matches, email }) => {
-      // const user = await models.User.findOne({ where: { name: input.name }});
-      // user.set('matches', input);
-      // console.log('acceptMatch--', user);
-      // return user.save();
-      models.User.findOne({
-        where: { email: email }
-      })
-        .then(user => {
-          console.log('acceptMatch', user);
-          user.updateAttributes(matches);
-        })
-        .catch(err => err);
-      return await matches;
+    createMatch: async (_, { input }) => {
+      models.Match.create( input );
+      return await input;
     },
+
+    updateMatch: async (_, { input, id }) => {
+      models.Match.findOne({
+        where: { id: id }
+      })
+        .then(( match ) => {
+          match.updateAttributes( input );
+        })
+        .catch( err => console.log( 'updateMatch resolver error', err ));
+      return await input;
+    },
+
+    // acceptMatch: async ( _, { matches, email }) => {
+    //   const user = await models.User.findOne({ where: { name: input.name }});
+    //   user.set('matches', input);
+    //   console.log('acceptMatch--', user);
+    //   return user.save();
+    //   models.User.findOne({
+    //     where: { email: email }
+    //   })
+    //     .then(user => {
+    //       console.log('acceptMatch', user);
+    //       user.updateAttributes(matches);
+    //     })
+    //     .catch(err => err);
+    //   return await matches;
+    // },
   }
 };
 
