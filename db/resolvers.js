@@ -1,4 +1,5 @@
 const models = require('./index.js');
+let { Op } = models;
 
 const resolvers = {
   Query: {
@@ -21,7 +22,27 @@ const resolvers = {
     },
     getUserByEmail: async(_, { email }) => {
       return await models.User.findOne({where: { email }});
-    }
+    },
+    getUserChallenges: async (_, { username }) => {
+      return await models.Match.findAll({ where: {
+        [Op.or]: [
+          {participantA: username},
+          {participantB: username}
+        ],
+        accepted: false,
+        completed: false
+      } });
+    },
+    getUserUpcomingMatches: async (_, { username }) => {
+      return await models.Match.findAll({ where: {
+        [Op.or]: [
+          {participantA: username},
+          {participantB: username}
+        ],
+        accepted: true,
+        completed: false
+      } });
+    },
   },
   Mutation: {
     createUser: async (_, { input }) => {

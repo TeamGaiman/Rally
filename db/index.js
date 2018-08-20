@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 const sequelize = new Sequelize('gaiman', 'postgres', 'postgres', {
   dialect: 'postgres',
@@ -17,5 +18,5 @@ Object.keys(models).forEach(key => {
 
 models.sequelize = sequelize;
 models.Sequelize = Sequelize;
-
+models.Op = Op;
 module.exports = models;
