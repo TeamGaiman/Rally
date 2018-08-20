@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Modal, Button } from 'react-bootstrap';
+import { Table, Modal, Button, Form, FormGroup, FormControl, Col } from 'react-bootstrap';
 import Datetime from 'react-datetime';
 
 import matchmakeByElo from '../../../workers/matchmaking.js';
@@ -11,13 +11,15 @@ class RecommendedMatches extends React.Component {
       matchedUsers: [],
       showMatch: false,
       matchClickUser: null,
-      calendarDate: ''
+      calendarDate: '',
+      location: ''
     };
 
     this.handleMatchClick = this.handleMatchClick.bind(this);
     this.handleSendChallenge = this.handleSendChallenge.bind(this);
     this.handleHideMatch = this.handleHideMatch.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleLocationChange = this.handleLocationChange.bind(this);
   }
 
   componentDidMount() {
@@ -35,18 +37,26 @@ class RecommendedMatches extends React.Component {
     });
   }
 
+  handleHideMatch() {
+    this.setState({ showMatch: false });
+  }
+
   handleDateChange(e) {
     console.log('calendar change--', e._d);
     this.setState({ calendarDate: e._d });
   }
 
   handleSendChallenge() {
-    this.setState({ showMatch: false, calendarDate: '' });
+    this.setState({ 
+      showMatch: false, 
+      calendarDate: '',
+      location: ''
+    });
     
   }
 
-  handleHideMatch() {
-    this.setState({ showMatch: false });
+  handleLocationChange(e) {
+    this.setState({ location: e.target.value });
   }
 
   render() {
@@ -97,6 +107,7 @@ class RecommendedMatches extends React.Component {
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
+
               <Datetime 
                 isValidDate={ valid } 
                 className="form-width" 
@@ -105,6 +116,17 @@ class RecommendedMatches extends React.Component {
                 onChange={ this.handleDateChange }
                 value={ this.state.calendarDate }
               />
+              
+              <br/> 
+
+              <Form horizontal className="form-width">
+                <FormGroup controlId="formHorizontalEmail">
+                  <Col sm={12}>
+                    <FormControl placeholder="Location" onChange={ this.handleLocationChange } value={ this.state.location }/>
+                  </Col>
+                </FormGroup>
+              </Form>
+
             </Modal.Body>
             <Modal.Footer>
               <Button onClick={ this.handleHideMatch }>Cancel</Button>
