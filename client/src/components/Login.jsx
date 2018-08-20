@@ -3,9 +3,9 @@ import { Grid, Row, Col, Navbar } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Query } from 'react-apollo';
 import { SectionsContainer, Section } from 'react-fullpage';
-import icon1 from '../icon1.png';
-import icon2 from '../icon2.png';
-import icon3 from '../icon3.png';
+import icon1 from '../../dist/lib/icon1.png';
+import icon2 from '../../dist/lib/icon2.png';
+import icon3 from '../../dist/lib/icon3.png';
 
 export default (props) => {
   let options = {
