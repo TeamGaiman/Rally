@@ -59,7 +59,7 @@ class RecommendedMatches extends React.Component {
   }
 
   handleLocationChange(e) {
-    console.log('location', e.target.value)
+    console.log('location', e.target.value);
     this.setState({ location: e.target.value });
   }
 
