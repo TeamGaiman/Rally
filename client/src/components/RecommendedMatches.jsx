@@ -1,6 +1,6 @@
 import React from 'react';
-import { Table, Modal, Button } from 'react-bootstrap';
-import Datetime from 'react-datetime';
+import { Table } from 'react-bootstrap';
+import RecommendedModal from './RecommendedModal.jsx';
 
 import matchmakeByElo from '../../../workers/matchmaking.js';
 
@@ -19,6 +19,7 @@ class RecommendedMatches extends React.Component {
     this.handleSendChallenge = this.handleSendChallenge.bind(this);
     this.handleHideMatch = this.handleHideMatch.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleLocationChange = this.handleLocationChange.bind(this);
   }
 
   componentDidMount() {
@@ -36,26 +37,33 @@ class RecommendedMatches extends React.Component {
     });
   }
 
+  handleHideMatch() {
+    this.setState({ showMatch: false });
+  }
+
   handleDateChange(e) {
     console.log('calendar change--', e._d);
     this.setState({ calendarDate: e._d });
   }
 
   handleSendChallenge() {
-    this.setState({ showMatch: false, calendarDate: '' });
-    
+    if (this.state.calendarDate && this.state.location) {
+      this.setState({ 
+        showMatch: false, 
+        calendarDate: '',
+        location: ''
+      });
+    } else {
+      window.alert('Fill out Date and Location');
+    }
   }
 
-  handleHideMatch() {
-    this.setState({ showMatch: false });
+  handleLocationChange(e) {
+    console.log('location', e.target.value)
+    this.setState({ location: e.target.value });
   }
 
   render() {
-    var yesterday = Datetime.moment().subtract(1, 'day');
-    var valid = ( current ) => {
-      return current.isAfter( yesterday );
-    };
-
     return (
       <div className='matches-container'>
         <h2>Recommended Matches</h2>
@@ -79,55 +87,59 @@ class RecommendedMatches extends React.Component {
         </Table>
 
         { this.state.showMatch
-          ? <Modal
-            show={ this.state.showMatch }
-            onHide={ this.handleHideMatch }
-            className="challenge-modal"
+          ? 
+          <Mutation
+            mutation={ CREATE_MATCH }
           >
-            <Modal.Header closeButton>
-              <Modal.Title id="contained-modal-title">
-                { this.state.matchClickUser.name }
-                <div>
-                  {/* Profile Pic
-                  <br/>
-                  <br/> */}
-                  W: { this.state.matchClickUser.wins } L: {this.state.matchClickUser.losses }
-                  <br/>
-                  Trophies:
-                </div>
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Datetime 
-                isValidDate={ valid } 
-                className="form-width" 
-                closeOnSelect={ true } 
-                inputProps={{ placeholder: 'Select Date' }}
-                onChange={ this.handleDateChange }
-                value={ this.state.calendarDate }
+            { createMatch => (
+              <RecommendedModal 
+                showMatch={ this.state.showMatch }
+                handleHideMatch={ this.handleHideMatch }
+                matchClickUser={ this.state.matchClickUser }
+                handleDateChange={ this.handleDateChange }
+                calendarDate={ this.state.calendarDate }
+                handleLocationChange={ this.handleLocationChange }
+                location={ this.state.location }
+                handleSendChallenge={ this.handleSendChallenge }
               />
-              <Form>
-                <FormGroup>
-                  <Col componentClass={ControlLabel} sm={2}>
-                    Location
-                  </Col>
-                  <Col sm={10}>
-                    <FormControl placeholder="Email" />
-                  </Col>
-                </FormGroup>
-              </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button onClick={ this.handleHideMatch }>Cancel</Button>
-              <Button bsStyle="primary" onClick={ this.handleSendChallenge }>Send Challenge</Button>
-            </Modal.Footer>
-          </Modal>
+            )}
+          </Mutation>
           : null }
+          
 
       </div>
     );
   }
 }
 
-
 export default RecommendedMatches;
+
+// <Mutation
+//   mutation={ CREATE_MATCH }
+//   update={(cache, { data: { addTodo } }) => {
+//     const { todos } = cache.readQuery({ query: GET_TODOS });
+//     cache.writeQuery({
+//       query: GET_TODOS,
+//       data: { todos: todos.concat([addTodo]) }
+//     });
+//   }}
+//   >
+//   {addTodo => (
+//     <div>
+//       <form
+//         onSubmit={e => {
+//           e.preventDefault();
+//           addTodo({ variables: { type: input.value } });
+//           input.value = "";
+//         }}
+//       >
+//         <input
+//           ref={node => {
+//             input = node;
+//           }}
+//         />
+//         <button type="submit">Add Todo</button>
+//       </form>
+//     </div>
+//   )}
+// </Mutation>
