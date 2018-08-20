@@ -4,10 +4,9 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
 
 const NavBar = (props) => {
-  props.googleUserData ? console.log(props.googleUserData.profile) : null
   return (
     <Navbar inverse collapseOnSelect staticTop
-      style={props.loggedIn ? null : { marginBottom: '0' }}
+      style={props.googleUserData ? null : { marginBottom: '0' }}
     >
       <Navbar.Header>
         <Navbar.Brand>
@@ -16,10 +15,10 @@ const NavBar = (props) => {
         <Navbar.Toggle />
       </Navbar.Header>
       <Navbar.Collapse>
-        {!props.loggedIn ?
+        {!props.googleUserData ?
           <Nav pullRight>
             <LinkContainer to='/signup'>
-              <NavItem onClick={props.googleSignIn}>
+              <NavItem onClick={ props.googleSignIn }>
                 Sign in with Google
               </NavItem>
             </LinkContainer>
@@ -31,12 +30,12 @@ const NavBar = (props) => {
                 Matchmaking
               </NavItem>
             </LinkContainer>
-            {/* <LinkContainer to='/login'>
-              <NavItem onClick={props.googleSignOut}>
-              Logout
-              </NavItem>
-            </LinkContainer> */}
-            <NavDropdown eventKey={3} title={props.googleUserData.profile.given_name} id="basic-nav-dropdown">
+
+            <NavDropdown
+              eventKey={3}
+              title={ props.googleUserData.displayName }
+              id="basic-nav-dropdown"
+            >
               <LinkContainer to='/profile'>
                 <NavItem >
                   Profile
@@ -54,10 +53,10 @@ const NavBar = (props) => {
                 </NavItem>
               </LinkContainer>
             </NavDropdown>
+
             <Navbar.Brand className="profile-image">
               <Image
-                src={props.googleUserData.profile.picture}
-
+                src={props.googleUserData.photoURL}
                 circle
                 responsive
               />

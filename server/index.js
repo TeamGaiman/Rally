@@ -6,7 +6,6 @@ const resolvers = require('../db/resolvers.js');
 const port = process.env.PORT || 8080;
 
 const dummies = require('../dummyData/dummies.json');
-const fakeUsers = require('../dummyData/dummyData.js').users;
 const fakeMatch = require('../dummyData/dummyData.js').match;
 
 const app = express();
@@ -26,9 +25,6 @@ models.sequelize.sync({ force: true })
   .then(() => {
     app.listen( port, () => console.log( 'listening on port: ', port ));
     //Temp functions to set dummy data
-    // fakeUsers.forEach( user => {
-    //   models.User.create( user );
-    // });
     dummies.forEach( dummy => {
       models.User.create( dummy );
     });

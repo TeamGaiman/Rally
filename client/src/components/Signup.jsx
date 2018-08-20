@@ -1,12 +1,15 @@
 import React from 'react';
 import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { Mutation } from 'react-apollo';
+
 import TierModal from './TierModal.jsx';
+import { CREATE_USER } from '../apollo/mutations.js';
+
 class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
       email: '',
       username: '',
       fullName: '',
@@ -33,7 +36,7 @@ class Signup extends React.Component {
   }
 
   render() {
-    if (this.props.loggedIn) {
+    if (this.props.googleUserData) {
       return (
         <div className='signup-form'>
           <h3>Get Started</h3>
@@ -42,7 +45,7 @@ class Signup extends React.Component {
               <ControlLabel>Email</ControlLabel>
               <FormControl
                 onChange={this.handleFieldChange}
-                value={this.props.googleUserData.profile.email}
+                value={this.props.googleUserData.email}
                 disabled="true" 
               />
             </FormGroup>
@@ -50,7 +53,7 @@ class Signup extends React.Component {
               <ControlLabel>Full Name</ControlLabel>
               <FormControl
                 onChange={this.handleFieldChange}
-                value={this.props.googleUserData.profile.name}
+                value={this.props.googleUserData.displayName}
                 disabled="true" 
               />
             </FormGroup>
@@ -77,14 +80,25 @@ class Signup extends React.Component {
             </FormGroup>
             <FormGroup>
               <Link to='/matchmaker'>
-                <Button type="submit" className='pull-right' >Enter Matchmaking</Button>
+                <Mutation 
+                  mutation={ CREATE_USER }
+                  variables={{ email: this.props.googleUserData.email }}>
+                  { createUser => (
+                    <Button 
+                      type="submit"
+                      className='pull-right' 
+                      onClick={createUser}>
+                      Enter Matchmaking
+                    </Button>
+                  ) }
+                </Mutation>
               </Link>
             </FormGroup>
           </Form>
 
           <TierModal
-            tierModal={this.state.tierModal}
-            toggleTierModal={this.toggleTierModal}
+            tierModal={ this.state.tierModal }
+            toggleTierModal={ this.toggleTierModal }
           />
           
         </div>
