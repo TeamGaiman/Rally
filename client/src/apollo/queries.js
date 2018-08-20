@@ -28,6 +28,21 @@ const GET_USERS_BY_TIER = gql`
   }
 `;
 
+const GET_USER_BY_EMAIL = gql`
+  query GetUserByEmail($email: String!) {
+    getUserByEmail(email: $email) {
+      id
+      name
+      fullName
+      phoneNumber
+      email
+      elo
+      wins
+      losses
+    }
+  }
+`;
+
 const CHECK_EMAIL_IS_UNIQUE = gql`
   query CheckEmailIsUnique($email: String) {
     checkEmailIsUnique(email: $email)
@@ -37,5 +52,6 @@ const CHECK_EMAIL_IS_UNIQUE = gql`
 module.exports = {
   GET_ALL_USERS,
   GET_USERS_BY_TIER,
-  CHECK_EMAIL_IS_UNIQUE
+  CHECK_EMAIL_IS_UNIQUE,
+  GET_USER_BY_EMAIL
 };
