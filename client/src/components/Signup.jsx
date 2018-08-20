@@ -38,11 +38,6 @@ class Signup extends React.Component {
         <div className='signup-form'>
           <h3>Get Started</h3>
           <Form horizontal>
-            {/* *****************
-            Temporarily comment out below I can figure out 
-            how to auto populate from google
-            **********************
-            */}
             <FormGroup controlId="email">
               <ControlLabel>Email</ControlLabel>
               <FormControl

@@ -17,6 +17,11 @@ module.exports = {
         query: {
           presets: ['es2015', 'react']
         }
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        // include: DIST_DIR,
+        loader: ['file-loader']
       }
     ]
   }

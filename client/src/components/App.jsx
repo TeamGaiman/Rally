@@ -55,6 +55,7 @@ class App extends React.Component {
           loggedIn={this.state.loggedIn}
           googleSignOut={this.googleSignOut}
           googleSignIn={this.googleSignIn}
+          googleUserData={this.state.googleUserData}
         />
         <Switch>
           <Route exact path="/" render={ () => {

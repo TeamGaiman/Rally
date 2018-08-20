@@ -19,3 +19,23 @@
   }
 } */
 
+/* .nav-profile-image{
+  display: flex;
+  width:5%;
+  height:5%;
+  padding: 5px;
+} */
+
+.profile-image {
+  padding: 2px; 
+}
+
+.navbar-brand>img {
+  height: 100%;
+  padding: 4px;
+  width: auto;
+}
+
+.navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
+  margin-left: 5px;
+}
