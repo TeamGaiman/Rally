@@ -11,7 +11,8 @@ class RecommendedMatches extends React.Component {
       matchedUsers: [],
       showMatch: false,
       matchClickUser: null,
-      calendarDate: ''
+      calendarDate: '',
+      location: ''
     };
 
     this.handleMatchClick = this.handleMatchClick.bind(this);
@@ -105,6 +106,16 @@ class RecommendedMatches extends React.Component {
                 onChange={ this.handleDateChange }
                 value={ this.state.calendarDate }
               />
+              <Form>
+                <FormGroup>
+                  <Col componentClass={ControlLabel} sm={2}>
+                    Location
+                  </Col>
+                  <Col sm={10}>
+                    <FormControl placeholder="Email" />
+                  </Col>
+                </FormGroup>
+              </Form>
             </Modal.Body>
             <Modal.Footer>
               <Button onClick={ this.handleHideMatch }>Cancel</Button>

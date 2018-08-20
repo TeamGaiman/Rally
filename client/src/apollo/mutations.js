@@ -35,7 +35,7 @@ mutation ($email: String!, $name: String!, $fullName: String!, $phoneNumber: Str
     }){
       name
     }
-  }
+  }git pu
 `;
 
 
