@@ -1,20 +1,23 @@
-body {
-  font-family: 'Comfortaa', cursive;
-}
-
 .splash {
   background-image: url('../lib/BG1.jpg') ;
-
-  background-size:cover;
-  background-position:center;
+  background-size: cover;
+  background-position: center;
   height: 100vh;
   /* margin: auto */
 }
 
-.button {
+/* .button {
   position: fixed;
   top: 40;
   left: 47%;
-  /* bring your own prefixes */
   transform: translate(-50%, -50%);
+} */
+
+.icons {
+  padding: 25px 25px 25px 25x;
 }
+
+/* .grid {
+  height: 100% !important;
+  position: center;
+} */
