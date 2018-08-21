@@ -8,7 +8,7 @@ import Signup from './Signup.jsx';
 import Profile from './Profile.jsx';
 import Matchmaking from './Matchmaking.jsx';
 import Stats from './Stats.jsx';
-import { CHECK_EMAIL_IS_UNIQUE } from '../apollo/queries.js';
+import { CHECK_EMAIL_IS_UNIQUE, GET_USER_BY_EMAIL } from '../apollo/queries.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -23,6 +23,7 @@ class App extends React.Component {
     this.googleSignIn = this.googleSignIn.bind(this);
     this.googleSignOut = this.googleSignOut.bind(this);
     this.mapGoogleDataToProfile = this.mapGoogleDataToProfile.bind(this);
+    this.mapDBPlayerDataToState = this.mapDBPlayerDataToState.bind(this);
   }
 
   componentDidMount() {
@@ -68,15 +69,23 @@ class App extends React.Component {
 
   /* --- ACCOUNT CREATION --- */
   mapGoogleDataToProfile () {
-    return () => {
-      this.setState({
-        userProfile: {
-          fullName: this.state.googleUserData.displayName,
-          email: this.state.googleUserData.email,
-          phoneNumber: this.state.googleUserData.phoneNumber
-        }
-      });
-    };
+    this.setState({
+      userProfile: {
+        fullName: this.state.googleUserData.displayName,
+        email: this.state.googleUserData.email,
+        phoneNumber: this.state.googleUserData.phoneNumber
+      }
+    });
+  }
+
+  mapDBPlayerDataToState ( dbData ) {
+    this.setState({
+      playerData: {
+        elo: dbData.elo,
+        wins: dbData.wins,
+        losses: dbData.losses
+      }
+    });
   }
 
   render () {
@@ -86,6 +95,7 @@ class App extends React.Component {
           googleSignOut={ this.googleSignOut }
           googleSignIn={ this.googleSignIn }
           googleUserData={ this.state.googleUserData }
+          playerData={ this.state.playerData }
         />
         <Switch>
           <Route exact path='/' render={ () => {
@@ -105,7 +115,8 @@ class App extends React.Component {
           <Route path='/signup' render={ () => {
             { if ( this.state.googleUserData ) {
               return (
-                <Query query={ CHECK_EMAIL_IS_UNIQUE }
+                <Query
+                  query={ CHECK_EMAIL_IS_UNIQUE }
                   variables={{ email: this.state.googleUserData.email }}
                   fetchPolicy='no-cache'>
                   {({ loading, error, data }) => {
@@ -128,12 +139,26 @@ class App extends React.Component {
               return null;
             } }
           } } />
-          <Route path='/matchmaking' render={ () => {
-            return <Matchmaking 
-              mapGoogleDataToProfile={ this.mapGoogleDataToProfile }
-              userData={ this.state.googleUserData }/>;
-          } }/>
-          <Route path='/profile' render={ () => <Profile userData={ this.state.googleUserData } /> }/>
+          <Route path='/matchmaking' render={ () => (
+            <Query
+              query={ GET_USER_BY_EMAIL }
+              variables={{ email: this.state.googleUserData.email }}>
+              {({ loading, error, data }) => {
+                if ( loading ) { return <p>Loading...</p>; }
+                if ( error ) { return <p>Error! ${ error }</p>; }
+                console.log('playerData ', data.getUserByEmail);
+                return <Matchmaking
+                  userData = { this.state.userProfile }
+                  playerData={ data.getUserByEmail } 
+                  mapGoogleDataToProfile={ this.mapGoogleDataToProfile }
+                  mapDBPlayerDataToState={ this.mapDBPlayerDataToState }
+                />;
+              }}
+            </Query>
+          ) }/>
+          <Route path='/profile' render={ () =>
+            <Profile userProfile={ this.state.userProfile }/> 
+          }/>
           <Route path='/stats' render={ () => <Stats/> }/>
         </Switch>
       </ApolloProvider>

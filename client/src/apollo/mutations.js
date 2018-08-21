@@ -10,13 +10,10 @@ const CREATE_USER = gql`
 `;
 
 const UPDATE_USER = gql`
-  mutation UpdateUser($email: String!, $name: String!, $fullName: String!, $phoneNumber: String!) {
-    updateUser(email: $email, input: {
-      name: $name,
-      fullName: $fullName
-      phoneNumber: $phoneNumber
-    }){
+  mutation UpdateUser($email: String!, $name: String, $phoneNumber: String) {
+    updateUser(email: $email, input: { name: $name, phoneNumber: $phoneNumber}){
       name
+      phoneNumber
     }
   }
 `;

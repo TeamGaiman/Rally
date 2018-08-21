@@ -24,6 +24,7 @@ class RecommendedMatches extends React.Component {
   }
 
   componentDidMount() {
+    console.log('userData ', this.props.userData)
     let newMatches = matchmakeByElo(2000, this.props.users);
     this.setState({
       matchedUsers: newMatches
@@ -31,6 +32,7 @@ class RecommendedMatches extends React.Component {
   }
 
   handleMatchClick(user) {
+    console.log(user);
     this.setState({
       showMatch: true,
       matchClickUser: user
