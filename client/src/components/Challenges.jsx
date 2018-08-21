@@ -31,7 +31,6 @@ class Challenges extends React.Component {
   }
 
   handleMatchClick(user) {
-    console.log('CLICKED??', user);
     this.setState({
       showMatch: true,
       matchClickUser: user
@@ -39,8 +38,8 @@ class Challenges extends React.Component {
   }
 
   handleAcceptMatch() {
-    let index = this.state.matchedUsers.indexOf(this.state.matchClickUser);
-    this.state.matchedUsers.splice(index, 1);
+    let index = this.state.matchedUsers.indexOf( this.state.matchClickUser );
+    this.state.matchedUsers.splice( index, 1 );
     this.setState({ 
       matches: this.state.matches,
       showMatch: false 
@@ -68,13 +67,13 @@ class Challenges extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.matches.slice(0, 5).map(user => (
+            { this.state.matches.slice(0, 5).map(user => (
               <tr className='match-row' key={ user.id } onClick={ () => this.handleMatchClick( user ) }>
                 <td>{ user.particpantB }</td>
                 <td>{ user.startTime }</td>
                 <td>{ user.location }</td>
               </tr>
-            ))}
+            )) }
           </tbody>
         </Table>
 

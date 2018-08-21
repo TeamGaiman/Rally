@@ -53,7 +53,7 @@ class App extends React.Component {
         return;
       })
       .catch((err) => {
-        console.log('Error signing in: ', err);
+        console.log( 'Error signing in: ', err );
       });
   }
   googleSignOut () {

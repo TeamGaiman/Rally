@@ -9,7 +9,7 @@ const ChallengesModal = (props) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title">
-          {props.matchClickUser.particpantB }
+          { props.matchClickUser.particpantB }
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
