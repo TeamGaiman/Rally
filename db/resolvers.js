@@ -46,11 +46,11 @@ const resolvers = {
   },
   Mutation: {
     createUser: async (_, { input }) => {
-      try {
-        return await models.User.create( input );
-      } catch ( error ) {
-        console.error( error );
-      }
+      return await models.User.create( input )
+        .catch( error => {
+          console.error ( error );
+        });
+
     },
 
     updateUser: async (_, { input, email }) => {
@@ -65,8 +65,10 @@ const resolvers = {
     },
 
     createMatch: async (_, { input }) => {
-      models.Match.create( input );
-      return await input;
+      return models.Match.create( input )
+        .catch( error => {
+          console.error( error );
+        });
     },
 
     updateMatch: async (_, { input, id }) => {

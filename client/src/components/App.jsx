@@ -7,6 +7,7 @@ import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import Profile from './Profile.jsx';
 import Matchmaking from './Matchmaking.jsx';
+import RecommendedMatches from './RecommendedMatches.jsx';
 import Stats from './Stats.jsx';
 import { CHECK_EMAIL_IS_UNIQUE } from '../apollo/queries.js';
 
@@ -52,7 +53,7 @@ class App extends React.Component {
         return;
       })
       .catch((err) => {
-        console.log('Error signing in: ', err);
+        console.log( 'Error signing in: ', err );
       });
   }
   googleSignOut () {
@@ -122,7 +123,7 @@ class App extends React.Component {
                     let result = data.checkEmailIsUnique || false;
                     if ( result === false ) {
                       console.log('Welcome back!');
-                      return <Matchmaking mapGoogleDataToProfile={ this.mapGoogleDataToProfile }/>;
+                      return <Matchmaking mapGoogleDataToProfile={ this.mapGoogleDataToProfile } userData={ this.state.googleUserData } />;
                     }
                     return null;
                   }}
