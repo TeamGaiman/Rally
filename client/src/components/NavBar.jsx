@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const NavBar = (props) => {
   return (
     <Navbar inverse collapseOnSelect staticTop
-      style={props.googleUserData ? null : { marginBottom: '0' }}
+      style={ props.googleUserData ? null : { marginBottom: '0' }}
     >
       <Navbar.Header>
         <Navbar.Brand>
@@ -15,7 +15,7 @@ const NavBar = (props) => {
         <Navbar.Toggle />
       </Navbar.Header>
       <Navbar.Collapse>
-        {!props.googleUserData ?
+        { !props.googleUserData ?
           <Nav pullRight>
             <LinkContainer to='/signup'>
               <NavItem onClick={ props.googleSignIn }>
@@ -48,7 +48,7 @@ const NavBar = (props) => {
               </LinkContainer>
               <MenuItem divider />
               <LinkContainer to='/login'>
-                <NavItem onClick={props.googleSignOut}>
+                <NavItem onClick={ props.googleSignOut }>
                   Logout
                 </NavItem>
               </LinkContainer>
@@ -56,7 +56,7 @@ const NavBar = (props) => {
 
             <Navbar.Brand className="profile-image">
               <Image
-                src={props.googleUserData.photoURL}
+                src={ props.googleUserData.photoURL }
                 circle
                 responsive
               />
