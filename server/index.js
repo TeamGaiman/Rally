@@ -21,13 +21,5 @@ app.get( '/*', ( req, res ) => res.redirect('/') );
 models.sequelize.sync({ force: false })
   .then(() => {
     app.listen( port, () => console.log( 'listening on port: ', port ));
-<<<<<<< HEAD
-    //Temp functions to set dummy data
-    // dummies.forEach( dummy => {
-    //   models.User.create( dummy );
-    // });
-    // models.Match.create( fakeMatch )
-=======
->>>>>>> noDummies
   })
   .catch(err => { console.error( err ); });
