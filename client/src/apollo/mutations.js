@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 
+// USER MUTATIONS
 const CREATE_USER = gql`
   mutation CreateUser($email: String!) {
     createUser(input:{email: $email}) {
@@ -8,9 +9,22 @@ const CREATE_USER = gql`
   }
 `;
 
+const UPDATE_USER = gql`
+  mutation UpdateUser($email: String!, $name: String!, $fullName: String!, $phoneNumber: String!) {
+    updateUser(email: $email, input: {
+      name: $name,
+      fullName: $fullName
+      phoneNumber: $phoneNumber
+    }){
+      name
+    }
+  }
+`;
+
+// MATCH MUTATIONS
 const CREATE_MATCH = gql`
   mutation CreateMatch($participantA: String!, $participantB: String!, $startTime: String!, $location: String!) {
-      createMatch(input: {
+    createMatch(input: {
       participantA: $participantA,
       participantB: $participantB,
       startTime: $startTime,
@@ -24,14 +38,12 @@ const CREATE_MATCH = gql`
   }
 `;
 
-const UPDATE_USER = gql`
-mutation UpdateUser($email: String!, $name: String!, $fullName: String!, $phoneNumber: String!) {
-  updateUser(email: $email, input: {
-      name: $name,
-      fullName: $fullName
-      phoneNumber: $phoneNumber
+const ACCEPT_MATCH = gql`
+  mutation AcceptMatch($accepted: Boolean) {
+    acceptMatch(input: {
+      accepted: $accepted
     }){
-      name
+      accepted
     }
   }
 `;
@@ -48,5 +60,6 @@ module.exports = {
   CREATE_USER,
   UPDATE_USER,
   CREATE_MATCH,
+  ACCEPT_MATCH,
   UPDATE_MATCH
 };

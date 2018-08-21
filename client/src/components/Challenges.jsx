@@ -1,5 +1,8 @@
 import React from 'react';
-import { Table, Modal, Button } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
+import ChallengesModal from './ChallengesModal.jsx';
+import { Mutation } from 'react-apollo';
+import { ACCEPT_MATCH } from '../apollo/mutations';
 
 class Challenges extends React.Component {
   constructor(props) {
@@ -28,7 +31,6 @@ class Challenges extends React.Component {
   }
 
   handleMatchClick(user) {
-    console.log('CLICKED??', user);
     this.setState({
       showMatch: true,
       matchClickUser: user
@@ -36,7 +38,12 @@ class Challenges extends React.Component {
   }
 
   handleAcceptMatch() {
-    this.setState({ showMatch: false });
+    let index = this.state.matchedUsers.indexOf( this.state.matchClickUser );
+    this.state.matchedUsers.splice( index, 1 );
+    this.setState({ 
+      matches: this.state.matches,
+      showMatch: false 
+    });
   }
   
   handleDeclineMatch() {
@@ -60,45 +67,31 @@ class Challenges extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.matches.slice(0, 5).map(user => (
+            { this.state.matches.slice(0, 5).map(user => (
               <tr className='match-row' key={ user.id } onClick={ () => this.handleMatchClick( user ) }>
                 <td>{ user.particpantB }</td>
                 <td>{ user.startTime }</td>
                 <td>{ user.location }</td>
               </tr>
-            ))}
+            )) }
           </tbody>
         </Table>
 
         { this.state.showMatch
-          ? <Modal
-            show={ this.state.showMatch }
-            onHide={ this.handleHideMatch }
+          ? <Mutation
+            mutation={ ACCEPT_MATCH }
+            variables={{ accepted: true }}
+            update={ this.handleAcceptMatch }
           >
-            <Modal.Header closeButton>
-              <Modal.Title id="contained-modal-title">
-                { this.state.matchClickUser.particpantB }
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <div>
-                {/* Profile Pic <img src={this.state.matchClickUser.}>
-                <br/>
-                <br/> */}
-                W: { this.state.matchClickUser.wins } L: { this.state.matchClickUser.losses }
-                <br/>
-                <br/>
-                Tier: { this.state.matchClickUser.tier }
-                <br/>
-                <br/>
-                Trophies:
-              </div>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button onClick={ this.handleHideMatch }>Decline</Button>
-              <Button bsStyle="primary" onClick={ this.handleAcceptMatch }>Accept Challenge</Button>
-            </Modal.Footer>
-          </Modal>
+            { acceptMatch => (
+              <ChallengesModal 
+                showMatch={ this.state.showMatch }
+                handleHideMatch={ this.handleHideMatch }
+                matchClickUser={ this.state.matchClickUser }
+                acceptMatch={ acceptMatch }
+              />
+            )}
+          </Mutation>
           : null }
           
       </div>
