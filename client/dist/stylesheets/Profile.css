@@ -1,7 +1,28 @@
 .profile-tables {
-  margin: 5%
+  margin-right: 10%;
+  margin-left: 10%;
+  margin-top: 5%;
 }
 
 .jumbotron {
   background-image: url('../lib/profilejumbo.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.profile-pic {
+  width: 20%;
+  margin-top: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.box {
+  display: flex;
+  align-items:center;
+}
+
+.edit-profile {
+  margin-left: 5%;
 }

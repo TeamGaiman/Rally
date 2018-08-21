@@ -1,5 +1,5 @@
 import React from 'react';
-import { Jumbotron, Button } from 'react-bootstrap';
+import { Jumbotron, Button, Grid, Row, Col, Image } from 'react-bootstrap';
 import UpcomingMatches from './UpcomingMatches.jsx';
 import RecentMatches from './RecentMatches.jsx';
 import dummyData from '../../../dummyData/dummyData.js';
@@ -47,22 +47,39 @@ class Profile extends React.Component {
     return (
       <div>
         <Jumbotron className="jumbotron">
-          <p>
-            Stats:
-            <br/>
-            Tier
-            <br/>
-            Trophies
-          </p>
-          <p>
-            {this.state.showProfileInfo 
-              ? null 
-              : <div>
-                <Button bsStyle="primary" onClick={this.handleProfileLinkClick}>Edit Profile</Button>
-              </div>}
-          </p>
+          <Grid>
+            <Row className="show-grid">
+              <Col xs={12} md={6}>
+                <div className="box">
+                  <Image className="profile-pic" src={ this.props.userData.photoURL } circle responsive />
+                  <div>
+                    <h2>{ this.props.userData.displayName }</h2>
+                    W:  L:
+                    <br/>
+                    Tier:
+                    <br/>
+                    Trophies:
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </Grid>
+
         </Jumbotron>
-        
+        <div>
+          {this.state.showProfileInfo 
+            ? null 
+            : <div>
+              <Button 
+                className="edit-profile"
+                bsSize="small" 
+                bsStyle="primary" 
+                onClick={this.handleProfileLinkClick}
+              >
+                Edit Profile
+              </Button>
+            </div>}
+        </div>
         {view1}
         {view2}
         
