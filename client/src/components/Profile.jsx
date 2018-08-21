@@ -46,7 +46,7 @@ class Profile extends React.Component {
 
     return (
       <div>
-        <Jumbotron >
+        <Jumbotron className="jumbotron">
           <p>
             Stats:
             <br/>

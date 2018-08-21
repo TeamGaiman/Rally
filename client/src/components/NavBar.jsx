@@ -13,7 +13,7 @@ const NavBar = (props) => {
         <Navbar.Toggle />
       </Navbar.Header>
       <Navbar.Collapse>
-        {!props.googleUserData ?
+        { !props.googleUserData ?
           <Nav pullRight>
             <LinkContainer to='/signup'>
               <NavItem onClick={ props.googleSignIn }>
@@ -23,7 +23,7 @@ const NavBar = (props) => {
           </Nav>
           :
           <Nav pullRight>
-            <LinkContainer to='/matchmaker'>
+            <LinkContainer to='/matchmaking'>
               <NavItem >
                 Matchmaking
               </NavItem>
@@ -46,7 +46,7 @@ const NavBar = (props) => {
               </LinkContainer>
               <MenuItem divider />
               <LinkContainer to='/login'>
-                <NavItem onClick={props.googleSignOut}>
+                <NavItem onClick={ props.googleSignOut }>
                   Logout
                 </NavItem>
               </LinkContainer>
@@ -54,7 +54,7 @@ const NavBar = (props) => {
 
             <Navbar.Brand className="profile-image">
               <Image
-                src={props.googleUserData.photoURL}
+                src={ props.googleUserData.photoURL }
                 circle
                 responsive
               />

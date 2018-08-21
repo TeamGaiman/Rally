@@ -2,4 +2,6 @@
   margin: 5%
 }
 
-
+.jumbotron {
+  background-image: url('../lib/profilejumbo.jpg');
+}

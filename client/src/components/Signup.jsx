@@ -7,19 +7,6 @@ import TierModal from './TierModal.jsx';
 import { CHECK_EMAIL_IS_UNIQUE } from '../apollo/queries.js';
 import { CREATE_USER } from '../apollo/mutations.js';
 
-const CheckEmail = () => (
-  <Query query={ CHECK_EMAIL_IS_UNIQUE }>
-    {({ loading, error, data }) => {
-      if ( loading ) { return null; }
-      if ( error ) { return null; }
-      console.log(data);
-      return (
-        data.checkEmailIsUnique
-      );
-    }}
-  </Query>
-);
-
 class Signup extends React.Component {
   constructor(props) {
     super(props);
@@ -86,7 +73,7 @@ class Signup extends React.Component {
               </FormControl>
             </FormGroup>
             <FormGroup>
-              <Link to='/matchmaker'>
+              <Link to='/matchmaking'>
                 <Mutation 
                   mutation={ CREATE_USER }
                   variables={{ email: this.props.googleUserData.email }}>
