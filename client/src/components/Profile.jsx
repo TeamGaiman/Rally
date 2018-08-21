@@ -51,12 +51,12 @@ class Profile extends React.Component {
             <Row className="show-grid">
               <Col xs={12} md={6}>
                 <div className="box">
-                  <Image className="profile-pic" src={ this.props.userData.photoURL } circle responsive />
+                  <Image className="profile-pic" src={ this.props.userData.photoURL } responsive />
                   <div>
                     <h2>{ this.props.userData.displayName }</h2>
-                    W:  L:
+                    W: 12 L: 2
                     <br/>
-                    Tier:
+                    Tier: 3
                     <br/>
                     Trophies:
                   </div>
@@ -71,9 +71,9 @@ class Profile extends React.Component {
             ? null 
             : <div>
               <Button 
-                className="edit-profile"
+                className="edit-profile-button"
                 bsSize="small" 
-                bsStyle="primary" 
+                bsStyle="success"
                 onClick={this.handleProfileLinkClick}
               >
                 Edit Profile
