@@ -33,7 +33,7 @@ const RecommendedModal = (props) => {
           isValidDate={ valid } 
           className="form-width" 
           closeOnSelect={ true } 
-          inputProps={{ placeholder: 'Select Date' }}
+          inputProps={{ placeholder: 'Select Date', readOnly: true }}
           onChange={ props.handleDateChange }
           value={ props.startTime }
         />
