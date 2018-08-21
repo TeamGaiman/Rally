@@ -35,7 +35,7 @@ const RecommendedModal = (props) => {
           closeOnSelect={ true } 
           inputProps={{ placeholder: 'Select Date' }}
           onChange={ props.handleDateChange }
-          value={ props.calendarDate }
+          value={ props.startTime }
         />
         <br/> 
         <Form horizontal className="form-width">
@@ -49,7 +49,7 @@ const RecommendedModal = (props) => {
       
       <Modal.Footer>
         <Button onClick={ props.handleHideMatch }>Cancel</Button>
-        <Button bsStyle="primary" onClick={ props.handleSendChallenge }>Send Challenge</Button>
+        <Button bsStyle="primary" onClick={ props.createMatch }>Send Challenge</Button>
       </Modal.Footer>
     </Modal>
   );

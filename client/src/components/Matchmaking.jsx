@@ -31,7 +31,7 @@ class Matchmaking extends React.Component {
           }
           return (
             <div>
-              <RecommendedMatches users={ data.getUsersByTier }/>
+              <RecommendedMatches users={ data.getUsersByTier } userData={ this.props.userData }/>
               <Challenges/>
             </div>
           );

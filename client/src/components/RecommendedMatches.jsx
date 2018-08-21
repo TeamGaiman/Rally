@@ -1,7 +1,8 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
 import RecommendedModal from './RecommendedModal.jsx';
-
+import { Mutation } from 'react-apollo';
+import { CREATE_MATCH } from '../apollo/mutations.js';
 import matchmakeByElo from '../../../workers/matchmaking.js';
 
 class RecommendedMatches extends React.Component {
@@ -11,7 +12,7 @@ class RecommendedMatches extends React.Component {
       matchedUsers: [],
       showMatch: false,
       matchClickUser: null,
-      calendarDate: '',
+      startTime: '',
       location: ''
     };
 
@@ -30,7 +31,6 @@ class RecommendedMatches extends React.Component {
   }
 
   handleMatchClick(user) {
-    console.log('CLICKED??', user);
     this.setState({
       showMatch: true,
       matchClickUser: user
@@ -42,24 +42,22 @@ class RecommendedMatches extends React.Component {
   }
 
   handleDateChange(e) {
-    console.log('calendar change--', e._d);
-    this.setState({ calendarDate: e._d });
+    this.setState({ startTime: e._d });
   }
 
   handleSendChallenge() {
-    if (this.state.calendarDate && this.state.location) {
+    if (this.state.startTime && this.state.location) {
       this.setState({ 
         showMatch: false, 
-        calendarDate: '',
+        startTime: '',
         location: ''
       });
     } else {
-      window.alert('Fill out Date and Location');
+      window.alert('Fill in Date and Location');
     }
   }
 
   handleLocationChange(e) {
-    console.log('location', e.target.value);
     this.setState({ location: e.target.value });
   }
 
@@ -87,9 +85,15 @@ class RecommendedMatches extends React.Component {
         </Table>
 
         { this.state.showMatch
-          ? 
-          <Mutation
+          ? <Mutation
             mutation={ CREATE_MATCH }
+            variables={{ 
+              participantA: this.props.userData.email, 
+              participantB: this.state.matchClickUser.email, 
+              startTime: this.state.startTime, 
+              location: this.state.location
+            }}
+            update={ this.handleSendChallenge }
           >
             { createMatch => (
               <RecommendedModal 
@@ -97,15 +101,14 @@ class RecommendedMatches extends React.Component {
                 handleHideMatch={ this.handleHideMatch }
                 matchClickUser={ this.state.matchClickUser }
                 handleDateChange={ this.handleDateChange }
-                calendarDate={ this.state.calendarDate }
+                startTime={ this.state.startTime }
                 handleLocationChange={ this.handleLocationChange }
                 location={ this.state.location }
-                handleSendChallenge={ this.handleSendChallenge }
+                createMatch={ createMatch }
               />
             )}
           </Mutation>
           : null }
-          
 
       </div>
     );
@@ -113,33 +116,3 @@ class RecommendedMatches extends React.Component {
 }
 
 export default RecommendedMatches;
-
-// <Mutation
-//   mutation={ CREATE_MATCH }
-//   update={(cache, { data: { addTodo } }) => {
-//     const { todos } = cache.readQuery({ query: GET_TODOS });
-//     cache.writeQuery({
-//       query: GET_TODOS,
-//       data: { todos: todos.concat([addTodo]) }
-//     });
-//   }}
-//   >
-//   {addTodo => (
-//     <div>
-//       <form
-//         onSubmit={e => {
-//           e.preventDefault();
-//           addTodo({ variables: { type: input.value } });
-//           input.value = "";
-//         }}
-//       >
-//         <input
-//           ref={node => {
-//             input = node;
-//           }}
-//         />
-//         <button type="submit">Add Todo</button>
-//       </form>
-//     </div>
-//   )}
-// </Mutation>
