@@ -1,7 +1,8 @@
 import React from 'react';
-import { Table, Modal, Button, Form, FormGroup, FormControl, Col } from 'react-bootstrap';
-import Datetime from 'react-datetime';
-
+import { Table } from 'react-bootstrap';
+import RecommendedModal from './RecommendedModal.jsx';
+import { Mutation } from 'react-apollo';
+import { CREATE_MATCH } from '../apollo/mutations.js';
 import matchmakeByElo from '../../../workers/matchmaking.js';
 
 class RecommendedMatches extends React.Component {
@@ -11,7 +12,7 @@ class RecommendedMatches extends React.Component {
       matchedUsers: [],
       showMatch: false,
       matchClickUser: null,
-      calendarDate: '',
+      startTime: '',
       location: ''
     };
 
@@ -30,7 +31,6 @@ class RecommendedMatches extends React.Component {
   }
 
   handleMatchClick(user) {
-    console.log('CLICKED??', user);
     this.setState({
       showMatch: true,
       matchClickUser: user
@@ -42,17 +42,22 @@ class RecommendedMatches extends React.Component {
   }
 
   handleDateChange(e) {
-    console.log('calendar change--', e._d);
-    this.setState({ calendarDate: e._d });
+    this.setState({ startTime: e._d });
   }
 
   handleSendChallenge() {
-    this.setState({ 
-      showMatch: false, 
-      calendarDate: '',
-      location: ''
-    });
-    
+    if (this.state.startTime && this.state.location) {
+      let index = this.state.matchedUsers.indexOf(this.state.matchClickUser);
+      this.state.matchedUsers.splice(index, 1);
+      this.setState({ 
+        matchedUsers: this.state.matchedUsers,
+        showMatch: false, 
+        startTime: '',
+        location: ''
+      });
+    } else {
+      window.alert('Fill in Date and Location');
+    }
   }
 
   handleLocationChange(e) {
@@ -60,11 +65,6 @@ class RecommendedMatches extends React.Component {
   }
 
   render() {
-    var yesterday = Datetime.moment().subtract(1, 'day');
-    var valid = ( current ) => {
-      return current.isAfter( yesterday );
-    };
-
     return (
       <div className='matches-container'>
         <h2>Recommended Matches</h2>
@@ -88,57 +88,34 @@ class RecommendedMatches extends React.Component {
         </Table>
 
         { this.state.showMatch
-          ? <Modal
-            show={ this.state.showMatch }
-            onHide={ this.handleHideMatch }
-            className="challenge-modal"
+          ? <Mutation
+            mutation={ CREATE_MATCH }
+            variables={{ 
+              participantA: this.props.userData.email, 
+              participantB: this.state.matchClickUser.email, 
+              startTime: this.state.startTime, 
+              location: this.state.location
+            }}
+            update={ this.handleSendChallenge }
           >
-            <Modal.Header closeButton>
-              <Modal.Title id="contained-modal-title">
-                { this.state.matchClickUser.name }
-                <div>
-                  {/* Profile Pic
-                  <br/>
-                  <br/> */}
-                  W: { this.state.matchClickUser.wins } L: {this.state.matchClickUser.losses }
-                  <br/>
-                  Trophies:
-                </div>
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-
-              <Datetime 
-                isValidDate={ valid } 
-                className="form-width" 
-                closeOnSelect={ true } 
-                inputProps={{ placeholder: 'Select Date' }}
-                onChange={ this.handleDateChange }
-                value={ this.state.calendarDate }
+            { createMatch => (
+              <RecommendedModal 
+                showMatch={ this.state.showMatch }
+                handleHideMatch={ this.handleHideMatch }
+                matchClickUser={ this.state.matchClickUser }
+                handleDateChange={ this.handleDateChange }
+                startTime={ this.state.startTime }
+                handleLocationChange={ this.handleLocationChange }
+                location={ this.state.location }
+                createMatch={ createMatch }
               />
-              
-              <br/> 
-
-              <Form horizontal className="form-width">
-                <FormGroup controlId="formHorizontalEmail">
-                  <Col sm={12}>
-                    <FormControl placeholder="Location" onChange={ this.handleLocationChange } value={ this.state.location }/>
-                  </Col>
-                </FormGroup>
-              </Form>
-
-            </Modal.Body>
-            <Modal.Footer>
-              <Button onClick={ this.handleHideMatch }>Cancel</Button>
-              <Button bsStyle="primary" onClick={ this.handleSendChallenge }>Send Challenge</Button>
-            </Modal.Footer>
-          </Modal>
+            )}
+          </Mutation>
           : null }
 
       </div>
     );
   }
 }
-
 
 export default RecommendedMatches;
