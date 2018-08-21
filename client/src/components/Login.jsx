@@ -10,7 +10,7 @@ import icon3 from '../../dist/lib/icon3.png';
 export default (props) => {
   let options = {
     sectionClassName: 'section',
-    anchors: ['sectionOne', 'sectionTwo'],
+    anchors: [ 'sectionOne', 'sectionTwo' ],
     scrollBar: false,
     navigation: true,
     verticalAlign: false,
@@ -21,29 +21,29 @@ export default (props) => {
 
   return (
     <div>
-      <SectionsContainer {...options}>
+      <SectionsContainer { ...options }>
         <Section className="custom-section splash"></Section>
         <Section>
           <Grid>
             <Row className="show-grid">
-              <Col xs={12} md={4} className="text-center">
-                <img src={icon1} className="icons"/>
+              <Col xs={ 12 } md={ 4 } className="text-center">
+                <img src={ icon1 } className="icons"/>
                 <h2>Get Matches</h2>
                 Get recommended matches from our elo ranking system.
                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla posuere.
                 <br/>
                 <br/>
               </Col>
-              <Col xs={12} md={4} className="text-center">
-                <img src={icon3} className="icons"/>
+              <Col xs={ 12 } md={ 4 } className="text-center">
+                <img src={ icon3 } className="icons"/>
                 <h2>Get Ranked</h2>
                 Compete against other players to get ranked or play a friendly match.
                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla posuere.
                 <br/>
                 <br/>
               </Col>
-              <Col xs={12} md={4} className="text-center">
-                <img src={icon2} className="icons"/>
+              <Col xs={ 12 } md={ 4 } className="text-center">
+                <img src={ icon2 } className="icons"/>
                 <h2>Courts</h2>
                 Find a court and schedule a match at courts nearby.
                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla posuere.

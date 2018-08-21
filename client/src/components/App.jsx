@@ -89,52 +89,53 @@ class App extends React.Component {
           googleUserData={ this.state.googleUserData }
         />
         <Switch>
-          <Route exact path="/" render={ () => {
+          <Route exact path='/' render={ () => {
             if ( this.state.googleUserData ) {
-              return <Redirect to="/matchmaker" />;
+              return <Redirect to='/matchmaking'/>;
             } else {
-              return <Redirect to="/login" />;
+              return <Redirect to='/login' />;
             }
-          }} />
-          <Route path="/login" render={ () => {
+          } }/>
+          <Route path='/login' render={ () => {
             if ( this.state.googleUserData ) {
-              return <Redirect to="/matchmaker"/>;
+              return <Redirect to='/matchmaking'/>;
             } else {
-              return <Login
-                googleSignIn={ this.googleSignIn }
-              />;
+              return <Login googleSignIn={ this.googleSignIn }/>;
             }
-          }} />
-          <Route path="/signup" render={() =>
-            <Signup
-              googleUserData={ this.state.googleUserData }
-              mapGoogleDataToProfile={ this.mapGoogleDataToProfile }
-            />} 
-          />
-          <Route path="/matchmaker" render={ () => {
-            { if (this.state.googleUserData !== null) {
+          } }/>
+          <Route path='/signup' render={ () => {
+            { if ( this.state.googleUserData ) {
               return (
                 <Query query={ CHECK_EMAIL_IS_UNIQUE }
                   variables={{ email: this.state.googleUserData.email }}
                   fetchPolicy='no-cache'>
                   {({ loading, error, data }) => {
                     if ( loading ) { return <p>Loading...</p>; }
-                    if ( error ) { return <p>Error! ${error}</p>; }
+                    if ( error ) { return <p>Error! ${ error }</p>; }
                     let result = data.checkEmailIsUnique || false;
                     if ( result === false ) {
                       console.log('Welcome back!');
-                      return <Matchmaking mapGoogleDataToProfile={ this.mapGoogleDataToProfile } userData={ this.state.googleUserData } />;
+                      return <Redirect to='/matchmaking'/>;
+                    } else {
+                      return <Signup
+                        googleUserData={ this.state.googleUserData }
+                        mapGoogleDataToProfile={ this.mapGoogleDataToProfile }
+                      />;
                     }
-                    return null;
                   }}
                 </Query>
               );
             } else {
               return null;
             } }
-          }}/>
-          <Route path="/profile" render={ () => <Profile/> }/>
-          <Route path="/stats" render={ () => <Stats/> }/>
+          } } />
+          <Route path='/matchmaking' render={ () => {
+            return <Matchmaking 
+              mapGoogleDataToProfile={ this.mapGoogleDataToProfile }
+              userData={ this.state.googleUserData }/>;
+          } }/>
+          <Route path='/profile' render={ () => <Profile/> }/>
+          <Route path='/stats' render={ () => <Stats/> }/>
         </Switch>
       </ApolloProvider>
     );
