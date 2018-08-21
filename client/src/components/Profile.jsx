@@ -1,8 +1,8 @@
 import React from 'react';
+import { Jumbotron, Button } from 'react-bootstrap';
 import UpcomingMatches from './UpcomingMatches.jsx';
 import RecentMatches from './RecentMatches.jsx';
 import dummyData from '../../../dummyData/dummyData.js';
-import { Button } from 'react-bootstrap';
 import ProfileInfo from './ProfileInfo.jsx';
 
 class Profile extends React.Component {
@@ -46,7 +46,22 @@ class Profile extends React.Component {
 
     return (
       <div>
-        {this.state.showProfileInfo ? <div></div> : <div>Want to get personalized matches? <Button onClick={this.handleProfileLinkClick} bsStyle="success">Add Profile Info</Button></div>}
+        <Jumbotron >
+          <p>
+            Stats:
+            <br/>
+            Tier
+            <br/>
+            Trophies
+          </p>
+          <p>
+            {this.state.showProfileInfo 
+              ? null 
+              : <div>
+                <Button bsStyle="primary" onClick={this.handleProfileLinkClick}>Edit Profile</Button>
+              </div>}
+          </p>
+        </Jumbotron>
         
         {view1}
         {view2}
