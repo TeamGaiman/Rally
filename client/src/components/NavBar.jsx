@@ -25,7 +25,7 @@ const NavBar = (props) => {
           </Nav>
           :
           <Nav pullRight>
-            <LinkContainer to='/matchmaker'>
+            <LinkContainer to='/matchmaking'>
               <NavItem >
                 Matchmaking
               </NavItem>
