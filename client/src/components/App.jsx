@@ -147,8 +147,9 @@ class App extends React.Component {
               {({ loading, error, data }) => {
                 if ( loading ) { return <p>Loading...</p>; }
                 if ( error ) { return <p>Error! ${ error }</p>; }
-                console.log(data.getUserByEmail);
+                console.log('playerData ', data.getUserByEmail);
                 return <Matchmaking
+                  userData = { this.state.userProfile }
                   playerData={ data.getUserByEmail } 
                   mapGoogleDataToProfile={ this.mapGoogleDataToProfile }
                   mapDBPlayerDataToState={ this.mapDBPlayerDataToState }
