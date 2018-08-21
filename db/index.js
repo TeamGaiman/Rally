@@ -2,8 +2,16 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
 const sequelize = new Sequelize('gaiman', 'postgres', 'postgres', {
+  host: 'parker-dbs.czgifzcncxtz.us-east-2.rds.amazonaws.com',
+  port: 5432,
+  logging: false,
+  maxConcurrentQueries: 100,
   dialect: 'postgres',
-  logging: false
+  dialectOptions: {
+    ssl: 'Amazon RDS'
+  },
+  pool: { maxConnections: 5, maxIdleTime: 30 },
+  language: 'en'
 });
 
 const models = {

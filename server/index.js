@@ -25,9 +25,9 @@ models.sequelize.sync({ force: true })
   .then(() => {
     app.listen( port, () => console.log( 'listening on port: ', port ));
     //Temp functions to set dummy data
-    dummies.forEach( dummy => {
-      models.User.create( dummy );
-    });
-    models.Match.create( fakeMatch );
+    // dummies.forEach( dummy => {
+    //   models.User.create( dummy );
+    // });
+    // models.Match.create( fakeMatch )
   })
   .catch(err => { console.error( err ); });
