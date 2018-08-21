@@ -15,8 +15,8 @@ const NavBar = (props) => {
         <Navbar.Toggle />
       </Navbar.Header>
       <Navbar.Collapse>
-        { !props.googleUserData ?
-          <Nav pullRight>
+        { !props.googleUserData || !props.playerData 
+          ? <Nav pullRight>
             <LinkContainer to='/signup'>
               <NavItem onClick={ props.googleSignIn }>
                 Sign in with Google
