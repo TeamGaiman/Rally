@@ -29,7 +29,10 @@ class Profile extends React.Component {
     let view1, view2;
 
     if (showProfileInfo) {
-      view1 = <ProfileInfo handleSubmit={this.handleSubmit}/>;
+      view1 = <ProfileInfo 
+        handleSubmit={this.handleSubmit}
+        userProfile={this.props.userProfile}
+      />;
     } else {
       view1 = <UpcomingMatches upcoming={this.state.upcoming} />;
       view2 = <RecentMatches history={this.state.history} />;

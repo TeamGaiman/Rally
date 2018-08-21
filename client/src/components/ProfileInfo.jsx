@@ -1,7 +1,9 @@
 import React from 'react';
-import { Form, FormGroup, FormControl, Col, Button, DropdownButton, MenuItem, Modal } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, Col, Button, DropdownButton, MenuItem } from 'react-bootstrap';
+import Mutations, { Mutation } from 'react-apollo';
 
 import TierModal from './TierModal.jsx';
+import { UPDATE_USER } from '../apollo/mutations.js';
 
 class ProfileInfo extends React.Component {
   constructor(props) {
@@ -53,7 +55,7 @@ class ProfileInfo extends React.Component {
       <div>
         <h3>Add Info</h3>
         <Form horizontal>
-          <FormGroup onChange={this.handleUsernameInput} controlId="formHorizontalUsername" >
+          <FormGroup onChange={ this.handleUsernameInput } controlId="formHorizontalUsername" >
             <Col sm={2}>
               Username
             </Col>
@@ -62,7 +64,7 @@ class ProfileInfo extends React.Component {
             </Col>
           </FormGroup>
 
-          <FormGroup>
+          <FormGroup onChange={ this.handlePhoneNumberInput }>
             <Col sm={2}>
               Phone Number
             </Col>
@@ -71,15 +73,8 @@ class ProfileInfo extends React.Component {
             </Col>
           </FormGroup>
           
-          <FormGroup controlId="formHorizontalEmail" >
-            <Col sm={2}>
-              Location
-            </Col>
-            <Col sm={4}>
-              <FormControl placeholder="Location" />
-            </Col>
-          </FormGroup>
-          <DropdownButton onSelect={this.handleSkillSelect}
+          <DropdownButton
+            onSelect={this.handleSkillSelect}
             bsSize="large"
             title={this.state.skillTier}
             id="dropdown-size-large"
@@ -98,7 +93,19 @@ class ProfileInfo extends React.Component {
         
           <FormGroup>
             <Col smOffset={2} sm={4}>
-              <Button onClick={this.props.handleSubmit} >Submit</Button>
+              <Mutation
+                mutation={ UPDATE_USER }
+                variables={{
+                  email: this.props.userProfile.email,
+                  name: this.state.username,
+                  phoneNumber: this.state.phoneNumber
+                }}>
+                { updateUser => (
+                  <Button onClick={ updateUser }>
+                    Submit
+                  </Button>
+                ) }
+              </Mutation>
             </Col>
           </FormGroup>
         </Form>

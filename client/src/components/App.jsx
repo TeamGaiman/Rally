@@ -156,7 +156,9 @@ class App extends React.Component {
               }}
             </Query>
           ) }/>
-          <Route path='/profile' render={ () => <Profile/> }/>
+          <Route path='/profile' render={ () =>
+            <Profile userProfile={ this.state.userProfile }/> 
+          }/>
           <Route path='/stats' render={ () => <Stats/> }/>
         </Switch>
       </ApolloProvider>
