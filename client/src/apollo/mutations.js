@@ -36,8 +36,17 @@ mutation UpdateUser($email: String!, $name: String!, $fullName: String!, $phoneN
   }
 `;
 
+const UPDATE_MATCH = gql`
+mutation ($id: String!, $input: MatchInput) {
+  updateMatch(id: $id, input: $input) {
+    
+  }
+}
+`;
+
 module.exports = {
   CREATE_USER,
   UPDATE_USER,
-  CREATE_MATCH
+  CREATE_MATCH,
+  UPDATE_MATCH
 };
