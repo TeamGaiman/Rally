@@ -1,7 +1,6 @@
 import React from 'react';
 import UpcomingMatches from './UpcomingMatches.jsx';
 import RecentMatches from './RecentMatches.jsx';
-import dummyData from '../../../dummyData/dummyData.js';
 import { Button } from 'react-bootstrap';
 import ProfileInfo from './ProfileInfo.jsx';
 
@@ -15,14 +14,6 @@ class Profile extends React.Component {
     };
     this.handleProfileLinkClick = this.handleProfileLinkClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentDidMount() {
-    
-    this.setState({
-      upcoming: dummyData.upcoming,
-      history: dummyData.history
-    });
   }
 
   handleProfileLinkClick() {
