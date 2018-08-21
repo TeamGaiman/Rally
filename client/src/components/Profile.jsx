@@ -1,7 +1,6 @@
 import React from 'react';
 import UpcomingMatches from './UpcomingMatches.jsx';
 import RecentMatches from './RecentMatches.jsx';
-import dummyData from '../../../dummyData/dummyData.js';
 import { Button } from 'react-bootstrap';
 import ProfileInfo from './ProfileInfo.jsx';
 
@@ -17,14 +16,6 @@ class Profile extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    
-    this.setState({
-      upcoming: dummyData.upcoming,
-      history: dummyData.history
-    });
-  }
-
   handleProfileLinkClick() {
     this.setState({showProfileInfo: true});
   }
@@ -38,7 +29,10 @@ class Profile extends React.Component {
     let view1, view2;
 
     if (showProfileInfo) {
-      view1 = <ProfileInfo handleSubmit={this.handleSubmit}/>;
+      view1 = <ProfileInfo 
+        handleSubmit={this.handleSubmit}
+        userProfile={this.props.userProfile}
+      />;
     } else {
       view1 = <UpcomingMatches upcoming={this.state.upcoming} />;
       view2 = <RecentMatches history={this.state.history} />;

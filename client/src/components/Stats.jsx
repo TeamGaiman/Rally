@@ -1,6 +1,5 @@
 import React from 'react';
 import Trophies from './Trophies.jsx';
-import dummyData from '../../../dummyData/dummyData.js';
 
 class Stats extends React.Component {
   constructor(props) {
@@ -8,12 +7,6 @@ class Stats extends React.Component {
     this.state = {
       stats: {wins: 'a'}
     };
-  }
-
-  componentDidMount() {
-    this.setState({
-      stats: dummyData.userStats
-    });
   }
 
   render() {
@@ -27,6 +20,5 @@ class Stats extends React.Component {
     );
   }
 }
-
 
 export default Stats;
