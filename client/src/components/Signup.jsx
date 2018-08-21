@@ -74,15 +74,14 @@ class Signup extends React.Component {
             </FormGroup>
             <FormGroup>
               <Link to='/matchmaking'>
-                <Mutation 
+                <Mutation
                   mutation={ CREATE_USER }
                   variables={{ email: this.props.googleUserData.email }}>
                   { createUser => (
-                    <Button 
+                    <Button
                       type="submit"
-                      className='pull-right' 
+                      className='pull-right'
                       onClick={ createUser }>
-                      
                       Enter Matchmaking
                     </Button>
                   ) }
