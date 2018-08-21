@@ -1,5 +1,6 @@
 import React from 'react';
-import { Table, Modal, Button } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
+import ChallengesModal from './ChallengesModal.jsx';
 
 class Challenges extends React.Component {
   constructor(props) {
@@ -71,34 +72,12 @@ class Challenges extends React.Component {
         </Table>
 
         { this.state.showMatch
-          ? <Modal
-            show={ this.state.showMatch }
-            onHide={ this.handleHideMatch }
-          >
-            <Modal.Header closeButton>
-              <Modal.Title id="contained-modal-title">
-                { this.state.matchClickUser.particpantB }
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <div>
-                {/* Profile Pic <img src={this.state.matchClickUser.}>
-                <br/>
-                <br/> */}
-                W: { this.state.matchClickUser.wins } L: { this.state.matchClickUser.losses }
-                <br/>
-                <br/>
-                Tier: { this.state.matchClickUser.tier }
-                <br/>
-                <br/>
-                Trophies:
-              </div>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button onClick={ this.handleHideMatch }>Decline</Button>
-              <Button bsStyle="primary" onClick={ this.handleAcceptMatch }>Accept Challenge</Button>
-            </Modal.Footer>
-          </Modal>
+          ? <ChallengesModal 
+            showMatch={ this.state.showMatch }
+            handleHideMatch={ this.handleHideMatch }
+            matchClickUser={ this.state.matchClickUser }
+            handleAcceptMatch={ this.handleAcceptMatch }
+          />
           : null }
           
       </div>
