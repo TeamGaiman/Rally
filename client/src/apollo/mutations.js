@@ -48,9 +48,26 @@ const ACCEPT_MATCH = gql`
   }
 `;
 
+const UPDATE_MATCH = gql`
+mutation ($id: String!, $input: MatchInput) {
+  updateMatch(id: $id, input: $input) {
+    id
+    participantA
+    participantB
+    startTime
+    location
+    accepted
+    completed
+    winner
+    score
+  }
+}
+`;
+
 module.exports = {
   CREATE_USER,
   UPDATE_USER,
   CREATE_MATCH,
-  ACCEPT_MATCH
+  ACCEPT_MATCH,
+  UPDATE_MATCH
 };
