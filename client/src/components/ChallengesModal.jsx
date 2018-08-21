@@ -28,7 +28,7 @@ const ChallengesModal = (props) => {
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={ props.handleHideMatch }>Decline</Button>
-        <Button bsStyle="primary" onClick={ props.handleAcceptMatch }>Accept Challenge</Button>
+        <Button bsStyle="primary" onClick={ props.acceptMatch }>Accept Challenge</Button>
       </Modal.Footer>
     </Modal>    
   );

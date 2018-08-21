@@ -1,6 +1,8 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
 import ChallengesModal from './ChallengesModal.jsx';
+import { Mutation } from 'react-apollo';
+import { ACCEPT_MATCH } from '../apollo/mutations';
 
 class Challenges extends React.Component {
   constructor(props) {
@@ -37,7 +39,12 @@ class Challenges extends React.Component {
   }
 
   handleAcceptMatch() {
-    this.setState({ showMatch: false });
+    let index = this.state.matchedUsers.indexOf(this.state.matchClickUser);
+    this.state.matchedUsers.splice(index, 1);
+    this.setState({ 
+      matches: this.state.matches,
+      showMatch: false 
+    });
   }
   
   handleDeclineMatch() {
@@ -72,12 +79,20 @@ class Challenges extends React.Component {
         </Table>
 
         { this.state.showMatch
-          ? <ChallengesModal 
-            showMatch={ this.state.showMatch }
-            handleHideMatch={ this.handleHideMatch }
-            matchClickUser={ this.state.matchClickUser }
-            handleAcceptMatch={ this.handleAcceptMatch }
-          />
+          ? <Mutation
+            mutation={ ACCEPT_MATCH }
+            variables={{ accepted: true }}
+            update={ this.handleAcceptMatch }
+          >
+            { acceptMatch => (
+              <ChallengesModal 
+                showMatch={ this.state.showMatch }
+                handleHideMatch={ this.handleHideMatch }
+                matchClickUser={ this.state.matchClickUser }
+                acceptMatch={ acceptMatch }
+              />
+            )}
+          </Mutation>
           : null }
           
       </div>
