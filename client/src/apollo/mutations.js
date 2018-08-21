@@ -10,20 +10,35 @@ const CREATE_USER = gql`
 `;
 
 const UPDATE_USER = gql`
-  mutation UpdateUser($email: String!, $name: String!, $fullName: String!, $phoneNumber: String!) {
-    updateUser(email: $email, input: {
-      name: $name,
-      fullName: $fullName
-      phoneNumber: $phoneNumber
-    }){
-      name
-    }
+  mutation UpdateUser(
+    $email: String,
+    $name: String,
+    $fullName: String,
+    $phoneNumber: String
+    $wins: Int,
+    $losses: Int,
+    $elo: Int,
+    $tier: Int) {
+    updateUser(email: $email, 
+    input: {
+      $name: String,
+      $fullName: String,
+      $phoneNumber: String
+      $wins: Int,
+      $losses: Int,
+      $elo: Int,
+      $tier: Int
+    })
   }
 `;
 
 // MATCH MUTATIONS
 const CREATE_MATCH = gql`
-  mutation CreateMatch($participantA: String!, $participantB: String!, $startTime: String!, $location: String!) {
+  mutation CreateMatch(
+    $participantA: String
+    $participantB: String
+    $startTime: String
+    $location: String!) {
     createMatch(input: {
       participantA: $participantA,
       participantB: $participantB,

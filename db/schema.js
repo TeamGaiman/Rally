@@ -42,7 +42,6 @@ const typeDefs = `
     name: String
     fullName: String
     phoneNumber: String
-    phoneNumber: String
     wins: Int
     losses: Int
     elo: Int
