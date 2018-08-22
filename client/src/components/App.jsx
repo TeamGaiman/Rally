@@ -7,6 +7,7 @@ import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import Profile from './Profile.jsx';
 import Matchmaking from './Matchmaking.jsx';
+import RecommendedMatches from './RecommendedMatches.jsx';
 import Stats from './Stats.jsx';
 import { CHECK_EMAIL_IS_UNIQUE, GET_USER_BY_EMAIL } from '../apollo/queries.js';
 
@@ -157,7 +158,11 @@ class App extends React.Component {
             </Query>
           ) }/>
           <Route path='/profile' render={ () =>
-            <Profile userProfile={ this.state.userProfile }/> 
+            <Profile 
+              userProfile={ this.state.userProfile }
+              googleUserData={ this.state.googleUserData }
+              playerData={ this.state.playerData }
+            /> 
           }/>
           <Route path='/stats' render={ () => <Stats/> }/>
         </Switch>

@@ -45,12 +45,12 @@ class Profile extends React.Component {
             <Row className="show-grid">
               <Col xs={12} md={6}>
                 <div className="box">
-                  <Image className="profile-pic" src={ this.props.userData.photoURL } responsive />
+                  <Image className="profile-pic" src={ this.props.googleUserData.photoURL } responsive />
                   <div>
-                    <h2>{ this.props.userData.displayName }</h2>
-                    W: 12 L: 2
+                    <h2>{ this.props.googleUserData.displayName }</h2>
+                    W: { this.props.playerData.wins } L: { this.props.playerData.losses }
                     <br/>
-                    Tier: 3
+                    Tier: 
                     <br/>
                     Trophies:
                   </div>
@@ -60,6 +60,7 @@ class Profile extends React.Component {
           </Grid>
 
         </Jumbotron>
+
         <div>
           {this.state.showProfileInfo 
             ? null 
@@ -74,6 +75,7 @@ class Profile extends React.Component {
               </Button>
             </div>}
         </div>
+
         {view1}
         {view2}
         
