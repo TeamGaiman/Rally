@@ -4,17 +4,20 @@
   margin-top: 5%;
 }
 
-.jumbotron {
+.profile-jumbotron {
   background-image: url('../lib/profilejumbo.jpg');
   background-size: cover;
   background-position: center;
 }
 
 .profile-pic {
-  width: 20%;
+  max-width: 100px;
+  /* max-width: 15%;
+  min-width: 15%; */
+  /* height: auto; */
   margin-top: 20px;
   margin-right: 20px;
-  /* margin-bottom: 20px; */
+  margin-left: 10%;
   position: relative;
 }
 
@@ -24,5 +27,11 @@
 }
 
 .edit-profile-button {
-  margin-left: 5%;
+  margin-left: 11%;
+  margin-top: -10px;
+  background-color: Transparent;
+}
+
+.user-info {
+  margin-top: 40px;
 }
