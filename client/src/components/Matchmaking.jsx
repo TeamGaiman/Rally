@@ -1,9 +1,9 @@
 import React from 'react';
+
 import RecommendedMatches from './RecommendedMatches.jsx';
 import Challenges from './Challenges.jsx';
 import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
-import { GET_ALL_USERS, GET_USERS_BY_TIER, CHECK_EMAIL_IS_UNIQUE } from '../apollo/queries.js';
+import { GET_USERS_BY_TIER } from '../apollo/queries.js';
 
 class Matchmaking extends React.Component {
   constructor(props) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Table} from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 
 const UpcomingMatches = (props) => {
   return (
