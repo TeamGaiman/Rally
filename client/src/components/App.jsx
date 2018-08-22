@@ -15,14 +15,12 @@ class App extends React.Component {
     super(props);
     this.state = {
       googleUserData: null,
-      userProfile: null,
       playerData: null
     };
 
     this.authListener = this.authListener.bind(this);
     this.googleSignIn = this.googleSignIn.bind(this);
     this.googleSignOut = this.googleSignOut.bind(this);
-    this.mapGoogleDataToProfile = this.mapGoogleDataToProfile.bind(this);
     this.mapDBPlayerDataToState = this.mapDBPlayerDataToState.bind(this);
   }
 
@@ -67,24 +65,11 @@ class App extends React.Component {
       });
   }
 
-  /* --- ACCOUNT CREATION --- */
-  mapGoogleDataToProfile () {
-    this.setState({
-      userProfile: {
-        fullName: this.state.googleUserData.displayName,
-        email: this.state.googleUserData.email,
-        phoneNumber: this.state.googleUserData.phoneNumber
-      }
-    });
-  }
+  /* --- RETRIEVE USER INFO --- */
 
   mapDBPlayerDataToState ( dbData ) {
     this.setState({
-      playerData: {
-        elo: dbData.elo,
-        wins: dbData.wins,
-        losses: dbData.losses
-      }
+      playerData: dbData
     });
   }
 
@@ -146,10 +131,9 @@ class App extends React.Component {
               {({ loading, error, data }) => {
                 if ( loading ) { return <p>Loading...</p>; }
                 if ( error ) { return <p>Error! ${ error }</p>; }
-                console.log('playerData ', data.getUserByEmail);
                 return <Matchmaking
-                  userData = { this.state.userProfile }
-                  playerData={ data.getUserByEmail } 
+                  playerData = { this.state.playerData }
+                  dbPlayerData={ data.getUserByEmail } 
                   mapGoogleDataToProfile={ this.mapGoogleDataToProfile }
                   mapDBPlayerDataToState={ this.mapDBPlayerDataToState }
                 />;
@@ -158,7 +142,6 @@ class App extends React.Component {
           ) }/>
           <Route path='/profile' render={ () =>
             <Profile 
-              userProfile={ this.state.userProfile }
               googleUserData={ this.state.googleUserData }
               playerData={ this.state.playerData }
             /> 
