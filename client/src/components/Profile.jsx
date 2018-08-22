@@ -17,7 +17,7 @@ class Profile extends React.Component {
   }
 
   handleEditUserInfo() {
-    this.setState({editUserInfo: true});
+    this.setState({editUserInfo: !this.state.editUserInfo});
   }
 
   render() {
@@ -25,7 +25,7 @@ class Profile extends React.Component {
     let view1, view2;
 
     if (editUserInfo) {
-      view1 = <EditUserInfo { ...this.props } />;
+      view1 = <EditUserInfo { ...this.props } handleEditUserInfo = {this.handleEditUserInfo} />;
     } else {
       view1 = <UpcomingMatches upcoming={this.state.upcoming} />;
       view2 = <RecentMatches history={this.state.history} />;

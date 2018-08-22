@@ -71,7 +71,7 @@ class EditUserInfo extends React.Component {
               </FormControl>
             </FormGroup>
             <FormGroup>
-              <Link to='/matchmaking'>
+              <Link to='/profile' onClick ={this.props.handleEditUserInfo}>
                 <Mutation
                   mutation={ UPDATE_USER }
                   variables={{
