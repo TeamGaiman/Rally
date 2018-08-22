@@ -29,17 +29,16 @@ const NavBar = (props) => {
                 Matchmaking
               </NavItem>
             </LinkContainer>
-            <LinkContainer to='/profile'>
-              <NavItem >
-                Profile
-              </NavItem>
-            </LinkContainer>
             <LinkContainer to='/stats'>
               <NavItem>
                 Stats
               </NavItem>
             </LinkContainer>
-            <MenuItem divider />
+            <LinkContainer to='/profile'>
+              <NavItem >
+                Profile
+              </NavItem>
+            </LinkContainer>
             {/* <LinkContainer to='/profile'>
               <NavItem>
                 {props.googleUserData.displayName.split(' ')[0]}
