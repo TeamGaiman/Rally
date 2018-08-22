@@ -39,11 +39,11 @@ const NavBar = (props) => {
                 Profile
               </NavItem>
             </LinkContainer>
-            {/* <LinkContainer to='/profile'>
-              <NavItem>
-                {props.googleUserData.displayName.split(' ')[0]}
+            <LinkContainer to='/login'>
+              <NavItem onClick={props.googleSignOut}>
+                Logout
               </NavItem>
-            </LinkContainer> */}
+            </LinkContainer>
             <Navbar.Brand className="profile-image">
               <Image
                 src={props.googleUserData.photoURL}
@@ -51,11 +51,7 @@ const NavBar = (props) => {
                 responsive
               />
             </Navbar.Brand>
-            <LinkContainer to='/login'>
-              <NavItem onClick={props.googleSignOut}>
-                Logout
-              </NavItem>
-            </LinkContainer>
+
           </Nav>
         }
       </Navbar.Collapse>
