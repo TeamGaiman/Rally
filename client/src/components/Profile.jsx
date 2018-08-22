@@ -48,20 +48,19 @@ class Profile extends React.Component {
           </div>
 
           <div>
-            {this.state.showProfileInfo 
+            {this.state.editUserInfo 
               ? null 
               : <div>
                 <Button 
                   className="edit-profile-button"
                   bsSize="xsmall" 
-                  onClick={this.handleProfileLinkClick}
+                  onClick={this.handleEditUserInfo}
                 >
                   Edit Profile
                 </Button>
               </div>}
           </div>
         </Jumbotron>
-
 
         {/* <ProfileCxalendar /> */}
 
