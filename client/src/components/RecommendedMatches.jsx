@@ -50,6 +50,7 @@ class RecommendedMatches extends React.Component {
     if (this.state.startTime && this.state.location) {
       let index = this.state.matchedUsers.indexOf(this.state.matchClickUser);
       this.state.matchedUsers.splice(index, 1);
+      console.log("startTime", this.state.startTime);
       this.setState({ 
         matchedUsers: this.state.matchedUsers,
         showMatch: false, 
