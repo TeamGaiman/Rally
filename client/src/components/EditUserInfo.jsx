@@ -75,7 +75,7 @@ class EditUserInfo extends React.Component {
                 <Mutation
                   mutation={ UPDATE_USER }
                   variables={{
-                    email: this.props.userProfile.email,
+                    email: this.props.playerData.email,
                     name: this.state.username,
                     phoneNumber: this.state.phone
                   }}>

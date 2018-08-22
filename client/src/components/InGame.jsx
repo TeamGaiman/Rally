@@ -1,9 +1,7 @@
 import React from 'react';
+
 import ScoreCard from './ScoreCard.jsx';
-import {
-  Button,
-  Modal
-} from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 
 class InGame extends React.Component {
   constructor(props) {
