@@ -1,5 +1,5 @@
 import React from 'react';
-import { Jumbotron, Button, Grid, Row, Col, Image } from 'react-bootstrap';
+import { Jumbotron, Button, Image } from 'react-bootstrap';
 import UpcomingMatches from './UpcomingMatches.jsx';
 import RecentMatches from './RecentMatches.jsx';
 import EditUserInfo from './EditUserInfo.jsx';
@@ -33,45 +33,38 @@ class Profile extends React.Component {
 
     return (
       <div>
-        <Jumbotron className="jumbotron">
-          <Grid>
-            <Row className="show-grid">
-              <Col xs={12} md={6}>
-                <div className="box">
-                  <Image className="profile-pic" src={ this.props.googleUserData.photoURL } responsive />
-                  <div>
-                    <h2>{ this.props.googleUserData.displayName }</h2>
-                    W: { this.props.playerData.wins } L: { this.props.playerData.losses }
-                    <br/>
-                    Tier: 
-                    <br/>
-                    Trophies:
-                    <div>
-                    </div>
-                
-                  </div>
-                 
-                </div>
-              </Col>
-            </Row>
-          </Grid>
+        <Jumbotron className="profile-jumbotron">
+          <div className="box">
+            <Image className="profile-pic" src={ this.props.googleUserData.photoURL }  />
+            <div className="user-info">
+              <h3>{ this.props.googleUserData.displayName }</h3>
+              W: { this.props.playerData.wins } L: { this.props.playerData.losses }
+              <br/>
+              Tier: 
+              <br/>
+              Trophies:
+              <br/>
+            </div>
+          </div>
 
+          <div>
+            {this.state.showProfileInfo 
+              ? null 
+              : <div>
+                <Button 
+                  className="edit-profile-button"
+                  bsSize="xsmall" 
+                  onClick={this.handleProfileLinkClick}
+                >
+                  Edit Profile
+                </Button>
+              </div>}
+          </div>
         </Jumbotron>
 
-        <div>
-          
-        </div>
-        {this.state.editUserInfo
-          ? null
-          :
-          <Button
-            className="edit-profile-button"
-            bsSize="small"
-            onClick={this.handleEditUserInfo}
-          >
-            Edit Profile
-          </Button>
-        }
+
+        {/* <ProfileCxalendar /> */}
+
         {view1}
         {view2}
         
