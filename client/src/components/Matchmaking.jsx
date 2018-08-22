@@ -16,8 +16,8 @@ class Matchmaking extends React.Component {
   }
 
   componentDidMount () {
-    this.props.mapGoogleDataToProfile();
-    this.props.mapDBPlayerDataToState( this.props.playerData );
+    // this.props.mapGoogleDataToProfile();
+    this.props.mapDBPlayerDataToState( this.props.dbPlayerData );
   }
 
   render () {
@@ -32,7 +32,7 @@ class Matchmaking extends React.Component {
           }
           return (
             <div>
-              <RecommendedMatches users={ data.getUsersByTier } userData={ this.props.userData }/>
+              <RecommendedMatches users={ data.getUsersByTier } playerData={ this.props.playerData }/>
               <Challenges/>
             </div>
           );
