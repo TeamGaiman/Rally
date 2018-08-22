@@ -85,14 +85,14 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' render={ () => {
             if ( this.state.googleUserData ) {
-              return <Redirect to='/matchmaking'/>;
+              return <Redirect to='/signup'/>;
             } else {
               return <Redirect to='/login' />;
             }
           } }/>
           <Route path='/login' render={ () => {
             if ( this.state.googleUserData ) {
-              return <Redirect to='/matchmaking'/>;
+              return <Redirect to='/signup'/>;
             } else {
               return <Login googleSignIn={ this.googleSignIn }/>;
             }
