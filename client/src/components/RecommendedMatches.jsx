@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
+
 import RecommendedModal from './RecommendedModal.jsx';
 import { Mutation } from 'react-apollo';
 import { CREATE_MATCH } from '../apollo/mutations.js';
@@ -24,7 +25,7 @@ class RecommendedMatches extends React.Component {
   }
 
   componentDidMount() {
-    console.log('userData ', this.props.userData)
+    console.log('userData ', this.props.playerData)
     let newMatches = matchmakeByElo(2000, this.props.users);
     this.setState({
       matchedUsers: newMatches
@@ -93,7 +94,7 @@ class RecommendedMatches extends React.Component {
           ? <Mutation
             mutation={ CREATE_MATCH }
             variables={{ 
-              participantA: this.props.userData.email, 
+              participantA: this.props.playerData.email, 
               participantB: this.state.matchClickUser.email, 
               startTime: this.state.startTime, 
               location: this.state.location
