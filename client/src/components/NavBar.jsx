@@ -14,10 +14,10 @@ const NavBar = (props) => {
         <Navbar.Toggle />
       </Navbar.Header>
       <Navbar.Collapse>
-        { !props.googleUserData || !props.playerData 
+        {!props.googleUserData || !props.playerData
           ? <Nav pullRight>
             <LinkContainer to='/signup'>
-              <NavItem onClick={ props.googleSignIn }>
+              <NavItem onClick={props.googleSignIn}>
                 Sign in with Google
               </NavItem>
             </LinkContainer>
@@ -29,37 +29,34 @@ const NavBar = (props) => {
                 Matchmaking
               </NavItem>
             </LinkContainer>
-
-            <NavDropdown
-              eventKey={3}
-              title={ props.googleUserData.displayName }
-              id="basic-nav-dropdown"
-            >
-              <LinkContainer to='/profile'>
-                <NavItem >
-                  Profile
-                </NavItem>
-              </LinkContainer>
-              <LinkContainer to='/stats'>
-                <NavItem>
-                  Stats
-                </NavItem>
-              </LinkContainer>
-              <MenuItem divider />
-              <LinkContainer to='/login'>
-                <NavItem onClick={ props.googleSignOut }>
-                  Logout
-                </NavItem>
-              </LinkContainer>
-            </NavDropdown>
-
+            <LinkContainer to='/profile'>
+              <NavItem >
+                Profile
+              </NavItem>
+            </LinkContainer>
+            <LinkContainer to='/stats'>
+              <NavItem>
+                Stats
+              </NavItem>
+            </LinkContainer>
+            <MenuItem divider />
+            {/* <LinkContainer to='/profile'>
+              <NavItem>
+                {props.googleUserData.displayName.split(' ')[0]}
+              </NavItem>
+            </LinkContainer> */}
             <Navbar.Brand className="profile-image">
               <Image
-                src={ props.googleUserData.photoURL }
+                src={props.googleUserData.photoURL}
                 circle
                 responsive
               />
             </Navbar.Brand>
+            <LinkContainer to='/login'>
+              <NavItem onClick={props.googleSignOut}>
+                Logout
+              </NavItem>
+            </LinkContainer>
           </Nav>
         }
       </Navbar.Collapse>
