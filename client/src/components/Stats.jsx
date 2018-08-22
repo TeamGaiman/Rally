@@ -1,5 +1,6 @@
 import React from 'react';
 import Trophies from './Trophies.jsx';
+import Map from './Map.jsx';
 
 class Stats extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class Stats extends React.Component {
   render() {
     return (
       <div>
+        <Map />
         W: {this.state.stats.wins} <br/>
         L: {this.state.stats.losses} <br/>
         Elo: {this.state.stats.elo} <br/>
