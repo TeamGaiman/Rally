@@ -26,7 +26,6 @@ class EditUserInfo extends React.Component {
     this.setState({
       [ e.target.id ]: e.target.value
     });
-    console.log(this.state);
   }
 
   render() {
@@ -63,7 +62,7 @@ class EditUserInfo extends React.Component {
               <FormControl onChange={ this.handleFieldChange } placeholder='optional' />
             </FormGroup>
             <FormGroup controlId="skillTier">
-              <ControlLabel>Competition Tier - <Button onClick={ this.toggleTierModal }> ❔ </Button> </ControlLabel>
+              <ControlLabel>Matchmaking Tier - <Button onClick={ this.toggleTierModal }> ❔ </Button> </ControlLabel>
               <FormControl componentClass="select" onChange={ this.handleFieldChange }>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -78,14 +77,14 @@ class EditUserInfo extends React.Component {
                   variables={{
                     email: this.props.userProfile.email,
                     name: this.state.username,
-                    phoneNumber: this.state.phone,
+                    phoneNumber: this.state.phone
                   }}>
                   { updateUser => (
                     <Button
                       type="submit"
                       className='pull-right'
                       onClick={ updateUser }>
-                      Enter Matchmaking
+                      Submit
                     </Button>
                   ) }
                 </Mutation>

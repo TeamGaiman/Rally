@@ -47,17 +47,6 @@ class Profile extends React.Component {
                     <br/>
                     Trophies:
                     <div>
-                      {this.state.editUserInfo
-                        ? null
-                        : 
-                        <Button
-                          className="edit-profile-button"
-                          bsSize="small"
-                          onClick={this.handleEditUserInfo}
-                        >
-                          Edit Profile
-                        </Button>
-                      }
                     </div>
                 
                   </div>
@@ -72,7 +61,17 @@ class Profile extends React.Component {
         <div>
           
         </div>
-
+        {this.state.editUserInfo
+          ? null
+          :
+          <Button
+            className="edit-profile-button"
+            bsSize="small"
+            onClick={this.handleEditUserInfo}
+          >
+            Edit Profile
+          </Button>
+        }
         {view1}
         {view2}
         
