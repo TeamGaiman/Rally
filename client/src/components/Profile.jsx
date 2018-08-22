@@ -2,7 +2,7 @@ import React from 'react';
 import { Jumbotron, Button, Grid, Row, Col, Image } from 'react-bootstrap';
 import UpcomingMatches from './UpcomingMatches.jsx';
 import RecentMatches from './RecentMatches.jsx';
-import ProfileInfo from './ProfileInfo.jsx';
+import EditUserInfo from './EditUserInfo.jsx';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -10,29 +10,22 @@ class Profile extends React.Component {
     this.state = {
       upcoming: [],
       history: [],
-      showProfileInfo: false
+      editUserInfo: false
     };
-    this.handleProfileLinkClick = this.handleProfileLinkClick.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.handleEditUserInfo = this.handleEditUserInfo.bind(this);
   }
 
-  handleProfileLinkClick() {
-    this.setState({showProfileInfo: true});
-  }
-
-  handleSubmit() {
-    this.setState({showProfileInfo: false});
+  handleEditUserInfo() {
+    this.setState({editUserInfo: true});
   }
 
   render() {
-    const showProfileInfo = this.state.showProfileInfo;
+    const editUserInfo = this.state.editUserInfo;
     let view1, view2;
 
-    if (showProfileInfo) {
-      view1 = <ProfileInfo 
-        handleSubmit={this.handleSubmit}
-        userProfile={this.props.userProfile}
-      />;
+    if (editUserInfo) {
+      view1 = <EditUserInfo { ...this.props } />;
     } else {
       view1 = <UpcomingMatches upcoming={this.state.upcoming} />;
       view2 = <RecentMatches history={this.state.history} />;
@@ -53,7 +46,22 @@ class Profile extends React.Component {
                     Tier: 
                     <br/>
                     Trophies:
+                    <div>
+                      {this.state.editUserInfo
+                        ? null
+                        : 
+                        <Button
+                          className="edit-profile-button"
+                          bsSize="small"
+                          onClick={this.handleEditUserInfo}
+                        >
+                          Edit Profile
+                        </Button>
+                      }
+                    </div>
+                
                   </div>
+                 
                 </div>
               </Col>
             </Row>
@@ -62,18 +70,7 @@ class Profile extends React.Component {
         </Jumbotron>
 
         <div>
-          {this.state.showProfileInfo 
-            ? null 
-            : <div>
-              <Button 
-                className="edit-profile-button"
-                bsSize="small" 
-                bsStyle="success"
-                onClick={this.handleProfileLinkClick}
-              >
-                Edit Profile
-              </Button>
-            </div>}
+          
         </div>
 
         {view1}
