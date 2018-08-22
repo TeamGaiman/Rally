@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
+
 import RecommendedModal from './RecommendedModal.jsx';
 import { Mutation } from 'react-apollo';
 import { CREATE_MATCH } from '../apollo/mutations.js';

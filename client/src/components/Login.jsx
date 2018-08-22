@@ -1,7 +1,6 @@
 import React from 'react';
-import { Grid, Row, Col, Navbar } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
-import { Query } from 'react-apollo';
+
+import { Grid, Row, Col } from 'react-bootstrap';
 import { SectionsContainer, Section } from 'react-fullpage';
 import icon1 from '../../dist/lib/icon1.png';
 import icon2 from '../../dist/lib/icon2.png';

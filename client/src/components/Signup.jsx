@@ -1,10 +1,9 @@
 import React from 'react';
 import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Query, Mutation } from 'react-apollo';
+import { Mutation } from 'react-apollo';
 
 import TierModal from './TierModal.jsx';
-import { CHECK_EMAIL_IS_UNIQUE } from '../apollo/queries.js';
 import { CREATE_USER } from '../apollo/mutations.js';
 
 class Signup extends React.Component {

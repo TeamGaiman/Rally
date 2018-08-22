@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
+
 import ChallengesModal from './ChallengesModal.jsx';
 import { Mutation } from 'react-apollo';
 import { ACCEPT_MATCH } from '../apollo/mutations';

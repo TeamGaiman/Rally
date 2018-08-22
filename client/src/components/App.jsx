@@ -7,7 +7,6 @@ import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import Profile from './Profile.jsx';
 import Matchmaking from './Matchmaking.jsx';
-import RecommendedMatches from './RecommendedMatches.jsx';
 import Stats from './Stats.jsx';
 import { CHECK_EMAIL_IS_UNIQUE, GET_USER_BY_EMAIL } from '../apollo/queries.js';
 
@@ -101,14 +100,14 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' render={ () => {
             if ( this.state.googleUserData ) {
-              return <Redirect to='/matchmaking'/>;
+              return <Redirect to='/signup'/>;
             } else {
               return <Redirect to='/login' />;
             }
           } }/>
           <Route path='/login' render={ () => {
             if ( this.state.googleUserData ) {
-              return <Redirect to='/matchmaking'/>;
+              return <Redirect to='/signup'/>;
             } else {
               return <Login googleSignIn={ this.googleSignIn }/>;
             }

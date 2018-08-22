@@ -1,5 +1,6 @@
 import React from 'react';
 import { Jumbotron, Button, Image } from 'react-bootstrap';
+
 import UpcomingMatches from './UpcomingMatches.jsx';
 import RecentMatches from './RecentMatches.jsx';
 import EditUserInfo from './EditUserInfo.jsx';
