@@ -37,7 +37,7 @@ class Profile extends React.Component {
       <div>
         <Jumbotron className="profile-jumbotron">
           <div className="box">
-            <Image className="profile-pic" src={ this.props.googleUserData.photoURL } circle />
+            <Image className="profile-pic" src={ this.props.googleUserData.photoURL }  />
             <div className="user-info">
               <h3>{ this.props.googleUserData.displayName }</h3>
               W: { this.props.playerData.wins } L: { this.props.playerData.losses }
