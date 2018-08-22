@@ -158,7 +158,11 @@ class App extends React.Component {
             </Query>
           ) }/>
           <Route path='/profile' render={ () =>
-            <Profile userProfile={ this.state.userProfile }/> 
+            <Profile 
+              userProfile={ this.state.userProfile }
+              googleUserData={ this.state.googleUserData }
+              playerData={ this.state.playerData }
+            /> 
           }/>
           <Route path='/stats' render={ () => <Stats/> }/>
         </Switch>

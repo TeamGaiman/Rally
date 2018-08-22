@@ -5,9 +5,7 @@ import { Link } from 'react-router-dom';
 
 const NavBar = (props) => {
   return (
-    <Navbar inverse collapseOnSelect staticTop
-      style={ props.googleUserData ? null : { marginBottom: '0' }}
-    >
+    <Navbar inverse collapseOnSelect staticTop className="nav-margin">
       <Navbar.Header>
         <Navbar.Brand>
           <Link to="/">Rally</Link>

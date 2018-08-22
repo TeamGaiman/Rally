@@ -1,7 +1,7 @@
 import React from 'react';
+import { Jumbotron, Button, Grid, Row, Col, Image } from 'react-bootstrap';
 import UpcomingMatches from './UpcomingMatches.jsx';
 import RecentMatches from './RecentMatches.jsx';
-import { Button } from 'react-bootstrap';
 import ProfileInfo from './ProfileInfo.jsx';
 
 class Profile extends React.Component {
@@ -40,8 +40,42 @@ class Profile extends React.Component {
 
     return (
       <div>
-        {this.state.showProfileInfo ? <div></div> : <div>Want to get personalized matches? <Button onClick={this.handleProfileLinkClick} bsStyle="success">Add Profile Info</Button></div>}
-        
+        <Jumbotron className="jumbotron">
+          <Grid>
+            <Row className="show-grid">
+              <Col xs={12} md={6}>
+                <div className="box">
+                  <Image className="profile-pic" src={ this.props.googleUserData.photoURL } responsive />
+                  <div>
+                    <h2>{ this.props.googleUserData.displayName }</h2>
+                    W: { this.props.playerData.wins } L: { this.props.playerData.losses }
+                    <br/>
+                    Tier: 
+                    <br/>
+                    Trophies:
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </Grid>
+
+        </Jumbotron>
+
+        <div>
+          {this.state.showProfileInfo 
+            ? null 
+            : <div>
+              <Button 
+                className="edit-profile-button"
+                bsSize="small" 
+                bsStyle="success"
+                onClick={this.handleProfileLinkClick}
+              >
+                Edit Profile
+              </Button>
+            </div>}
+        </div>
+
         {view1}
         {view2}
         
