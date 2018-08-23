@@ -52,6 +52,7 @@ const CHECK_EMAIL_IS_UNIQUE = gql`
 const GET_USER_CHALLENGES = gql`
   query GetUserChallenges($email: String) {
     getUserChallenges(email: $email) {
+      id
       accepted
       completed
       participantA

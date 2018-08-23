@@ -4,32 +4,26 @@ import { Modal, Button } from 'react-bootstrap';
 const ChallengesModal = (props) => {
   return (
     <Modal
-      show={ props.showMatch }
+      show={ props.challengeModalOpen }
       onHide={ props.handleHideMatch }
       className="accept-challenge-modal"
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title">
-          { props.matchClickUser.particpantB }
+          { `You've been challenged by ${props.challenge.participantA}` }
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div>
-          {/* Profile Pic <img src={this.state.matchClickUser.}>
-          <br/>
-          <br/> */}
-          W: { props.matchClickUser.wins } L: { props.matchClickUser.losses }
+          {props.challenge.location}
           <br/>
           <br/>
-          Tier: { props.matchClickUser.tier }
-          <br/>
-          <br/>
-          Trophies:
+          {props.challenge.startTime.split(' GMT')[0]}
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={ props.handleHideMatch }>Decline</Button>
-        <Button bsStyle="primary" onClick={ props.acceptMatch }>Accept Challenge</Button>
+        <Button onClick={ props.hideChallengeModal }>Decline</Button>
+        <Button bsStyle="primary" onClick={ props.handleAccept }>Accept Challenge</Button>
       </Modal.Footer>
     </Modal>    
   );

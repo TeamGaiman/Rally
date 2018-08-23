@@ -76,9 +76,8 @@ class RecommendedOpponents extends React.Component {
         <Table striped bordered condensed hover>
           <thead>
             <tr>
-              <th>User</th>
-              <th>Phone #</th>
               <th>Email</th>
+              <th>User</th>
               <th>Win %</th>
             </tr>
           </thead>
@@ -87,9 +86,8 @@ class RecommendedOpponents extends React.Component {
               let winPercent = parseInt(matchedUser.wins / (matchedUser.wins + matchedUser.losses) * 100);
               return (
                 <tr className='match-row' key={matchedUser.id} >
-                  <td>{matchedUser.name}</td>
-                  <td>{matchedUser.phoneNumber}</td>
                   <td>{matchedUser.email}</td>
+                  <td>{matchedUser.name}</td>
                   <td><ProgressBar bsStyle="warning" now={winPercent} label={`${winPercent}%`} /></td>
                   <td><Button bsStyle='primary' onClick={() => this.handleMatchClick(matchedUser)}>Challenge</Button></td>
                 </tr>
