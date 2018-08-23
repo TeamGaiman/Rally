@@ -10,7 +10,7 @@ const court = (sequelize, DataTypes) => {
     name: { type: DataTypes.STRING },
     location: { type: DataTypes.STRING },
     phone: { type: DataTypes.STRING },
-    courts: { type: DataTypes.STRING },
+    numberOfCourts: { type: DataTypes.STRING },
     indoorOutdoor: { type: DataTypes.STRING },
     courtType: { type: DataTypes.STRING },
     latitude: { type: DataTypes.STRING },
@@ -19,3 +19,5 @@ const court = (sequelize, DataTypes) => {
 
   return Court;
 };
+
+module.exports = court;

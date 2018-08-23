@@ -28,7 +28,14 @@ const typeDefs = `
   }
   type Court {
     id: ID!
-    
+    name: String
+    location: String
+    phone: String
+    numberOfCourts: String
+    indoorOutdoor: String
+    courtType: String
+    latitude: String
+    longitude: String
   }
   type Query {
     getAllUsers: [User]
