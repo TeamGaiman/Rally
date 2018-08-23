@@ -44,6 +44,7 @@ const resolvers = {
       } });
     },
   },
+
   Mutation: {
     createUser: async (_, { input }) => {
       return await models.User.create( input )
@@ -65,7 +66,7 @@ const resolvers = {
     },
 
     createMatch: async (_, { input }) => {
-      return models.Match.create( input )
+      return await models.Match.create( input )
         .catch( error => {
           console.error( error );
         });
@@ -82,6 +83,11 @@ const resolvers = {
       return await input;
     },
 
+    createCourt: async (_, { input }) => {
+      return await models.Court.create( input )
+        .catch( error => console.log( error ));
+    }
+    
     // acceptMatch: async ( _, { matches, email }) => {
     //   const user = await models.User.findOne({ where: { name: input.name }});
     //   user.set('matches', input);

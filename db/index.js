@@ -16,7 +16,8 @@ const sequelize = new Sequelize('gaiman', 'postgres', 'postgres', {
 
 const models = {
   User: sequelize.import('./models/user'),
-  Match: sequelize.import('./models/match')
+  Match: sequelize.import('./models/match'),
+  Court: sequelize.import('./models/court.js')
 };
 
 Object.keys(models).forEach(key => {

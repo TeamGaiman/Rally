@@ -68,11 +68,22 @@ const typeDefs = `
     winner: String
     score: String
   }
+  input CourtInput {
+    name: String
+    location: String
+    phone: String
+    numberOfCourts: String
+    indoorOutdoor: String
+    courtType: String
+    latitude: String
+    longitude: String
+  }
   type Mutation {
     createUser(input: EmailInput) : User
     updateUser(email: String, input: UserInput) : User
     createMatch(input: MatchInput) : Match
     updateMatch(id: String, input: MatchInput) : Match
+    createCourt(input: CourtInput) : Court
   }
 `;
 
