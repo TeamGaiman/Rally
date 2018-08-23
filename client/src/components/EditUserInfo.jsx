@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, ControlLabel, Button, HelpBlock } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 
@@ -10,10 +10,12 @@ class EditUserInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tierModal: false
+      tierModal: false,
+      phone: ''
     };
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.toggleTierModal = this.toggleTierModal.bind(this);
+    this.getValidationState = this.getValidationState.bind(this);
   }
 
   toggleTierModal() {
@@ -28,10 +30,28 @@ class EditUserInfo extends React.Component {
     });
   }
 
+  getValidationState() {
+    const number = this.state.phone;
+
+    const isValid = (number) => {
+      var phoneRe = /^[2-9]\d{2}[2-9]\d{2}\d{4}$/;
+      var digits = number.replace(/\D/g, '');
+      return phoneRe.test(digits);
+    };
+
+    if (isValid(number)) { 
+      return 'success';
+    } else {
+      return 'error';
+    }
+    
+  }
+
   render() {
     if ( this.props.googleUserData ) {
       return (    
         <div className='user-info-form'>
+          <h3>{this.state.phone}</h3>
           <Form horizontal>
             <FormGroup controlId="email">
               <ControlLabel>Email</ControlLabel>
@@ -53,9 +73,10 @@ class EditUserInfo extends React.Component {
               <ControlLabel>Username</ControlLabel>
               <FormControl onChange={ this.handleFieldChange } />
             </FormGroup>
-            <FormGroup controlId="phone">
+            <FormGroup controlId="phone" validationState={this.getValidationState()}>
               <ControlLabel>Phone Number</ControlLabel>
               <FormControl onChange={ this.handleFieldChange } placeholder='optional' />
+              <HelpBlock>Please use format: xxx-xxx-xxxx</HelpBlock>
             </FormGroup>
             <FormGroup controlId="location">
               <ControlLabel>Preferred Location</ControlLabel>
