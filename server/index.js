@@ -21,5 +21,6 @@ app.get( '/*', ( req, res ) => res.redirect('/') );
 models.sequelize.sync({ force: false })
   .then(() => {
     app.listen( port, () => console.log( 'listening on port: ', port ));
+    models.Court.create( {name: 'First Court'} );
   })
   .catch(err => { console.error( err ); });
