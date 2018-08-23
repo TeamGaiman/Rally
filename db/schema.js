@@ -26,6 +26,10 @@ const typeDefs = `
     winner: String
     score: String
   }
+  type Court {
+    id: ID!
+    
+  }
   type Query {
     getAllUsers: [User]
     getUsersByTier(tier: Int): [User]
