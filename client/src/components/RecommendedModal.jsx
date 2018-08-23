@@ -17,7 +17,7 @@ const RecommendedModal = (props) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title">
-          Challenge
+          Send Challenge
         </Modal.Title>
       </Modal.Header>
       <div>
@@ -34,6 +34,7 @@ const RecommendedModal = (props) => {
               onChange={props.handleDateChange}
               value={props.startTime}
             />
+            <br/>
             <FormGroup controlId="formHorizontalEmail">
               <Col sm={12}>
                 <ControlLabel>Select Location on Map</ControlLabel>

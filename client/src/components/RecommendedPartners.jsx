@@ -71,7 +71,7 @@ class RecommendedPartners extends React.Component {
   render() {
     return (
       <div className='matches-container'>
-        <h2>Recommended Matches</h2>
+        <h2>Recommended Partners</h2>
         <Table striped bordered condensed hover>
           <thead>
             <tr>
