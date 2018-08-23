@@ -36,17 +36,15 @@ const CREATE_MATCH = gql`
 `;
 
 const ACCEPT_MATCH = gql`
-  mutation AcceptMatch($accepted: Boolean) {
-    acceptMatch(input: {
-      accepted: $accepted
-    }){
+  mutation UpdateMatch($id: ID!, $accepted: Boolean) {
+    updateMatch(id: $id, input: { accepted: $accepted }){
       accepted
     }
   }
 `;
 
 const UPDATE_MATCH = gql`
-mutation ($id: String!, $input: MatchInput) {
+mutation UpdateMatch($id: String, $input: MatchInput) {
   updateMatch(id: $id, input: $input) {
     id
     participantA

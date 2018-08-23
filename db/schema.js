@@ -44,8 +44,8 @@ const typeDefs = `
     getUser(name: String): User
     checkEmailIsUnique(email: String!): Boolean
     getUserByEmail(email: String): User
-    getUserChallenges(username: String): [Match]
-    getUserUpcomingMatches(username: String): [Match]
+    getChallengesByUser(email: String): [Match]
+    getUpcomingMatchesByUser(email: String): [Match]
   }
   input EmailInput {
     email: String
@@ -84,7 +84,7 @@ const typeDefs = `
     createUser(input: EmailInput) : User
     updateUser(email: String, input: UserInput) : User
     createMatch(input: MatchInput) : Match
-    updateMatch(id: String, input: MatchInput) : Match
+    updateMatch(id: ID!, input: MatchInput) : Match
     createCourt(input: CourtInput) : Court
     updateCourt(id: String, input: CourtInput) : Court
   }

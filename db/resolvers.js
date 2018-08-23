@@ -23,21 +23,18 @@ const resolvers = {
     getUserByEmail: async(_, { email }) => {
       return await models.User.findOne({where: { email }});
     },
-    getUserChallenges: async (_, { username }) => {
+    getChallengesByUser: async (_, { email }) => {
       return await models.Match.findAll({ where: {
-        [Op.or]: [
-          {participantA: username},
-          {participantB: username}
-        ],
+        participantB: email,
         accepted: false,
         completed: false
       } });
     },
-    getUserUpcomingMatches: async (_, { username }) => {
+    getUpcomingMatchesByUser: async (_, { email }) => {
       return await models.Match.findAll({ where: {
         [Op.or]: [
-          {participantA: username},
-          {participantB: username}
+          {participantA: email},
+          {participantB: email}
         ],
         accepted: true,
         completed: false
