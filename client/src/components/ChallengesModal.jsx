@@ -2,11 +2,10 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
 const ChallengesModal = (props) => {
-  console.log(props.acceptMatch)
   return (
     <Modal
       show={ props.challengeModalOpen }
-      onHide={ props.handleHideMatch }
+      onHide={ props.hideChallengeModal }
       className="accept-challenge-modal"
     >
       <Modal.Header closeButton>
