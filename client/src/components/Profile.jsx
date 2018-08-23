@@ -38,7 +38,11 @@ class Profile extends React.Component {
       view1 = <EditUserInfo { ...this.props } handleEditUserInfo = {this.handleEditUserInfo} />;
     } else {
       // view1 = <UpcomingMatches upcoming={this.state.upcoming} />;
-      view2 = <RecentMatches history={this.state.history} />;
+      // view2 = <RecentMatches history={this.state.history} />;
+      view1 = <ProfileCalendar
+        calendarModal={this.state.calendarModal}
+        toggleCalendarModal={this.toggleCalendarModal}
+      />;
     }
 
     return (
@@ -56,26 +60,16 @@ class Profile extends React.Component {
               <br/>
             </div>
           </div>
-
-          <div>
-            {this.state.editUserInfo 
-              ? null 
-              : <div>
-                <Button 
-                  className="edit-profile-button"
-                  bsSize="xsmall" 
-                  onClick={this.handleEditUserInfo}
-                >
-                  Edit Profile
-                </Button>
-              </div>}
-          </div>
+            <div style={{ visibility: this.state.editUserInfo ? 'hidden' : 'visible' }} >
+              <Button
+                className="edit-profile-button"
+                bsSize="small"
+                onClick={this.handleEditUserInfo}
+              >
+                Edit Profile
+              </Button>
+            </div>
         </Jumbotron>
-
-        <ProfileCalendar 
-          calendarModal={ this.state.calendarModal }
-          toggleCalendarModal={ this.toggleCalendarModal }
-        />
 
         {view1}
         {view2}
