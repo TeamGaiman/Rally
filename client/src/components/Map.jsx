@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { compose, withProps, withHandlers, withStateHandlers } from 'recompose';
+import { compose, withProps, withStateHandlers } from 'recompose';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
-import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer';
+import racketIcon from '../../dist/lib/tennisRacket.png';
 
 let GOOGLE_MAPS_API_KEY;
 try {
@@ -15,15 +15,8 @@ const Map = compose(
   withProps({
     googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&v=3.exp&libraries=geometry,drawing,places`,
     loadingElement: <div style={{ height: '100%' }} />,
-    containerElement: <div style={{ height: '450px' }} />,
+    containerElement: <div style={{ height: '425px' }} />,
     mapElement: <div style={{ height: '100%', width: '100%' }} />
-  }),
-  withHandlers({
-    onMarkerClustererClick: () => (markerClusterer) => {
-      const clickedMarkers = markerClusterer.getMarkers();
-      // console.log(`Current clicked markers length: ${clickedMarkers.length}`);
-      // console.log(clickedMarkers);
-    }
   }),
   withStateHandlers(
     () => ({
@@ -40,55 +33,46 @@ const Map = compose(
   withScriptjs,
   withGoogleMap
 )((props) => {
-  let latitude = 40.71;
-  let longitude = -74;
-  console.log(props.courts);
   return (
     <GoogleMap
       defaultOptions={{ mapTypeControl: false }}
-      defaultZoom={12}
-      defaultCenter={{ lat: latitude, lng: longitude }}
+      defaultZoom={11}
+      defaultCenter={{ lat: 40.72, lng: -73.9 }}
     >
-      <MarkerClusterer
-        onClick={props.onMarkerClustererClick}
-        averageCenter
-        enableRetinaIcons
-        gridSize={60}
-      >
-        {props.courts.map((court, index) => {
-          court.index = index;
-          let latitude = Number(court.lat);
-          let longitude = Number(court.lon);
-          return (
-            <Marker
-              key = { index + court.Prop_ID }
-              position={{ lat: latitude, lng: longitude }}
-              onClick={() => props.showInfo(court.index)}
-            >
-              {props.isOpen && props.infoIndex === court.index && (
-                <InfoWindow onCloseClick={props.showInfo}>
-                  <div>
-                    <h3>{court.Name}</h3>
-                    <p>
-                      {court.Location} <br />
-                      {court.Indoor_Outdoor + ' ' + court.Tennis_Type + ' Court'}
-                    </p>
-                    <Button 
-                      bsStyle="primary" 
-                      bsSize="small"
-                      onClick={ () => {
-                        props.handleLocationChange(court.Name);
-                        props.showInfo();
-                      }}>
-                      Select this Location
-                    </Button>
-                  </div>
-                </InfoWindow>
-              )}
-            </Marker>
-          );
-        })}
-      </MarkerClusterer>
+      {props.courts.map((court, index) => {
+        court.index = index;
+        let latitude = Number(court.lat);
+        let longitude = Number(court.lon);
+        return (
+          <Marker
+            key={index + court.Prop_ID}
+            icon={racketIcon}
+            position={{ lat: latitude, lng: longitude }}
+            onClick={() => props.showInfo(court.index)}
+          >
+            {props.isOpen && props.infoIndex === court.index && (
+              <InfoWindow onCloseClick={props.showInfo}>
+                <div>
+                  <h3>{court.Name}</h3>
+                  <p>
+                    {court.Location} <br />
+                    {court.Indoor_Outdoor + ' ' + court.Tennis_Type + ' Court'}
+                  </p>
+                  <Button
+                    bsStyle="primary"
+                    bsSize="small"
+                    onClick={() => {
+                      props.handleLocationChange(court.Name);
+                      props.showInfo();
+                    }}>
+                    Choose Court
+                  </Button>
+                </div>
+              </InfoWindow>
+            )}
+          </Marker>
+        );
+      })}
     </GoogleMap>
   );
 });

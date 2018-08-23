@@ -5,9 +5,9 @@ import RecommendedModal from './RecommendedModal.jsx';
 import { Mutation } from 'react-apollo';
 import { CREATE_MATCH } from '../apollo/mutations';
 import matchmakeByElo from '../../../workers/matchmaking';
-import courts from '../../dummyData/dummyCourts.js'
+import courts from '../../dummyData/dummyCourts';
 
-class RecommendedPartners extends React.Component {
+class RecommendedOpponents extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,7 +15,7 @@ class RecommendedPartners extends React.Component {
       showMatch: false,
       matchClickUser: null,
       startTime: '',
-      location: '',
+      location: null,
       courts: []
     };
 
@@ -57,7 +57,7 @@ class RecommendedPartners extends React.Component {
         matchedUsers: this.state.matchedUsers,
         showMatch: false, 
         startTime: '',
-        location: ''
+        location: null
       });
     } else {
       window.alert('Fill in Date and Location');
@@ -71,7 +71,7 @@ class RecommendedPartners extends React.Component {
   render() {
     return (
       <div className='matches-container'>
-        <h2>Recommended Partners</h2>
+        <h2>Recommended Opponents</h2>
         <Table striped bordered condensed hover>
           <thead>
             <tr>
@@ -123,4 +123,4 @@ class RecommendedPartners extends React.Component {
   }
 }
 
-export default RecommendedPartners;
+export default RecommendedOpponents;

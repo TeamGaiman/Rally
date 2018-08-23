@@ -17,7 +17,7 @@ const RecommendedModal = (props) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title">
-          Send Challenge
+          Send a Challenge
         </Modal.Title>
       </Modal.Header>
       <div>
@@ -37,8 +37,10 @@ const RecommendedModal = (props) => {
             <br/>
             <FormGroup controlId="formHorizontalEmail">
               <Col sm={12}>
-                <ControlLabel>Select Location on Map</ControlLabel>
-                <FormControl.Static>{props.location}</FormControl.Static>
+                <ControlLabel>Location</ControlLabel>
+                <FormControl.Static>
+                  {props.location ? props.location : 'Select court on map'}
+                </FormControl.Static>
               </Col>
             </FormGroup>
           </Form>

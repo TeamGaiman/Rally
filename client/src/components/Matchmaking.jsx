@@ -1,6 +1,6 @@
 import React from 'react';
 
-import RecommendedPartners from './RecommendedPartners.jsx';
+import RecommendedOpponents from './RecommendedOpponents.jsx';
 import Challenges from './Challenges.jsx';
 import { Query } from 'react-apollo';
 import { GET_USERS_BY_TIER } from '../apollo/queries.js';
@@ -16,7 +16,6 @@ class Matchmaking extends React.Component {
   }
 
   componentDidMount () {
-    // this.props.mapGoogleDataToProfile();
     this.props.mapDBPlayerDataToState( this.props.dbPlayerData );
   }
 
@@ -32,7 +31,7 @@ class Matchmaking extends React.Component {
           }
           return (
             <div>
-              <RecommendedPartners
+              <RecommendedOpponents
                 users={data.getUsersByTier}
                 playerData={this.props.playerData}
                 courts={this.state.courts}
