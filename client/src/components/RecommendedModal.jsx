@@ -13,7 +13,7 @@ const RecommendedModal = (props) => {
     <Modal
       show={ props.showMatch }
       onHide={ props.handleHideMatch }
-      className="challenge-modal"
+      className="create-challenge-modal"
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title">

@@ -44,5 +44,9 @@
   margin-right: 10%;
   margin-left: 10%;
   margin-bottom: 5%;
-  
+}
+
+.profile-upcoming-modal {
+  top: 50%;
+  width: 100%;
 }

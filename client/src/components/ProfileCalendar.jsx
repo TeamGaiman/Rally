@@ -42,7 +42,7 @@ const ProfileCalendar = (props) => {
       
       <Modal
         bsSize="large"
-        className="modal"
+        className="profile-upcoming-modal"
         show={props.calendarModal}
         onHide={props.toggleCalendarModal}
       >

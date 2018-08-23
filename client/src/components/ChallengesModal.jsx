@@ -6,6 +6,7 @@ const ChallengesModal = (props) => {
     <Modal
       show={ props.showMatch }
       onHide={ props.handleHideMatch }
+      className="accept-challenge-modal"
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title">
