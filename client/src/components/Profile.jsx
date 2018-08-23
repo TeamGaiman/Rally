@@ -12,14 +12,22 @@ class Profile extends React.Component {
     this.state = {
       upcoming: [],
       history: [],
-      editUserInfo: false
+      editUserInfo: false,
+      calendarModal: false
     };
 
     this.handleEditUserInfo = this.handleEditUserInfo.bind(this);
+    this.toggleCalendarModal = this.toggleCalendarModal.bind(this);
   }
 
   handleEditUserInfo() {
     this.setState({editUserInfo: !this.state.editUserInfo});
+  }
+
+  toggleCalendarModal() {
+    this.setState({
+      calendarModal: !this.state.calendarModal 
+    });
   }
 
   render() {
@@ -64,7 +72,10 @@ class Profile extends React.Component {
           </div>
         </Jumbotron>
 
-        <ProfileCalendar />
+        <ProfileCalendar 
+          calendarModal={ this.state.calendarModal }
+          toggleCalendarModal={ this.toggleCalendarModal }
+        />
 
         {view1}
         {view2}

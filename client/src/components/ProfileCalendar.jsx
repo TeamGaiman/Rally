@@ -1,34 +1,70 @@
 import React from 'react';
+import { Modal, Button } from 'react-bootstrap';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import '!style-loader!css-loader!react-big-calendar/lib/css/react-big-calendar.css';
 
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
 
-const ProfileCalendar = () => {
+const ProfileCalendar = (props) => {
   return (
     <div className="calendar">
       <BigCalendar
         events={[]}
         defaultDate={moment().toDate()}
         step={60}
-        view='week'
+        defaultView={BigCalendar.Views.WEEK}
         views={['day', 'week', 'agenda']}
         startAccessor='startDate'
         endAccessor='endDate'
-
+        // showMultiDayTimes
+      
         events={[
           {
-            'title': 'My event',
-            'allDay': false,
-            'startDate': new Date("Thu Aug 23 2018 20:00:00 GMT-0400 (Eastern Daylight Time)"), 
-            'endDate': new Date("Thu Aug 23 2018 20:30:00 GMT-0400 (Eastern Daylight Time)"), 
-          }
+            'title': 'ParticipantB',
+            'startDate': new Date('Fri Aug 24 2018 20:00:00 GMT-0400 (Eastern Daylight Time)'), 
+            'endDate': new Date('Fri Aug 24 2018 20:30:00 GMT-0400 (Eastern Daylight Time)'), 
+          },
+          {
+            'title': 'ParticipantB',
+            'startDate': new Date('Sat Aug 25 2018 20:00:00 GMT-0400 (Eastern Daylight Time)'), 
+            'endDate': new Date('Sat Aug 25 2018 20:30:00 GMT-0400 (Eastern Daylight Time)'), 
+          },
         ]}
         
-        // onView={ () => view }
+        onSelectEvent={ event => {
+          props.toggleCalendarModal();
+        }}
+
         // drilldownView="agenda"
+        
+
+
       />
+      
+      <Modal
+        bsSize="large"
+        className="modal"
+        show={props.calendarModal}
+        onHide={props.toggleCalendarModal}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title >
+            ParticipantB 
+            <br/>
+            W: L:
+            <br/>
+            Tier:
+            <br/>
+            Location: 
+          </Modal.Title>
+        </Modal.Header>
+
+        <Modal.Footer>
+          <Button onClick={props.toggleCalendarModal}>OK</Button>
+        </Modal.Footer>
+      </Modal>
+
     </div>
   );
 };
