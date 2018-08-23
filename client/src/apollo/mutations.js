@@ -10,8 +10,8 @@ const CREATE_USER = gql`
 `;
 
 const UPDATE_USER = gql`
-  mutation UpdateUser($email: String!, $name: String, $phoneNumber: String) {
-    updateUser(email: $email, input: { name: $name, phoneNumber: $phoneNumber}){
+  mutation ($email: String!, $input: UserInput) {
+    updateUser(email:$email, input: $input){
       name
       phoneNumber
     }
