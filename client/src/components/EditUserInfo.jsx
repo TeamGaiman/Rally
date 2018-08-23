@@ -11,12 +11,16 @@ class EditUserInfo extends React.Component {
     super(props);
     this.state = {
       tierModal: false,
-      phone: ''
+      phone: '',
+      validNumber: false
     };
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.toggleTierModal = this.toggleTierModal.bind(this);
     this.getValidationState = this.getValidationState.bind(this);
+    this.isValid = this.isValid.bind(this);
   }
+
+
 
   toggleTierModal() {
     this.setState({
@@ -30,16 +34,30 @@ class EditUserInfo extends React.Component {
     });
   }
 
+  isValid(number) {
+    var phoneRe = /^[2-9]\d{2}[2-9]\d{2}\d{4}$/;
+    var digits = number.replace(/\D/g, '');
+    return phoneRe.test(digits) && number[3] === '-' && number[7] === '-';
+
+  }
+
+  
+
   getValidationState() {
     const number = this.state.phone;
+    // let validNumber = false;
 
-    const isValid = (number) => {
-      var phoneRe = /^[2-9]\d{2}[2-9]\d{2}\d{4}$/;
-      var digits = number.replace(/\D/g, '');
-      return phoneRe.test(digits);
-    };
+    // const isValid = (number) => {
+    //   var phoneRe = /^[2-9]\d{2}[2-9]\d{2}\d{4}$/;
+    //   var digits = number.replace(/\D/g, '');
+    //   return phoneRe.test(digits);
+    // };
 
-    if (isValid(number) && number[3] === '-' && number[7] === '-') { 
+    // if (isValid(number)) {
+    //   validNumber = true;
+    // }
+    
+    if (this.isValid(number)) { 
       return 'success';
     } else {
       return 'error';
@@ -104,7 +122,8 @@ class EditUserInfo extends React.Component {
                     <Button
                       type="submit"
                       className='pull-right'
-                      onClick={ updateUser }>
+                      onClick={ updateUser }
+                      disabled={!this.state.validNumber}>
                       Submit
                     </Button>
                   ) }
