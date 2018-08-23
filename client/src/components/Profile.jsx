@@ -49,7 +49,7 @@ class Profile extends React.Component {
       <div>
         <Jumbotron className="profile-jumbotron">
           <div className="box">
-            <Image className="profile-pic" src={ this.props.googleUserData.photoURL }  />
+            <Image className="profile-pic" src={ this.props.googleUserData.photoURL } />
             <div className="user-info">
               <h3>{ this.props.googleUserData.displayName }</h3>
               W: { this.props.playerData.wins } L: { this.props.playerData.losses }
@@ -60,15 +60,15 @@ class Profile extends React.Component {
               <br/>
             </div>
           </div>
-            <div style={{ visibility: this.state.editUserInfo ? 'hidden' : 'visible' }} >
-              <Button
-                className="edit-profile-button"
-                bsSize="small"
-                onClick={this.handleEditUserInfo}
-              >
-                Edit Profile
-              </Button>
-            </div>
+          <div style={{ visibility: this.state.editUserInfo ? 'hidden' : 'visible' }} >
+            <Button
+              className="edit-profile-button"
+              bsSize="small"
+              onClick={this.handleEditUserInfo}
+            >
+              Edit Profile
+            </Button>
+          </div>
         </Jumbotron>
 
         {view1}
