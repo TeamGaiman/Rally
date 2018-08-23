@@ -131,6 +131,7 @@ class App extends React.Component {
               {({ loading, error, data }) => {
                 if ( loading ) { return <p>Loading...</p>; }
                 if ( error ) { return <p>Error! ${ error }</p>; }
+                console.log('user by email: ', data.getUserByEmail)
                 return <Matchmaking
                   playerData = { this.state.playerData }
                   dbPlayerData={ data.getUserByEmail } 
@@ -146,7 +147,9 @@ class App extends React.Component {
               playerData={ this.state.playerData }
             /> 
           }/>
-          <Route path='/stats' render={ () => <Stats/> }/>
+          <Route path='/stats' render={ () => 
+            <Stats playerData={this.state.playerData}/> 
+          }/>
         </Switch>
       </ApolloProvider>
     );
