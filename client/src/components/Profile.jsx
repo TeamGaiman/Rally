@@ -54,7 +54,7 @@ class Profile extends React.Component {
               <h3>{ this.props.googleUserData.displayName }</h3>
               W: { this.props.playerData.wins } L: { this.props.playerData.losses }
               <br/>
-              Tier: 
+              Tier: { this.props.playerData.tier }
               <br/>
               Trophies:
               <br/>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, ControlLabel, Button, HelpBlock } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 
@@ -10,10 +10,15 @@ class EditUserInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tierModal: false
+      tierModal: false,
+      phone: '',
+      validNumber: null,
+      submitDisabled: true,
     };
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.toggleTierModal = this.toggleTierModal.bind(this);
+    this.getValidationState = this.getValidationState.bind(this);
+    this.isValid = this.isValid.bind(this);
   }
 
   toggleTierModal() {
@@ -26,6 +31,34 @@ class EditUserInfo extends React.Component {
     this.setState({
       [ e.target.id ]: e.target.value
     });
+  }
+
+  isValid(number) {
+    var phoneRe = /^[2-9]\d{2}[2-9]\d{2}\d{4}$/;
+    var digits = number.replace(/\D/g, '');
+    if (phoneRe.test(digits) && number[3] === '-' && number[7] === '-') {
+      this.setState({
+        validNumber: 'success',
+        submitDisabled: false,
+      });
+      return true;
+    } else {
+      this.setState({
+        validNumber: 'error',
+        submitDisabled: true,
+      });
+      return false;
+    }
+    
+  }
+
+  getValidationState(e) {
+    const number = e.target.value;
+    if (this.isValid(number)) { 
+      return 'success';
+    } else {
+      return 'error';
+    }
   }
 
   render() {
@@ -53,13 +86,18 @@ class EditUserInfo extends React.Component {
               <ControlLabel>Username</ControlLabel>
               <FormControl onChange={ this.handleFieldChange } />
             </FormGroup>
-            <FormGroup controlId="phone">
+            <FormGroup controlId="phone" validationState={this.state.validNumber}>
               <ControlLabel>Phone Number</ControlLabel>
-              <FormControl onChange={ this.handleFieldChange } placeholder='optional' />
+              <FormControl onChange={ (e) => {
+                this.handleFieldChange(e);
+                this.getValidationState(e);
+              } } placeholder='optional' />
+              <FormControl.Feedback />
+              <HelpBlock>{this.state.submitDisabled ? 'Please use format: xxx-xxx-xxxx' : null}</HelpBlock>
             </FormGroup>
             <FormGroup controlId="location">
               <ControlLabel>Preferred Location</ControlLabel>
-              <FormControl onChange={ this.handleFieldChange } placeholder='optional' />
+              <FormControl placeholder='optional' />
             </FormGroup>
             <FormGroup controlId="skillTier">
               <ControlLabel>Matchmaking Tier - <Button onClick={ this.toggleTierModal }> ❔ </Button> </ControlLabel>
@@ -83,7 +121,8 @@ class EditUserInfo extends React.Component {
                     <Button
                       type="submit"
                       className='pull-right'
-                      onClick={ updateUser }>
+                      onClick={ updateUser }
+                      disabled={this.state.submitDisabled}>
                       Submit
                     </Button>
                   ) }

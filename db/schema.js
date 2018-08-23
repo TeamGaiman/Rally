@@ -26,6 +26,18 @@ const typeDefs = `
     winner: String
     score: String
   }
+  type Court {
+    id: ID!
+    name: String
+    location: String
+    phone: String
+    numberOfCourts: String
+    indoorOutdoor: String
+    courtType: String
+    latitude: String
+    longitude: String
+    kingQueen: String
+  }
   type Query {
     getAllUsers: [User]
     getUsersByTier(tier: Int): [User]
@@ -57,11 +69,24 @@ const typeDefs = `
     winner: String
     score: String
   }
+  input CourtInput {
+    name: String
+    location: String
+    phone: String
+    numberOfCourts: String
+    indoorOutdoor: String
+    courtType: String
+    latitude: String
+    longitude: String
+    kingQueen: String
+  }
   type Mutation {
     createUser(input: EmailInput) : User
     updateUser(email: String, input: UserInput) : User
     createMatch(input: MatchInput) : Match
     updateMatch(id: ID!, input: MatchInput) : Match
+    createCourt(input: CourtInput) : Court
+    updateCourt(id: String, input: CourtInput) : Court
   }
 `;
 
