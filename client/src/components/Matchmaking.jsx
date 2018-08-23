@@ -2,8 +2,8 @@ import React from 'react';
 
 import RecommendedOpponents from './RecommendedOpponents.jsx';
 import Challenges from './Challenges.jsx';
-import { Query, renderToStringWithData } from 'react-apollo';
-import { GET_USERS_BY_TIER, GET_USER_CHALLENGES } from '../apollo/queries.js';
+import { Query } from 'react-apollo';
+import { GET_USERS_BY_TIER, GET_CHALLENGES_BY_USER } from '../apollo/queries.js';
 
 class Matchmaking extends React.Component {
   constructor(props) {
@@ -17,7 +17,6 @@ class Matchmaking extends React.Component {
 
   componentDidMount () {
     this.props.mapDBPlayerDataToState( this.props.dbPlayerData );
-    console.log('db player data', this.props.dbPlayerData );
   }
 
   render() {
@@ -43,7 +42,7 @@ class Matchmaking extends React.Component {
           }}
         </Query>
 
-        <Query query={GET_USER_CHALLENGES}
+        <Query query={ GET_CHALLENGES_BY_USER }
           variables={{email: 'parker.muir@gmail.com'}}>
           {({ loading, error, data }) => {
             if (loading) {
@@ -51,12 +50,11 @@ class Matchmaking extends React.Component {
             } else if (error) {
               return <p>Error</p>;
             }
-            console.log('Apollo Query: ', data.getUserChallenges)
             return (
               <div>
                 <Challenges
-                  challenges = {data.getUserChallenges}
-                  playerData= {this.props.playerData}
+                  challenges={ data.getChallengesByUser }
+                  playerData={ this.props.playerData }
                 />
               </div>
             );
