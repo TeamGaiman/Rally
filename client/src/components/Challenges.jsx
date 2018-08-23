@@ -76,7 +76,10 @@ class Challenges extends React.Component {
         { this.state.challengeModalOpen
           ? <Mutation
             mutation={ ACCEPT_MATCH }
-            variables={{ accepted: true }}
+            variables={{
+              id: this.state.challengeClicked.id,
+              accepted: true
+            }}
             update={ this.handleAccept }
           >
             { acceptMatch => (

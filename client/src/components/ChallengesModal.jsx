@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
 const ChallengesModal = (props) => {
+  console.log(props.acceptMatch)
   return (
     <Modal
       show={ props.challengeModalOpen }
@@ -23,7 +24,7 @@ const ChallengesModal = (props) => {
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={ props.hideChallengeModal }>Decline</Button>
-        <Button bsStyle="primary" onClick={ props.handleAccept }>Accept Challenge</Button>
+        <Button bsStyle="primary" onClick={ props.acceptMatch }>Accept Challenge</Button>
       </Modal.Footer>
     </Modal>    
   );

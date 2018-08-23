@@ -61,7 +61,7 @@ const typeDefs = `
     createUser(input: EmailInput) : User
     updateUser(email: String, input: UserInput) : User
     createMatch(input: MatchInput) : Match
-    updateMatch(id: String, input: MatchInput) : Match
+    updateMatch(id: ID!, input: MatchInput) : Match
   }
 `;
 
