@@ -15,6 +15,7 @@ const court = (sequelize, DataTypes) => {
     courtType: { type: DataTypes.STRING },
     latitude: { type: DataTypes.STRING },
     longitude: { type: DataTypes.STRING },
+    kingQueen: { type: DataTypes.STRING },
   });
 
   return Court;

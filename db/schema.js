@@ -36,6 +36,7 @@ const typeDefs = `
     courtType: String
     latitude: String
     longitude: String
+    kingQueen: String
   }
   type Query {
     getAllUsers: [User]
@@ -77,6 +78,7 @@ const typeDefs = `
     courtType: String
     latitude: String
     longitude: String
+    kingQueen: String
   }
   type Mutation {
     createUser(input: EmailInput) : User
