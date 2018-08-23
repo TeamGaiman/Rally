@@ -86,7 +86,18 @@ const resolvers = {
     createCourt: async (_, { input }) => {
       return await models.Court.create( input )
         .catch( error => console.log( error ));
+    },
+    
+    updateCourt: async (_, { input, id }) => {
+      models.Court.findOne({
+        where: { id: id }
+      })
+        .then( court => {
+          court.updateAttributes( input );
+        })
+        .catch( error => console.log( error ));
     }
+
     
     // acceptMatch: async ( _, { matches, email }) => {
     //   const user = await models.User.findOne({ where: { name: input.name }});

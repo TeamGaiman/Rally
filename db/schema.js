@@ -86,6 +86,7 @@ const typeDefs = `
     createMatch(input: MatchInput) : Match
     updateMatch(id: String, input: MatchInput) : Match
     createCourt(input: CourtInput) : Court
+    updateCourt(id: String, input: CourtInput) : Court
   }
 `;
 
