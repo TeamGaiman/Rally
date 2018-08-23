@@ -96,6 +96,7 @@ const resolvers = {
           court.updateAttributes( input );
         })
         .catch( error => console.log( error ));
+      return await input;
     }
 
     
