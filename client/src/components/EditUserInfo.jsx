@@ -39,7 +39,7 @@ class EditUserInfo extends React.Component {
       return phoneRe.test(digits);
     };
 
-    if (isValid(number)) { 
+    if (isValid(number) && number[3] === '-' && number[7] === '-') { 
       return 'success';
     } else {
       return 'error';
