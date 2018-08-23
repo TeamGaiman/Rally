@@ -11,10 +11,10 @@ class Stats extends React.Component {
   render() {
     return (
       <div>
-        W: {this.state.stats.wins} <br/>
-        L: {this.state.stats.losses} <br/>
-        Elo: {this.state.stats.elo} <br/>
-        Tier: {this.state.stats.tier}
+        W: {this.props.playerData.wins} <br/>
+        L: {this.props.playerData.losses} <br/>
+        Elo: {this.props.playerData.elo} <br/>
+        Tier: {this.props.playerData.tier}
       </div>
     );
   }

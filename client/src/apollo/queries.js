@@ -37,6 +37,7 @@ const GET_USER_BY_EMAIL = gql`
       phoneNumber
       email
       elo
+      tier
       wins
       losses
     }
