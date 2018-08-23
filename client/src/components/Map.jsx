@@ -49,14 +49,15 @@ const Map = compose(
             icon={racketIcon}
             position={{ lat: latitude, lng: longitude }}
             onClick={() => props.showInfo(court.index)}
+            animation={ google.maps.Animation.DROP }
           >
             {props.isOpen && props.infoIndex === court.index && (
-              <InfoWindow onCloseClick={props.showInfo}>
+              <InfoWindow onCloseClick={ props.showInfo }>
                 <div>
-                  <h3>{court.Name}</h3>
+                  <h3>{ court.Name }</h3>
                   <p>
-                    {court.Location} <br />
-                    {court.Indoor_Outdoor + ' ' + court.Tennis_Type + ' Court'}
+                    { court.Location } <br />
+                    { court.Indoor_Outdoor + ' ' + court.Tennis_Type + ' Court' }
                   </p>
                   <Button
                     bsStyle="primary"

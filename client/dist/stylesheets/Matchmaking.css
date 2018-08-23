@@ -1,9 +1,14 @@
-.modal {
-  left: 50%;
+.create-challenge-modal {
+  /* left: 50%;
   top: 50%;
-  bottom: 50%;
+  bottom: 50%; */
   width: 100%;
-  transform: translate(-50%, -50%);
+  /* transform: translate(-50%, -50%); */
+}
+
+.accept-challenge-modal {
+  top: 50%;
+  width: 100%;
 }
 
 .match-row:hover{
