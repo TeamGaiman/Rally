@@ -10,13 +10,14 @@ const ProfileCalendar = (props) => {
   return (
     <div className="calendar">
       <BigCalendar
-        events={[]}
-        defaultDate={moment().toDate()}
-        step={60}
-        defaultView={BigCalendar.Views.WEEK}
-        views={['day', 'week', 'agenda']}
+        events={ [] }
+        defaultDate={ moment().toDate() }
+        step={ 60 }
+        defaultView={ BigCalendar.Views.WEEK }
+        views={ ['day', 'week', 'agenda'] }
         startAccessor='startDate'
         endAccessor='endDate'
+        // formats={ formats }
         // showMultiDayTimes
       
         events={[
@@ -38,8 +39,6 @@ const ProfileCalendar = (props) => {
 
         // drilldownView="agenda"
         
-
-
       />
       
       <Modal
