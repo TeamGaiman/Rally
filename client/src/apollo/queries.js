@@ -49,9 +49,23 @@ const CHECK_EMAIL_IS_UNIQUE = gql`
   }
 `;
 
+const GET_USER_CHALLENGES = gql`
+  query GetUserChallenges($email: String) {
+    getUserChallenges(email: $email) {
+      accepted
+      completed
+      participantA
+      participantB
+      location
+      startTime
+    }
+  }
+`;  
+
 module.exports = {
   GET_ALL_USERS,
   GET_USERS_BY_TIER,
   GET_USER_BY_EMAIL,
-  CHECK_EMAIL_IS_UNIQUE
+  CHECK_EMAIL_IS_UNIQUE,
+  GET_USER_CHALLENGES 
 };

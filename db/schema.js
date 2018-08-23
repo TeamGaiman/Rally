@@ -32,8 +32,8 @@ const typeDefs = `
     getUser(name: String): User
     checkEmailIsUnique(email: String!): Boolean
     getUserByEmail(email: String): User
-    getUserChallenges(username: String): [Match]
-    getUserUpcomingMatches(username: String): [Match]
+    getUserChallenges(email: String): [Match]
+    getUserUpcomingMatches(email: String): [Match]
   }
   input EmailInput {
     email: String

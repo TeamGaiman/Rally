@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from 'react-bootstrap';
+import { Table, Button, ProgressBar } from 'react-bootstrap';
 
 import RecommendedModal from './RecommendedModal.jsx';
 import { Mutation } from 'react-apollo';
@@ -77,18 +77,25 @@ class RecommendedOpponents extends React.Component {
           <thead>
             <tr>
               <th>User</th>
-              <th>Number</th>
+              <th>Phone #</th>
               <th>Email</th>
+              <th>Win %</th>
             </tr>
           </thead>
           <tbody>
-            { this.state.matchedUsers.slice(0, 5).map( matchedUser => (
-              <tr className='match-row' key={ matchedUser.id } onClick={ () => this.handleMatchClick( matchedUser ) }>
-                <td>{ matchedUser.name }</td>
-                <td>{ matchedUser.phoneNumber }</td>
-                <td>{ matchedUser.email }</td>
-              </tr>
-            ))}
+            {this.state.matchedUsers.slice(0, 5).map( matchedUser => {
+              let winPercent = parseInt(matchedUser.wins / (matchedUser.wins + matchedUser.losses) * 100);
+              return (
+                <tr className='match-row' key={matchedUser.id} >
+                  <td>{matchedUser.name}</td>
+                  <td>{matchedUser.phoneNumber}</td>
+                  <td>{matchedUser.email}</td>
+                  <td><ProgressBar bsStyle="warning" now={winPercent} label={`${winPercent}%`} /></td>
+                  <td><Button bsStyle='primary' onClick={() => this.handleMatchClick(matchedUser)}>Challenge</Button></td>
+                </tr>
+              );
+            })
+            }
           </tbody>
         </Table>
 
@@ -118,7 +125,6 @@ class RecommendedOpponents extends React.Component {
             )}
           </Mutation>
           : null }
-
       </div>
     );
   }

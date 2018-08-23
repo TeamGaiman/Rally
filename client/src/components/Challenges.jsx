@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from 'react-bootstrap';
+import { Table, Button, ProgressBar } from 'react-bootstrap';
 
 import ChallengesModal from './ChallengesModal.jsx';
 import { Mutation } from 'react-apollo';
@@ -9,14 +9,6 @@ class Challenges extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      matches: [
-        {particpantB: 'TopSpin1', startTime: '2018-010-29 04:00:00', location: 'Battery Park', id: 1},
-        {particpantB: 'DeuceLove', startTime: '2019-010-29 05:00:00', location: 'Sunset Park', id: 2},
-        {particpantB: 'SliceMaster55', startTime: '2019-010-29 06:00:00', location: 'Sunset Park', id: 3},
-        {particpantB: 'TopSpin1', startTime: '2018-010-29 04:00:00', location: 'Battery Park', id: 4},
-        {particpantB: 'DeuceLove', startTime: '2019-010-29 05:00:00', location: 'Sunset Park', id: 5},
-        {particpantB: 'SliceMaster55', startTime: '2019-010-29 06:00:00', location: 'Sunset Park', id: 6},
-      ],
       showMatch: false,
       matchClickUser: null,
     };
@@ -27,10 +19,6 @@ class Challenges extends React.Component {
     this.handleHideMatch = this.handleHideMatch.bind(this);
   }
 
-  getAllChallenges() {
-
-  }
-
   handleMatchClick(user) {
     this.setState({
       showMatch: true,
@@ -39,15 +27,16 @@ class Challenges extends React.Component {
   }
 
   handleAcceptMatch() {
-    let index = this.state.matchedUsers.indexOf( this.state.matchClickUser );
-    this.state.matchedUsers.splice( index, 1 );
+    //after user handles match remove it here
+    // let index = this.state.matchedUsers.indexOf( this.state.matchClickUser );
+    // this.state.matchedUsers.splice( index, 1 );
     this.setState({ 
-      matches: this.state.matches,
       showMatch: false 
     });
   }
   
   handleDeclineMatch() {
+    //after user handles match remove it here
     this.setState({ matchClick: false });
   }
 
@@ -65,16 +54,23 @@ class Challenges extends React.Component {
               <th>User</th>
               <th>Date</th>
               <th>Location</th>
+              <th>Win %</th>
             </tr>
           </thead>
           <tbody>
-            { this.state.matches.slice(0, 5).map(user => (
-              <tr className='match-row' key={ user.id } onClick={ () => this.handleMatchClick( user ) }>
-                <td>{ user.particpantB }</td>
-                <td>{ user.startTime }</td>
-                <td>{ user.location }</td>
-              </tr>
-            )) }
+            { this.props.challenges.slice(0, 5).map(challenge => {
+              console.log('Challenge: ', challenge);
+              return (
+                <tr className='match-row' key={challenge.id} onClick={() => this.handleMatchClick(user)}>
+                  <td>{challenge.participantA}</td>
+                  <td>{challenge.startTime.split(' GMT')[0]}</td>
+                  <td>{challenge.location}</td>
+                  <td><ProgressBar bsStyle="warning" now={20} label={`${20}%`} /></td>
+                  <td><Button bsStyle='primary' onClick={() => this.handleMatchClick(challenge)}>View</Button></td>
+                </tr>
+              );
+            }
+            )}
           </tbody>
         </Table>
 
