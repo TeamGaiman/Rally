@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { compose, withProps, withHandlers, withStateHandlers } from 'recompose';
-import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow} from 'react-google-maps';
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
+import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer';
 
 let GOOGLE_MAPS_API_KEY;
 try {
@@ -17,13 +18,13 @@ const Map = compose(
     containerElement: <div style={{ height: '850px' }} />,
     mapElement: <div style={{ height: '100%', width: '80%' }} />
   }),
-  // withHandlers({
-  //   onMarkerClustererClick: () => (markerClusterer) => {
-  //     const clickedMarkers = markerClusterer.getMarkers();
-  //     console.log(`Current clicked markers length: ${clickedMarkers.length}`);
-  //     console.log(clickedMarkers);
-  //   }
-  // }),
+  withHandlers({
+    onMarkerClustererClick: () => (markerClusterer) => {
+      const clickedMarkers = markerClusterer.getMarkers();
+      // console.log(`Current clicked markers length: ${clickedMarkers.length}`);
+      // console.log(clickedMarkers);
+    }
+  }),
   withStateHandlers(
     () => ({
       isOpen: false,
@@ -39,30 +40,49 @@ const Map = compose(
   withScriptjs,
   withGoogleMap
 )((props) => {
-  // let {latitude, longitude} = props.cafes[0].coordinates;
   let latitude = 40.71;
   let longitude = -74;
+  console.log(props.courts)
   return (
     <GoogleMap
-      defaultZoom={14}
+      defaultOptions={{ mapTypeControl: false }}
+      defaultZoom={12}
       defaultCenter={{ lat: latitude, lng: longitude }}
     >
-      <Marker
-        position={{ lat: latitude, lng: longitude }}
-        onClick={() => props.showInfo(0)}
+      <MarkerClusterer
+        onClick={props.onMarkerClustererClick}
+        averageCenter
+        enableRetinaIcons
+        gridSize={60}
       >
-        {props.isOpen &&
-          props.infoIndex === props.infoIndex && (
-            <InfoWindow onCloseClick={props.showInfo}>
-              <div>
-                <h3>InfoWindow Shows Here</h3>
-                <Button bsStyle="primary" bsSize="small">
-                  Select this Location
-                </Button>
-              </div>
-            </InfoWindow>
-          )}
-      </Marker>
+        {props.courts.map((court, index) => {
+          court.index = index;
+          let latitude = Number(court.lat);
+          let longitude = Number(court.lon);
+          return (
+            <Marker
+              key = { court.Prop_ID }
+              position={{ lat: latitude, lng: longitude }}
+              onClick={() => props.showInfo(court.index)}
+            >
+              {props.isOpen && props.infoIndex === court.index && (
+                <InfoWindow onCloseClick={props.showInfo}>
+                  <div>
+                    <h3>{court.Name}</h3>
+                    <p>
+                      {court.Location} <br />
+                      {court.Indoor_Outdoor + ' ' + court.Tennis_Type + ' Court'}
+                    </p>
+                    <Button bsStyle="primary" bsSize="small">
+                      Select this Location
+                    </Button>
+                  </div>
+                </InfoWindow>
+              )}
+            </Marker>
+          );
+        })}
+      </MarkerClusterer>
     </GoogleMap>
   );
 });

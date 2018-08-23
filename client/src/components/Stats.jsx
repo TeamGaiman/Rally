@@ -1,7 +1,7 @@
 import React from 'react';
 import Trophies from './Trophies.jsx';
 import Map from './Map.jsx';
-
+import courts from '../../dummyData/dummyCourts.js';
 class Stats extends React.Component {
   constructor(props) {
     super(props);
@@ -13,7 +13,7 @@ class Stats extends React.Component {
   render() {
     return (
       <div>
-        <Map />
+        <Map courts ={ courts } />
         W: {this.state.stats.wins} <br/>
         L: {this.state.stats.losses} <br/>
         Elo: {this.state.stats.elo} <br/>
