@@ -15,8 +15,8 @@ const Map = compose(
   withProps({
     googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&v=3.exp&libraries=geometry,drawing,places`,
     loadingElement: <div style={{ height: '100%' }} />,
-    containerElement: <div style={{ height: '850px' }} />,
-    mapElement: <div style={{ height: '100%', width: '80%' }} />
+    containerElement: <div style={{ height: '450px' }} />,
+    mapElement: <div style={{ height: '100%', width: '100%' }} />
   }),
   withHandlers({
     onMarkerClustererClick: () => (markerClusterer) => {
@@ -42,7 +42,7 @@ const Map = compose(
 )((props) => {
   let latitude = 40.71;
   let longitude = -74;
-  console.log(props.courts)
+  console.log(props.courts);
   return (
     <GoogleMap
       defaultOptions={{ mapTypeControl: false }}
@@ -61,7 +61,7 @@ const Map = compose(
           let longitude = Number(court.lon);
           return (
             <Marker
-              key = { court.Prop_ID }
+              key = { index + court.Prop_ID }
               position={{ lat: latitude, lng: longitude }}
               onClick={() => props.showInfo(court.index)}
             >
@@ -73,7 +73,13 @@ const Map = compose(
                       {court.Location} <br />
                       {court.Indoor_Outdoor + ' ' + court.Tennis_Type + ' Court'}
                     </p>
-                    <Button bsStyle="primary" bsSize="small">
+                    <Button 
+                      bsStyle="primary" 
+                      bsSize="small"
+                      onClick={ () => {
+                        props.handleLocationChange(court.Name);
+                        props.showInfo();
+                      }}>
                       Select this Location
                     </Button>
                   </div>
