@@ -12,7 +12,8 @@ class EditUserInfo extends React.Component {
     this.state = {
       tierModal: false,
       phone: '',
-      validNumber: false
+      validNumber: 'warning',
+      submitDisabled: true,
     };
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.toggleTierModal = this.toggleTierModal.bind(this);
@@ -35,16 +36,32 @@ class EditUserInfo extends React.Component {
   }
 
   isValid(number) {
+    console.log(number);
     var phoneRe = /^[2-9]\d{2}[2-9]\d{2}\d{4}$/;
     var digits = number.replace(/\D/g, '');
-    return phoneRe.test(digits) && number[3] === '-' && number[7] === '-';
+ 
+    if (phoneRe.test(digits) && number[3] === '-' && number[7] === '-') {
+      console.log('looks good');
+      this.setState({
+        validNumber: 'success',
+        submitDisabled: false,
+      });
+      return true;
+    } else {
+      this.setState({
+        validNumber: 'warning',
+        submitDisabled: true,
+      });
+      return false;
+    }
     
   }
 
   
 
-  getValidationState() {
-    const number = this.state.phone;
+  getValidationState(e) {
+    console.log('getting validation state...');
+    const number = e.target.value;
     // let validNumber = false;
 
     // const isValid = (number) => {
@@ -58,7 +75,7 @@ class EditUserInfo extends React.Component {
     // }
     
     if (this.isValid(number)) { 
-      // validNumber = true;
+      
       return 'success';
     } else {
       return 'error';
@@ -92,14 +109,17 @@ class EditUserInfo extends React.Component {
               <ControlLabel>Username</ControlLabel>
               <FormControl onChange={ this.handleFieldChange } />
             </FormGroup>
-            <FormGroup controlId="phone" validationState={this.getValidationState()}>
+            <FormGroup controlId="phone" validationState={this.state.validNumber}>
               <ControlLabel>Phone Number</ControlLabel>
-              <FormControl onChange={ this.handleFieldChange } placeholder='optional' />
+              <FormControl onChange={ (e) => {
+                this.handleFieldChange(e);
+                this.getValidationState(e);
+              } } placeholder='optional' />
               <HelpBlock>Please use format: xxx-xxx-xxxx</HelpBlock>
             </FormGroup>
             <FormGroup controlId="location">
               <ControlLabel>Preferred Location</ControlLabel>
-              <FormControl onChange={ this.handleFieldChange } placeholder='optional' />
+              <FormControl placeholder='optional' />
             </FormGroup>
             <FormGroup controlId="skillTier">
               <ControlLabel>Matchmaking Tier - <Button onClick={ this.toggleTierModal }> ❔ </Button> </ControlLabel>
@@ -124,7 +144,7 @@ class EditUserInfo extends React.Component {
                       type="submit"
                       className='pull-right'
                       onClick={ updateUser }
-                      disabled={!this.state.validNumber}>
+                      disabled={this.state.submitDisabled}>
                       Submit
                     </Button>
                   ) }
