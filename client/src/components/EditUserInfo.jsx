@@ -12,7 +12,7 @@ class EditUserInfo extends React.Component {
     this.state = {
       tierModal: false,
       phone: '',
-      validNumber: 'warning',
+      validNumber: null,
       submitDisabled: true,
     };
     this.handleFieldChange = this.handleFieldChange.bind(this);
@@ -20,8 +20,6 @@ class EditUserInfo extends React.Component {
     this.getValidationState = this.getValidationState.bind(this);
     this.isValid = this.isValid.bind(this);
   }
-
-
 
   toggleTierModal() {
     this.setState({
@@ -36,12 +34,9 @@ class EditUserInfo extends React.Component {
   }
 
   isValid(number) {
-    console.log(number);
     var phoneRe = /^[2-9]\d{2}[2-9]\d{2}\d{4}$/;
     var digits = number.replace(/\D/g, '');
- 
     if (phoneRe.test(digits) && number[3] === '-' && number[7] === '-') {
-      console.log('looks good');
       this.setState({
         validNumber: 'success',
         submitDisabled: false,
@@ -49,7 +44,7 @@ class EditUserInfo extends React.Component {
       return true;
     } else {
       this.setState({
-        validNumber: 'warning',
+        validNumber: 'error',
         submitDisabled: true,
       });
       return false;
@@ -57,37 +52,19 @@ class EditUserInfo extends React.Component {
     
   }
 
-  
-
   getValidationState(e) {
-    console.log('getting validation state...');
     const number = e.target.value;
-    // let validNumber = false;
-
-    // const isValid = (number) => {
-    //   var phoneRe = /^[2-9]\d{2}[2-9]\d{2}\d{4}$/;
-    //   var digits = number.replace(/\D/g, '');
-    //   return phoneRe.test(digits);
-    // };
-
-    // if (isValid(number)) {
-    //   validNumber = true;
-    // }
-    
     if (this.isValid(number)) { 
-      
       return 'success';
     } else {
       return 'error';
     }
-    
   }
 
   render() {
     if ( this.props.googleUserData ) {
       return (    
         <div className='user-info-form'>
-          <h3>{this.state.phone}</h3>
           <Form horizontal>
             <FormGroup controlId="email">
               <ControlLabel>Email</ControlLabel>
@@ -115,7 +92,8 @@ class EditUserInfo extends React.Component {
                 this.handleFieldChange(e);
                 this.getValidationState(e);
               } } placeholder='optional' />
-              <HelpBlock>Please use format: xxx-xxx-xxxx</HelpBlock>
+              <FormControl.Feedback />
+              <HelpBlock>{this.state.submitDisabled ? 'Please use format: xxx-xxx-xxxx' : null}</HelpBlock>
             </FormGroup>
             <FormGroup controlId="location">
               <ControlLabel>Preferred Location</ControlLabel>
