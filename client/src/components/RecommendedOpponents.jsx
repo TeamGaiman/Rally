@@ -3,10 +3,11 @@ import { Table } from 'react-bootstrap';
 
 import RecommendedModal from './RecommendedModal.jsx';
 import { Mutation } from 'react-apollo';
-import { CREATE_MATCH } from '../apollo/mutations.js';
-import matchmakeByElo from '../../../workers/matchmaking.js';
+import { CREATE_MATCH } from '../apollo/mutations';
+import matchmakeByElo from '../../../workers/matchmaking';
+import courts from '../../dummyData/dummyCourts';
 
-class RecommendedMatches extends React.Component {
+class RecommendedOpponents extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,7 +15,8 @@ class RecommendedMatches extends React.Component {
       showMatch: false,
       matchClickUser: null,
       startTime: '',
-      location: ''
+      location: null,
+      courts: []
     };
 
     this.handleMatchClick = this.handleMatchClick.bind(this);
@@ -27,7 +29,8 @@ class RecommendedMatches extends React.Component {
   componentDidMount() {
     let newMatches = matchmakeByElo(2000, this.props.users);
     this.setState({
-      matchedUsers: newMatches
+      matchedUsers: newMatches,
+      courts
     });
   }
 
@@ -50,25 +53,26 @@ class RecommendedMatches extends React.Component {
     if (this.state.startTime && this.state.location) {
       let index = this.state.matchedUsers.indexOf(this.state.matchClickUser);
       this.state.matchedUsers.splice(index, 1);
+      console.log("startTime", this.state.startTime);
       this.setState({ 
         matchedUsers: this.state.matchedUsers,
         showMatch: false, 
         startTime: '',
-        location: ''
+        location: null
       });
     } else {
       window.alert('Fill in Date and Location');
     }
   }
 
-  handleLocationChange(e) {
-    this.setState({ location: e.target.value });
+  handleLocationChange(location) {
+    this.setState({ location });
   }
 
   render() {
     return (
       <div className='matches-container'>
-        <h2>Recommended Matches</h2>
+        <h2>Recommended Opponents</h2>
         <Table striped bordered condensed hover>
           <thead>
             <tr>
@@ -108,6 +112,7 @@ class RecommendedMatches extends React.Component {
                 startTime={ this.state.startTime }
                 handleLocationChange={ this.handleLocationChange }
                 location={ this.state.location }
+                courts = { this.state.courts }
                 createMatch={ createMatch }
               />
             )}
@@ -119,4 +124,4 @@ class RecommendedMatches extends React.Component {
   }
 }
 
-export default RecommendedMatches;
+export default RecommendedOpponents;

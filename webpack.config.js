@@ -20,8 +20,14 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|gif)$/,
-        // include: DIST_DIR,
         loader: ['file-loader']
+      },
+      {
+        test: /\.css$/,
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' }
+        ]
       }
     ]
   }

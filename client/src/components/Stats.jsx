@@ -1,6 +1,5 @@
 import React from 'react';
 import Trophies from './Trophies.jsx';
-
 class Stats extends React.Component {
   constructor(props) {
     super(props);

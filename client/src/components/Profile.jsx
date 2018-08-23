@@ -4,6 +4,7 @@ import { Jumbotron, Button, Image } from 'react-bootstrap';
 import UpcomingMatches from './UpcomingMatches.jsx';
 import RecentMatches from './RecentMatches.jsx';
 import EditUserInfo from './EditUserInfo.jsx';
+import ProfileCalendar from './ProfileCalendar.jsx';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -11,14 +12,22 @@ class Profile extends React.Component {
     this.state = {
       upcoming: [],
       history: [],
-      editUserInfo: false
+      editUserInfo: false,
+      calendarModal: false
     };
 
     this.handleEditUserInfo = this.handleEditUserInfo.bind(this);
+    this.toggleCalendarModal = this.toggleCalendarModal.bind(this);
   }
 
   handleEditUserInfo() {
     this.setState({editUserInfo: !this.state.editUserInfo});
+  }
+
+  toggleCalendarModal() {
+    this.setState({
+      calendarModal: !this.state.calendarModal 
+    });
   }
 
   render() {
@@ -28,7 +37,7 @@ class Profile extends React.Component {
     if (editUserInfo) {
       view1 = <EditUserInfo { ...this.props } handleEditUserInfo = {this.handleEditUserInfo} />;
     } else {
-      view1 = <UpcomingMatches upcoming={this.state.upcoming} />;
+      // view1 = <UpcomingMatches upcoming={this.state.upcoming} />;
       view2 = <RecentMatches history={this.state.history} />;
     }
 
@@ -63,7 +72,10 @@ class Profile extends React.Component {
           </div>
         </Jumbotron>
 
-        {/* <ProfileCxalendar /> */}
+        <ProfileCalendar 
+          calendarModal={ this.state.calendarModal }
+          toggleCalendarModal={ this.toggleCalendarModal }
+        />
 
         {view1}
         {view2}
