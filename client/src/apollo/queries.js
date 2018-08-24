@@ -37,6 +37,16 @@ const MATCH = `
     startTime
     winner
     score
+    court {
+      location
+      name
+      phoneNumber
+      numberOfCourts
+      indoor
+      courtType
+      latitude
+      longitude
+    }
   }
 `;
 

@@ -81,6 +81,8 @@ const resolvers = {
     },
 
     getUserByEmail: async( _, { email } ) => {
+      let seconds = new Date();
+      console.log(seconds.getSeconds());
       return await models.User.findOne({ where: { email }});
     },
   },

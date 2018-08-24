@@ -38,13 +38,12 @@ const typeDefs =
     id: ID! 
     location: String!
     name: String
-    phone: String
+    phoneNumber: String
     numberOfCourts: Int
-    indoorOutdoor: String
+    indoor: Boolean
     courtType: String
     latitude: String
     longitude: String
-    kingQueen: User
   }
   
   input UserInput {
@@ -72,13 +71,12 @@ const typeDefs =
   input CourtInput {
     location: String!
     name: String
-    phone: String
+    phoneNumber: String
     numberOfCourts: Int
-    indoorOutdoor: String
+    indoor: Boolean
     courtType: String
     latitude: String
     longitude: String
-    kingQueen: String
   }
   
   type Query {
