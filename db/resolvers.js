@@ -50,6 +50,16 @@ const resolvers = {
     }
   },
 
+  Match: {
+
+    /*--- MATCH TYPE RESOLVERS ---*/
+    court: async ({ location }) => {
+      console.log(location);
+      return await models.Court.findOne({ where: { location }});
+    }
+
+  },
+
   Query: {
 
     /*--- USER QUERIES ---*/
@@ -73,15 +83,6 @@ const resolvers = {
     getUserByEmail: async( _, { email } ) => {
       return await models.User.findOne({ where: { email }});
     },
-  },
-
-  Match: {
-
-    /*--- MATCH TYPE RESOLVERS ---*/
-    court: async () => {
-
-    }
-
   },
 
   Mutation: {

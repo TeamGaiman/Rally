@@ -23,6 +23,8 @@ const typeDefs =
 
   type Match {
     id: ID!
+    location: String!
+    court: Court
     challenger: String!
     opponent: String!
     startTime: String!
@@ -30,13 +32,12 @@ const typeDefs =
     completed: Boolean
     winner: String
     score: String
-    court: Court
   }
 
   type Court {
-    id: ID!
+    id: ID! 
+    location: String!
     name: String
-    location: String
     phone: String
     numberOfCourts: Int
     indoorOutdoor: String
@@ -76,10 +77,10 @@ const typeDefs =
   }
 
   input MatchInput {
+    location: String!
     challenger: String
     opponent: String
     startTime: String
-    location: String
     accepted: Boolean
     completed: Boolean
     winner: String
@@ -87,8 +88,8 @@ const typeDefs =
   }
 
   input CourtInput {
+    location: String!
     name: String
-    location: String
     phone: String
     numberOfCourts: Int
     indoorOutdoor: String
