@@ -9,14 +9,19 @@ class Stats extends React.Component {
       stats: {wins: 'a'}
     };
   }
+  
 
   render() {
+    const percentToNextTier = toNextTier(this.props.playerData.tier, this.props.playerData.elo);
     return (
       <div className='tierText'>
         <h3>Your Stats</h3>
-        <h5>Distance to you next tier!</h5>
-        <ProgressBar className='tierProg' active now={toNextTier(this.props.playerData.tier, this.props.playerData.elo)}>
+        <h5>{percentToNextTier}% to your next tier!</h5>
+        <ProgressBar 
+          className='tierProg' 
+          active now={percentToNextTier}>
         </ProgressBar>
+        <h5>Your tier</h5>
 
         W: {this.props.playerData.wins} <br/>
         L: {this.props.playerData.losses} <br/>
