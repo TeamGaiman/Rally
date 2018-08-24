@@ -2,9 +2,8 @@ import React from 'react';
 import { Table, Button, ProgressBar } from 'react-bootstrap';
 
 import ChallengesModal from './ChallengesModal.jsx';
-import Pending from './Pending.jsx';
 import { Mutation } from 'react-apollo';
-import { ACCEPT_MATCH } from '../apollo/mutations';
+import {UPDATE_MATCH } from '../apollo/mutations';
 
 class Challenges extends React.Component {
   constructor(props) {
@@ -77,11 +76,15 @@ class Challenges extends React.Component {
 
         { this.state.challengeModalOpen
           ? <Mutation
-            mutation={ ACCEPT_MATCH }
-            variables={{
-              id: this.state.challengeClicked.id,
-              accepted: true
-            }}
+            mutation={ UPDATE_MATCH }
+            variables={
+              {
+                id: this.state.challengeClicked.id,
+                input:
+                  {
+                    accepted: true
+                  }
+              }}
             update={ this.handleAccept }
           >
             { acceptMatch => (

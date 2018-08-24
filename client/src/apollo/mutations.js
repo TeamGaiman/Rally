@@ -9,7 +9,7 @@ const CREATE_USER = gql`
 
 const UPDATE_USER = gql`
   mutation ($email: String!, $input: UserInput) {
-    updateUser(email:$email, input: $input)
+    updateUser(email: $email, input: $input)
   }
 `;
 
@@ -30,7 +30,7 @@ const ACCEPT_MATCH = gql`
 `;
 
 const UPDATE_MATCH = gql`
-mutation UpdateMatch($id: String, $input: MatchInput) {
+mutation UpdateMatch($id: ID!, $input: MatchInput) {
   updateMatch(id: $id, input: $input)
 }
 `;
