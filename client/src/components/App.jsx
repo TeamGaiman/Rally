@@ -74,6 +74,7 @@ class App extends React.Component {
   }
 
   render () {
+    console.log(this.state);
     return (
       <ApolloProvider client={ this.props.client }>
         <NavBar
@@ -109,7 +110,6 @@ class App extends React.Component {
                     if ( error ) { return <p>Error! ${ error }</p>; }
                     let result = data.checkEmailIsUnique || false;
                     if ( result === false ) {
-                      console.log('Welcome back!');
                       return <Redirect to='/matchmaking'/>;
                     } else {
                       return <Signup

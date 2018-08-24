@@ -15,14 +15,19 @@ const typeDefs =
     tier: Int
     joinDate: String
     userNumber: Int
+    completedMatches: [Match]
+    pendingMatches: [Match]
+    challengesSent: [Match]
+    challengesReceived: [Match]
   }
 
   type Match {
     id: ID!
-    participantA: String!
-    participantB: String!
-    startTime: String!
     location: String!
+    court: Court
+    challenger: String!
+    opponent: String!
+    startTime: String
     accepted: Boolean
     completed: Boolean
     winner: String
@@ -30,37 +35,18 @@ const typeDefs =
   }
 
   type Court {
-    id: ID!
+    id: ID! 
+    location: String!
     name: String
-    location: String
     phone: String
-    numberOfCourts: String
+    numberOfCourts: Int
     indoorOutdoor: String
     courtType: String
     latitude: String
     longitude: String
-    kingQueen: String
+    kingQueen: User
   }
-
-  enum Tier {
-    ONE
-    TWO
-    THREE
-    FOUR
-  }
-
-  type Query {
-    getUser(name: String): User
-    getAllUsers: [User]
-    getUsersByTier(tier: Int): [User]
-
-    checkEmailIsUnique(email: String!): Boolean
-    getUserByEmail(email: String): User
-
-    getChallengesByUser(email: String): [Match]
-    getUpcomingMatchesByUser(email: String): [Match]
-  }
-
+  
   input UserInput {
     email: String
     name: String
@@ -71,28 +57,39 @@ const typeDefs =
     elo: Int
     tier: Int
   }
-
+  
   input MatchInput {
-    participantA: String
-    participantB: String
+    location: String!
+    challenger: String
+    opponent: String
     startTime: String
-    location: String
     accepted: Boolean
     completed: Boolean
     winner: String
     score: String
   }
-
+  
   input CourtInput {
+    location: String!
     name: String
-    location: String
     phone: String
-    numberOfCourts: String
+    numberOfCourts: Int
     indoorOutdoor: String
     courtType: String
     latitude: String
     longitude: String
     kingQueen: String
+  }
+  
+  type Query {
+    getAllUsers: [User]
+    getUsersByTier(tier: Int): [User]
+
+    checkEmailIsUnique(email: String!): Boolean
+    getUserByEmail(email: String!): User
+
+    getChallengesByUser(email: String): [Match]
+    getUpcomingMatchesByUser(email: String): [Match]
   }
 
   type Mutation {
@@ -102,8 +99,8 @@ const typeDefs =
     createMatch( input: MatchInput ) : Boolean!
     updateMatch( id: String, input: MatchInput ) : Boolean!
 
-    createCourt( input: CourtInput ) : Court
-    updateCourt( id: String, input: CourtInput ) : Court
+    createCourt( input: CourtInput ) : Boolean!
+    updateCourt( location: String, input: CourtInput ) : Boolean!
   }
 `;
 
