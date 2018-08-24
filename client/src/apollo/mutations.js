@@ -9,10 +9,7 @@ const CREATE_USER = gql`
 
 const UPDATE_USER = gql`
   mutation ($email: String!, $input: UserInput) {
-    updateUser(email:$email, input: $input){
-      name
-      phoneNumber
-    }
+    updateUser(email:$email, input: $input)
   }
 `;
 
@@ -33,6 +30,7 @@ const CREATE_MATCH = gql`
   }
 `;
 
+//No Longer needed with new schema - use UPDAT_MATCH directly
 const ACCEPT_MATCH = gql`
   mutation UpdateMatch($id: ID!, $accepted: Boolean) {
     updateMatch(id: $id, input: { accepted: $accepted }){
@@ -43,17 +41,7 @@ const ACCEPT_MATCH = gql`
 
 const UPDATE_MATCH = gql`
 mutation UpdateMatch($id: String, $input: MatchInput) {
-  updateMatch(id: $id, input: $input) {
-    id
-    participantA
-    participantB
-    startTime
-    location
-    accepted
-    completed
-    winner
-    score
-  }
+  updateMatch(id: $id, input: $input)
 }
 `;
 
