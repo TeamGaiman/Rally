@@ -2,6 +2,7 @@ import React from 'react';
 import { Table, Button, ProgressBar } from 'react-bootstrap';
 
 import ChallengesModal from './ChallengesModal.jsx';
+import Pending from './Pending.jsx';
 import { Mutation } from 'react-apollo';
 import { ACCEPT_MATCH } from '../apollo/mutations';
 
@@ -51,7 +52,7 @@ class Challenges extends React.Component {
         <Table striped bordered condensed hover>
           <thead>
             <tr>
-              <th>Email</th>
+              <th>Challenger</th>
               <th>Date</th>
               <th>Location</th>
               <th>Win %</th>
@@ -93,7 +94,7 @@ class Challenges extends React.Component {
             )}
           </Mutation>
           : null }
-          
+
       </div>
     );
   }
