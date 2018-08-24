@@ -30,10 +30,13 @@ const GET_USERS_BY_TIER = gql`
 
 const MATCH = `
   {
+    id
     location
     challenger
     opponent
     startTime
+    winner
+    score
     court {
       location
       name
