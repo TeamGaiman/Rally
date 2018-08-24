@@ -12,8 +12,9 @@ class Stats extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='tierText'>
         <h3>Your Stats</h3>
+        <h5>Distance to you next tier!</h5>
         <ProgressBar className='tierProg' active now={toNextTier(this.props.playerData.tier, this.props.playerData.elo)}>
         </ProgressBar>
 

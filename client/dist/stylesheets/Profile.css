@@ -51,7 +51,11 @@
   width: 100%;
 }
 
-.tierProg {
-  width: 500px;
+.tierText {
   margin-left: 30px;
 }
+
+.tierProg {
+  width: 500px;
+}
+
