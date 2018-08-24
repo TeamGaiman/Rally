@@ -7,19 +7,13 @@ const user = (sequelize, DataTypes) => {
     },
 
     // USERDATA
-    name: {
-      type: DataTypes.STRING
-    },
-    fullName: {
-      type: DataTypes.STRING
-    },
     email: {
       type: DataTypes.STRING,
       unique: true
     },
-    phoneNumber: {
-      type: DataTypes.STRING
-    },
+    name: DataTypes.STRING,
+    fullName: DataTypes.STRING,
+    phoneNumber: DataTypes.STRING,
 
     // GAME DATA
     wins: {
