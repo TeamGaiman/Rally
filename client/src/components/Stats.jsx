@@ -19,7 +19,7 @@ class Stats extends React.Component {
         <h5>{percentToNextTier}% to your next tier!</h5>
         <ProgressBar 
           className='tierProg' 
-          active now={percentToNextTier}>
+          striped bsStyle="info" now={percentToNextTier}>
         </ProgressBar>
         <h5>Your tier</h5>
 
