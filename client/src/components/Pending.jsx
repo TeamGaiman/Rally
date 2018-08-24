@@ -2,7 +2,6 @@ import React from 'react';
 import { Table, Button } from 'react-bootstrap';
 
 const Pending = (props) => {
-  console.log(props.challenges)
   return (
     <div className='matches-container'>
       <h2>Scheduled Matches</h2>
@@ -17,7 +16,7 @@ const Pending = (props) => {
           </tr>
         </thead>
         <tbody>
-          {props.challenges.slice(0, 5).map((challenge, index) => {
+          {props.playerData.pendingMatches.slice(0, 5).map((challenge, index) => {
             return (
               <tr className='match-row' key={challenge.id}>
                 <td>{challenge.participantA}</td>
