@@ -75,6 +75,15 @@ const resolvers = {
     },
   },
 
+  Match: {
+
+    /*--- MATCH TYPE RESOLVERS ---*/
+    court: async () => {
+
+    }
+
+  },
+
   Mutation: {
 
     /*--- USER MUTATIONS ---*/
@@ -90,7 +99,7 @@ const resolvers = {
     updateUser: async ( _, { input, email } ) => {
       try {
         return await models.User.findOne({
-          where: { email: email }
+          where: { email }
         })
           .then(( user ) => {
             return user.updateAttributes( input );
@@ -128,19 +137,27 @@ const resolvers = {
 
     /*--- COURT MUTATIONS ---*/
     createCourt: async ( _, { input } ) => {
-      return await models.Court.create( input )
-        .catch( error => console.log( error ));
+      try {
+        return await models.Court.create( input );
+      } catch ( error ) {
+        console.log( error );
+        return false;
+      }
     },
 
-    updateCourt: async ( _, { input, id } ) => {
-      models.Court.findOne({
-        where: { id: id }
-      })
-        .then( court => {
-          court.updateAttributes( input );
+    updateCourt: async ( _, { input, location } ) => {
+      try {
+        return await models.Court.findOne({
+          where: { location }
         })
-        .catch( error => console.log( error ));
-      return await input;
+          .then( court => {
+            court.updateAttributes( input );
+            return true;
+          });
+      } catch ( error ) {
+        console.log( error );
+        return false;
+      }
     }
   }
 };

@@ -26,11 +26,11 @@ const typeDefs =
     challenger: String!
     opponent: String!
     startTime: String!
-    location: String!
     accepted: Boolean
     completed: Boolean
     winner: String
     score: String
+    court: Court
   }
 
   type Court {
@@ -38,12 +38,12 @@ const typeDefs =
     name: String
     location: String
     phone: String
-    numberOfCourts: String
+    numberOfCourts: Int
     indoorOutdoor: String
     courtType: String
     latitude: String
     longitude: String
-    kingQueen: String
+    kingQueen: User
   }
 
   enum Tier {
@@ -90,7 +90,7 @@ const typeDefs =
     name: String
     location: String
     phone: String
-    numberOfCourts: String
+    numberOfCourts: Int
     indoorOutdoor: String
     courtType: String
     latitude: String
@@ -105,8 +105,8 @@ const typeDefs =
     createMatch( input: MatchInput ) : Boolean!
     updateMatch( id: String, input: MatchInput ) : Boolean!
 
-    createCourt( input: CourtInput ) : Court
-    updateCourt( id: String, input: CourtInput ) : Court
+    createCourt( input: CourtInput ) : Boolean!
+    updateCourt( location: String, input: CourtInput ) : Boolean!
   }
 `;
 

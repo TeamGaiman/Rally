@@ -42,9 +42,8 @@ const user = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       autoIncrement: true
     }
-
-    // TODO: location, matches
   });
+
   return User;
 };
 
