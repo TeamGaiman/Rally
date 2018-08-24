@@ -15,18 +15,8 @@ const UPDATE_USER = gql`
 
 // MATCH MUTATIONS
 const CREATE_MATCH = gql`
-  mutation CreateMatch($participantA: String!, $participantB: String!, $startTime: String!, $location: String!) {
-    createMatch(input: {
-      participantA: $participantA,
-      participantB: $participantB,
-      startTime: $startTime,
-      location: $location
-    }){
-      participantA
-      participantB
-      startTime
-      location
-    }
+  mutation CreateMatch($input: MatchInput) {
+    createMatch(input: $input)
   }
 `;
 
