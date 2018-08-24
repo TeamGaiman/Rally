@@ -9,9 +9,6 @@ class Matchmaking extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      player: {
-        tier: 1
-      }
     };
   }
 
@@ -20,10 +17,13 @@ class Matchmaking extends React.Component {
   }
 
   render() {
-    return (
+    if (!this.props.playerData) {
+      return <div>Loading with Spinner...</div>;
+    } else {
+       return (
       <div>
         <Query query={GET_USERS_BY_TIER}
-          variables={this.state.player}>
+          variables={{tier: 1}}>
           {({ loading, error, data }) => {
             if (loading) {
               return <p>Loading...</p>;
@@ -43,26 +43,14 @@ class Matchmaking extends React.Component {
           }}
         </Query>
 
-        <Query query={ GET_CHALLENGES_BY_USER }
-          variables={{email: 'parker.muir@gmail.com'}}>
-          {({ loading, error, data }) => {
-            if (loading) {
-              return <p>Loading...</p>;
-            } else if (error) {
-              return <p>Error</p>;
-            }
-            return (
-              <div>
-                <Challenges
-                  challenges={ data.getChallengesByUser }
-                  playerData={ this.props.playerData }
-                />
-              </div>
-            );
-          }}
-        </Query>
+        <Challenges
+          playerData={this.props.playerData}
+        />
+            
       </div>
     );
+    }
+     
   }
 }
 

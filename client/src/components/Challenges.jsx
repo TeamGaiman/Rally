@@ -46,6 +46,7 @@ class Challenges extends React.Component {
   }
 
   render() {
+    console.log('CHALLENGES: ', this.props.playerData.challengesReceived)
     return (
       <div className='matches-container'>
         <h2>Challenges</h2>
@@ -59,10 +60,10 @@ class Challenges extends React.Component {
             </tr>
           </thead>
           <tbody>
-            { this.props.challenges.slice(0, 5).map( (challenge, index) => {
+            { this.props.playerData.challengesReceived.slice(0, 5).map( (challenge, index) => {
               return (
                 <tr className='match-row' key={ challenge.id }>
-                  <td>{challenge.participantA}</td>
+                  <td>{challenge.challenger}</td>
                   <td>{challenge.startTime.split(' GMT')[0]}</td>
                   <td>{challenge.location}</td>
                   <td><ProgressBar bsStyle="warning" now={50} label={`${50}%`} /></td>
