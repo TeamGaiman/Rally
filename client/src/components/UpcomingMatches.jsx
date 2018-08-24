@@ -5,7 +5,7 @@ const UpcomingMatches = (props) => {
   return (
     <div className='profile-tables'>
       <h4>Upcoming Matches</h4>
-      <Table striped bordered condensed hover>
+      {/* <Table striped bordered condensed hover>
 
         <tbody>
           {props.upcoming.map((match, i) =>
@@ -17,7 +17,7 @@ const UpcomingMatches = (props) => {
             </tr>
           )}
         </tbody>
-      </Table>
+      </Table> */}
 
     </div>
   );

@@ -11,6 +11,7 @@ class Stats extends React.Component {
   render() {
     return (
       <div>
+        <h3>Your Stats</h3>
         W: {this.props.playerData.wins} <br/>
         L: {this.props.playerData.losses} <br/>
         Elo: {this.props.playerData.elo} <br/>

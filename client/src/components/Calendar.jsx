@@ -5,7 +5,7 @@ import moment from 'moment';
 
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
 
-const ProfileCalendar = (props) => {
+const Calendar = (props) => {
   return (
     <div className="calendar">
       <BigCalendar
@@ -67,4 +67,4 @@ const ProfileCalendar = (props) => {
   );
 };
 
-export default ProfileCalendar;
+export default Calendar;

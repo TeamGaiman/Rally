@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Navbar, Nav, NavItem, Image, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem, Image } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
 
@@ -29,9 +29,9 @@ const NavBar = (props) => {
                 Matchmaking
               </NavItem>
             </LinkContainer>
-            <LinkContainer to='/stats'>
-              <NavItem>
-                Stats
+            <LinkContainer to='/matches'>
+              <NavItem >
+                Matches
               </NavItem>
             </LinkContainer>
             <LinkContainer to='/profile'>
