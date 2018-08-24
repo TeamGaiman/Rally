@@ -7,15 +7,15 @@ const court = (sequelize, DataTypes) => {
     },
 
     // COURT INFO
-    name: { type: DataTypes.STRING },
-    location: { type: DataTypes.STRING },
-    phone: { type: DataTypes.STRING },
-    numberOfCourts: { type: DataTypes.STRING },
-    indoorOutdoor: { type: DataTypes.STRING },
-    courtType: { type: DataTypes.STRING },
-    latitude: { type: DataTypes.STRING },
-    longitude: { type: DataTypes.STRING },
-    kingQueen: { type: DataTypes.STRING }
+    name: DataTypes.STRING,
+    location: DataTypes.STRING,
+    phone: DataTypes.STRING,
+    numberOfCourts: DataTypes.STRING,
+    indoorOutdoor: DataTypes.STRING,
+    courtType: DataTypes.STRING,
+    latitude: DataTypes.STRING,
+    longitude: DataTypes.STRING,
+    kingQueen: DataTypes.STRING 
   });
 
   return Court;

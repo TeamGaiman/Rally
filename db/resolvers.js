@@ -3,15 +3,8 @@ let { Op } = models;
 
 const resolvers = {
   Query: {
-    getAllUsers: async (_) => {
-      return await models.User.findAll({});
-    },
-    getUsersByTier: async (_, { tier }) => {
-      return await models.User.findAll({ where: { tier }});
-    },
-    getUser: async (_, { name }) => {
-      return await models.User.findOne({ where: { name }});
-    },
+
+    /*--- USER QUERIES ---*/
     checkEmailIsUnique: async (_, { email }) => {
       let result = await models.User.findOne({ where: { email }});
       if ( !result ) {
@@ -20,9 +13,24 @@ const resolvers = {
         return false;
       }
     },
-    getUserByEmail: async(_, { email }) => {
-      return await models.User.findOne({where: { email }});
+
+    getUser: async (_, { name }) => {
+      return await models.User.findOne({ where: { name }});
     },
+
+    getAllUsers: async (_) => {
+      return await models.User.findAll({});
+    },
+
+    getUsersByTier: async (_, { tier }) => {
+      return await models.User.findAll({ where: { tier }});
+    },
+
+    getUserByEmail: async(_, { email }) => {
+      return await models.User.findOne({ where: { email }});
+    },
+
+    /*--- MATCH QUERIES ---*/
     getChallengesByUser: async (_, { email }) => {
       return await models.Match.findAll({ where: {
         participantB: email,
@@ -30,6 +38,7 @@ const resolvers = {
         completed: false
       } });
     },
+
     getUpcomingMatchesByUser: async (_, { email }) => {
       return await models.Match.findAll({ where: {
         [Op.or]: [
@@ -39,52 +48,67 @@ const resolvers = {
         accepted: true,
         completed: false
       } });
-    },
+    }
+
   },
 
   Mutation: {
-    createUser: async (_, { input }) => {
-      return await models.User.create( input )
-        .catch( error => {
-          console.error ( error );
-        });
 
+    /*--- USER MUTATIONS ---*/
+    createUser: async (_, { input }) => {
+      try {
+        return await models.User.create( input );
+      } catch ( error ) {
+        console.error( error );
+        return false;
+      }
     },
 
     updateUser: async (_, { input, email }) => {
-      models.User.findOne({
-        where: { email: email }
-      })
-        .then(( user ) => {
-          user.updateAttributes( input );
+      try {
+        return await models.User.findOne({
+          where: { email: email }
         })
-        .catch( err => console.log( 'updateUser resolver error', err ));
-      return await input;
+          .then(( user ) => {
+            return user.updateAttributes( input );
+          });
+      } catch ( error ) {
+        console.error( error );
+        return false;
+      }
     },
 
+    /*--- MATCH MUTATIONS ---*/
     createMatch: async (_, { input }) => {
-      return await models.Match.create( input )
-        .catch( error => {
-          console.error( error );
-        });
+      try {
+        return await models.Match.create( input );
+      } catch ( error ) {
+        console.error( error );
+        return false;
+      }
     },
 
     updateMatch: async (_, { input, id }) => {
-      models.Match.findOne({
-        where: { id: id }
-      })
-        .then(( match ) => {
-          match.updateAttributes( input );
+      try {
+        return await models.Match.findOne({
+          where: { id }
         })
-        .catch( err => console.log( 'updateMatch resolver error', err ));
-      return await input;
+          .then(( match ) => {
+            match.updateAttributes( input );
+            return true;
+          });
+      } catch ( error ) {
+        console.error( error );
+        return false;
+      }
     },
 
+    /*--- COURT MUTATIONS ---*/
     createCourt: async (_, { input }) => {
       return await models.Court.create( input )
         .catch( error => console.log( error ));
     },
-    
+
     updateCourt: async (_, { input, id }) => {
       models.Court.findOne({
         where: { id: id }
@@ -95,23 +119,6 @@ const resolvers = {
         .catch( error => console.log( error ));
       return await input;
     }
-
-    
-    // acceptMatch: async ( _, { matches, email }) => {
-    //   const user = await models.User.findOne({ where: { name: input.name }});
-    //   user.set('matches', input);
-    //   console.log('acceptMatch--', user);
-    //   return user.save();
-    //   models.User.findOne({
-    //     where: { email: email }
-    //   })
-    //     .then(user => {
-    //       console.log('acceptMatch', user);
-    //       user.updateAttributes(matches);
-    //     })
-    //     .catch(err => err);
-    //   return await matches;
-    // },
   }
 };
 

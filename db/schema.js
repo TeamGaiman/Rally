@@ -1,12 +1,13 @@
 const { makeExecutableSchema } = require('graphql-tools');
 const resolvers = require('../db/resolvers.js');
 
-const typeDefs = `
+const typeDefs =
+`
   type User {
     id: ID!
+    email: String!
     name: String
     fullName: String
-    email: String!
     phoneNumber: String
     wins: Int
     losses: Int
@@ -15,6 +16,7 @@ const typeDefs = `
     joinDate: String
     userNumber: Int
   }
+
   type Match {
     id: ID!
     participantA: String!
@@ -26,6 +28,7 @@ const typeDefs = `
     winner: String
     score: String
   }
+
   type Court {
     id: ID!
     name: String
@@ -38,19 +41,28 @@ const typeDefs = `
     longitude: String
     kingQueen: String
   }
+
+  enum Tier {
+    ONE
+    TWO
+    THREE
+    FOUR
+  }
+
   type Query {
+    getUser(name: String): User
     getAllUsers: [User]
     getUsersByTier(tier: Int): [User]
-    getUser(name: String): User
+
     checkEmailIsUnique(email: String!): Boolean
     getUserByEmail(email: String): User
+
     getChallengesByUser(email: String): [Match]
     getUpcomingMatchesByUser(email: String): [Match]
   }
-  input EmailInput {
-    email: String
-  }
+
   input UserInput {
+    email: String
     name: String
     fullName: String
     phoneNumber: String
@@ -59,6 +71,7 @@ const typeDefs = `
     elo: Int
     tier: Int
   }
+
   input MatchInput {
     participantA: String
     participantB: String
@@ -69,6 +82,7 @@ const typeDefs = `
     winner: String
     score: String
   }
+
   input CourtInput {
     name: String
     location: String
@@ -80,13 +94,16 @@ const typeDefs = `
     longitude: String
     kingQueen: String
   }
+
   type Mutation {
-    createUser(input: EmailInput) : User
-    updateUser(email: String, input: UserInput) : User
-    createMatch(input: MatchInput) : Match
-    updateMatch(id: ID!, input: MatchInput) : Match
-    createCourt(input: CourtInput) : Court
-    updateCourt(id: String, input: CourtInput) : Court
+    createUser( input: UserInput ) : Boolean!
+    updateUser( email: String, input: UserInput ) : Boolean!
+
+    createMatch( input: MatchInput ) : Boolean!
+    updateMatch( id: String, input: MatchInput ) : Boolean!
+
+    createCourt( input: CourtInput ) : Court
+    updateCourt( id: String, input: CourtInput ) : Court
   }
 `;
 
