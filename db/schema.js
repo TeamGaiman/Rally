@@ -1,7 +1,8 @@
 const { makeExecutableSchema } = require('graphql-tools');
 const resolvers = require('../db/resolvers.js');
 
-const typeDefs = `
+const typeDefs =
+`
   type User {
     id: ID!
     email: String!
@@ -41,14 +42,23 @@ const typeDefs = `
     kingQueen: String
   }
 
+  enum Tier {
+    ONE
+    TWO
+    THREE
+    FOUR
+  }
+
   type Query {
+    getUser(name: String): User
     getAllUsers: [User]
-    getUsersByTier( tier: Int! ): [User]
-    getUser( name: String! ): User
-    checkEmailIsUnique( email: String! ): Boolean
-    getUserByEmail( email: String! ): User
-    getUserChallenges( username: String! ): [Match]
-    getUserUpcomingMatches( username: String! ): [Match]
+    getUsersByTier(tier: Int): [User]
+
+    checkEmailIsUnique(email: String!): Boolean
+    getUserByEmail(email: String): User
+
+    getChallengesByUser(email: String): [Match]
+    getUpcomingMatchesByUser(email: String): [Match]
   }
 
   input UserInput {

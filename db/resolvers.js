@@ -3,44 +3,8 @@ let { Op } = models;
 
 const resolvers = {
   Query: {
-    getAllUsers: async (_) => {
-      return await models.User.findAll({});
-    },
 
-    getUser: async (_, { name }) => {
-      return await models.User.findOne({ where: { name }});
-    },
-
-    getUsersByTier: async (_, { tier }) => {
-      return await models.User.findAll({ where: { tier }});
-    },
-
-    getUserByEmail: async(_, { email }) => {
-      return await models.User.findOne({where: { email }});
-    },
-
-    getUserChallenges: async (_, { username }) => {
-      return await models.Match.findAll({ where: {
-        [Op.or]: [
-          {participantA: username},
-          {participantB: username}
-        ],
-        accepted: false,
-        completed: false
-      } });
-    },
-
-    getUserUpcomingMatches: async (_, { username }) => {
-      return await models.Match.findAll({ where: {
-        [Op.or]: [
-          {participantA: username},
-          {participantB: username}
-        ],
-        accepted: true,
-        completed: false
-      } });
-    },
-
+    /*--- USER QUERIES ---*/
     checkEmailIsUnique: async (_, { email }) => {
       let result = await models.User.findOne({ where: { email }});
       if ( !result ) {
@@ -49,9 +13,48 @@ const resolvers = {
         return false;
       }
     },
+
+    getUser: async (_, { name }) => {
+      return await models.User.findOne({ where: { name }});
+    },
+
+    getAllUsers: async (_) => {
+      return await models.User.findAll({});
+    },
+
+    getUsersByTier: async (_, { tier }) => {
+      return await models.User.findAll({ where: { tier }});
+    },
+
+    getUserByEmail: async(_, { email }) => {
+      return await models.User.findOne({ where: { email }});
+    },
+
+    /*--- MATCH QUERIES ---*/
+    getChallengesByUser: async (_, { email }) => {
+      return await models.Match.findAll({ where: {
+        participantB: email,
+        accepted: false,
+        completed: false
+      } });
+    },
+
+    getUpcomingMatchesByUser: async (_, { email }) => {
+      return await models.Match.findAll({ where: {
+        [Op.or]: [
+          {participantA: email},
+          {participantB: email}
+        ],
+        accepted: true,
+        completed: false
+      } });
+    }
+
   },
 
   Mutation: {
+
+    /*--- USER MUTATIONS ---*/
     createUser: async (_, { input }) => {
       try {
         return await models.User.create( input );
@@ -75,6 +78,7 @@ const resolvers = {
       }
     },
 
+    /*--- MATCH MUTATIONS ---*/
     createMatch: async (_, { input }) => {
       try {
         return await models.Match.create( input );
@@ -99,6 +103,7 @@ const resolvers = {
       }
     },
 
+    /*--- COURT MUTATIONS ---*/
     createCourt: async (_, { input }) => {
       return await models.Court.create( input )
         .catch( error => console.log( error ));
