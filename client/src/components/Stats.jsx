@@ -1,5 +1,7 @@
 import React from 'react';
 import Trophies from './Trophies.jsx';
+import { ProgressBar } from 'react-bootstrap';
+import toNextTier from '../../../workers/toNextTier';
 class Stats extends React.Component {
   constructor(props) {
     super(props);
@@ -12,6 +14,9 @@ class Stats extends React.Component {
     return (
       <div>
         <h3>Your Stats</h3>
+        <ProgressBar className='tierProg' active now={toNextTier(this.props.playerData.tier, this.props.playerData.elo)}>
+        </ProgressBar>
+
         W: {this.props.playerData.wins} <br/>
         L: {this.props.playerData.losses} <br/>
         Elo: {this.props.playerData.elo} <br/>
