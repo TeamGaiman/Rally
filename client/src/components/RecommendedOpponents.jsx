@@ -100,12 +100,16 @@ class RecommendedOpponents extends React.Component {
         { this.state.showMatch
           ? <Mutation
             mutation={ CREATE_MATCH }
-            variables={{ 
-              participantA: this.props.playerData.email, 
-              participantB: this.state.matchClickUser.email, 
-              startTime: this.state.startTime, 
-              location: this.state.location
-            }}
+            variables={
+              {
+                input: {
+                  challenger: this.props.playerData.email,
+                  opponent: this.state.matchClickUser.email,
+                  startTime: this.state.startTime,
+                  location: this.state.location
+                }
+              }
+            }
             update={ this.handleSendChallenge }
           >
             { createMatch => (
