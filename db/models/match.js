@@ -7,8 +7,8 @@ const match = (sequelize, DataTypes) => {
     },
 
     //PARTICIPANTS
-    participantA: DataTypes.STRING,
-    participantB: DataTypes.STRING,
+    challenger: DataTypes.STRING,
+    opponent: DataTypes.STRING,
 
     //MATCH INFO
     startTime: DataTypes.DATE,

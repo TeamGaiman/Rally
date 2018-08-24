@@ -12,15 +12,16 @@ const typeDefs =
     wins: Int
     losses: Int
     elo: Int
-    tier: Int
+    tier: Tier
     joinDate: String
     userNumber: Int
+    completedMatches: [Match]
   }
 
   type Match {
     id: ID!
-    participantA: String!
-    participantB: String!
+    challenger: String!
+    opponent: String!
     startTime: String!
     location: String!
     accepted: Boolean
@@ -73,8 +74,8 @@ const typeDefs =
   }
 
   input MatchInput {
-    participantA: String
-    participantB: String
+    challenger: String
+    opponent: String
     startTime: String
     location: String
     accepted: Boolean
