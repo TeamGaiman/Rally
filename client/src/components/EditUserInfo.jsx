@@ -91,7 +91,7 @@ class EditUserInfo extends React.Component {
               <FormControl onChange={ (e) => {
                 this.handleFieldChange(e);
                 this.getValidationState(e);
-              } } placeholder='optional' />
+              } } />
               <FormControl.Feedback />
               <HelpBlock>{this.state.submitDisabled ? 'Please use format: xxx-xxx-xxxx' : null}</HelpBlock>
             </FormGroup>
@@ -122,7 +122,7 @@ class EditUserInfo extends React.Component {
                       type="submit"
                       className='pull-right'
                       onClick={ updateUser }
-                      disabled={this.state.submitDisabled}>
+                      disabled={this.state.submitDisabled && this.state.phone.length > 0}>
                       Submit
                     </Button>
                   ) }
