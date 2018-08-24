@@ -62,6 +62,7 @@ class EditUserInfo extends React.Component {
   }
 
   render() {
+    console.log(this.props.playerData)
     if ( this.props.googleUserData ) {
       return (    
         <div className='user-info-form'>
@@ -114,8 +115,11 @@ class EditUserInfo extends React.Component {
                   mutation={ UPDATE_USER }
                   variables={{
                     email: this.props.playerData.email,
-                    name: this.state.username,
-                    phoneNumber: this.state.phone
+                    input: {
+                      name: this.state.username,
+                      phoneNumber: this.state.phone,
+                      tier: this.state.skillTier
+                    }
                   }}>
                   { updateUser => (
                     <Button
