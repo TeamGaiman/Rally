@@ -12,7 +12,7 @@ const typeDefs =
     wins: Int
     losses: Int
     elo: Int
-    tier: Tier
+    tier: Int
     joinDate: String
     userNumber: Int
     completedMatches: [Match]
@@ -27,7 +27,7 @@ const typeDefs =
     court: Court
     challenger: String!
     opponent: String!
-    startTime: String!
+    startTime: String
     accepted: Boolean
     completed: Boolean
     winner: String
@@ -46,25 +46,7 @@ const typeDefs =
     longitude: String
     kingQueen: User
   }
-
-  enum Tier {
-    ONE
-    TWO
-    THREE
-    FOUR
-  }
-
-  type Query {
-    getAllUsers: [User]
-    getUsersByTier(tier: Int): [User]
-
-    checkEmailIsUnique(email: String!): Boolean
-    getUserByEmail(email: String): User
-
-    getChallengesByUser(email: String): [Match]
-    getUpcomingMatchesByUser(email: String): [Match]
-  }
-
+  
   input UserInput {
     email: String
     name: String
@@ -75,7 +57,7 @@ const typeDefs =
     elo: Int
     tier: Int
   }
-
+  
   input MatchInput {
     location: String!
     challenger: String
@@ -86,7 +68,7 @@ const typeDefs =
     winner: String
     score: String
   }
-
+  
   input CourtInput {
     location: String!
     name: String
@@ -97,6 +79,17 @@ const typeDefs =
     latitude: String
     longitude: String
     kingQueen: String
+  }
+  
+  type Query {
+    getAllUsers: [User]
+    getUsersByTier(tier: Int): [User]
+
+    checkEmailIsUnique(email: String!): Boolean
+    getUserByEmail(email: String!): User
+
+    getChallengesByUser(email: String): [Match]
+    getUpcomingMatchesByUser(email: String): [Match]
   }
 
   type Mutation {

@@ -28,18 +28,34 @@ const GET_USERS_BY_TIER = gql`
   }
 `;
 
+const MATCH = `
+  {
+    location
+    challenger
+    opponent
+    startTime
+  }
+`;
+
 const GET_USER_BY_EMAIL = gql`
   query GetUserByEmail($email: String!) {
     getUserByEmail(email: $email) {
-      id
+      email
       name
       fullName
       phoneNumber
-      email
-      elo
-      tier
       wins
       losses
+      elo
+      tier
+      completedMatches
+        ${MATCH}
+      pendingMatches
+        ${MATCH}
+      challengesSent
+        ${MATCH}
+      challengesReceived
+        ${MATCH}
     }
   }
 `;

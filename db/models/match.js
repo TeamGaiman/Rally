@@ -6,10 +6,7 @@ const match = (sequelize, DataTypes) => {
       primaryKey: true
     },
 
-    location: {
-      type: DataTypes.STRING,
-      unique: true
-    },
+    location: DataTypes.STRING,
 
     //PARTICIPANTS
     challenger: DataTypes.STRING,
