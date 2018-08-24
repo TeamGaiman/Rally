@@ -34,6 +34,16 @@ const MATCH = `
     challenger
     opponent
     startTime
+    court {
+      location
+      name
+      phoneNumber
+      numberOfCourts
+      indoor
+      courtType
+      latitude
+      longitude
+    }
   }
 `;
 
