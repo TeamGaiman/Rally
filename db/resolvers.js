@@ -4,20 +4,54 @@ let { Op } = models;
 const resolvers = {
 
   User: {
+
+    /*--- USER TYPE RESOLVERS ---*/
     completedMatches: async ({ email }) => {
       return await models.Match.findAll({
         where: {
           [Op.or]: [
-            {challenger: email},
-            {opponent: email}
+            { challenger: email },
+            { opponent: email }
           ],
           completed: true
+        }
+      });
+    },
+
+    pendingMatches: async ({ email }) => {
+      return await models.Match.findAll({
+        where: {
+          [Op.or]: [
+            { challenger: email },
+            { opponent: email }
+          ],
+          completed: false,
+          accepted: true
+        }
+      });
+    },
+
+    challengesSent: async ({ email }) => {
+      return await models.Match.findAll({
+        where: {
+          challenger: email,
+          accepted: false
+        }
+      });
+    },
+
+    challengesReceived: async ({ email }) => {
+      return await models.Match.findAll({
+        where: {
+          opponent: email,
+          accepted: false
         }
       });
     }
   },
 
   Query: {
+
     /*--- USER QUERIES ---*/
     checkEmailIsUnique: async ( _, { email } ) => {
       let result = await models.User.findOne({ where: { email }});
@@ -26,10 +60,6 @@ const resolvers = {
       } else {
         return false;
       } 
-    },
-
-    getUser: async ( _, { name } ) => {
-      return await models.User.findOne({ where: { name }});
     },
 
     getAllUsers: async ( ) => {
@@ -43,27 +73,6 @@ const resolvers = {
     getUserByEmail: async( _, { email } ) => {
       return await models.User.findOne({ where: { email }});
     },
-
-    /*--- MATCH QUERIES ---*/
-    getChallengesByUser: async ( _, { email } ) => {
-      return await models.Match.findAll({ where: {
-        participantB: email,
-        accepted: false,
-        completed: false
-      } });
-    },
-
-    getUpcomingMatchesByUser: async ( _, { email } ) => {
-      return await models.Match.findAll({ where: {
-        [Op.or]: [
-          {participantA: email},
-          {participantB: email}
-        ],
-        accepted: true,
-        completed: false
-      } });
-    }
-
   },
 
   Mutation: {

@@ -16,6 +16,9 @@ const typeDefs =
     joinDate: String
     userNumber: Int
     completedMatches: [Match]
+    pendingMatches: [Match]
+    challengesSent: [Match]
+    challengesReceived: [Match]
   }
 
   type Match {
@@ -51,7 +54,6 @@ const typeDefs =
   }
 
   type Query {
-    getUser(name: String): User
     getAllUsers: [User]
     getUsersByTier(tier: Int): [User]
 
