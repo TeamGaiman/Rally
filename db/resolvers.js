@@ -2,60 +2,93 @@ const models = require('./index.js');
 let { Op } = models;
 
 const resolvers = {
+
+  User: {
+
+    /*--- USER TYPE RESOLVERS ---*/
+    completedMatches: async ({ email }) => {
+      return await models.Match.findAll({
+        where: {
+          [Op.or]: [
+            { challenger: email },
+            { opponent: email }
+          ],
+          completed: true
+        }
+      });
+    },
+
+    pendingMatches: async ({ email }) => {
+      return await models.Match.findAll({
+        where: {
+          [Op.or]: [
+            { challenger: email },
+            { opponent: email }
+          ],
+          completed: false,
+          accepted: true
+        }
+      });
+    },
+
+    challengesSent: async ({ email }) => {
+      return await models.Match.findAll({
+        where: {
+          challenger: email,
+          accepted: false
+        }
+      });
+    },
+
+    challengesReceived: async ({ email }) => {
+      return await models.Match.findAll({
+        where: {
+          opponent: email,
+          accepted: false
+        }
+      });
+    }
+  },
+
+  Match: {
+
+    /*--- MATCH TYPE RESOLVERS ---*/
+    court: async ({ location }) => {
+      console.log(location);
+      return await models.Court.findOne({ where: { location }});
+    }
+
+  },
+
   Query: {
 
     /*--- USER QUERIES ---*/
-    checkEmailIsUnique: async (_, { email }) => {
+    checkEmailIsUnique: async ( _, { email } ) => {
       let result = await models.User.findOne({ where: { email }});
       if ( !result ) {
         return true;
       } else {
         return false;
-      }
+      } 
     },
 
-    getUser: async (_, { name }) => {
-      return await models.User.findOne({ where: { name }});
-    },
-
-    getAllUsers: async (_) => {
+    getAllUsers: async ( ) => {
       return await models.User.findAll({});
     },
 
-    getUsersByTier: async (_, { tier }) => {
+    getUsersByTier: async ( _, { tier } ) => {
       return await models.User.findAll({ where: { tier }});
     },
 
-    getUserByEmail: async(_, { email }) => {
+    getUserByEmail: async( _, { email } ) => {
       return await models.User.findOne({ where: { email }});
     },
-
-    /*--- MATCH QUERIES ---*/
-    getChallengesByUser: async (_, { email }) => {
-      return await models.Match.findAll({ where: {
-        participantB: email,
-        accepted: false,
-        completed: false
-      } });
-    },
-
-    getUpcomingMatchesByUser: async (_, { email }) => {
-      return await models.Match.findAll({ where: {
-        [Op.or]: [
-          {participantA: email},
-          {participantB: email}
-        ],
-        accepted: true,
-        completed: false
-      } });
-    }
-
   },
 
   Mutation: {
 
     /*--- USER MUTATIONS ---*/
-    createUser: async (_, { input }) => {
+    createUser: async ( _, { input } ) => {
       try {
         return await models.User.create( input );
       } catch ( error ) {
@@ -64,10 +97,10 @@ const resolvers = {
       }
     },
 
-    updateUser: async (_, { input, email }) => {
+    updateUser: async ( _, { input, email } ) => {
       try {
         return await models.User.findOne({
-          where: { email: email }
+          where: { email }
         })
           .then(( user ) => {
             return user.updateAttributes( input );
@@ -79,7 +112,7 @@ const resolvers = {
     },
 
     /*--- MATCH MUTATIONS ---*/
-    createMatch: async (_, { input }) => {
+    createMatch: async ( _, { input } ) => {
       try {
         return await models.Match.create( input );
       } catch ( error ) {
@@ -88,7 +121,7 @@ const resolvers = {
       }
     },
 
-    updateMatch: async (_, { input, id }) => {
+    updateMatch: async ( _, { input, id } ) => {
       try {
         return await models.Match.findOne({
           where: { id }
@@ -104,20 +137,28 @@ const resolvers = {
     },
 
     /*--- COURT MUTATIONS ---*/
-    createCourt: async (_, { input }) => {
-      return await models.Court.create( input )
-        .catch( error => console.log( error ));
+    createCourt: async ( _, { input } ) => {
+      try {
+        return await models.Court.create( input );
+      } catch ( error ) {
+        console.log( error );
+        return false;
+      }
     },
 
-    updateCourt: async (_, { input, id }) => {
-      models.Court.findOne({
-        where: { id: id }
-      })
-        .then( court => {
-          court.updateAttributes( input );
+    updateCourt: async ( _, { input, location } ) => {
+      try {
+        return await models.Court.findOne({
+          where: { location }
         })
-        .catch( error => console.log( error ));
-      return await input;
+          .then( court => {
+            court.updateAttributes( input );
+            return true;
+          });
+      } catch ( error ) {
+        console.log( error );
+        return false;
+      }
     }
   }
 };

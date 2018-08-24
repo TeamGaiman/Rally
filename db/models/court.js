@@ -8,9 +8,12 @@ const court = (sequelize, DataTypes) => {
 
     // COURT INFO
     name: DataTypes.STRING,
-    location: DataTypes.STRING,
+    location: {
+      type: DataTypes.STRING,
+      unique: true
+    },
     phone: DataTypes.STRING,
-    numberOfCourts: DataTypes.STRING,
+    numberOfCourts: DataTypes.INTEGER,
     indoorOutdoor: DataTypes.STRING,
     courtType: DataTypes.STRING,
     latitude: DataTypes.STRING,

@@ -30,6 +30,7 @@ class Matchmaking extends React.Component {
             } else if (error) {
               return <p>Error</p>;
             }
+            console.log('getting users by tier');
             return (
               <div>
                 <RecommendedOpponents

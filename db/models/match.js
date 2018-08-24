@@ -6,13 +6,14 @@ const match = (sequelize, DataTypes) => {
       primaryKey: true
     },
 
+    location: DataTypes.STRING,
+
     //PARTICIPANTS
-    participantA: DataTypes.STRING,
-    participantB: DataTypes.STRING,
+    challenger: DataTypes.STRING,
+    opponent: DataTypes.STRING,
 
     //MATCH INFO
     startTime: DataTypes.DATE,
-    location: DataTypes.STRING,
     accepted: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
