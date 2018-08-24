@@ -59,7 +59,7 @@ const typeDefs =
   }
   
   input MatchInput {
-    location: String!
+    location: String
     challenger: String
     opponent: String
     startTime: String
@@ -97,7 +97,7 @@ const typeDefs =
     updateUser( email: String, input: UserInput ) : Boolean!
 
     createMatch( input: MatchInput ) : Boolean!
-    updateMatch( id: String, input: MatchInput ) : Boolean!
+    updateMatch( id: ID!, input: MatchInput ) : Boolean!
 
     createCourt( input: CourtInput ) : Boolean!
     updateCourt( location: String, input: CourtInput ) : Boolean!

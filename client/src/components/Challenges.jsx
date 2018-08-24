@@ -2,9 +2,8 @@ import React from 'react';
 import { Table, Button, ProgressBar } from 'react-bootstrap';
 
 import ChallengesModal from './ChallengesModal.jsx';
-import Pending from './Pending.jsx';
 import { Mutation } from 'react-apollo';
-import { ACCEPT_MATCH } from '../apollo/mutations';
+import {UPDATE_MATCH } from '../apollo/mutations';
 
 class Challenges extends React.Component {
   constructor(props) {
@@ -46,6 +45,7 @@ class Challenges extends React.Component {
   }
 
   render() {
+    console.log('CHALLENGES: ', this.props.playerData.challengesReceived)
     return (
       <div className='matches-container'>
         <h2>Challenges</h2>
@@ -59,10 +59,10 @@ class Challenges extends React.Component {
             </tr>
           </thead>
           <tbody>
-            { this.props.challenges.slice(0, 5).map( (challenge, index) => {
+            { this.props.playerData.challengesReceived.slice(0, 5).map( (challenge, index) => {
               return (
                 <tr className='match-row' key={ challenge.id }>
-                  <td>{challenge.participantA}</td>
+                  <td>{challenge.challenger}</td>
                   <td>{challenge.startTime.split(' GMT')[0]}</td>
                   <td>{challenge.location}</td>
                   <td><ProgressBar bsStyle="warning" now={50} label={`${50}%`} /></td>
@@ -76,11 +76,15 @@ class Challenges extends React.Component {
 
         { this.state.challengeModalOpen
           ? <Mutation
-            mutation={ ACCEPT_MATCH }
-            variables={{
-              id: this.state.challengeClicked.id,
-              accepted: true
-            }}
+            mutation={ UPDATE_MATCH }
+            variables={
+              {
+                id: this.state.challengeClicked.id,
+                input:
+                  {
+                    accepted: true
+                  }
+              }}
             update={ this.handleAccept }
           >
             { acceptMatch => (
