@@ -56,26 +56,9 @@ class Matches extends React.Component {
             toggleCalendarModal={this.toggleCalendarModal}
           />
         ) : (
-          <Query
-            query={GET_CHALLENGES_BY_USER}
-            variables={{ email: 'parker.muir@gmail.com' }}
-          >
-            {({ loading, error, data }) => {
-              if (loading) {
-                return <p>Loading...</p>;
-              } else if (error) {
-                return <p>Error</p>;
-              }
-              return (
-                <div>
-                  <Pending
-                    challenges={data.getChallengesByUser}
-                    playerData={this.props.playerData}
-                  />
-                </div>
-              );
-            }}
-          </Query>
+          <Pending
+            playerData={this.props.playerData}
+          />
         )}
       </div>
     );
