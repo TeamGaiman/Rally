@@ -20,35 +20,35 @@ class Matchmaking extends React.Component {
     if (!this.props.playerData) {
       return <div>Loading with Spinner...</div>;
     } else {
-       return (
-      <div>
-        <Query query={GET_USERS_BY_TIER}
-          variables={{tier: 1}}>
-          {({ loading, error, data }) => {
-            if (loading) {
-              return <p>Loading...</p>;
-            } else if (error) {
-              return <p>Error</p>;
-            }
-            console.log('getting users by tier');
-            return (
-              <div>
-                <RecommendedOpponents
-                  users={data.getUsersByTier}
-                  playerData={this.props.playerData}
-                  courts={this.state.courts}
-                />
-              </div>
-            );
-          }}
-        </Query>
+      return (
+        <div>
+          <Query query={GET_USERS_BY_TIER}
+            variables={{tier: 1}}>
+            {({ loading, error, data }) => {
+              if (loading) {
+                return <p>Loading...</p>;
+              } else if (error) {
+                return <p>Error</p>;
+              }
+              console.log('getting users by tier');
+              return (
+                <div>
+                  <RecommendedOpponents
+                    users={data.getUsersByTier}
+                    playerData={this.props.playerData}
+                    courts={this.state.courts}
+                  />
+                </div>
+              );
+            }}
+          </Query>
 
-        <Challenges
-          playerData={this.props.playerData}
-        />
-            
-      </div>
-    );
+          <Challenges
+            playerData={this.props.playerData}
+          />
+              
+        </div>
+      );
     }
      
   }

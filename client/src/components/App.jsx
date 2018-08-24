@@ -131,6 +131,7 @@ class App extends React.Component {
               {({ loading, error, data }) => {
                 if ( loading ) { return <p>Loading...</p>; }
                 if ( error ) { return <p>Error! ${ error }</p>; }
+                let time = new Date;
                 return <Matchmaking
                   playerData = { this.state.playerData }
                   dbPlayerData={ data.getUserByEmail } 
