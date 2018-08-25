@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const NavBar = (props) => {
   return (
-    <Navbar inverse collapseOnSelect staticTop className="nav-margin">
+    <Navbar inverse collapseOnSelect staticTop className='nav-margin'>
       <Navbar.Header>
         <Navbar.Brand>
           <Link to='/'>Rally</Link>
@@ -14,6 +14,7 @@ const NavBar = (props) => {
       </Navbar.Header>
 
       <Navbar.Collapse>
+<<<<<<< HEAD
         { !props.googleUserData || !props.playerData
           ? ( 
             <Nav pullRight>
@@ -48,6 +49,45 @@ const NavBar = (props) => {
                   Logout
                 </NavItem>
               </LinkContainer>
+=======
+        {!props.googleUserData || !props.playerData
+          ? <Nav pullRight>
+            <LinkContainer to='/signup'>
+              <NavItem onClick={props.googleSignIn}>
+                Sign in with Google
+              </NavItem>
+            </LinkContainer>
+          </Nav>
+          :
+          <Nav pullRight>
+            <LinkContainer to='/matchmaking'>
+              <NavItem >
+                Matchmaking
+              </NavItem>
+            </LinkContainer>
+            <LinkContainer to='/matches'>
+              <NavItem >
+                Matches
+              </NavItem>
+            </LinkContainer>
+            <LinkContainer to='/profile'>
+              <NavItem >
+                Profile
+              </NavItem>
+            </LinkContainer>
+            <LinkContainer to='/login'>
+              <NavItem onClick={props.googleSignOut}>
+                Logout
+              </NavItem>
+            </LinkContainer>
+            <Navbar.Brand className='profile-image'>
+              <Image
+                src={props.googleUserData.photoURL}
+                circle
+                responsive
+              />
+            </Navbar.Brand>
+>>>>>>> clientCodeCleanUp
 
               <Navbar.Brand className="profile-image">
                 <Image

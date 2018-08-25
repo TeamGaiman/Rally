@@ -5,6 +5,8 @@ const models = require('../db/index.js');
 const resolvers = require('../db/resolvers.js');
 const port = process.env.PORT || 8080;
 
+const dummies = require('../../../../Downloads/MOCK_DATA.json');
+
 const app = express();
 app.use(express.static(__dirname + '/../client/dist'));
 
@@ -18,8 +20,12 @@ app.use('/graphql', graphqlHTTP({
 //Page refresh handler
 app.get( '/*', ( req, res ) => res.redirect('/') );
 
-models.sequelize.sync({ force: false })
+models.sequelize.sync({ force: true })
   .then(() => {
+    for (dummy of dummies) {
+      console.log (dummy);
+      models.User.create( dummy );
+    }
     app.listen( port, () => console.log( 'listening on port: ', port ));
   })
   .catch(err => { console.error( err ); });

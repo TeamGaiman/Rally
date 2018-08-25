@@ -8,7 +8,9 @@ const GET_ALL_USERS = gql`
       fullName
       phoneNumber
       email
+      image
       elo
+      tier
     }
   }
 `;
@@ -17,13 +19,15 @@ const GET_USERS_BY_TIER = gql`
   query GetUsersByTier($tier: Int) {
     getUsersByTier(tier: $tier){
       id
+      email
       name
       fullName
       phoneNumber
-      email
+      image
       elo
       wins
       losses
+      tier
     }
   }
 `;

@@ -74,7 +74,7 @@ class App extends React.Component {
   }
 
   render () {
-    console.log(this.state);
+    console.log(this.state.googleUserData);
     return (
       <ApolloProvider client={ this.props.client }>
         <NavBar
