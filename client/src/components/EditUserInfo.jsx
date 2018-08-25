@@ -45,12 +45,10 @@ class EditUserInfo extends React.Component {
     var phoneRe = /^[2-9]\d{2}[2-9]\d{2}\d{4}$/;
     var digits = number.replace(/\D/g, '');
     if ( phoneRe.test( digits ) && number[3] === '-' && number[7] === '-') {
-      console.log('valid')
       this.setState({
         validNumber: true
       });
     } else {
-      console.log('invalid')
       this.setState({
         validNumber: false
       });
@@ -86,8 +84,8 @@ class EditUserInfo extends React.Component {
           >
             <ControlLabel>Full Name</ControlLabel>
             <FormControl
-              onChange={this.handleFieldChange}
-              value={this.props.googleUserData.displayName}
+              onChange={ this.handleFieldChange }
+              value={ this.props.googleUserData.displayName }
               disabled="true" 
             />
           </FormGroup>
@@ -148,7 +146,7 @@ class EditUserInfo extends React.Component {
           <FormGroup>
             <Link 
               to='/profile' 
-              onClick ={this.props.handleEditUserInfo}
+              onClick ={ this.props.handleEditUserInfo }
             >
               <Mutation
                 mutation={ UPDATE_USER }

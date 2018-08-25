@@ -24,7 +24,7 @@ const Map = compose(
       infoIndex: null
     }),
     {
-      showInfo: ({ isOpen, infoIndex }) => (index) => ({
+      showInfo: ({ isOpen, infoIndex }) => ( index ) => ({
         isOpen: infoIndex !== index || !isOpen,
         infoIndex: index
       })
@@ -39,7 +39,7 @@ const Map = compose(
       defaultZoom={11}
       defaultCenter={{ lat: 40.72, lng: -73.9 }}
     >
-      {props.courts.map((court, index) => {
+      { props.courts.map(( court, index ) => {
         court.index = index;
         let latitude = Number(court.lat);
         let longitude = Number(court.lon);
@@ -51,7 +51,7 @@ const Map = compose(
             onClick={() => props.showInfo(court.index)}
             animation={ google.maps.Animation.DROP }
           >
-            {props.isOpen && props.infoIndex === court.index && (
+            { props.isOpen && props.infoIndex === court.index && (
               <InfoWindow onCloseClick={ props.showInfo }>
                 <div>
                   <h3>{ court.Name }</h3>
@@ -63,7 +63,7 @@ const Map = compose(
                     bsStyle="primary"
                     bsSize="small"
                     onClick={() => {
-                      props.handleLocationChange(court.Name);
+                      props.handleLocationChange( court.Name );
                       props.showInfo();
                     }}>
                     Choose Court
@@ -79,4 +79,3 @@ const Map = compose(
 });
 
 export default Map;
-
