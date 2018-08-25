@@ -16,7 +16,7 @@ const Pending = (props) => {
           </tr>
         </thead>
         <tbody>
-          {props.playerData.pendingMatches.slice(0, 5).map((challenge, index) => {
+          { props.playerData.pendingMatches.slice( 0, 5 ).map(( challenge ) => {
             return (
               <tr className='match-row' key={challenge.id}>
                 <td>{challenge.participantA}</td>

@@ -6,7 +6,8 @@ import icon1 from '../../dist/lib/icon1.png';
 import icon2 from '../../dist/lib/icon2.png';
 import icon3 from '../../dist/lib/icon3.png';
 
-export default (props) => {
+const Login = (props) => {
+
   let options = {
     sectionClassName: 'section',
     anchors: [ 'sectionOne', 'sectionTwo' ],
@@ -56,3 +57,5 @@ export default (props) => {
     </div>
   );
 };
+
+export default Login;
