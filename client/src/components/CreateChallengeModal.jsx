@@ -4,7 +4,7 @@ import { Modal, Button, Form, FormGroup, FormControl, Col, ControlLabel } from '
 import Datetime from 'react-datetime';
 import Map from './Map.jsx';
 
-const RecommendedModal = (props) => {
+const CreateChallengeModal = (props) => {
   var yesterday = Datetime.moment().subtract( 1, 'day' );
   var valid = ( current ) => {
     return current.isAfter( yesterday );
@@ -67,4 +67,4 @@ const RecommendedModal = (props) => {
   );
 };
 
-export default RecommendedModal;
+export default CreateChallengeModal;

@@ -54,6 +54,7 @@ class MatchesView extends React.Component {
             <Calendar
               calendarModal={ this.state.calendarModal }
               toggleCalendarModal={ this.toggleCalendarModal }
+              playerData={ this.props.playerData }
             />
           ) : (
             <Pending

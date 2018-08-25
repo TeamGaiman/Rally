@@ -6,7 +6,7 @@ import NavBar from './NavBar.jsx';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import ProfileView from './ProfileView.jsx';
-import Matchmaking from './Matchmaking.jsx';
+import MatchmakingView from './MatchmakingView.jsx';
 import MatchesView from './MatchesView.jsx';
 import { CHECK_EMAIL_IS_UNIQUE, GET_USER_BY_EMAIL } from '../apollo/queries.js';
 
@@ -130,7 +130,7 @@ class App extends React.Component {
                 if ( loading ) { return <p>Loading...</p>; }
                 if ( error ) { return <p>Error! ${ error }</p>; }
                 let time = new Date;
-                return <Matchmaking
+                return <MatchmakingView
                   playerData = { this.state.playerData }
                   dbPlayerData={ data.getUserByEmail } 
                   mapGoogleDataToProfile={ this.mapGoogleDataToProfile }

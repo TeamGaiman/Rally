@@ -13,6 +13,7 @@ class EditUserInfo extends React.Component {
       tierModal: false,
       phoneNumber: '',
       validNumber: false,
+      username: ''
     };
 
     this.handleFieldChange = this.handleFieldChange.bind(this);
@@ -22,11 +23,21 @@ class EditUserInfo extends React.Component {
   }
 
   componentDidMount () {
-    let { phoneNumber } = this.props.playerData;
-    this.isValidPhoneNumber( phoneNumber );  
-    this.setState({
-      phoneNumber
-    });
+    let { phoneNumber, name } = this.props.playerData;
+    if ( phoneNumber ) {
+      this.isValidPhoneNumber( phoneNumber );  
+      this.setState({
+        phoneNumber
+      });
+    }
+    
+    if ( name ) {
+      this.setState({
+        username: name
+      });
+    }
+
+
   }
 
   toggleTierModal () {
@@ -95,6 +106,7 @@ class EditUserInfo extends React.Component {
             <ControlLabel>Username</ControlLabel>
             <FormControl
               onChange={ this.handleFieldChange }
+              value={ this.state.username }
             />
           </FormGroup>
 
