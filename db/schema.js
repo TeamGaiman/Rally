@@ -85,13 +85,13 @@ const typeDefs =
   
   type Query {
     getAllUsers: [User]
-    getUsersByTier(tier: Int): [User]
+    getUsersByTier( tier: Int, email: String ): [User]
 
-    checkEmailIsUnique(email: String!): Boolean
-    getUserByEmail(email: String!): User
+    checkEmailIsUnique( email: String! ): Boolean
+    getUserByEmail( email: String! ): User
 
-    getChallengesByUser(email: String): [Match]
-    getUpcomingMatchesByUser(email: String): [Match]
+    getChallengesByUser( email: String ): [Match]
+    getUpcomingMatchesByUser( email: String ): [Match]
   }
 
   type Mutation {
