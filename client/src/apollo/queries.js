@@ -81,26 +81,11 @@ const CHECK_EMAIL_IS_UNIQUE = gql`
   query CheckEmailIsUnique($email: String!) {
     checkEmailIsUnique(email: $email)
   }
-`;
-
-const GET_CHALLENGES_BY_USER = gql`
-  query GetChallengesByUser($email: String) {
-    getChallengesByUser(email: $email) {
-      id
-      accepted
-      completed
-      participantA
-      participantB
-      location
-      startTime
-    }
-  }
-`;  
+`; 
 
 module.exports = {
   GET_ALL_USERS,
   GET_USERS_BY_TIER,
   GET_USER_BY_EMAIL,
-  CHECK_EMAIL_IS_UNIQUE,
-  GET_CHALLENGES_BY_USER 
+  CHECK_EMAIL_IS_UNIQUE
 };

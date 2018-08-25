@@ -47,7 +47,7 @@ const Calendar = (props) => {
       >
         <Modal.Header closeButton>
           <Modal.Title >
-            {ParticipantB }
+            Challenge Title
             <br/>
             W: L:
             <br/>
