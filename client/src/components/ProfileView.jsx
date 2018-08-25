@@ -1,10 +1,10 @@
 import React from 'react';
 import { Jumbotron, Button, Image } from 'react-bootstrap';
 
-import EditUserInfo from './EditUserInfo.jsx'
+import EditUserInfo from './EditUserInfo.jsx';
 import Stats from './Stats.jsx';
 
-class Profile extends React.Component {
+class ProfileView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -61,4 +61,4 @@ class Profile extends React.Component {
   }
 }
 
-export default Profile;
+export default ProfileView;

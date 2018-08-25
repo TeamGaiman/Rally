@@ -1,5 +1,4 @@
 import React from 'react';
-import Trophies from './Trophies.jsx';
 import { ProgressBar } from 'react-bootstrap';
 import toNextTier from '../../../workers/toNextTier';
 class Stats extends React.Component {
