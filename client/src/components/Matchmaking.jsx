@@ -2,8 +2,9 @@ import React from 'react';
 import { Query } from 'react-apollo';
 
 import RecommendedOpponents from './RecommendedOpponents.jsx';
-import { GET_USERS_BY_TIER } from '../apollo/queries.js';
+import { GET_USERS_BY_TIER, GET_ALL_USERS } from '../apollo/queries.js';
 import Challenges from './Challenges.jsx';
+import SearchUsers from './SearchUsers.jsx';
 
 class Matchmaking extends React.Component {
   constructor(props) {
@@ -39,6 +40,17 @@ class Matchmaking extends React.Component {
                     courts={ this.state.courts }
                   />
                 </div>
+              );
+            }}
+          </Query>
+          <Query query={ GET_ALL_USERS }>
+            {({ loading, error, data }) => {
+              if ( loading ) { console.log('loading all users'); }
+              if ( error ) { console.error( error ); }
+              console.log(data.getAllUsers);
+              return (
+                <SearchUsers
+                  allUsers={ data.getAllUsers }/>
               );
             }}
           </Query>
