@@ -1,10 +1,9 @@
 import React from 'react';
+import { Tabs, Tab } from 'react-bootstrap';
 
 import Pending from './Pending.jsx';
 import Calendar from './Calendar.jsx';
-import { Query } from 'react-apollo';
-import { GET_CHALLENGES_BY_USER } from '../apollo/queries';
-import { Tabs, Tab } from 'react-bootstrap';
+
 class MatchesView extends React.Component {
   constructor(props) {
     super(props);
@@ -20,15 +19,14 @@ class MatchesView extends React.Component {
     this.handleSelect = this.handleSelect.bind(this);
   }
 
-  toggleCalendarModal() {
+  toggleCalendarModal () {
     this.setState({
       calendarModal: !this.state.calendarModal
     });
   }
 
-  handleSelect(key) {
-    console.log(key);
-    if (key === 1) {
+  handleSelect ( key ) {
+    if ( key === 1 ) {
       this.setState({
         showCalendar: false
       });
@@ -39,27 +37,29 @@ class MatchesView extends React.Component {
     }
   }
 
-  render() {
+  render () {
     return (
       <div>
         <Tabs
-          id="search-map"
-          onSelect={this.handleSelect}
-          activeKey={this.state.showCalendar ? 2 : 1}
+          id='search-map'
+          onSelect={ this.handleSelect }
+          activeKey={ this.state.showCalendar ? 2 : 1 }
         >
-          <Tab eventKey={1} title="Matches" />
-          <Tab eventKey={2} title="Calendar View" />
+          <Tab eventKey={1} title='Matches'/>
+          <Tab eventKey={2} title='Calendar View'/>
         </Tabs>
-        {this.state.showCalendar ? (
-          <Calendar
-            calendarModal={this.state.calendarModal}
-            toggleCalendarModal={this.toggleCalendarModal}
-          />
-        ) : (
-          <Pending
-            playerData={this.props.playerData}
-          />
-        )}
+
+        { this.state.showCalendar 
+          ? (
+            <Calendar
+              calendarModal={ this.state.calendarModal }
+              toggleCalendarModal={ this.toggleCalendarModal }
+            />
+          ) : (
+            <Pending
+              playerData={ this.props.playerData }
+            />
+          )}
       </div>
     );
   }

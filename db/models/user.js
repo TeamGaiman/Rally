@@ -14,6 +14,8 @@ const user = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     fullName: DataTypes.STRING,
     phoneNumber: DataTypes.STRING,
+    image: DataTypes.STRING,
+    sex: DataTypes.STRING,
 
     // GAME DATA
     wins: {

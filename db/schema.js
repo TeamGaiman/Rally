@@ -9,6 +9,8 @@ const typeDefs =
     name: String
     fullName: String
     phoneNumber: String
+    image: String
+    sex: String
     wins: Int
     losses: Int
     elo: Int
@@ -51,6 +53,8 @@ const typeDefs =
     name: String
     fullName: String
     phoneNumber: String
+    image: String
+    sex: String
     wins: Int
     losses: Int
     elo: Int
