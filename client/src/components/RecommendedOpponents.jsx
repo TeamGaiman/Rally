@@ -70,7 +70,7 @@ class RecommendedOpponents extends React.Component {
 
   render () {
     return (
-      <div className='matches-container'>
+      <div className="matches-container">
         <h2>Recommended Opponents</h2>
         <Table striped bordered condensed hover>
           <thead>
@@ -86,16 +86,16 @@ class RecommendedOpponents extends React.Component {
                 matchedUser.wins / ( matchedUser.wins + matchedUser.losses ) * 100
               );
               return (
-                <tr className='match-row' key={matchedUser.id} >
+                <tr className="match-row" key={matchedUser.id} >
                   <td> {matchedUser.email }</td>
                   <td>{ matchedUser.name }</td>
                   <td><ProgressBar
-                    bsStyle='warning'
+                    bsStyle="warning"
                     now={ winPercent }
                     label={ `${winPercent}%` } /></td>
                   <td>
                     <Button 
-                      bsStyle='primary'
+                      bsStyle="primary"
                       onClick={ () => this.handleMatchClick( matchedUser )}>
                       Challenge
                     </Button>

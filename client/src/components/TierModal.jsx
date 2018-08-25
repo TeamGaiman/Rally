@@ -3,14 +3,14 @@ import { Modal, Button } from 'react-bootstrap';
 
 const TierModal = (props) => (
   <Modal
-    bsSize='large'
-    className='tier-modal'
+    bsSize="large"
+    className="tier-modal"
     show={ props.tierModal }
     onHide={ props.toggleTierModal }>
 
     <Modal.Header closeButton>
       <Modal.Title
-        id='contained-modal-title'>
+        id="contained-modal-title">
         Tier Explanation
       </Modal.Title>
     </Modal.Header>

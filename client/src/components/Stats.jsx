@@ -11,13 +11,13 @@ class Stats extends React.Component {
   render () {
     const percentToNextTier = toNextTier( this.props.playerData.tier, this.props.playerData.elo );
     return (
-      <div className='tierText'>
+      <div className="tierText">
         <h3>Your Stats</h3>
         <h5>{ percentToNextTier }% to your next tier!</h5>
 
         <ProgressBar 
-          className='tierProg' 
-          striped bsStyle='info' 
+          className="tierProg" 
+          striped bsStyle="info" 
           now={ percentToNextTier }>
         </ProgressBar>
 
