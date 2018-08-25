@@ -1,9 +1,9 @@
 import React from 'react';
 import { Table, Button, ProgressBar } from 'react-bootstrap';
-
-import ChallengesModal from './ChallengesModal.jsx';
 import { Mutation } from 'react-apollo';
-import {UPDATE_MATCH } from '../apollo/mutations';
+import { UPDATE_MATCH } from '../apollo/mutations';
+
+import ChallengeModal from './ChallengeModal.jsx';
 
 class Challenges extends React.Component {
   constructor(props) {
@@ -19,35 +19,36 @@ class Challenges extends React.Component {
     this.hideChallengeModal = this.hideChallengeModal.bind(this);
   }
 
-  handleChallengeClick(challenge) {
+  handleChallengeClick ( challenge ) {
     this.setState({
       challengeModalOpen: true,
       challengeClicked: challenge
     });
   }
 
-  handleAccept() {
-    //after user handles match remove it here
-    // let index = this.state.matchedUsers.indexOf( this.state.challengeClicked );
-    // this.state.matchedUsers.splice( index, 1 );
+  handleAccept () {
+    //After user handles match with Accept view should update
     this.setState({ 
       challengeModalOpen: false 
     });
   }
   
-  handleDecline() {
-    //after user handles challenge with decline remove it here
-    this.setState({ matchClick: false });
+  handleDecline () {
+    //After user handles challenge with decline remove it from db/state
+    this.setState({ 
+      challengeModalOpen: false 
+    });
   }
 
-  hideChallengeModal() {
-    this.setState({ challengeModalOpen: false });
+  hideChallengeModal () {
+    this.setState({ 
+      challengeModalOpen: false 
+    });
   }
 
-  render() {
-    console.log('CHALLENGES: ', this.props.playerData.challengesReceived)
+  render () {
     return (
-      <div className='matches-container'>
+      <div className="matches-container">
         <h2>Challenges</h2>
         <Table striped bordered condensed hover>
           <thead>
@@ -59,50 +60,65 @@ class Challenges extends React.Component {
             </tr>
           </thead>
           <tbody>
-            { this.props.playerData.challengesReceived.slice(0, 5).map( (challenge, index) => {
+            { this.props.playerData.challengesReceived.slice( 0, 5 ).map(( challenge ) => {
               return (
-                <tr className='match-row' key={ challenge.id }>
-                  <td>{challenge.challenger}</td>
-                  <td>{challenge.startTime.split(' GMT')[0]}</td>
-                  <td>{challenge.location}</td>
-                  <td><ProgressBar bsStyle="warning" now={50} label={`${50}%`} /></td>
-                  <td><Button bsStyle='primary' onClick={() => this.handleChallengeClick(challenge)}>View</Button></td>
+                <tr
+                  className="match-row"
+                  key={ challenge.id }
+                >
+                  <td>{ challenge.challenger }</td>
+                  <td>{ challenge.startTime.split(' GMT')[0] }</td>
+                  <td>{ challenge.location }</td>
+                  <td>
+                    <ProgressBar
+                      bsStyle="warning"
+                      now={ 50 }
+                      label={ `${50}%` }
+                    />
+                  </td>
+                  <td>
+                    <Button
+                      bsStyle="primary"
+                      onClick={ () => this.handleChallengeClick( challenge )}
+                    >
+                      View
+                    </Button>
+                  </td>
                 </tr>
               );
-            }
-            )}
+            })}
           </tbody>
         </Table>
 
         { this.state.challengeModalOpen
-          ? <Mutation
-            mutation={ UPDATE_MATCH }
-            variables={
-              {
+          ? (
+            <Mutation
+              mutation={ UPDATE_MATCH }
+              update={ this.handleAccept }
+              variables={{
                 id: this.state.challengeClicked.id,
-                input:
-                  {
-                    accepted: true
-                  }
+                input: {
+                  accepted: true
+                }
               }}
-            update={ this.handleAccept }
-          >
-            { acceptMatch => (
-              <ChallengesModal 
-                challenge={ this.state.challengeClicked }
-                challengeModalOpen={ this.state.challengeModalOpen }
-                hideChallengeModal={ this.hideChallengeModal }
-                challengeClicked={ this.state.challengeClicked }
-                acceptMatch={ acceptMatch }
-              />
-            )}
-          </Mutation>
-          : null }
-
+            >
+              { acceptMatch => (
+                <ChallengeModal
+                  challenge={ this.state.challengeClicked }
+                  challengeModalOpen={ this.state.challengeModalOpen }
+                  hideChallengeModal={ this.hideChallengeModal }
+                  challengeClicked={ this.state.challengeClicked }
+                  acceptMatch={ acceptMatch }
+                />
+              )}
+            </Mutation>
+          ) : (
+            null
+          )
+        }
       </div>
     );
   }
 }
-
 
 export default Challenges;

@@ -1,32 +1,43 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-const ChallengesModal = (props) => {
+const ChallengeModal = (props) => {
   return (
     <Modal
       show={ props.challengeModalOpen }
       onHide={ props.hideChallengeModal }
       className="accept-challenge-modal"
     >
+
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title">
-          { `You've been challenged by ${props.challenge.participantA}` }
+          { `You've been challenged by ${ props.challenge.challenger }` }
         </Modal.Title>
       </Modal.Header>
+      
       <Modal.Body>
         <div>
-          {props.challenge.location}
+          { props.challenge.location }
           <br/>
           <br/>
-          {props.challenge.startTime.split(' GMT')[0]}
+          { props.challenge.startTime.split(' GMT')[0] }
         </div>
       </Modal.Body>
+
       <Modal.Footer>
-        <Button onClick={ props.hideChallengeModal }>Decline</Button>
-        <Button bsStyle="primary" onClick={ props.acceptMatch }>Accept Challenge</Button>
+        <Button
+          onClick={ props.hideChallengeModal }>
+          Decline
+        </Button>
+        <Button
+          bsStyle="primary"
+          onClick={ props.acceptMatch }>
+          Accept Challenge
+        </Button>
       </Modal.Footer>
+
     </Modal>    
   );
 };
 
-export default ChallengesModal;
+export default ChallengeModal;

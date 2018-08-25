@@ -35,16 +35,14 @@ const Calendar = (props) => {
         onSelectEvent={ event => {
           props.toggleCalendarModal();
         }}
-
         // drilldownView="agenda"
-        
       />
       
       <Modal
         bsSize="large"
         className="profile-upcoming-modal"
-        show={props.calendarModal}
-        onHide={props.toggleCalendarModal}
+        show={ props.calendarModal }
+        onHide={ props.toggleCalendarModal }
       >
         <Modal.Header closeButton>
           <Modal.Title >
@@ -59,10 +57,12 @@ const Calendar = (props) => {
         </Modal.Header>
 
         <Modal.Footer>
-          <Button onClick={props.toggleCalendarModal}>OK</Button>
+          <Button
+            onClick={ props.toggleCalendarModal }>
+            OK
+          </Button>
         </Modal.Footer>
       </Modal>
-
     </div>
   );
 };
