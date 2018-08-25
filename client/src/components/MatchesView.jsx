@@ -3,9 +3,9 @@ import React from 'react';
 import Pending from './Pending.jsx';
 import Calendar from './Calendar.jsx';
 import { Query } from 'react-apollo';
-import { GET_CHALLENGES_BY_USER } from '../apollo/queries.js';
+import { GET_CHALLENGES_BY_USER } from '../apollo/queries';
 import { Tabs, Tab } from 'react-bootstrap';
-class Matches extends React.Component {
+class MatchesView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -65,4 +65,4 @@ class Matches extends React.Component {
   }
 }
 
-export default Matches;
+export default MatchesView;
