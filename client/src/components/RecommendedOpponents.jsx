@@ -26,34 +26,33 @@ class RecommendedOpponents extends React.Component {
     this.handleLocationChange = this.handleLocationChange.bind(this);
   }
 
-  componentDidMount() {
-    let newMatches = matchmakeByElo(2000, this.props.users);
+  componentDidMount () {
+    let newMatches = matchmakeByElo( 2000, this.props.users );
     this.setState({
       matchedUsers: newMatches,
       courts
     });
   }
 
-  handleMatchClick(user) {
+  handleMatchClick ( user ) {
     this.setState({
       showMatch: true,
       matchClickUser: user
     });
   }
 
-  handleHideMatch() {
+  handleHideMatch () {
     this.setState({ showMatch: false });
   }
 
-  handleDateChange(e) {
+  handleDateChange ( e ) {
     this.setState({ startTime: e._d });
   }
 
-  handleSendChallenge() {
-    if (this.state.startTime && this.state.location) {
-      let index = this.state.matchedUsers.indexOf(this.state.matchClickUser);
-      this.state.matchedUsers.splice(index, 1);
-      console.log("startTime", this.state.startTime);
+  handleSendChallenge () {
+    if ( this.state.startTime && this.state.location ) {
+      let index = this.state.matchedUsers.indexOf( this.state.matchClickUser );
+      this.state.matchedUsers.splice( index, 1 );
       this.setState({ 
         matchedUsers: this.state.matchedUsers,
         showMatch: false, 
@@ -61,15 +60,15 @@ class RecommendedOpponents extends React.Component {
         location: null
       });
     } else {
-      window.alert('Fill in Date and Location');
+      window.alert( 'Fill in Date and Location' );
     }
   }
 
-  handleLocationChange(location) {
+  handleLocationChange( location ) {
     this.setState({ location });
   }
 
-  render() {
+  render () {
     return (
       <div className='matches-container'>
         <h2>Recommended Opponents</h2>
@@ -82,14 +81,25 @@ class RecommendedOpponents extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.matchedUsers.slice(0, 5).map( matchedUser => {
-              let winPercent = parseInt(matchedUser.wins / (matchedUser.wins + matchedUser.losses) * 100);
+            { this.state.matchedUsers.slice(0, 5).map( matchedUser => {
+              let winPercent = parseInt(
+                matchedUser.wins / ( matchedUser.wins + matchedUser.losses ) * 100
+              );
               return (
                 <tr className='match-row' key={matchedUser.id} >
-                  <td>{matchedUser.email}</td>
-                  <td>{matchedUser.name}</td>
-                  <td><ProgressBar bsStyle="warning" now={winPercent} label={`${winPercent}%`} /></td>
-                  <td><Button bsStyle='primary' onClick={() => this.handleMatchClick(matchedUser)}>Challenge</Button></td>
+                  <td> {matchedUser.email }</td>
+                  <td>{ matchedUser.name }</td>
+                  <td><ProgressBar
+                    bsStyle='warning'
+                    now={ winPercent }
+                    label={ `${winPercent}%` } /></td>
+                  <td>
+                    <Button 
+                      bsStyle='primary'
+                      onClick={ () => this.handleMatchClick( matchedUser )}>
+                      Challenge
+                    </Button>
+                  </td>
                 </tr>
               );
             })
@@ -100,18 +110,15 @@ class RecommendedOpponents extends React.Component {
         { this.state.showMatch
           ? <Mutation
             mutation={ CREATE_MATCH }
-            variables={
-              {
-                input: {
-                  challenger: this.props.playerData.email,
-                  opponent: this.state.matchClickUser.email,
-                  startTime: this.state.startTime,
-                  location: this.state.location
-                }
-              }
-            }
             update={ this.handleSendChallenge }
-          >
+            variables={{
+              input: {
+                challenger: this.props.playerData.email,
+                opponent: this.state.matchClickUser.email,
+                startTime: this.state.startTime,
+                location: this.state.location
+              }
+            }}>
             { createMatch => (
               <RecommendedModal 
                 showMatch={ this.state.showMatch }

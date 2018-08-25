@@ -3,14 +3,18 @@ import { Modal, Button } from 'react-bootstrap';
 
 const TierModal = (props) => (
   <Modal
-    bsSize="large"
-    className="tier-modal"
-    show={props.tierModal}
-    onHide={props.toggleTierModal}
-  >
+    bsSize='large'
+    className='tier-modal'
+    show={ props.tierModal }
+    onHide={ props.toggleTierModal }>
+
     <Modal.Header closeButton>
-      <Modal.Title id="contained-modal-title">Tier Explanation</Modal.Title>
+      <Modal.Title
+        id='contained-modal-title'>
+        Tier Explanation
+      </Modal.Title>
     </Modal.Header>
+
     <Modal.Body>
       <h4>Tier One:</h4>
       <p>
@@ -45,8 +49,9 @@ const TierModal = (props) => (
         strategies and style of play.
       </p>
     </Modal.Body>
+
     <Modal.Footer>
-      <Button onClick={props.toggleTierModal}>Close</Button>
+      <Button onClick={ props.toggleTierModal }>Close</Button>
     </Modal.Footer>
   </Modal>
 );

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const NavBar = (props) => {
   return (
-    <Navbar inverse collapseOnSelect staticTop className="nav-margin">
+    <Navbar inverse collapseOnSelect staticTop className='nav-margin'>
       <Navbar.Header>
         <Navbar.Brand>
           <Link to="/">Rally</Link>
@@ -44,7 +44,7 @@ const NavBar = (props) => {
                 Logout
               </NavItem>
             </LinkContainer>
-            <Navbar.Brand className="profile-image">
+            <Navbar.Brand className='profile-image'>
               <Image
                 src={props.googleUserData.photoURL}
                 circle
