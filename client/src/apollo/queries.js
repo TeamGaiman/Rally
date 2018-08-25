@@ -16,8 +16,8 @@ const GET_ALL_USERS = gql`
 `;
 
 const GET_USERS_BY_TIER = gql`
-  query GetUsersByTier($tier: Int) {
-    getUsersByTier(tier: $tier){
+  query GetUsersByTier($tier: Int $email: String) {
+    getUsersByTier(tier: $tier email: $email){
       id
       email
       name

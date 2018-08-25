@@ -54,7 +54,6 @@ const resolvers = {
 
     /*--- MATCH TYPE RESOLVERS ---*/
     court: async ({ location }) => {
-      console.log(location);
       return await models.Court.findOne({ where: { location }});
     }
 
@@ -76,13 +75,18 @@ const resolvers = {
       return await models.User.findAll({});
     },
 
-    getUsersByTier: async ( _, { tier } ) => {
-      return await models.User.findAll({ where: { tier }});
+    getUsersByTier: async ( _, { tier, email } ) => {
+      return await models.User.findAll({
+        where: {
+          tier,
+          [Op.not]: {
+            email
+          }
+        }
+      });
     },
 
     getUserByEmail: async( _, { email } ) => {
-      let seconds = new Date();
-      console.log(seconds.getSeconds());
       return await models.User.findOne({ where: { email }});
     },
   },

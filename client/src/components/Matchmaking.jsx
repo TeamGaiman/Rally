@@ -23,7 +23,7 @@ class Matchmaking extends React.Component {
       return (
         <div>
           <Query query={ GET_USERS_BY_TIER }
-            variables={{ tier: 1 }}>
+            variables={{ tier: 1, email: this.props.playerData.email }}>
             {({ loading, error, data }) => {
               if ( loading ) {
                 return <p>Loading...</p>;
