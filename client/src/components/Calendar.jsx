@@ -6,6 +6,18 @@ import moment from 'moment';
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
 
 const Calendar = (props) => {
+
+  //Reformat the upcoming matches array for the calendar
+  let events = props.playerData.pendingMatches.map( ( match ) => {
+    let endDate = new Date( match.startTime );
+    endDate.setHours( endDate.getHours() + 3 );
+    return {
+      title: 'Match vs ' + match.opponent,
+      startDate: new Date( match.startTime ),
+      endDate
+    };
+  });
+
   return (
     <div className="calendar">
       <BigCalendar
@@ -18,19 +30,8 @@ const Calendar = (props) => {
         endAccessor='endDate'
         // formats={ formats }
         // showMultiDayTimes
-      
-        events={[
-          {
-            'title': 'ParticipantB',
-            'startDate': new Date('Fri Aug 24 2018 20:00:00 GMT-0400 (Eastern Daylight Time)'), 
-            'endDate': new Date('Fri Aug 24 2018 20:30:00 GMT-0400 (Eastern Daylight Time)'), 
-          },
-          {
-            'title': 'ParticipantB',
-            'startDate': new Date('Sat Aug 25 2018 20:00:00 GMT-0400 (Eastern Daylight Time)'), 
-            'endDate': new Date('Sat Aug 25 2018 20:30:00 GMT-0400 (Eastern Daylight Time)'), 
-          },
-        ]}
+
+        events={ events }
         
         onSelectEvent={ event => {
           props.toggleCalendarModal();
@@ -46,7 +47,7 @@ const Calendar = (props) => {
       >
         <Modal.Header closeButton>
           <Modal.Title >
-            ParticipantB 
+            {ParticipantB }
             <br/>
             W: L:
             <br/>

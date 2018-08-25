@@ -1,8 +1,8 @@
 import React from 'react';
 import { Query } from 'react-apollo';
+import { GET_USERS_BY_TIER } from '../apollo/queries.js';
 
 import RecommendedOpponents from './RecommendedOpponents.jsx';
-import { GET_USERS_BY_TIER } from '../apollo/queries.js';
 import Challenges from './Challenges.jsx';
 
 class Matchmaking extends React.Component {
