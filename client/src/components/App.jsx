@@ -35,38 +35,37 @@ class App extends React.Component {
         this.setState({
           googleUserData: Object.assign( {}, user.providerData[0] )
         });
-        console.log('Session found for user: ', user.providerData[0]);
       } else {
         this.setState({
           googleUserData: null
         });
-        console.log('Session ended for user.');
       }
     });
   }
   googleSignIn () {
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup( provider )
-      .then(() => {
+      .then( () => {
         return;
       })
-      .catch((err) => {
-        console.log( 'Error signing in: ', err );
+      .catch( (err) => {
+        console.error( err );
       });
   }
   googleSignOut () {
-    this.setState({ googleUserData: null });
+    this.setState({
+      googleUserData: null
+    });
     firebase.auth().signOut()
-      .then(() => {
+      .then( () => {
         return;
       })
       .catch( ( err ) => {
-        console.log( 'Error logging out from google: ', err );
+        console.error( err );
       });
   }
 
-  /* --- RETRIEVE USER INFO --- */
-
+  /* --- UPDATING USER INFO FROM DB --- */
   mapDBPlayerDataToState ( dbData ) {
     this.setState({
       playerData: dbData
@@ -74,7 +73,6 @@ class App extends React.Component {
   }
 
   render () {
-    console.log(this.state.googleUserData);
     return (
       <ApolloProvider client={ this.props.client }>
         <NavBar
@@ -90,14 +88,14 @@ class App extends React.Component {
             } else {
               return <Redirect to='/login' />;
             }
-          } }/>
+          }}/>
           <Route path='/login' render={ () => {
             if ( this.state.googleUserData ) {
               return <Redirect to='/signup'/>;
             } else {
               return <Login googleSignIn={ this.googleSignIn }/>;
             }
-          } }/>
+          }}/>
           <Route path='/signup' render={ () => {
             { if ( this.state.googleUserData ) {
               return (
@@ -123,7 +121,7 @@ class App extends React.Component {
             } else {
               return null;
             } }
-          } } />
+          }}/>
           <Route path='/matchmaking' render={ () => (
             <Query
               query={ GET_USER_BY_EMAIL }
@@ -140,15 +138,13 @@ class App extends React.Component {
                 />;
               }}
             </Query>
-          ) }/>
-
+          )}/>
           <Route path='/matches' render={ () =>
             <MatchesView
-              googleUserData={this.state.googleUserData}
-              playerData={this.state.playerData}
+              googleUserData={ this.state.googleUserData }
+              playerData={ this.state.playerData }
             />
-          } />;
-
+          }/>;
           <Route path='/profile' render={ () =>
             <ProfileView 
               googleUserData={ this.state.googleUserData }
