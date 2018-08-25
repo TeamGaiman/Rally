@@ -1,9 +1,9 @@
 import React from 'react';
 import { Table, Button, ProgressBar } from 'react-bootstrap';
-
-import RecommendedModal from './RecommendedModal.jsx';
 import { Mutation } from 'react-apollo';
 import { CREATE_MATCH } from '../apollo/mutations';
+
+import CreateChallengeModal from './CreateChallengeModal.jsx';
 import matchmakeByElo from '../../../workers/matchmaking';
 import courts from '../../dummyData/dummyCourts';
 
@@ -120,7 +120,7 @@ class RecommendedOpponents extends React.Component {
               }
             }}>
             { createMatch => (
-              <RecommendedModal 
+              <CreateChallengeModal 
                 showMatch={ this.state.showMatch }
                 handleHideMatch={ this.handleHideMatch }
                 matchClickUser={ this.state.matchClickUser }

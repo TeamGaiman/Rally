@@ -20,7 +20,7 @@ const Pending = (props) => {
           { props.playerData.pendingMatches.slice( 0, 5 ).map(( challenge ) => {
             return (
               <tr className="match-row" key={ challenge.id }>
-                <td>{ challenge.participantA }</td>
+                <td>{ challenge.opponent }</td>
                 <td>{ challenge.startTime.split(' GMT')[0] }</td>
                 <td>{ challenge.location }</td>
                 <td>Complete</td>
