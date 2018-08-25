@@ -53,7 +53,6 @@ class EditUserInfo extends React.Component {
         validNumber: false
       });
     }
-    console.log(this.state.validNumber)
   }
 
   handlePhoneNumberChange ( e ) {
