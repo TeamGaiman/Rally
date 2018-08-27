@@ -7,7 +7,7 @@ const calcProbabilityOfWin = ( elo1, elo2 ) => {
   let x = elo2 - elo1;
   let y = x / 400;
   let z = Math.pow( 10, y ) + 1;
-  return 1 / z;
+  return Math.round((1 / z) * 100);
 };
 
 // Enter the elo ratings of the winner and loser and the k value that represents the elo rate of change
