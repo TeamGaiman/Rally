@@ -83,7 +83,7 @@ class RecommendedOpponents extends React.Component {
           </thead>
           <tbody>
             { this.state.matchedUsers.slice(0, 5).map( matchedUser => {
-              let winPercent = calcProbabilityOfWin(this.props.playerData.elo, matchedUser.elo);
+              let winPercent = Math.round(calcProbabilityOfWin(this.props.playerData.elo, matchedUser.elo) * 100);
               return (
                 <tr className="match-row" key={matchedUser.id} >
                   <td> {matchedUser.email }</td>
