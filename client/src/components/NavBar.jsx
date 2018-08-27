@@ -3,12 +3,15 @@ import { Navbar, Nav, NavItem, Image } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
 
+import GoogleIcon from '../../dist/lib/googleIcon.png';
+
 const NavBar = (props) => {
   return (
     <Navbar inverse collapseOnSelect staticTop className='nav-margin'>
       <Navbar.Header>
         <Navbar.Brand>
-          <Link to='/'>Rally</Link>
+          {/* <Link to='/'>Rally</Link> */}
+          <a href="#home">Rally</a>
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>
@@ -17,8 +20,12 @@ const NavBar = (props) => {
         { !props.googleUserData || !props.playerData
           ? ( 
             <Nav pullRight>
+              <NavItem href="#about">
+                About
+              </NavItem>
               <LinkContainer to='/signup'>
                 <NavItem onClick={ props.googleSignIn }>
+                  <Image src={ GoogleIcon } className="google-icon"/>
                   Sign in with Google
                 </NavItem>
               </LinkContainer>
@@ -26,7 +33,7 @@ const NavBar = (props) => {
           ) : (
             <Nav pullRight>
               <LinkContainer to='/matchmaking'>
-                <NavItem >
+                <NavItem>
                   Matchmaking
                 </NavItem>
               </LinkContainer>
