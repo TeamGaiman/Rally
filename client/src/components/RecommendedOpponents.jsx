@@ -5,9 +5,9 @@ import { CREATE_MATCH } from '../apollo/mutations.js';
 import { GET_ALL_USERS } from '../apollo/queries.js';
 
 import CreateChallengeModal from './CreateChallengeModal.jsx';
+import { matchmakeByElo, calcProbabilityOfWin} from '../../dist/js/index';
+import courts from '../../dummyData/dummyCourts';
 import SearchUsers from './SearchUsers.jsx';
-import matchmakeByElo from '../../../workers/matchmaking.js';
-import courts from '../../dummyData/dummyCourts.js';
 
 class RecommendedOpponents extends React.Component {
   constructor(props) {
@@ -29,9 +29,11 @@ class RecommendedOpponents extends React.Component {
   }
 
   componentDidMount () {
-    let newMatches = matchmakeByElo( 2000, this.props.users );
+    let newMatches = matchmakeByElo( this.props.playerData.elo, this.props.users );
     this.setState({
-      matchedUsers: newMatches,
+      matchedUsers: newMatches.slice(
+        newMatches.length / 2, (newMatches.length / 2) + 5
+      ),
       courts
     });
   }
@@ -70,6 +72,10 @@ class RecommendedOpponents extends React.Component {
     this.setState({ location });
   }
 
+  getWinProbability(elo1, elo2) {
+    return Math.floor( calcProbabilityOfWin( elo1, elo2 ) * 100 );
+  }
+
   render () {
     return (
       <div className="matches-container">
@@ -83,10 +89,8 @@ class RecommendedOpponents extends React.Component {
             </tr>
           </thead>
           <tbody>
-            { this.state.matchedUsers.slice( 0, 5 ).map( matchedUser => {
-              let winPercent = parseInt(
-                matchedUser.wins / ( matchedUser.wins + matchedUser.losses ) * 100
-              );
+            { this.state.matchedUsers.map( matchedUser => {
+              let winPercent = this.getWinProbability(this.props.playerData.elo, matchedUser.elo);
               return (
                 <tr className="match-row" key={ matchedUser.id } >
                   <td> 
@@ -97,7 +101,7 @@ class RecommendedOpponents extends React.Component {
                   <td><ProgressBar
                     bsStyle="warning"
                     now={ winPercent }
-                    label={ `${winPercent}%` } /></td>
+                    label={ winPercent } /></td>
                   <td>
                     <Button 
                       bsStyle="primary"
