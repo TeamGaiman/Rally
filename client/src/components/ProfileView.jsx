@@ -1,5 +1,5 @@
 import React from 'react';
-import { Jumbotron, Button, Image } from 'react-bootstrap';
+import { Jumbotron, Button, Image, ProgressBar } from 'react-bootstrap';
 
 import EditUserInfo from './EditUserInfo.jsx';
 
@@ -8,7 +8,8 @@ class ProfileView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      editUserInfo: false
+      editUserInfo: false,
+      tierThresholds: [null, 3000, 4000, 5000]
     };
 
     this.handleEditUserInfo = this.handleEditUserInfo.bind(this);
@@ -18,16 +19,13 @@ class ProfileView extends React.Component {
     this.setState({ editUserInfo: !this.state.editUserInfo });
   }
 
-  render () {
-    // let view;
-    // if ( this.state.editUserInfo ) {
-    //   view = <EditUserInfo 
-    //     { ...this.props } 
-    //     handleEditUserInfo={ this.handleEditUserInfo }/>;
-    // } else {
-    //   null;
-    // }
+  getEloProgress () {
+    const tierThreshold = this.state.tierThresholds[this.props.playerData.tier];
+    const playerElo = this.props.playerData.elo;
+    return Math.floor(( playerElo / tierThreshold ) * 100 );
+  }
 
+  render () {
     return (
       <div>
         {/*--- PROFILE HEADER ---*/}
@@ -59,7 +57,17 @@ class ProfileView extends React.Component {
               Edit Profile
             </Button>
           </div>
+
+          {/*--- PROFILE BODY ---*/}
+          <ProgressBar
+            min={ 1000 }
+            now={ this.props.playerData.elo }
+            max={ this.state.tierThresholds[this.props.playerData.tier]}
+            active={ true }
+            label={ 'Win ranked matches to move on to the next skill tier.' }
+          />
         </Jumbotron>
+
         {( this.state.editUserInfo )
           ? <EditUserInfo { ...this.props } 
             handleEditUserInfo={ this.handleEditUserInfo }/>
