@@ -9,7 +9,7 @@ const CreateChallengeModal = (props) => {
   var valid = ( current ) => {
     return current.isAfter( yesterday );
   };
-
+  console.log(props.matchClickUser);
   return (
     <Modal
       show={ props.showMatch }

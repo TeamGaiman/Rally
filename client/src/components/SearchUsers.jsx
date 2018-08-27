@@ -13,6 +13,7 @@ class SearchUsers extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
     this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this);
+    this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
   }
 
   onChange ( event, { newValue, method }) {
@@ -41,7 +42,7 @@ class SearchUsers extends React.Component {
   }
   
   getSuggestionValue ( suggestion ) {
-    return suggestion.name;
+    return suggestion.name || suggestion.email;
   }
   
   renderSuggestion ( suggestion ) {
@@ -72,7 +73,12 @@ class SearchUsers extends React.Component {
     });
   }
 
+  onSuggestionSelected ( event, { suggestion } ) {
+    this.props.handleMatchClick( suggestion );
+  }
+
   render () {
+
     const { value, suggestions } = this.state;
     const inputProps = {
       placeholder: 'Search for players...',
@@ -88,6 +94,7 @@ class SearchUsers extends React.Component {
         getSuggestionValue={ this.getSuggestionValue }
         renderSuggestion={ this.renderSuggestion }
         inputProps={ inputProps }
+        onSuggestionSelected={ this.onSuggestionSelected }
       />
     );
   }
