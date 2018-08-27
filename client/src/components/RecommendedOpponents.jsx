@@ -30,7 +30,9 @@ class RecommendedOpponents extends React.Component {
   componentDidMount () {
     let newMatches = matchmakeByElo( this.props.playerData.elo, this.props.users );
     this.setState({
-      matchedUsers: newMatches,
+      matchedUsers: newMatches.slice(
+        newMatches.length / 2, (newMatches.length / 2) + 5
+      ),
       courts
     });
   }
@@ -40,7 +42,6 @@ class RecommendedOpponents extends React.Component {
       showMatch: true,
       matchClickUser: user
     });
-    console.log(this.state.matchedUsers);
   }
 
   handleHideMatch () {
@@ -71,6 +72,7 @@ class RecommendedOpponents extends React.Component {
   }
 
   render () {
+    let myElo = this.props.playerData.elo;
     return (
       <div className="matches-container">
         <h2>Recommended Opponents</h2>
@@ -83,8 +85,10 @@ class RecommendedOpponents extends React.Component {
             </tr>
           </thead>
           <tbody>
-            { this.state.matchedUsers.slice(this.state.matchedUsers.length / 2, (this.state.matchedUsers.length / 2) + 5).map( matchedUser => {
-              let winPercent = Math.floor(calcProbabilityOfWin(this.props.playerData.elo, matchedUser.elo) * 100);
+            { this.state.matchedUsers.map( matchedUser => {
+              let winPercent = Math.floor(
+                calcProbabilityOfWin(myElo, matchedUser.elo) * 100
+              );
               return (
                 <tr className="match-row" key={ matchedUser.id } >
                   <td> 
