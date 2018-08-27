@@ -1,28 +1,31 @@
 import React from 'react';
-import { Jumbotron, Button, Image, ProgressBar } from 'react-bootstrap';
+import { Jumbotron, Button, Image, ProgressBar, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
 import EditUserInfo from './EditUserInfo.jsx';
-
+import TierInfoModal from './TierInfoModal.jsx';
+import ChangeTierModal from './ChangeTierModal.jsx';
 
 class ProfileView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      toggleTierInfoModal: false,
       editUserInfo: false,
       tierThresholds: [null, 3000, 4000, 5000]
     };
 
     this.handleEditUserInfo = this.handleEditUserInfo.bind(this);
+    this.toggleTierInfoModal = this.toggleTierInfoModal.bind(this);
   }
 
   handleEditUserInfo () {
     this.setState({ editUserInfo: !this.state.editUserInfo });
   }
 
-  getEloProgress () {
-    const tierThreshold = this.state.tierThresholds[this.props.playerData.tier];
-    const playerElo = this.props.playerData.elo;
-    return Math.floor(( playerElo / tierThreshold ) * 100 );
+  toggleTierInfoModal () {
+    this.setState({
+      tierInfoModal: !this.state.tierInfoModal 
+    });
   }
 
   render () {
@@ -66,7 +69,29 @@ class ProfileView extends React.Component {
             active={ true }
             label={ 'Win ranked matches to move on to the next skill tier.' }
           />
+
+          <FormGroup controlId="skillTier">
+            <Button 
+              onClick={ this.toggleTierInfoModal }>
+              Get info on Rally's skill tiers.
+            </Button> 
+          </FormGroup>
+
+          <FormGroup controlId="skillTier">
+            <Button 
+              onClick={ this.handleChangeTier }>
+              Change my skill tier!
+            </Button> 
+          </FormGroup>
+
         </Jumbotron>
+
+        <TierInfoModal
+          tierModal={ this.state.tierInfoModal }
+          toggleTierModal={ this.toggleTierInfoModal }
+        />
+
+        <ChangeTierModal />
 
         {( this.state.editUserInfo )
           ? <EditUserInfo { ...this.props } 
