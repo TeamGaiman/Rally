@@ -1,13 +1,9 @@
 import React from 'react';
 import Autosuggest from 'react-autosuggest';
-import Mutation from 'react-apollo';
-
-import { CREATE_MATCH } from '../apollo/mutations.js';
 
 class SearchUsers extends React.Component {
   constructor() {
     super();
-
     this.state = {
       placeholder: 'Search for players by email or username',
       value: '',
@@ -25,17 +21,17 @@ class SearchUsers extends React.Component {
     });
   }
 
-  escapeRegexCharacters (str) {
-    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  escapeRegexCharacters ( str ) {
+    return str.replace( /[.*+?^${}()|[\]\\]/g, '\\$&' );
   }
   
-  getSuggestions (value) {
-    const escapedValue = this.escapeRegexCharacters(value.trim());
-    if (escapedValue === '') {
+  getSuggestions ( value ) {
+    const escapedValue = this.escapeRegexCharacters( value.trim() );
+    if ( escapedValue === '' ) {
       return [];
     }
   
-    const regex = new RegExp('^' + escapedValue, 'i');
+    const regex = new RegExp( '^' + escapedValue, 'i' );
   
     return this.props.allUsers.filter( user => (
       regex.test ( user.email )
@@ -44,21 +40,21 @@ class SearchUsers extends React.Component {
     ));
   }
   
-  getSuggestionValue (suggestion) {
+  getSuggestionValue ( suggestion ) {
     return suggestion.name;
   }
   
   renderSuggestion ( suggestion ) {
     return (
       <span>
-        {(suggestion.email)
-          ? <span><strong>Email: </strong> {suggestion.email}</span>
+        {( suggestion.email )
+          ? <span><strong>Email: </strong> { suggestion.email }</span>
           : null}
-        {(suggestion.name)
-          ? <span><strong> Username: </strong> {suggestion.name}</span>
+        {( suggestion.name )
+          ? <span><strong> Username: </strong> { suggestion.name }</span>
           : null}
-        {(suggestion.fullName)
-          ? <span><strong> Full Name: </strong> {suggestion.fullName}</span>
+        {( suggestion.fullName )
+          ? <span><strong> Full Name: </strong> { suggestion.fullName }</span>
           : null}
       </span>
     );
@@ -86,12 +82,13 @@ class SearchUsers extends React.Component {
 
     return (
       <Autosuggest 
-        suggestions={this.state.suggestions}
-        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-        getSuggestionValue={this.getSuggestionValue}
-        renderSuggestion={this.renderSuggestion}
-        inputProps={inputProps} />
+        suggestions={ this.state.suggestions }
+        onSuggestionsFetchRequested={ this.onSuggestionsFetchRequested }
+        onSuggestionsClearRequested={ this.onSuggestionsClearRequested }
+        getSuggestionValue={ this.getSuggestionValue }
+        renderSuggestion={ this.renderSuggestion }
+        inputProps={ inputProps }
+      />
     );
   }
 }
