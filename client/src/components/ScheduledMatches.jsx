@@ -1,9 +1,7 @@
 import React from 'react';
 import { Table, Button } from 'react-bootstrap';
 import moment from 'moment';
-import { Mutation } from 'react-apollo';
 
-import { UPDATE_MATCH } from '../apollo/mutations';
 import ResultsModal from './ResultsModal.jsx';
 
 class ScheduledMatches extends React.Component {
@@ -32,6 +30,8 @@ class ScheduledMatches extends React.Component {
   }
 
   handleMatchClick ( match, index ) {
+    //Track the index of which match in the array the user 
+    //will mutate with the ResultsModal
     let tempMatch = Object.assign( {}, match );
     tempMatch.index = index;
     this.setState({
@@ -42,15 +42,18 @@ class ScheduledMatches extends React.Component {
 
   handleSubmission ( winner ) {
     //Update state to reflect mutation of database
-    let matches = Object.assign( {}, this.state.matches );
+    let matches = this.state.matches.slice();
     let clickIndex = this.state.matchClicked.index;
-    console.log('matchClicked.index ', clickIndex);
-    console.log(' matches  ', matches);
-    matches[clickIndex].completed = true;
-    matches[clickIndex].winner = winner;
+    let tempMatch = Object.assign( {}, matches[clickIndex]);
+
+    tempMatch.completed = true;
+    tempMatch.winner = winner;
+
+    matches[clickIndex] = tempMatch;
 
     this.setState({ 
-      matches: temp
+      matches,
+      resultsModalOpen: false
     });
   }
 

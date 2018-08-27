@@ -21,7 +21,7 @@ const ChallengeModal = (props) => {
         <Form horizontal className="form-width">
           <ControlLabel>Time</ControlLabel>
           <FormControl.Static>
-            { moment( new Date(props.challenge.startTime)).calendar() }
+            { moment( new Date( props.challenge.startTime )).calendar() }
           </FormControl.Static>
           <ControlLabel>Court Location</ControlLabel>
           <FormControl.Static>

@@ -47,7 +47,7 @@ class ResultsModal extends React.Component {
 
             <ControlLabel>Time</ControlLabel>
             <FormControl.Static>
-              { moment( new Date(this.props.match.startTime)).calendar() }
+              { moment( new Date( this.props.match.startTime )).calendar() }
             </FormControl.Static>
 
             <ControlLabel>Court Location</ControlLabel>
