@@ -17,7 +17,7 @@ class ScheduledMatches extends React.Component {
     };
 
     this.handleMatchClick = this.handleMatchClick.bind(this);
-    this.handleWinner = this.handleWinner.bind(this);
+    this.handleSubmission = this.handleSubmission.bind(this);
     this.hideResultsModal = this.hideResultsModal.bind(this);
   }
 
@@ -31,19 +31,27 @@ class ScheduledMatches extends React.Component {
     });
   }
 
-  handleMatchClick ( match ) {
+  handleMatchClick ( match, index ) {
+    let tempMatch = Object.assign( {}, match );
+    tempMatch.index = index;
     this.setState({
       resultsModalOpen: true,
-      matchClicked: match
+      matchClicked: tempMatch
     });
   }
 
-  handleWinner ( winner ) {
-    //State should update to reflect winner in matches array too
-    console.log('handleWinner', winner);
+  handleSubmission ( winner ) {
+    //Update state to reflect mutation of database
+    let matches = Object.assign( {}, this.state.matches );
+    let clickIndex = this.state.matchClicked.index;
+    console.log('matchClicked.index ', clickIndex);
+    console.log(' matches  ', matches);
+    matches[clickIndex].completed = true;
+    matches[clickIndex].winner = winner;
+
     this.setState({ 
-      winner
-    }, console.log('state ', this.state.winner));
+      matches: temp
+    });
   }
 
   hideResultsModal () {
@@ -69,11 +77,11 @@ class ScheduledMatches extends React.Component {
           </thead>
   
           <tbody>
-            { this.state.matches.map(( match ) => {
+            { this.state.matches.map(( match, index ) => {
               return (
                 <tr className="match-row" key={ match.id }>
                   <td>{ match.opponent }</td>
-                  <td>{ moment( match.startTime ).calendar() }</td>
+                  <td>{ moment( new Date(match.startTime)).calendar() }</td>
                   <td>{ match.location }</td>
                   <td>{ match.completed ? 'Complete' : 'Scheduled'}</td>
                   <td>
@@ -82,7 +90,8 @@ class ScheduledMatches extends React.Component {
                       :
                       <Button 
                         bsStyle="primary" 
-                        onClick={ () => this.handleMatchClick( match )}
+                        value={ index }
+                        onClick={ ( e ) => this.handleMatchClick( match, e.target.value )}
                       >
                         Add Results
                       </Button>
@@ -100,7 +109,7 @@ class ScheduledMatches extends React.Component {
           resultsModalOpen={ this.state.resultsModalOpen }
           hideResultsModal={ this.hideResultsModal }
           matchClicked={ this.state.matchClicked }
-          handleWinner = { this.handleWinner }
+          handleSubmission = { this.handleSubmission }
         />
     
       </div>

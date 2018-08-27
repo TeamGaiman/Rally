@@ -9,7 +9,7 @@ class ResultsModal extends React.Component {
     super(props);
 
     this.state = {
-      selectedWinner: 'inModalTest'
+      selectedWinner: ''
     };
 
     this.handleWinnerSelect = this.handleWinnerSelect.bind(this);
@@ -47,7 +47,7 @@ class ResultsModal extends React.Component {
 
             <ControlLabel>Time</ControlLabel>
             <FormControl.Static>
-              { moment( this.props.match.startTime ).calendar() }
+              { moment( new Date(this.props.match.startTime)).calendar() }
             </FormControl.Static>
 
             <ControlLabel>Court Location</ControlLabel>
@@ -72,7 +72,9 @@ class ResultsModal extends React.Component {
           </Button>
           <Mutation
             mutation={ UPDATE_MATCH }
-            update={ this.props.hideResultsModal }
+            update={ () => {
+              this.props.handleSubmission( this.state.selectedWinner ); 
+            }}
           >
             { updateWinner => (
               <Button
