@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ProgressBar } from 'react-bootstrap';
-import toNextTier from '../../dist/workers/toNextTier';
+import { toNextTier } from '../../dist/js/index';
 
 class Stats extends React.Component {
   constructor(props) {

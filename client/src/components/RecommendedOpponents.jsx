@@ -5,10 +5,16 @@ import { CREATE_MATCH } from '../apollo/mutations.js';
 import { GET_ALL_USERS } from '../apollo/queries.js';
 
 import CreateChallengeModal from './CreateChallengeModal.jsx';
+<<<<<<< HEAD
 import SearchUsers from './SearchUsers.jsx';
 import matchmakeByElo from '../../dist/workers/matchmaking';
 import {calcProbabilityOfWin} from '../../dist/workers/eloCalculations';
 import courts from '../../dummyData/dummyCourts';
+=======
+import { matchmakeByElo, calcProbabilityOfWin} from '../../dist/js/index';
+import courts from '../../dummyData/dummyCourts';
+import SearchUsers from './SearchUsers.jsx';
+>>>>>>> 1c404a8146531269ae3c580f0e41d1e7e2b73d5d
 
 class RecommendedOpponents extends React.Component {
   constructor(props) {
@@ -30,9 +36,12 @@ class RecommendedOpponents extends React.Component {
   }
 
   componentDidMount () {
-    let newMatches = matchmakeByElo( this.props.playerData.elo, this.props.users );
+    let myElo = this.props.playerData.elo;
+    let newMatches = matchmakeByElo( myElo, this.props.users );
     this.setState({
-      matchedUsers: newMatches,
+      matchedUsers: newMatches.slice(
+        newMatches.length / 2, (newMatches.length / 2) + 5
+      ),
       courts
     });
   }
@@ -42,7 +51,6 @@ class RecommendedOpponents extends React.Component {
       showMatch: true,
       matchClickUser: user
     });
-    console.log(this.state.matchedUsers);
   }
 
   handleHideMatch () {
@@ -72,7 +80,12 @@ class RecommendedOpponents extends React.Component {
     this.setState({ location });
   }
 
+  getWinProbability(elo1, elo2) {
+    return Math.floor( calcProbabilityOfWin( elo1, elo2 ) * 100 );
+  }
+
   render () {
+    let myElo = this.props.playerData.elo;
     return (
       <div className="matches-container">
         <h2>Recommended Opponents</h2>
@@ -85,8 +98,8 @@ class RecommendedOpponents extends React.Component {
             </tr>
           </thead>
           <tbody>
-            { this.state.matchedUsers.slice(this.state.matchedUsers.length / 2, (this.state.matchedUsers.length / 2) + 5).map( matchedUser => {
-              let winPercent = Math.floor(calcProbabilityOfWin(this.props.playerData.elo, matchedUser.elo) * 100);
+            { this.state.matchedUsers.map( matchedUser => {
+              let winPercent = this.getWinProbability(myElo, matchedUser.elo);
               return (
                 <tr className="match-row" key={ matchedUser.id } >
                   <td> 
