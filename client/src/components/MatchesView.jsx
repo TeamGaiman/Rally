@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
 
-import Pending from './Pending.jsx';
+import ScheduledMatches from './ScheduledMatches.jsx';
 import Calendar from './Calendar.jsx';
 
 class MatchesView extends React.Component {
@@ -57,7 +57,7 @@ class MatchesView extends React.Component {
               playerData={ this.props.playerData }
             />
           ) : (
-            <Pending
+            <ScheduledMatches
               playerData={ this.props.playerData }
             />
           )}
