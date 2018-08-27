@@ -1,8 +1,8 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import { GET_USERS_BY_TIER } from '../apollo/queries.js';
 
 import RecommendedOpponents from './RecommendedOpponents.jsx';
+import { GET_USERS_BY_TIER, GET_ALL_USERS } from '../apollo/queries.js';
 import Challenges from './Challenges.jsx';
 
 class Matchmaking extends React.Component {
@@ -24,15 +24,12 @@ class Matchmaking extends React.Component {
         <div>
           <Query query={ GET_USERS_BY_TIER }
             variables={{ tier: 1, email: this.props.playerData.email }}>
-            
-            
             {({ loading, error, data }) => {
               if ( loading ) {
                 return <p>Loading...</p>;
               } else if ( error ) {
                 return <p>Error</p>;
               }
-
               return (
                 <div>
                   <RecommendedOpponents
