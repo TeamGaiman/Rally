@@ -111,12 +111,12 @@ class RecommendedOpponents extends React.Component {
 
         <Query query={ GET_ALL_USERS }>
           {({ loading, error, data }) => {
-            if ( loading ) { console.log('loading all users'); }
+            if ( loading ) { return <p>Loading...</p> }
             if ( error ) { console.error( error ); }
-            console.log(data.getAllUsers);
             return (
               <SearchUsers
                 handleMatchClick={ this.handleMatchClick }
+                loggedInUser={ this.props.playerData.email }
                 allUsers={ data.getAllUsers }/>
             );
           }}

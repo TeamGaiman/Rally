@@ -147,7 +147,7 @@ const resolvers = {
       try {
         return await models.Court.create( input );
       } catch ( error ) {
-        console.log( error );
+        console.error( error );
         return false;
       }
     },
@@ -162,7 +162,7 @@ const resolvers = {
             return true;
           });
       } catch ( error ) {
-        console.log( error );
+        console.error( error );
         return false;
       }
     }

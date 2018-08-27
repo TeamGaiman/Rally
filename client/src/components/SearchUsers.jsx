@@ -35,7 +35,8 @@ class SearchUsers extends React.Component {
     const regex = new RegExp( '^' + escapedValue, 'i' );
   
     return this.props.allUsers.filter( user => (
-      regex.test ( user.email )
+      !(user.email === this.props.loggedInUser)
+        && regex.test ( user.email )
         || regex.test( user.name )
         || regex.test( user.fullName )
     ));
