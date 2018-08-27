@@ -20,7 +20,6 @@ class ScheduledMatches extends React.Component {
   }
 
   componentDidMount () {
-    console.log(this.props.playerData);
     let {pendingMatches, completedMatches } = this.props.playerData;
     let matches = pendingMatches.concat(completedMatches);
 
