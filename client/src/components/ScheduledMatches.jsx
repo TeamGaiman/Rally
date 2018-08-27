@@ -95,35 +95,14 @@ class ScheduledMatches extends React.Component {
   
         </Table>
 
-        { this.state.resultsModalOpen
-          ? (
-            <Mutation
-              mutation={ UPDATE_MATCH }
-              update={ this.hideResultsModal }
-              variables={{
-                id: this.state.matchClicked.id,
-                input: {
-                  completed: true,
-                  winner: this.state.selectedWinner
-                }
-              }}
-            >
-              { updateWinner => (
-                <ResultsModal
-                  match={ this.state.matchClicked }
-                  resultsModalOpen={ this.state.resultsModalOpen }
-                  hideResultsModal={ this.hideResultsModal }
-                  matchClicked={ this.state.matchClicked }
-                  handleWinner = { this.handleWinner }
-                  updateWinner={ updateWinner }
-                />
-              )}
-            </Mutation>
-          ) : (
-            null
-          )
-        }
-
+        <ResultsModal
+          match={ this.state.matchClicked }
+          resultsModalOpen={ this.state.resultsModalOpen }
+          hideResultsModal={ this.hideResultsModal }
+          matchClicked={ this.state.matchClicked }
+          handleWinner = { this.handleWinner }
+        />
+    
       </div>
     );
   }
