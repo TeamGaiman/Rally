@@ -3,6 +3,8 @@ import { Navbar, Nav, NavItem, Image } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
 
+import GoogleIcon from '../../dist/lib/search.png';
+
 const NavBar = (props) => {
   return (
     <Navbar inverse collapseOnSelect staticTop className='nav-margin'>
@@ -19,6 +21,7 @@ const NavBar = (props) => {
             <Nav pullRight>
               <LinkContainer to='/signup'>
                 <NavItem onClick={ props.googleSignIn }>
+                  <Image src={GoogleIcon} className="google-icon"/>
                   Sign in with Google
                 </NavItem>
               </LinkContainer>
