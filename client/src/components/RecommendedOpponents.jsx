@@ -86,8 +86,11 @@ class RecommendedOpponents extends React.Component {
             { this.state.matchedUsers.slice(this.state.matchedUsers.length / 2, (this.state.matchedUsers.length / 2) + 5).map( matchedUser => {
               let winPercent = Math.floor(calcProbabilityOfWin(this.props.playerData.elo, matchedUser.elo) * 100);
               return (
-                <tr className="match-row" key={matchedUser.id} >
-                  <td> { matchedUser.email }</td>
+                <tr className="match-row" key={ matchedUser.id } >
+                  <td> 
+                    <img style={ {width: '80px'} } src={ matchedUser.image }/>
+                    { matchedUser.email }
+                  </td>
                   <td>{ matchedUser.name }</td>
                   <td><ProgressBar
                     bsStyle="warning"
