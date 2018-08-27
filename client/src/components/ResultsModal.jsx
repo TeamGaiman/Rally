@@ -57,7 +57,11 @@ class ResultsModal extends React.Component {
 
             <ControlLabel>Winner</ControlLabel>
             <ButtonToolbar>
-              <ToggleButtonGroup type="radio" name="winner" onChange={ this.handleWinnerSelect } >
+              <ToggleButtonGroup 
+                type="radio" 
+                name="winner" 
+                onChange={ this.handleWinnerSelect } 
+              >
                 <ToggleButton value={ 1 }>{ this.props.match.challenger }</ToggleButton>
                 <ToggleButton value={ 2 }>{ this.props.match.opponent }</ToggleButton>
               </ToggleButtonGroup>
@@ -72,7 +76,7 @@ class ResultsModal extends React.Component {
           </Button>
           <Mutation
             mutation={ UPDATE_MATCH }
-            update={ this.props.hideResultsModal}
+            update={ this.props.hideResultsModal }
           >
             { updateWinner => (
               <Button

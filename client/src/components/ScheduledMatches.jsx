@@ -8,10 +8,9 @@ class ScheduledMatches extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      matches: [],
       resultsModalOpen: false,
       matchClicked: '',
-      selectedWinner: 'test'
+      selectedWinner: ''
     };
 
     this.handleMatchClick = this.handleMatchClick.bind(this);
@@ -65,7 +64,7 @@ class ScheduledMatches extends React.Component {
                       <Button 
                         bsStyle="primary" 
                         value={ index }
-                        onClick={ ( e ) => this.handleMatchClick( match, e.target.value )}
+                        onClick={ ( e ) => this.handleMatchClick( match )}
                       >
                         Add Results
                       </Button>
