@@ -91,15 +91,8 @@ class RecommendedOpponents extends React.Component {
             </tr>
           </thead>
           <tbody>
-<<<<<<< HEAD
             { this.state.matchedUsers.map( matchedUser => {
               let winPercent = this.getWinProbability(myElo, matchedUser.elo);
-=======
-            { this.state.matchedUsers.slice( 0, 5 ).map( matchedUser => {
-              let winPercent = parseInt(
-                matchedUser.wins / ( matchedUser.wins + matchedUser.losses ) * 100
-              );
->>>>>>> myLocalDev
               return (
                 <tr className="match-row" key={ matchedUser.id } >
                   <td> 
