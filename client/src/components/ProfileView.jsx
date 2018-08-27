@@ -2,14 +2,12 @@ import React from 'react';
 import { Jumbotron, Button, Image } from 'react-bootstrap';
 
 import EditUserInfo from './EditUserInfo.jsx';
-import Stats from './Stats.jsx';
+
 
 class ProfileView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      upcoming: [],
-      history: [],
       editUserInfo: false
     };
 
@@ -21,17 +19,18 @@ class ProfileView extends React.Component {
   }
 
   render () {
-    let view;
-    if ( this.state.editUserInfo ) {
-      view = <EditUserInfo 
-        { ...this.props } 
-        handleEditUserInfo={ this.handleEditUserInfo }/>;
-    } else {
-      view = <Stats playerData={ this.props.playerData }/>;
-    }
+    // let view;
+    // if ( this.state.editUserInfo ) {
+    //   view = <EditUserInfo 
+    //     { ...this.props } 
+    //     handleEditUserInfo={ this.handleEditUserInfo }/>;
+    // } else {
+    //   null;
+    // }
 
     return (
       <div>
+        {/*--- PROFILE HEADER ---*/}
         <Jumbotron className="profile-jumbotron">
           <div className="box">
             <Image 
@@ -40,7 +39,7 @@ class ProfileView extends React.Component {
             />
             
             <div className="user-info">
-              <h3>{ this.props.googleUserData.displayName }</h3>
+              <h3>{ this.props.playerData.fullName || this.props.googleUserData.displayName }</h3>
               W: { this.props.playerData.wins } 
               L: { this.props.playerData.losses }
               <br/>
@@ -60,10 +59,11 @@ class ProfileView extends React.Component {
               Edit Profile
             </Button>
           </div>
-
         </Jumbotron>
-
-        { view }
+        {( this.state.editUserInfo )
+          ? <EditUserInfo { ...this.props } 
+            handleEditUserInfo={ this.handleEditUserInfo }/>
+          : null}
       </div>
     );
   }
