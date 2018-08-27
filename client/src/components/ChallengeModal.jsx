@@ -1,5 +1,7 @@
 import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Form, FormControl, ControlLabel } from 'react-bootstrap';
+import moment from 'moment';
+
 
 const ChallengeModal = (props) => {
   return (
@@ -16,12 +18,16 @@ const ChallengeModal = (props) => {
       </Modal.Header>
       
       <Modal.Body>
-        <div>
-          { props.challenge.location }
-          <br/>
-          <br/>
-          { props.challenge.startTime.split(' GMT')[0] }
-        </div>
+        <Form horizontal className="form-width">
+          <ControlLabel>Time</ControlLabel>
+          <FormControl.Static>
+            { moment( props.challenge.startTime ).calendar() }
+          </FormControl.Static>
+          <ControlLabel>Court Location</ControlLabel>
+          <FormControl.Static>
+            { props.challenge.location }
+          </FormControl.Static>
+        </Form>
       </Modal.Body>
 
       <Modal.Footer>

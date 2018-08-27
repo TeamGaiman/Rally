@@ -6,7 +6,9 @@ class Pending extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      matches: []
+      matches: [],
+      resultsModalOpen: false,
+      matchClicked: ''
     };
   }
 
@@ -20,12 +22,32 @@ class Pending extends React.Component {
     });
   }
 
+  handleMatchClick ( match ) {
+    this.setState({
+      resultsModalOpen: true,
+      matchClicked: match
+    });
+  }
+
+  handleWinner ( winner ) {
+    //State should update to reflect winner in matches array too
+    this.setState({ 
+      winner 
+    });
+  }
+
+  hideResultsModal () {
+    this.setState({ 
+      resultsModalOpen: false
+    });
+  }
+
   render () {
     return (
       <div className="matches-container">
         <h2>Scheduled Matches</h2>
         <Table striped bordered condensed hover>
-        
+
           <thead>
             <tr>
               <th>Opponent</th>
@@ -43,7 +65,7 @@ class Pending extends React.Component {
                   <td>{ match.opponent }</td>
                   <td>{ moment( match.startTime ).calendar() }</td>
                   <td>{ match.location }</td>
-                  <td>Complete</td>
+                  <td>{ match.completed ? 'Complete' : 'In Progress'}</td>
                   <td>
                     { match.completed ?
                       match.winner
@@ -62,6 +84,35 @@ class Pending extends React.Component {
           </tbody>
   
         </Table>
+
+        { this.state.challengeModalOpen
+          ? (
+            <Mutation
+              mutation={ UPDATE_MATCH }
+              update={ this.handleAccept }
+              variables={{
+                id: this.state.matchClicked.id,
+                input: {
+                  completed: true,
+                  winner: this.state.winner
+                }
+              }}
+            >
+              { updateWinner => (
+                <ResultsModal
+                  results={ this.state.matchClicked }
+                  resultsModalOpen={ this.state.resultsModalOpen }
+                  hideResultsModal={ this.hideResultsModal }
+                  matchClicked={ this.state.matchClicked }
+                  updateWinner={ updateWinner }
+                />
+              )}
+            </Mutation>
+          ) : (
+            null
+          )
+        }
+
       </div>
     );
   }
