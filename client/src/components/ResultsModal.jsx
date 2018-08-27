@@ -72,9 +72,7 @@ class ResultsModal extends React.Component {
           </Button>
           <Mutation
             mutation={ UPDATE_MATCH }
-            update={ () => {
-              this.props.handleSubmission( this.state.selectedWinner ); 
-            }}
+            update={ this.props.hideResultsModal}
           >
             { updateWinner => (
               <Button
