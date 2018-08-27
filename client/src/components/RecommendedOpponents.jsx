@@ -4,9 +4,9 @@ import { Mutation } from 'react-apollo';
 import { CREATE_MATCH } from '../apollo/mutations';
 
 import CreateChallengeModal from './CreateChallengeModal.jsx';
-import matchmakeByElo from '../../../workers/matchmaking';
+import matchmakeByElo from '../../dist/workers/matchmaking';
 import courts from '../../dummyData/dummyCourts';
-import {calcProbabilityOfWin} from '../../../workers/eloCalculations';
+import {calcProbabilityOfWin} from '../../dist/workers/eloCalculations';
 
 class RecommendedOpponents extends React.Component {
   constructor(props) {
