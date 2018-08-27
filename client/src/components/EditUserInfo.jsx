@@ -135,7 +135,8 @@ class EditUserInfo extends React.Component {
                     name: this.state.username,
                     phoneNumber: this.state.phoneNumber
                   }
-                }}>
+                }}
+              >
                 { updateUser => (
                   <Button
                     type="submit"

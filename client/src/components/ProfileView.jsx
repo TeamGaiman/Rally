@@ -4,6 +4,8 @@ import { Jumbotron, Button, Image, ProgressBar, FormGroup, FormControl, ControlL
 import EditUserInfo from './EditUserInfo.jsx';
 import TierInfoModal from './TierInfoModal.jsx';
 import ChangeTierModal from './ChangeTierModal.jsx';
+import { Mutation } from 'react-apollo';
+import { UPDATE_USER } from '../apollo/mutations.js';
 
 class ProfileView extends React.Component {
   constructor(props) {
@@ -70,6 +72,14 @@ class ProfileView extends React.Component {
           </div>
 
           {/*--- PROFILE BODY ---*/}
+          <FormGroup controlId="skillTier">
+            <h3>You are currently in Skill Tier {this.props.playerData.tier}</h3>
+            <Button 
+              onClick={ this.toggleTierInfoModal }>
+              Get info on Rally's skill tiers.
+            </Button> 
+          </FormGroup>
+
           <ProgressBar
             className="tierProg"
             min={ 1000 }
@@ -81,15 +91,8 @@ class ProfileView extends React.Component {
 
           <FormGroup controlId="skillTier">
             <Button 
-              onClick={ this.toggleTierInfoModal }>
-              Get info on Rally's skill tiers.
-            </Button> 
-          </FormGroup>
-
-          <FormGroup controlId="skillTier">
-            <Button 
               onClick={ this.toggleTierChangeModal }>
-              Change my skill tier!
+              Ready to rank up? Need a break and want to revert to a lower tier?
             </Button> 
           </FormGroup>
 
@@ -101,6 +104,8 @@ class ProfileView extends React.Component {
         />
 
         <ChangeTierModal
+          playerEmail={ this.props.playerData.email }
+          playerTier={ this.props.playerData.tier }
           playerElo={ this.props.playerData.elo }
           playerTierThreshold={ this.state.tierThresholds[this.props.playerData.tier] }
           tierModal={ this.state.tierChangeModal }
