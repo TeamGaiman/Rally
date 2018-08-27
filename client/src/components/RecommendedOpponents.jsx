@@ -4,9 +4,8 @@ import { Mutation } from 'react-apollo';
 import { CREATE_MATCH } from '../apollo/mutations';
 
 import CreateChallengeModal from './CreateChallengeModal.jsx';
-import matchmakeByElo from '../../dist/workers/matchmaking';
+import { matchmakeByElo, calcProbabilityOfWin} from '../../dist/js/index';
 import courts from '../../dummyData/dummyCourts';
-import {calcProbabilityOfWin} from '../../dist/workers/eloCalculations';
 
 class RecommendedOpponents extends React.Component {
   constructor(props) {
@@ -28,7 +27,8 @@ class RecommendedOpponents extends React.Component {
   }
 
   componentDidMount () {
-    let newMatches = matchmakeByElo( this.props.playerData.elo, this.props.users );
+    let myElo = this.props.playerData.elo;
+    let newMatches = matchmakeByElo( myElo, this.props.users );
     this.setState({
       matchedUsers: newMatches.slice(
         newMatches.length / 2, (newMatches.length / 2) + 5
@@ -71,6 +71,10 @@ class RecommendedOpponents extends React.Component {
     this.setState({ location });
   }
 
+  getWinProbability(elo1, elo2) {
+    return Math.floor( calcProbabilityOfWin( elo1, elo2 ) * 100 );
+  }
+
   render () {
     let myElo = this.props.playerData.elo;
     return (
@@ -86,9 +90,7 @@ class RecommendedOpponents extends React.Component {
           </thead>
           <tbody>
             { this.state.matchedUsers.map( matchedUser => {
-              let winPercent = Math.floor(
-                calcProbabilityOfWin(myElo, matchedUser.elo) * 100
-              );
+              let winPercent = this.getWinProbability(myElo, matchedUser.elo);
               return (
                 <tr className="match-row" key={ matchedUser.id } >
                   <td> 
