@@ -25,10 +25,7 @@ const Pending = (props) => {
                 <td>{ challenge.location }</td>
                 <td>Complete</td>
                 <td>
-                  <Button 
-                    bsStyle="primary" 
-                    onClick={ () => console.log('clicked') }
-                  >
+                  <Button bsStyle="primary">
                     Add Results
                   </Button>
                 </td>
