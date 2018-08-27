@@ -1,11 +1,13 @@
 import React from 'react';
 import { Table, Button, ProgressBar } from 'react-bootstrap';
-import { Mutation } from 'react-apollo';
-import { CREATE_MATCH } from '../apollo/mutations';
+import { Query, Mutation } from 'react-apollo';
+import { CREATE_MATCH } from '../apollo/mutations.js';
+import { GET_ALL_USERS } from '../apollo/queries.js';
 
 import CreateChallengeModal from './CreateChallengeModal.jsx';
-import matchmakeByElo from '../../../workers/matchmaking';
-import courts from '../../dummyData/dummyCourts';
+import SearchUsers from './SearchUsers.jsx';
+import matchmakeByElo from '../../../workers/matchmaking.js';
+import courts from '../../dummyData/dummyCourts.js';
 
 class RecommendedOpponents extends React.Component {
   constructor(props) {
@@ -81,13 +83,16 @@ class RecommendedOpponents extends React.Component {
             </tr>
           </thead>
           <tbody>
-            { this.state.matchedUsers.slice(0, 5).map( matchedUser => {
+            { this.state.matchedUsers.slice( 0, 5 ).map( matchedUser => {
               let winPercent = parseInt(
                 matchedUser.wins / ( matchedUser.wins + matchedUser.losses ) * 100
               );
               return (
-                <tr className="match-row" key={matchedUser.id} >
-                  <td> {matchedUser.email }</td>
+                <tr className="match-row" key={ matchedUser.id } >
+                  <td> 
+                    <img style={ {width: '80px'} } src={ matchedUser.image }/>
+                    { matchedUser.email }
+                  </td>
                   <td>{ matchedUser.name }</td>
                   <td><ProgressBar
                     bsStyle="warning"
@@ -106,6 +111,19 @@ class RecommendedOpponents extends React.Component {
             }
           </tbody>
         </Table>
+
+        <Query query={ GET_ALL_USERS }>
+          {({ loading, error, data }) => {
+            if ( loading ) { return <p>Loading...</p> }
+            if ( error ) { console.error( error ); }
+            return (
+              <SearchUsers
+                handleMatchClick={ this.handleMatchClick }
+                loggedInUser={ this.props.playerData.email }
+                allUsers={ data.getAllUsers }/>
+            );
+          }}
+        </Query>
 
         { this.state.showMatch
           ? <Mutation
