@@ -14,11 +14,12 @@ const TierModal = (props) => (
         Ready to advance?
       </Modal.Title>
     </Modal.Header>
-
     <Modal.Body>
-      
+      {( props.playerElo < props.playerTierThreshold )
+        ? <p>When you have filled your progress bar, you will have the option of advancing to the next tier!</p>
+        : <p>You are qualified to move on to the next skill tier!</p>
+      }
     </Modal.Body>
-
     <Modal.Footer>
       <Button onClick={ props.toggleTierModal }>Close</Button>
     </Modal.Footer>

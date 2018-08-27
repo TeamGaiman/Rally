@@ -10,12 +10,14 @@ class ProfileView extends React.Component {
     super(props);
     this.state = {
       toggleTierInfoModal: false,
+      toggleTierChangeModal: false,
       editUserInfo: false,
       tierThresholds: [null, 3000, 4000, 5000]
     };
 
     this.handleEditUserInfo = this.handleEditUserInfo.bind(this);
     this.toggleTierInfoModal = this.toggleTierInfoModal.bind(this);
+    this.toggleTierChangeModal = this.toggleTierChangeModal.bind(this);
   }
 
   handleEditUserInfo () {
@@ -25,6 +27,12 @@ class ProfileView extends React.Component {
   toggleTierInfoModal () {
     this.setState({
       tierInfoModal: !this.state.tierInfoModal 
+    });
+  }
+
+  toggleTierChangeModal () {
+    this.setState({
+      tierChangeModal: !this.state.tierChangeModal 
     });
   }
 
@@ -63,6 +71,7 @@ class ProfileView extends React.Component {
 
           {/*--- PROFILE BODY ---*/}
           <ProgressBar
+            className="tierProg"
             min={ 1000 }
             now={ this.props.playerData.elo }
             max={ this.state.tierThresholds[this.props.playerData.tier]}
@@ -79,7 +88,7 @@ class ProfileView extends React.Component {
 
           <FormGroup controlId="skillTier">
             <Button 
-              onClick={ this.handleChangeTier }>
+              onClick={ this.toggleTierChangeModal }>
               Change my skill tier!
             </Button> 
           </FormGroup>
@@ -91,7 +100,12 @@ class ProfileView extends React.Component {
           toggleTierModal={ this.toggleTierInfoModal }
         />
 
-        <ChangeTierModal />
+        <ChangeTierModal
+          playerElo={ this.props.playerData.elo }
+          playerTierThreshold={ this.state.tierThresholds[this.props.playerData.tier] }
+          tierModal={ this.state.tierChangeModal }
+          toggleTierModal={ this.toggleTierChangeModal }
+        />
 
         {( this.state.editUserInfo )
           ? <EditUserInfo { ...this.props } 
