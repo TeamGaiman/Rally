@@ -20,7 +20,13 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|gif)$/,
-        loader: ['file-loader']
+        use: [{
+          loader: 'file-loader',
+          options: {
+            outputPath: 'lib/hashedImages'
+          }
+        }]
+
       },
       {
         test: /\.css$/,

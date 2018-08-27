@@ -86,8 +86,11 @@ class RecommendedOpponents extends React.Component {
                 matchedUser.wins / ( matchedUser.wins + matchedUser.losses ) * 100
               );
               return (
-                <tr className="match-row" key={matchedUser.id} >
-                  <td> {matchedUser.email }</td>
+                <tr className="match-row" key={ matchedUser.id } >
+                  <td> 
+                    <img style={ {width: '80px'} } src={ matchedUser.image }/>
+                    { matchedUser.email }
+                  </td>
                   <td>{ matchedUser.name }</td>
                   <td><ProgressBar
                     bsStyle="warning"
