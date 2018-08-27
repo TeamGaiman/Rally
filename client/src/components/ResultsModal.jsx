@@ -1,5 +1,6 @@
 import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import moment from 'moment';
+import { Modal, Button, Form, FormControl, ControlLabel, ButtonToolbar, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 
 const ResultsModal = (props) => {
   return (
@@ -11,28 +12,42 @@ const ResultsModal = (props) => {
 
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title">
-          { `Your match vs ${ props.challenge.challenger }` }
+          { `Your match vs ${ props.match.opponent }` }
         </Modal.Title>
       </Modal.Header>
       
       <Modal.Body>
-        <div>
-          { props.challenge.location }
-          <br/>
-          <br/>
-          { props.challenge.startTime.split(' GMT')[0] }
-        </div>
+        <Form horizontal className="form-width">
+
+          <ControlLabel>Time</ControlLabel>
+          <FormControl.Static>
+            { moment( props.match.startTime ).calendar() }
+          </FormControl.Static>
+
+          <ControlLabel>Court Location</ControlLabel>
+          <FormControl.Static>
+            { props.match.location }
+          </FormControl.Static>
+
+          <ControlLabel>Winner</ControlLabel>
+          <ButtonToolbar>
+            <ToggleButtonGroup type="radio" name="winner" onChange={( val ) => props.handleWinner( val ) } >
+              <ToggleButton value={props.match.challenger}>{ props.match.challenger }</ToggleButton>
+              <ToggleButton value={props.match.opponent}>{ props.match.opponent }</ToggleButton>
+            </ToggleButtonGroup>
+          </ButtonToolbar>
+        </Form>
       </Modal.Body>
 
       <Modal.Footer>
         <Button
           onClick={ props.hideResultsModal }>
-          Decline
+          Cancel
         </Button>
         <Button
           bsStyle="primary"
-          onClick={ props.acceptMatch }>
-          Accept Challenge
+          onClick={ props.updateWinner }>
+          Submit Results
         </Button>
       </Modal.Footer>
 

@@ -1,15 +1,24 @@
 import React from 'react';
 import { Table, Button } from 'react-bootstrap';
 import moment from 'moment';
+import { Mutation } from 'react-apollo';
 
-class Pending extends React.Component {
+import { UPDATE_MATCH } from '../apollo/mutations';
+import ResultsModal from './ResultsModal.jsx';
+
+class ScheduledMatches extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       matches: [],
       resultsModalOpen: false,
-      matchClicked: ''
+      matchClicked: '',
+      selectedWinner: 'test'
     };
+
+    this.handleMatchClick = this.handleMatchClick.bind(this);
+    this.handleWinner = this.handleWinner.bind(this);
+    this.hideResultsModal = this.hideResultsModal.bind(this);
   }
 
   componentDidMount () {
@@ -31,9 +40,10 @@ class Pending extends React.Component {
 
   handleWinner ( winner ) {
     //State should update to reflect winner in matches array too
+    console.log('handleWinner', winner);
     this.setState({ 
-      winner 
-    });
+      winner
+    }, console.log('state ', this.state.winner));
   }
 
   hideResultsModal () {
@@ -65,14 +75,14 @@ class Pending extends React.Component {
                   <td>{ match.opponent }</td>
                   <td>{ moment( match.startTime ).calendar() }</td>
                   <td>{ match.location }</td>
-                  <td>{ match.completed ? 'Complete' : 'In Progress'}</td>
+                  <td>{ match.completed ? 'Complete' : 'Scheduled'}</td>
                   <td>
                     { match.completed ?
                       match.winner
                       :
                       <Button 
                         bsStyle="primary" 
-                        onClick={ () => console.log('clicked') }
+                        onClick={ () => this.handleMatchClick( match )}
                       >
                         Add Results
                       </Button>
@@ -85,25 +95,26 @@ class Pending extends React.Component {
   
         </Table>
 
-        { this.state.challengeModalOpen
+        { this.state.resultsModalOpen
           ? (
             <Mutation
               mutation={ UPDATE_MATCH }
-              update={ this.handleAccept }
+              update={ this.hideResultsModal }
               variables={{
                 id: this.state.matchClicked.id,
                 input: {
                   completed: true,
-                  winner: this.state.winner
+                  winner: this.state.selectedWinner
                 }
               }}
             >
               { updateWinner => (
                 <ResultsModal
-                  results={ this.state.matchClicked }
+                  match={ this.state.matchClicked }
                   resultsModalOpen={ this.state.resultsModalOpen }
                   hideResultsModal={ this.hideResultsModal }
                   matchClicked={ this.state.matchClicked }
+                  handleWinner = { this.handleWinner }
                   updateWinner={ updateWinner }
                 />
               )}
@@ -118,4 +129,4 @@ class Pending extends React.Component {
   }
 }
 
-export default Pending;
+export default ScheduledMatches;
