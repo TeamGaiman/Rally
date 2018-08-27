@@ -1,7 +1,7 @@
 import React from 'react';
-
 import { Grid, Row, Col } from 'react-bootstrap';
 import { SectionsContainer, Section } from 'react-fullpage';
+
 import icon1 from '../../dist/lib/icon1.png';
 import icon2 from '../../dist/lib/icon2.png';
 import icon3 from '../../dist/lib/icon3.png';
@@ -10,7 +10,7 @@ const Login = (props) => {
 
   let options = {
     sectionClassName: 'section',
-    anchors: [ 'sectionOne', 'sectionTwo' ],
+    anchors: [ 'home', 'about' ],
     scrollBar: false,
     navigation: true,
     verticalAlign: false,
