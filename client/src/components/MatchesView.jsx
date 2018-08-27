@@ -50,7 +50,7 @@ class MatchesView extends React.Component {
           <Tab eventKey={1} title='Matches'/>
           <Tab eventKey={2} title='Calendar View'/>
         </Tabs>
-        <Query query={GET_SCHEDULED_BY_USER}
+        <Query query={ GET_SCHEDULED_BY_USER }
           variables={{ email: this.props.playerData.email }}
           pollInterval={ 500 }
         >

@@ -15,46 +15,15 @@ class ScheduledMatches extends React.Component {
     };
 
     this.handleMatchClick = this.handleMatchClick.bind(this);
-    // this.handleSubmission = this.handleSubmission.bind(this);
     this.hideResultsModal = this.hideResultsModal.bind(this);
   }
 
-  componentDidMount () {
-    // let {pendingMatches, completedMatches } = this.props.playerData;
-    // let matches = pendingMatches.concat(completedMatches);
-
-    // this.setState({
-    //   matches
-    // });
-  }
-
-  handleMatchClick ( match, index ) {
-    //Track the index of which match in the array the user 
-    //will mutate with the ResultsModal
-    // let tempMatch = Object.assign( {}, match );
-    // tempMatch.index = index;
+  handleMatchClick ( match ) {
     this.setState({
       resultsModalOpen: true,
       matchClicked: match
     });
   }
-
-  // handleSubmission ( winner ) {
-  //   //Update state to reflect mutation of database
-  //   let matches = this.state.matches.slice();
-  //   let clickIndex = this.state.matchClicked.index;
-  //   let tempMatch = Object.assign( {}, matches[clickIndex]);
-
-  //   tempMatch.completed = true;
-  //   tempMatch.winner = winner;
-
-  //   matches[clickIndex] = tempMatch;
-
-  //   this.setState({ 
-  //     matches,
-  //     resultsModalOpen: false
-  //   });
-  // }
 
   hideResultsModal () {
     this.setState({ 
@@ -64,7 +33,8 @@ class ScheduledMatches extends React.Component {
 
   render () {
     let combinedMatches = this.props.scheduledMatches.pendingMatches
-      .concat(this.props.scheduledMatches.completedMatches);
+      .concat( this.props.scheduledMatches.completedMatches );
+
     return (
       <div className="matches-container">
         <h2>Scheduled Matches</h2>
@@ -85,7 +55,7 @@ class ScheduledMatches extends React.Component {
               return (
                 <tr className="match-row" key={ match.id }>
                   <td>{ match.opponent }</td>
-                  <td>{ moment( new Date(match.startTime)).calendar() }</td>
+                  <td>{ moment( new Date( match.startTime )).calendar() }</td>
                   <td>{ match.location }</td>
                   <td>{ match.completed ? 'Complete' : 'Scheduled'}</td>
                   <td>
