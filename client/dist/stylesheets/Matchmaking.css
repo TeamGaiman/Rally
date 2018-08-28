@@ -26,7 +26,8 @@
 } */
 
 .matches-container {
-  margin: 10%
+  margin: 10%;
+  margin-top: 3%;
 }
 
 .challenge-modal {
@@ -37,6 +38,60 @@
   margin-left: auto;
   margin-right: 30%
 }
+
+
+
+/* Recommended Opponents Display */
+.scrolling-wrapper {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+
+}
+.card {
+  display: inline-block;
+  margin: 5px 10px 10px 10px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  /* background-image: url('../lib/cardBG.png'); */
+}
+.scrolling-wrapper-flexbox {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+/* .card {
+  flex: 0 0 auto;
+} */
+
+/* .scrolling-wrapper {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+} */
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.card-container {
+  padding: 2px 16px;
+  width: 250px;
+  height: 275px;
+}
+
+.profile-pic-card {
+  width: 175px;
+  display: block;
+  margin-top: 35px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
 
 .rdt {
   position: relative;
