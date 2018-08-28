@@ -48,7 +48,7 @@ class Challenges extends React.Component {
   }
 
   render () {
-    console.log(this.props.playerData.challengesReceived)
+    console.log(this.props.challengeData.challengesReceived);
     return (
       <div className="matches-container">
         <h2>Challenges</h2>
@@ -62,7 +62,7 @@ class Challenges extends React.Component {
             </tr>
           </thead>
           <tbody>
-            { this.props.challengeData.challengesReceived.slice( 0, 5 ).map(( challenge ) => {
+            { this.props.challengeData.challengesReceived.map(( challenge ) => {
               return (
                 <tr
                   className="match-row"

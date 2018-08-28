@@ -74,7 +74,6 @@ class RecommendedOpponents extends React.Component {
   }
 
   render () {
-    console.log('userdata', this.state.matchedUsers);
     return (
       <div className="matches-container">
         <h2>Recommended Opponents</h2>
