@@ -1,7 +1,6 @@
 import React from 'react';
 import { Table, Button, ProgressBar } from 'react-bootstrap';
 import { Query, Mutation } from 'react-apollo';
-import { Card, CardHeader, CardBody, CardFooter } from 'react-simple-card';
 
 import { CREATE_MATCH } from '../apollo/mutations.js';
 import { GET_ALL_USERS } from '../apollo/queries.js';
