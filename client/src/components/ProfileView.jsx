@@ -44,26 +44,26 @@ class ProfileView extends React.Component {
 
   render () {
     const goodSport = (
-      <Popover id='popover-contained' title='Good Sport Trophy'>
-        {/* <strong>You're a joy to play with!</strong> */}
+      <Popover id='popover-trigger-hover-focus' title='Good Sport Trophy'>
+        <strong>You're a joy to play with!</strong>
       </Popover>
     );
     
     const rally = (
-      <Popover id='popover-contained' title='Rally Trophy'>
-        {/* <strong>You're great to rally with!</strong> */}
+      <Popover id='popover-trigger-hover-focus' title='Rally Trophy'>
+        <strong>You're great to rally with!</strong>
       </Popover>
     );
     
     const traveller = (
-      <Popover id='popover-contained' title='Traveller Trophy'>
-        {/* <strong>You love playing at new courts!</strong> */}
+      <Popover id='popover-trigger-hover-focus' title='Traveller Trophy'>
+        <strong>You love playing at new courts!</strong>
       </Popover>
     );
     
     const greatServer = (
-      <Popover id='popover-contained' title='Great Server Trophy'>
-        {/* <strong>Ace! You love serving people!</strong> */}
+      <Popover id='popover-trigger-hover-focus'title='Great Server Trophy'>
+        <strong>Ace! You love serving people!</strong>
       </Popover>
     );
     
@@ -87,22 +87,22 @@ class ProfileView extends React.Component {
               {/* <br/> */}
               <b style={{ paddingRight: '15px' }}>Trophies:</b> 
 
-              <OverlayTrigger trigger="click" placement="bottom" overlay={ goodSport }>                
+              <OverlayTrigger trigger={['hover', 'focus']} placement="bottom" overlay={ goodSport }>                
                 <img src={ Trophy1 } className="trophies"/>
               </OverlayTrigger>
               <Badge className="trophy-badge">13</Badge>
 
-              <OverlayTrigger trigger="click" placement="bottom" overlay={ rally }>                
+              <OverlayTrigger trigger={['hover', 'focus']} placement="bottom" overlay={ rally }>                
                 <img src={ Trophy2 } className="trophies"/>
               </OverlayTrigger>
               <Badge className="trophy-badge">5</Badge>
  
-              <OverlayTrigger trigger="click" placement="bottom" overlay={ traveller }>                
+              <OverlayTrigger trigger={['hover', 'focus']} placement="bottom" overlay={ traveller }>                
                 <img src={ Trophy3 } className="trophies"/>
               </OverlayTrigger>
               <Badge className="trophy-badge">2</Badge>
 
-              <OverlayTrigger trigger="click" placement="bottom" overlay={ greatServer }>                
+              <OverlayTrigger trigger={['hover', 'focus']} placement="bottom" overlay={ greatServer }>                
                 <img src={ Trophy4 } className="trophies"/>
               </OverlayTrigger>
               <Badge className="trophy-badge">0</Badge>
