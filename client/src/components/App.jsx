@@ -44,7 +44,7 @@ class App extends React.Component {
   }
   googleSignIn () {
     var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup( provider )
+    firebase.auth().signInWithRedirect( provider )
       .then( () => {
         return;
       })
