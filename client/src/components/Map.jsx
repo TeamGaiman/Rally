@@ -34,10 +34,10 @@ const Map = compose(
   withGoogleMap
 )((props) => {
   let defaultCenter = { lat: 40.72, lng: -73.9 };
-  let singleCourt = false;
+  let singleCourtRender = false;
 
   if (props.courts.length === 1 ) {
-    singleCourt = true;
+    singleCourtRender = true;
     defaultCenter = { 
       lat: Number ( props.courts[0].latitude ), 
       lng: Number ( props.courts[0].longitude ) 
@@ -70,7 +70,7 @@ const Map = compose(
                     { court.location } <br />
                     { court.numberOfCourts + ' ' + court.courtType + ' Courts' }
                   </p>
-                  { singleCourt && <Button
+                  { !singleCourtRender && <Button
                     bsStyle="primary"
                     bsSize="small"
                     onClick={() => {
