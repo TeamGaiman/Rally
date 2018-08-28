@@ -6,9 +6,9 @@ import { Card, CardHeader, CardBody, CardFooter } from 'react-simple-card';
 import { CREATE_MATCH } from '../apollo/mutations.js';
 import { GET_ALL_USERS } from '../apollo/queries.js';
 import CreateChallengeModal from './CreateChallengeModal.jsx';
+import { matchmakeByElo, calcProbabilityOfWin} from '../../dist/js/index';
+import courts from '../../dummyData/dummyCourts';
 import SearchUsers from './SearchUsers.jsx';
-import matchmakeByElo from '../../../workers/matchmaking.js';
-import courts from '../../dummyData/dummyCourts.js';
 
 class RecommendedOpponents extends React.Component {
   constructor(props) {
@@ -30,9 +30,11 @@ class RecommendedOpponents extends React.Component {
   }
 
   componentDidMount () {
-    let newMatches = matchmakeByElo( 2000, this.props.users );
+    let newMatches = matchmakeByElo( this.props.playerData.elo, this.props.users );
     this.setState({
-      matchedUsers: newMatches,
+      matchedUsers: newMatches.slice(
+        newMatches.length / 2, (newMatches.length / 2) + 5
+      ),
       courts
     });
   }
@@ -71,6 +73,10 @@ class RecommendedOpponents extends React.Component {
     this.setState({ location });
   }
 
+  getWinProbability(elo1, elo2) {
+    return Math.floor( calcProbabilityOfWin( elo1, elo2 ) * 100 );
+  }
+
   render () {
     console.log('userdata', this.state.matchedUsers);
     return (
@@ -79,9 +85,7 @@ class RecommendedOpponents extends React.Component {
 
         <div className="scrolling-wrapper scrolling-wrapper-flexbox">
           { this.state.matchedUsers.slice( 0, 10 ).map( matchedUser => {
-            let winPercent = parseInt(
-              matchedUser.wins / ( matchedUser.wins + matchedUser.losses ) * 100
-            );
+            let winPercent = this.getWinProbability( this.props.playerData.elo, matchedUser.elo );
             return (
               <div className="card" key={ matchedUser.id }>
                 <img src={ matchedUser.image } className="profile-pic-card"/>
@@ -113,7 +117,7 @@ class RecommendedOpponents extends React.Component {
 
         <Query query={ GET_ALL_USERS }>
           {({ loading, error, data }) => {
-            if ( loading ) { return <p>Loading...</p> }
+            if ( loading ) { return <p>Loading...</p>; }
             if ( error ) { console.error( error ); }
             return (
               <SearchUsers
@@ -157,64 +161,3 @@ class RecommendedOpponents extends React.Component {
 }
 
 export default RecommendedOpponents;
-
-{/* <Card key={ matchedUser.id } className="card">
-  <CardHeader>
-    <img style={ {width: '80px'} } src={ matchedUser.image }/>
-    <br/>
-    <br/>
-    { matchedUser.name }
-  </CardHeader>
-  <CardBody>
-    { matchedUser.email }
-    <ProgressBar
-      bsStyle="warning"
-      now={ winPercent }
-      label={ `${winPercent}%` } />
-  </CardBody>
-  <CardFooter>
-    <Button 
-      bsStyle="primary"
-      onClick={ () => this.handleMatchClick( matchedUser )}>
-      Challenge
-    </Button>
-  </CardFooter>
-</Card> */}
-
-{/* <Table striped bordered condensed hover>
-  <thead>
-    <tr>
-      <th>Email</th>
-      <th>User</th>
-      <th>Win %</th>
-    </tr>
-  </thead>
-  <tbody>
-    { this.state.matchedUsers.slice( 0, 5 ).map( matchedUser => {
-      let winPercent = parseInt(
-        matchedUser.wins / ( matchedUser.wins + matchedUser.losses ) * 100
-      );
-      return (
-        <tr className="match-row" key={ matchedUser.id } >
-          <td> 
-            <img style={ {width: '80px'} } src={ matchedUser.image }/>
-            { matchedUser.email }
-          </td>
-          <td>{ matchedUser.name }</td>
-          <td><ProgressBar
-            bsStyle="warning"
-            now={ winPercent }
-            label={ `${winPercent}%` } /></td>
-          <td>
-            <Button 
-              bsStyle="primary"
-              onClick={ () => this.handleMatchClick( matchedUser )}>
-              Challenge
-            </Button>
-          </td>
-        </tr>
-      );
-    })
-    }
-  </tbody>
-</Table> */}
