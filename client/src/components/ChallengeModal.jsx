@@ -4,6 +4,7 @@ import { Mutation } from 'react-apollo';
 import { UPDATE_MATCH, DELETE_MATCH } from '../apollo/mutations';
 import moment from 'moment';
 
+import Map from './Map.jsx';
 
 const ChallengeModal = (props) => {
   if (props.challenge) {
@@ -31,6 +32,10 @@ const ChallengeModal = (props) => {
               { props.challenge.location }
             </FormControl.Static>
           </Form>
+
+          <Map 
+            courts={ [props.challenge.court] }
+          />
         </Modal.Body>
 
         <Modal.Footer>
