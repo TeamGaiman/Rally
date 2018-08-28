@@ -62,10 +62,10 @@ const typeDefs =
   }
   
   input MatchInput {
-    location: String
-    challenger: String
-    opponent: String
-    startTime: String
+    location: String!
+    challenger: String!
+    opponent: String!
+    startTime: String!
     accepted: Boolean
     completed: Boolean
     winner: String
