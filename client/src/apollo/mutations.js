@@ -20,7 +20,6 @@ const CREATE_MATCH = gql`
   }
 `;
 
-//No Longer needed with new schema - use UPDAT_MATCH directly
 const ACCEPT_MATCH = gql`
   mutation UpdateMatch($id: ID!, $accepted: Boolean) {
     updateMatch(id: $id, input: { accepted: $accepted }){
