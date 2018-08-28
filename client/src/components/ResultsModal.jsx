@@ -7,12 +7,13 @@ import { UPDATE_MATCH } from '../apollo/mutations';
 class ResultsModal extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      selectedWinner: ''
+      selectedWinner: '',
+      opponentReview: [],
     };
 
     this.handleWinnerSelect = this.handleWinnerSelect.bind(this);
+    this.handleOpponentReview = this.handleOpponentReview.bind(this);
   }
 
   componentDidMount () {
@@ -23,7 +24,7 @@ class ResultsModal extends React.Component {
     }
   }
 
-  handleWinnerSelect (value) {
+  handleWinnerSelect ( value ) {
     if ( value === 1 ) {
       this.setState({
         selectedWinner: this.props.match.challenger
@@ -35,6 +36,11 @@ class ResultsModal extends React.Component {
     }
   }
 
+  handleOpponentReview ( e ) {
+    this.setState({
+      opponentReview: e
+    });
+  }
 
   render () {
     return (
@@ -64,7 +70,7 @@ class ResultsModal extends React.Component {
             </FormControl.Static>
 
             <ControlLabel>Winner</ControlLabel>
-            <ButtonToolbar>
+            <ButtonToolbar> 
               <ToggleButtonGroup 
                 type="radio" 
                 name="winner" 
@@ -74,6 +80,16 @@ class ResultsModal extends React.Component {
                 <ToggleButton value={ 2 }>{ this.props.match.opponent }</ToggleButton>
               </ToggleButtonGroup>
             </ButtonToolbar>
+
+            <ControlLabel>Review Opponent</ControlLabel>
+            <ToggleButtonGroup
+              type='checkbox'
+              onChange={ this.handleOpponentReview }>
+              <ToggleButton value={ 1 }>Good Sport</ToggleButton>
+              <ToggleButton value={ 2 }>Rally</ToggleButton>
+              <ToggleButton value={ 3 }>Great Server</ToggleButton>
+            </ToggleButtonGroup>
+
           </Form>
         </Modal.Body>
 
