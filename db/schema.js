@@ -71,6 +71,13 @@ const typeDefs =
     winner: String
     score: String
   }
+
+  input MatchUpdateInput {
+    accepted: String
+    completed: String
+    winner: String
+    score: String
+  }
   
   input CourtInput {
     location: String!
@@ -101,7 +108,7 @@ const typeDefs =
     updateUser( email: String, input: UserInput ) : Boolean!
 
     createMatch( input: MatchInput ) : Boolean!
-    updateMatch( id: ID!, input: MatchInput ) : Boolean!
+    updateMatch( id: ID!, input: MatchUpdateInput ) : Boolean!
 
     createCourt( input: CourtInput ) : Boolean!
     updateCourt( location: String, input: CourtInput ) : Boolean!

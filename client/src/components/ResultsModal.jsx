@@ -15,6 +15,14 @@ class ResultsModal extends React.Component {
     this.handleWinnerSelect = this.handleWinnerSelect.bind(this);
   }
 
+  componentDidMount () {
+    if ( this.props.winner ) {
+      this.setState({
+        selectedWinner: this.props.winner
+      });
+    }
+  }
+
   handleWinnerSelect (value) {
     if ( value === 1 ) {
       this.setState({
@@ -79,12 +87,12 @@ class ResultsModal extends React.Component {
             mutation={ UPDATE_MATCH }
             update={ this.props.hideResultsModal }
           >
-            { updateWinner => (
+            { updateMatch => (
               <Button
                 bsStyle="primary"
                 onClick={ () => {
-                  updateWinner({ variables: {
-                    id: this.props.matchClicked.id,
+                  updateMatch({ variables: {
+                    id: this.props.match.id,
                     input: {
                       completed: true,
                       winner: this.state.selectedWinner
