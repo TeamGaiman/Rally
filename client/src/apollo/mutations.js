@@ -35,10 +35,17 @@ mutation UpdateMatch($id: ID!, $input: MatchInput) {
 }
 `;
 
+const DELETE_MATCH = gql`
+mutation DeleteMatch($id: ID!) {
+  deleteMatch(id: $id)
+}
+`;
+
 module.exports = {
   CREATE_USER,
   UPDATE_USER,
   CREATE_MATCH,
   ACCEPT_MATCH,
-  UPDATE_MATCH
+  UPDATE_MATCH,
+  DELETE_MATCH
 };
