@@ -146,6 +146,12 @@ const resolvers = {
       }
     },
 
+    deleteMatch: async ( _, { id } ) => {
+      return await models.Match.destroy({
+        where: { id } 
+      });
+    },
+
     /*--- COURT MUTATIONS ---*/
     createCourt: async ( _, { input } ) => {
       try {

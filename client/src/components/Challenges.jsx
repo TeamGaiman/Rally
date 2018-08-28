@@ -1,7 +1,5 @@
 import React from 'react';
 import { Table, Button, ProgressBar } from 'react-bootstrap';
-import { Mutation } from 'react-apollo';
-import { UPDATE_MATCH } from '../apollo/mutations';
 import moment from 'moment';
 
 import ChallengeModal from './ChallengeModal.jsx';
@@ -15,8 +13,6 @@ class Challenges extends React.Component {
     };
 
     this.handleChallengeClick = this.handleChallengeClick.bind(this);
-    this.handleAccept = this.handleAccept.bind(this);
-    this.handleDecline = this.handleDecline.bind(this);
     this.hideChallengeModal = this.hideChallengeModal.bind(this);
   }
 
@@ -24,20 +20,6 @@ class Challenges extends React.Component {
     this.setState({
       challengeModalOpen: true,
       challengeClicked: challenge
-    });
-  }
-
-  handleAccept () {
-    //After user handles match with Accept view should update
-    this.setState({ 
-      challengeModalOpen: false 
-    });
-  }
-  
-  handleDecline () {
-    //After user handles challenge with decline remove it from db/state
-    this.setState({ 
-      challengeModalOpen: false 
     });
   }
 
@@ -51,6 +33,7 @@ class Challenges extends React.Component {
     return (
       <div className="matches-container">
         <h2>Challenges</h2>
+
         <Table striped bordered condensed hover>
           <thead>
             <tr>
@@ -91,32 +74,12 @@ class Challenges extends React.Component {
           </tbody>
         </Table>
 
-        { this.state.challengeModalOpen
-          ? (
-            <Mutation
-              mutation={ UPDATE_MATCH }
-              update={ this.handleAccept }
-              variables={{
-                id: this.state.challengeClicked.id,
-                input: {
-                  accepted: true
-                }
-              }}
-            >
-              { acceptMatch => (
-                <ChallengeModal
-                  challenge={ this.state.challengeClicked }
-                  challengeModalOpen={ this.state.challengeModalOpen }
-                  hideChallengeModal={ this.hideChallengeModal }
-                  challengeClicked={ this.state.challengeClicked }
-                  acceptMatch={ acceptMatch }
-                />
-              )}
-            </Mutation>
-          ) : (
-            null
-          )
-        }
+        <ChallengeModal
+          challenge={ this.state.challengeClicked }
+          challengeModalOpen={ this.state.challengeModalOpen }
+          hideChallengeModal={ this.hideChallengeModal }
+        />
+
       </div>
     );
   }
