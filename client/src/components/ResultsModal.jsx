@@ -4,21 +4,23 @@ import { Modal, Button, Form, FormControl, ControlLabel, ButtonToolbar, ToggleBu
 import { Mutation } from 'react-apollo';
 
 import { UPDATE_MATCH } from '../apollo/mutations';
-class ResultsModal extends React.Component {
+
+class ResultsModal extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedWinner: ''
+      selectedWinner: null,
+      submitButtonText: ['Confirm Winner', 'Submit Match Results']
     };
 
     this.handleWinnerSelect = this.handleWinnerSelect.bind(this);
   }
 
   componentDidMount () {
-    if ( this.props.winner ) {
+    if ( this.props.match.winner ) {
       this.setState({
-        selectedWinner: this.props.winner
+        selectedWinner: this.props.match.winner
       });
     }
   }
@@ -35,12 +37,17 @@ class ResultsModal extends React.Component {
     }
   }
 
-
   render () {
+    console.log(this.props.currentUserEmail);
+
     return (
       <Modal
         show={ this.props.resultsModalOpen }
-        onHide={ this.props.hideResultsModal }
+        onExit={ () => {
+          this.setState({
+            selectedWinner: null
+          });
+        }}
         className="results-modal"
       >
 
@@ -49,7 +56,7 @@ class ResultsModal extends React.Component {
             { `Your match vs ${ this.props.match.opponent }` }
           </Modal.Title>
         </Modal.Header>
-        
+
         <Modal.Body>
           <Form horizontal className="form-width">
 
@@ -64,16 +71,30 @@ class ResultsModal extends React.Component {
             </FormControl.Static>
 
             <ControlLabel>Winner</ControlLabel>
-            <ButtonToolbar>
-              <ToggleButtonGroup 
-                type="radio" 
-                name="winner" 
-                onChange={ this.handleWinnerSelect } 
-              >
-                <ToggleButton value={ 1 }>{ this.props.match.challenger }</ToggleButton>
-                <ToggleButton value={ 2 }>{ this.props.match.opponent }</ToggleButton>
-              </ToggleButtonGroup>
-            </ButtonToolbar>
+            {
+              ( this.state.selectedWinner === this.props.currentUserEmail )
+                ?
+                <p>Please wait for your opponenent to confirm the results.</p>
+                :
+                ( this.state.selectedWinner )
+                  ?
+                  <p>{ this.state.selectedWinner } has been selected as the winner of this match.</p>
+                  :
+                  <ButtonToolbar>
+                    <ToggleButtonGroup 
+                      type="radio" 
+                      name="winner" 
+                      onChange={ this.handleWinnerSelect } 
+                    >
+                      <ToggleButton value={ 1 }>
+                        { this.props.match.challenger }
+                      </ToggleButton>
+                      <ToggleButton value={ 2 }>
+                        { this.props.match.opponent }
+                      </ToggleButton>
+                    </ToggleButtonGroup>
+                  </ButtonToolbar>
+            }
           </Form>
         </Modal.Body>
 
@@ -82,28 +103,60 @@ class ResultsModal extends React.Component {
             onClick={ this.props.hideResultsModal }>
             Cancel
           </Button>
-          <Mutation
-            mutation={ UPDATE_MATCH }
-            update={ this.props.hideResultsModal }
-          >
-            { updateMatch => (
+          {
+            ( this.state.selectedWinner === this.props.currentUserEmail )
+              ?
               <Button
                 bsStyle="primary"
-                onClick={ () => {
-                  updateMatch({ variables: {
-                    id: this.props.match.id,
-                    input: {
-                      completed: true,
-                      winner: this.state.selectedWinner
-                    }
-                  }}); 
-                }}>
-                Submit Results
+                disabled
+              >
+                Please wait for your opponent's confirmation.
               </Button>
-            )}
-          </Mutation>
+              :
+              ( this.state.selectedWinner && this.state.selectedWinner )
+                ?
+                <Mutation
+                  mutation={ UPDATE_MATCH }
+                  update={ this.props.hideResultsModal }
+                >
+                  { updateMatch => (
+                    <Button
+                      bsStyle="primary"
+                      onClick={ () => {
+                        updateMatch({ variables: {
+                          id: this.props.match.id,
+                          input: {
+                            completed: true,
+                          }
+                        }}); 
+                      }}
+                    >
+                      { this.state.submitButtonText[0] }
+                    </Button>
+                  )}
+                </Mutation>
+                :
+                <Mutation
+                  mutation={ UPDATE_MATCH }
+                  update={ this.props.hideResultsModal }
+                >
+                  { updateMatch => (
+                    <Button
+                      bsStyle="primary"
+                      onClick={ () => {
+                        updateMatch({ variables: {
+                          id: this.props.match.id,
+                          input: {
+                            winner: this.state.selectedWinner
+                          }
+                        }});
+                      }}>
+                      { this.state.submitButtonText[1] }
+                    </Button>
+                  )}
+                </Mutation>
+          }
         </Modal.Footer>
-
       </Modal>    
     );
   }
