@@ -2,6 +2,7 @@ import React from 'react';
 import { Table, Button, ProgressBar } from 'react-bootstrap';
 import { Mutation } from 'react-apollo';
 import { UPDATE_MATCH } from '../apollo/mutations';
+import moment from 'moment';
 
 import ChallengeModal from './ChallengeModal.jsx';
 
@@ -60,14 +61,14 @@ class Challenges extends React.Component {
             </tr>
           </thead>
           <tbody>
-            { this.props.playerData.challengesReceived.slice( 0, 5 ).map(( challenge ) => {
+            { this.props.challengeData.challengesReceived.map(( challenge ) => {
               return (
                 <tr
                   className="match-row"
                   key={ challenge.id }
                 >
                   <td>{ challenge.challenger }</td>
-                  <td>{ challenge.startTime.split(' GMT')[0] }</td>
+                  <td>{ moment( new Date( challenge.startTime )).calendar() }</td>
                   <td>{ challenge.location }</td>
                   <td>
                     <ProgressBar

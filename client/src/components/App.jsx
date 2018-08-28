@@ -102,7 +102,8 @@ class App extends React.Component {
                 <Query
                   query={ CHECK_EMAIL_IS_UNIQUE }
                   variables={{ email: this.state.googleUserData.email }}
-                  fetchPolicy='no-cache'>
+                  fetchPolicy='no-cache'
+                >
                   {({ loading, error, data }) => {
                     if ( loading ) { return <p>Loading...</p>; }
                     if ( error ) { return <p>Error! ${ error }</p>; }
@@ -125,13 +126,15 @@ class App extends React.Component {
           <Route path='/matchmaking' render={ () => (
             <Query
               query={ GET_USER_BY_EMAIL }
-              variables={{ email: this.state.googleUserData.email }}>
+              variables={{ email: this.state.googleUserData.email }}
+              pollInterval={ 500 }
+            >
               {({ loading, error, data }) => {
                 if ( loading ) { return <p>Loading...</p>; }
                 if ( error ) { return <p>Error! ${ error }</p>; }
                 let time = new Date;
                 return <MatchmakingView
-                  playerData = { this.state.playerData }
+                  playerData = { data.getUserByEmail }
                   dbPlayerData={ data.getUserByEmail } 
                   mapGoogleDataToProfile={ this.mapGoogleDataToProfile }
                   mapDBPlayerDataToState={ this.mapDBPlayerDataToState }
