@@ -71,7 +71,9 @@ const CreateChallengeModal = (props) => {
         </Button>
         <Button
           bsStyle="primary"
-          onClick={ props.createMatch }>
+          onClick={ props.createMatch }
+          disabled={ !(props.startTime && props.location) }
+        >
           Send Challenge
         </Button>
       </Modal.Footer>

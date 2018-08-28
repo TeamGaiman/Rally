@@ -20,7 +20,6 @@ const CREATE_MATCH = gql`
   }
 `;
 
-//No Longer needed with new schema - use UPDAT_MATCH directly
 const ACCEPT_MATCH = gql`
   mutation UpdateMatch($id: ID!, $accepted: Boolean) {
     updateMatch(id: $id, input: { accepted: $accepted }){
@@ -35,10 +34,17 @@ mutation UpdateMatch($id: ID!, $input: MatchUpdateInput) {
 }
 `;
 
+const DELETE_MATCH = gql`
+mutation DeleteMatch($id: ID!) {
+  deleteMatch(id: $id)
+}
+`;
+
 module.exports = {
   CREATE_USER,
   UPDATE_USER,
   CREATE_MATCH,
   ACCEPT_MATCH,
-  UPDATE_MATCH
+  UPDATE_MATCH,
+  DELETE_MATCH
 };

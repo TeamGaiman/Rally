@@ -48,11 +48,11 @@ class ScheduledMatches extends React.Component {
               <th>Winner</th>
             </tr>
           </thead>
-  
+
           <tbody>
             { combinedMatches.map(( match, index ) => {
               return (
-                <tr className="match-row" key={ match.id }>
+                <tr className="match-row" key={ index }>
                   <td>{ match.opponent }</td>
                   <td>{ moment( new Date( match.startTime )).calendar() }</td>
                   <td>{ match.location }</td>

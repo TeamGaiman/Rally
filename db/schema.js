@@ -109,6 +109,8 @@ const typeDefs =
 
     createMatch( input: MatchInput ) : Boolean!
     updateMatch( id: ID!, input: MatchUpdateInput ) : Boolean!
+    deleteMatch( id: ID!) : Boolean!
+   
 
     createCourt( input: CourtInput ) : Boolean!
     updateCourt( location: String, input: CourtInput ) : Boolean!

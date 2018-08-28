@@ -15,7 +15,7 @@ class RecommendedOpponents extends React.Component {
       matchedUsers: [],
       showMatch: false,
       matchClickUser: null,
-      startTime: '',
+      startTime: null,
       location: null,
     };
 
