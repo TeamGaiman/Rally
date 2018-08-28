@@ -124,7 +124,22 @@ const CHECK_EMAIL_IS_UNIQUE = gql`
   query CheckEmailIsUnique($email: String!) {
     checkEmailIsUnique(email: $email)
   }
-`; 
+`;
+
+const GET_USER_PROFILE_DATA = gql`
+  query GetUserByEmail($email: String!) {
+    getUserByEmail(email: $email) {
+      email
+      name
+      fullName
+      phoneNumber
+      wins
+      losses
+      elo
+      tier
+    }
+  }
+`;
 
 
 
@@ -136,4 +151,5 @@ module.exports = {
   GET_CHALLENGES_BY_USER,
   GET_SCHEDULED_BY_USER,
   CHECK_EMAIL_IS_UNIQUE,
+  GET_USER_PROFILE_DATA
 };
