@@ -52,6 +52,7 @@
   position: relative;
   right: 23px;
   bottom: 22px;
+  border:2px solid white;
 }
 
 .calendar {

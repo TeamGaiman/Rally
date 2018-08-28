@@ -53,19 +53,18 @@ class ResultsModal extends React.Component {
         <Modal.Body>
           <Form horizontal className="form-width">
 
-            {/* <ControlLabel>Time</ControlLabel> */}
+            <ControlLabel>Time</ControlLabel>
             <FormControl.Static>
-              <b>Time:</b> { moment( new Date( this.props.match.startTime )).calendar() }
+              { moment( new Date( this.props.match.startTime )).calendar() }
             </FormControl.Static>
 
-            {/* <ControlLabel>Court Location</ControlLabel> */}
+            <ControlLabel>Court Location</ControlLabel>
             <FormControl.Static>
-              Court: { this.props.match.location }
+              { this.props.match.location }
             </FormControl.Static>
 
-            {/* <ControlLabel>Winner</ControlLabel> */}
-            <ButtonToolbar>
-              Winner: 
+            <ControlLabel>Winner</ControlLabel>
+            <ButtonToolbar> 
               <ToggleButtonGroup 
                 type="radio" 
                 name="winner" 
@@ -75,6 +74,18 @@ class ResultsModal extends React.Component {
                 <ToggleButton value={ 2 }>{ this.props.match.opponent }</ToggleButton>
               </ToggleButtonGroup>
             </ButtonToolbar>
+
+            <ControlLabel>Reviews</ControlLabel>
+            <ButtonToolbar> 
+              <ToggleButtonGroup
+                type="checkbox"
+                value={ this.state.value }
+                onChange={ this.handleChange }>
+                <ToggleButton value={ 1 }>Good Sport</ToggleButton>
+                <ToggleButton value={ 2 }>Rally</ToggleButton>
+                <ToggleButton value={ 3 }>Great Server</ToggleButton>
+              </ToggleButtonGroup>
+            </ButtonToolbar> 
           </Form>
         </Modal.Body>
 
