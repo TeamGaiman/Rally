@@ -29,17 +29,20 @@ const CreateChallengeModal = (props) => {
           <FormControl.Static>
             { props.matchClickUser.email }
           </FormControl.Static>
-          <ControlLabel>Select Time</ControlLabel>
+          <ControlLabel>Select Date and Time</ControlLabel>
           <Datetime
             isValidDate={ valid }
-            className="form-width"
-            closeOnSelect={ true }
+            // className="form-width"
+            closeOnSelect={ false }
             inputProps={{
               placeholder: 'Select Date',
               readOnly: true
             }}
+            input= { false }
+            viewMode = { 'time' }
             onChange={ props.handleDateChange }
-            value={ props.startTime }/>
+            value={ props.startTime }
+          />
           <br/>
           <FormGroup controlId="formHorizontalEmail">
             <Col sm={12}>
