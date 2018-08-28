@@ -8,7 +8,7 @@ import Signup from './Signup.jsx';
 import ProfileView from './ProfileView.jsx';
 import MatchmakingView from './MatchmakingView.jsx';
 import MatchesView from './MatchesView.jsx';
-import { CHECK_EMAIL_IS_UNIQUE, GET_USER_BY_EMAIL } from '../apollo/queries.js';
+import { CHECK_EMAIL_IS_UNIQUE, GET_USER_BY_EMAIL, GET_USER_PROFILE_DATA } from '../apollo/queries.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -149,10 +149,20 @@ class App extends React.Component {
             />
           }/>;
           <Route path='/profile' render={ () =>
-            <ProfileView 
-              googleUserData={ this.state.googleUserData }
-              playerData={ this.state.playerData }
-            /> 
+            <Query
+              query={ GET_USER_PROFILE_DATA }
+              variables={{ email: this.state.googleUserData.email }}
+              pollInterval={ 500 }
+            >
+              {({ loading, error, data }) => {
+                if ( loading ) { return <p>Loading...</p>; }
+                if ( error ) { return <p>Error! ${ error }</p>; }
+                return <ProfileView 
+                  googleUserData={ this.state.googleUserData }
+                  playerData={ data.getUserByEmail }
+                />;
+              }}
+            </Query>
           }/>
         </Switch>
       </ApolloProvider>
