@@ -10,9 +10,6 @@ class ResultsModal extends React.Component {
     this.state = {
       selectedWinner: '',
       opponentReview: [],
-      goodSport: false,
-      rally: false,
-      greatServer: false,
     };
 
     this.handleWinnerSelect = this.handleWinnerSelect.bind(this);
@@ -43,25 +40,7 @@ class ResultsModal extends React.Component {
     this.setState({
       opponentReview: e
     });
-    console.log('e review', e);
-    // if ( value.includes(1) ) {
-    //   this.setState({
-    //     goodSport: !this.state.goodSport
-    //   });
-    // } 
-    // if ( value.includes(2) ) {
-    //   this.setState({
-    //     rally: !this.state.rally
-    //   });
-    // }
-    // if ( value.includes(3) ) {
-    //   this.setState({
-    //     greatServer: !this.state.greatServer
-    //   });
-    // }
   }
-
-  
 
   render () {
     return (
@@ -105,7 +84,6 @@ class ResultsModal extends React.Component {
             <ControlLabel>Review Opponent</ControlLabel>
             <ToggleButtonGroup
               type='checkbox'
-              // value={ this.state.value }
               onChange={ this.handleOpponentReview }>
               <ToggleButton value={ 1 }>Good Sport</ToggleButton>
               <ToggleButton value={ 2 }>Rally</ToggleButton>
