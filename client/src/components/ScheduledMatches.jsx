@@ -81,7 +81,6 @@ class ScheduledMatches extends React.Component {
           match={ this.state.matchClicked }
           resultsModalOpen={ this.state.resultsModalOpen }
           hideResultsModal={ this.hideResultsModal }
-          matchClicked={ this.state.matchClicked }
           handleSubmission = { this.handleSubmission }
         />
     

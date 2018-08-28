@@ -30,7 +30,7 @@ const ACCEPT_MATCH = gql`
 `;
 
 const UPDATE_MATCH = gql`
-mutation UpdateMatch($id: ID!, $input: MatchInput) {
+mutation UpdateMatch($id: ID!, $input: MatchUpdateInput) {
   updateMatch(id: $id, input: $input)
 }
 `;
