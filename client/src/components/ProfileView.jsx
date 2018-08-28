@@ -33,7 +33,7 @@ class ProfileView extends React.Component {
     } else {
       view = <Stats playerData={ this.props.playerData }/>;
     }
-
+    console.log('userdata', this.props.playerData);
     return (
       <div>
         <Jumbotron className="profile-jumbotron">
@@ -44,9 +44,10 @@ class ProfileView extends React.Component {
             />
             
             <div className="user-info">
-              <h3>{ this.props.googleUserData.displayName }</h3>
+              <h2>{ this.props.googleUserData.displayName }</h2>
               <b>W:</b> { this.props.playerData.wins } {' '}
               <b>L:</b> { this.props.playerData.losses }
+              <br/>
               <br/>
               <b>Tier:</b> { this.props.playerData.tier }
               <br/>
