@@ -1,5 +1,5 @@
 import React from 'react';
-import { Jumbotron, Button, Image, Badge, Popover, Overlay } from 'react-bootstrap';
+import { Jumbotron, Button, Image, Badge, Popover, OverlayTrigger } from 'react-bootstrap';
 
 import EditUserInfo from './EditUserInfo.jsx';
 import Stats from './Stats.jsx';
@@ -15,22 +15,15 @@ class ProfileView extends React.Component {
       upcoming: [],
       history: [],
       editUserInfo: false,
-      showTrophyPopover: false
+      showTrophyPopover: false,
+      clickedTrophy: null
     };
 
     this.handleEditUserInfo = this.handleEditUserInfo.bind(this);
-    this.handleTrophyClick = this.handleTrophyClick.bind(this);
   }
 
   handleEditUserInfo () {
     this.setState({ editUserInfo: !this.state.editUserInfo });
-  }
-
-  handleTrophyClick ( ) {
-    this.setState({ 
-      // target: e.target, 
-      showTrophyPopover: !this.state.showTrophyPopover
-    });
   }
 
   render () {
@@ -43,6 +36,30 @@ class ProfileView extends React.Component {
       view = <Stats playerData={ this.props.playerData }/>;
     }
     
+    const goodSport = (
+      <Popover id='popover-contained' title='Good Sport Trophy'>
+        <strong>You're a joy to play with!</strong>
+      </Popover>
+    );
+    
+    const rally = (
+      <Popover id='popover-contained' title='Rally Trophy'>
+        <strong>You're great to rally with!</strong>
+      </Popover>
+    );
+    
+    const traveller = (
+      <Popover id='popover-contained' title='Traveller Trophy'>
+        <strong>You love playing at new courts!</strong>
+      </Popover>
+    );
+    
+    const greatServer = (
+      <Popover id='popover-contained' title='Great Server Trophy'>
+        <strong>Ace! You love serving people!</strong>
+      </Popover>
+    );
+
     return (
       <div>
         <Jumbotron className="profile-jumbotron">
@@ -62,34 +79,25 @@ class ProfileView extends React.Component {
               <br/>
               <b style={{ paddingRight: '15px' }}>Trophies:</b> 
 
-              <img 
-                src={ Trophy1 } 
-                className="trophies" 
-                onClick={ this.handleTrophyClick }/>
-              <Overlay
-                trigger={ ['hover', 'focus', 'click'] }
-                show={ this.state.showTrophyPopover } 
-                // target={ this.state.target }
-                placement="bottom"
-                container={ this }
-                containerPadding={ 20 }
-              >
-                <Popover id="popover-contained" title="Popover bottom">
-                  <strong>Holy guacamole!</strong> Check this info.
-                </Popover>
-              </Overlay>
+              <OverlayTrigger trigger="click" placement="bottom" overlay={ goodSport }>                
+                <img src={ Trophy1 } className="trophies"/>
+              </OverlayTrigger>
+              <Badge className="trophy-badge">3</Badge>
 
-              <Badge className="trophy-badge">42</Badge>
+              <OverlayTrigger trigger="click" placement="bottom" overlay={ rally }>                
+                <img src={ Trophy2 } className="trophies"/>
+              </OverlayTrigger>
+              <Badge className="trophy-badge">5</Badge>
+ 
+              <OverlayTrigger trigger="click" placement="bottom" overlay={ traveller }>                
+                <img src={ Trophy3 } className="trophies"/>
+              </OverlayTrigger>
+              <Badge className="trophy-badge">2</Badge>
 
-              <img src={ Trophy2 } className="trophies"/>
-              <Badge className="trophy-badge">42</Badge>
-
-              <img src={ Trophy3 } className="trophies"/>
-              <Badge className="trophy-badge">42</Badge>
-
-              <img src={ Trophy4 } className="trophies"/>
-              <Badge className="trophy-badge">42</Badge>
-              <br/>
+              <OverlayTrigger trigger="click" placement="bottom" overlay={ greatServer }>                
+                <img src={ Trophy4 } className="trophies"/>
+              </OverlayTrigger>
+              <Badge className="trophy-badge">1</Badge>
             </div>
           </div>
 
