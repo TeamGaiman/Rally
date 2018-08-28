@@ -1,7 +1,9 @@
 import React from 'react';
-
 import { Modal, Button, Form, FormGroup, FormControl, Col, ControlLabel } from 'react-bootstrap';
 import Datetime from 'react-datetime';
+import { Query } from 'react-apollo';
+import { GET_ALL_COURTS } from '../apollo/queries.js';
+
 import Map from './Map.jsx';
 
 const CreateChallengeModal = (props) => {
@@ -49,8 +51,18 @@ const CreateChallengeModal = (props) => {
           </FormGroup>
         </Form>
 
-        <Map { ...props }/>
-
+        <Query query={ GET_ALL_COURTS }>
+          {({ loading, error, data }) => {
+            if ( loading ) { return <p>Loading courts...</p>; }
+            if ( error ) { return <p>Error loading courts...</p>; }
+            return (
+              <Map 
+                { ...props} 
+                courts={ data.getAllCourts }
+              />
+            );
+          }}
+        </Query>
       </Modal.Body>
 
       <Modal.Footer>

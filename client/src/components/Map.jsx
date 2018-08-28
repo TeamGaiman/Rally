@@ -40,13 +40,13 @@ const Map = compose(
       defaultCenter={{ lat: 40.72, lng: -73.9 }}
     >
       { props.courts.map(( court, index ) => {
-        court.index = index;
-        let latitude = Number(court.lat);
-        let longitude = Number(court.lon);
+        court = Object.assign({}, court, { index });
+        let latitude = Number(court.latitude);
+        let longitude = Number(court.longitude);
         return (
           <Marker
-            key={index + court.Prop_ID}
-            icon={racketIcon}
+            key={ court.id }
+            icon={ racketIcon }
             position={{ lat: latitude, lng: longitude }}
             onClick={() => props.showInfo(court.index)}
             animation={ google.maps.Animation.DROP }
@@ -54,16 +54,16 @@ const Map = compose(
             { props.isOpen && props.infoIndex === court.index && (
               <InfoWindow onCloseClick={ props.showInfo }>
                 <div>
-                  <h3>{ court.Name }</h3>
+                  <h3>{ court.name }</h3>
                   <p>
-                    { court.Location } <br />
-                    { court.Indoor_Outdoor + ' ' + court.Tennis_Type + ' Court' }
+                    { court.location } <br />
+                    { court.numberOfCourts + ' ' + court.courtType + ' Courts' }
                   </p>
                   <Button
                     bsStyle="primary"
                     bsSize="small"
                     onClick={() => {
-                      props.handleLocationChange( court.Name );
+                      props.handleLocationChange( court.name );
                       props.showInfo();
                     }}>
                     Choose Court

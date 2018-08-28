@@ -15,6 +15,22 @@ const GET_ALL_USERS = gql`
   }
 `;
 
+const GET_ALL_COURTS = gql`
+  {
+    getAllCourts{
+      id
+      location
+      name
+      phoneNumber
+      numberOfCourts
+      indoor
+      courtType
+      latitude
+      longitude
+    }
+  }
+`;
+
 const GET_USERS_BY_TIER = gql`
   query GetUsersByTier($tier: Int $email: String) {
     getUsersByTier(tier: $tier email: $email){
@@ -110,8 +126,11 @@ const CHECK_EMAIL_IS_UNIQUE = gql`
   }
 `; 
 
+
+
 module.exports = {
   GET_ALL_USERS,
+  GET_ALL_COURTS,
   GET_USERS_BY_TIER,
   GET_USER_BY_EMAIL,
   GET_CHALLENGES_BY_USER,

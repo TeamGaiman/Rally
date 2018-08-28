@@ -92,6 +92,8 @@ const typeDefs =
 
     getChallengesByUser( email: String ): [Match]
     getUpcomingMatchesByUser( email: String ): [Match]
+
+    getAllCourts: [Court]
   }
 
   type Mutation {
