@@ -14,7 +14,7 @@ class ProfileView extends React.Component {
       toggleTierInfoModal: false,
       toggleTierChangeModal: false,
       editUserInfo: false,
-      tierThresholds: [null, 3000, 4000, 5000]
+      tierThresholds: [null, 3000, 4000, 5000, 2000]
     };
 
     this.handleEditUserInfo = this.handleEditUserInfo.bind(this);
@@ -86,7 +86,7 @@ class ProfileView extends React.Component {
             now={ this.props.playerData.elo }
             max={ this.state.tierThresholds[this.props.playerData.tier]}
             active={ true }
-            label={ 'Win ranked matches to move on to the next skill tier.' }
+            label={ 'Rank progress...' }
           />
 
           <FormGroup controlId="skillTier">
