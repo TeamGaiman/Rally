@@ -62,10 +62,10 @@ const typeDefs =
   }
   
   input MatchInput {
-    location: String
-    challenger: String
-    opponent: String
-    startTime: String
+    location: String!
+    challenger: String!
+    opponent: String!
+    startTime: String!
     accepted: Boolean
     completed: Boolean
     winner: String
@@ -92,6 +92,8 @@ const typeDefs =
 
     getChallengesByUser( email: String ): [Match]
     getUpcomingMatchesByUser( email: String ): [Match]
+
+    getAllCourts: [Court]
   }
 
   type Mutation {

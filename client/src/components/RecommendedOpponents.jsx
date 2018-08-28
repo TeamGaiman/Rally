@@ -6,7 +6,6 @@ import { CREATE_MATCH } from '../apollo/mutations.js';
 import { GET_ALL_USERS } from '../apollo/queries.js';
 import CreateChallengeModal from './CreateChallengeModal.jsx';
 import { matchmakeByElo, calcProbabilityOfWin} from '../../dist/js/index';
-import courts from '../../dummyData/dummyCourts';
 import SearchUsers from './SearchUsers.jsx';
 
 class RecommendedOpponents extends React.Component {
@@ -18,7 +17,6 @@ class RecommendedOpponents extends React.Component {
       matchClickUser: null,
       startTime: '',
       location: null,
-      courts: []
     };
 
     this.handleMatchClick = this.handleMatchClick.bind(this);
@@ -33,8 +31,7 @@ class RecommendedOpponents extends React.Component {
     this.setState({
       matchedUsers: newMatches.slice(
         newMatches.length / 2, (newMatches.length / 2) + 5
-      ),
-      courts
+      )
     });
   }
 
@@ -77,7 +74,6 @@ class RecommendedOpponents extends React.Component {
   }
 
   render () {
-    console.log('userdata', this.state.matchedUsers);
     return (
       <div className="matches-container">
         <h2>Recommended Opponents</h2>
@@ -148,7 +144,6 @@ class RecommendedOpponents extends React.Component {
                 startTime={ this.state.startTime }
                 handleLocationChange={ this.handleLocationChange }
                 location={ this.state.location }
-                courts = { this.state.courts }
                 createMatch={ createMatch }
               />
             )}
