@@ -68,7 +68,7 @@ class RecommendedOpponents extends React.Component {
   }
 
   getWinProbability(elo1, elo2) {
-    return Math.floor( calcProbabilityOfWin( elo1, elo2 ) * 100 );
+    return Math.floor( calcProbabilityOfWin( elo1, elo2 ) * 100 ) || 1;
   }
 
   render () {

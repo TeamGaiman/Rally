@@ -12,7 +12,7 @@ const matchmakeByElo = ( eloToMatch, users ) => {
   //to get players within 25 elo points of yourself
   return sortedUserMatches.slice(0, 1).concat(
     sortedUserMatches.slice(sortedUserMatches.length - 1),
-    sortedUserMatches.filter( (person ) => {
+    sortedUserMatches.filter( ( person ) => {
       return person.elo > eloToMatch - 25 && person.elo < eloToMatch + 25;
     })
   );
