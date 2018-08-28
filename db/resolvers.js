@@ -54,7 +54,7 @@ const resolvers = {
 
     /*--- MATCH TYPE RESOLVERS ---*/
     court: async ({ location }) => {
-      return await models.Court.findOne({ where: { location }});
+      return await models.Court.findOne({ where: { name: location }});
     }
 
   },
