@@ -32,7 +32,7 @@ class Signup extends React.Component {
   render () {
     if ( this.props.googleUserData ) {
       return (    
-        <div className="signup-form">
+        <div className="signup-form center-text">
           <h3>Get Started</h3>
           <Form horizontal>
 

@@ -1,11 +1,15 @@
 import React from 'react';
-import { Jumbotron, Button, Image, ProgressBar, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Jumbotron, Button, Image, ProgressBar, FormGroup, FormControl, ControlLabel, Badge, Popover, OverlayTrigger } from 'react-bootstrap';
 
 import EditUserInfo from './EditUserInfo.jsx';
 import TierInfoModal from './TierInfoModal.jsx';
 import ChangeTierModal from './ChangeTierModal.jsx';
 import { Mutation } from 'react-apollo';
 import { UPDATE_USER } from '../apollo/mutations.js';
+import Trophy1 from '../../dist/lib/trophy1.png';
+import Trophy2 from '../../dist/lib/trophy2.png';
+import Trophy3 from '../../dist/lib/trophy3.png';
+import Trophy4 from '../../dist/lib/trophy4.png';
 
 class ProfileView extends React.Component {
   constructor(props) {
@@ -39,6 +43,30 @@ class ProfileView extends React.Component {
   }
 
   render () {
+    const goodSport = (
+      <Popover id='popover-contained' title='Good Sport Trophy'>
+        <strong>You're a joy to play with!</strong>
+      </Popover>
+    );
+    
+    const rally = (
+      <Popover id='popover-contained' title='Rally Trophy'>
+        <strong>You're great to rally with!</strong>
+      </Popover>
+    );
+    
+    const traveller = (
+      <Popover id='popover-contained' title='Traveller Trophy'>
+        <strong>You love playing at new courts!</strong>
+      </Popover>
+    );
+    
+    const greatServer = (
+      <Popover id='popover-contained' title='Great Server Trophy'>
+        <strong>Ace! You love serving people!</strong>
+      </Popover>
+    );
+    
     return (
       <div>
         {/*--- PROFILE HEADER ---*/}
@@ -51,13 +79,33 @@ class ProfileView extends React.Component {
             
             <div className="user-info">
               <h3>{ this.props.playerData.fullName || this.props.googleUserData.displayName }</h3>
-              W: { this.props.playerData.wins } 
-              L: { this.props.playerData.losses }
               <br/>
-              Tier: { this.props.playerData.tier }
+              <b>W: { this.props.playerData.wins }</b>{' '}
+              <b>L: { this.props.playerData.losses }</b>
               <br/>
-              Trophies:
-              <br/>
+              {/* <b>Tier: { this.props.playerData.tier }</b> */}
+              {/* <br/> */}
+              <b style={{ paddingRight: '15px' }}>Trophies:</b> 
+
+              <OverlayTrigger trigger="click" placement="bottom" overlay={ goodSport }>                
+                <img src={ Trophy1 } className="trophies"/>
+              </OverlayTrigger>
+              <Badge className="trophy-badge">13</Badge>
+
+              <OverlayTrigger trigger="click" placement="bottom" overlay={ rally }>                
+                <img src={ Trophy2 } className="trophies"/>
+              </OverlayTrigger>
+              <Badge className="trophy-badge">5</Badge>
+ 
+              <OverlayTrigger trigger="click" placement="bottom" overlay={ traveller }>                
+                <img src={ Trophy3 } className="trophies"/>
+              </OverlayTrigger>
+              <Badge className="trophy-badge">2</Badge>
+
+              <OverlayTrigger trigger="click" placement="bottom" overlay={ greatServer }>                
+                <img src={ Trophy4 } className="trophies"/>
+              </OverlayTrigger>
+              <Badge className="trophy-badge">0</Badge>
             </div>
           </div>
 
@@ -70,33 +118,34 @@ class ProfileView extends React.Component {
               Edit Profile
             </Button>
           </div>
-
-          {/*--- PROFILE BODY ---*/}
-          <FormGroup controlId="skillTier">
-            <h3>You are currently in Skill Tier {this.props.playerData.tier}</h3>
-            <Button 
-              onClick={ this.toggleTierInfoModal }>
-              Get info on Rally's skill tiers.
-            </Button> 
-          </FormGroup>
-
-          <ProgressBar
-            className="tierProg"
-            min={ 1000 }
-            now={ this.props.playerData.elo }
-            max={ this.state.tierThresholds[this.props.playerData.tier]}
-            active={ true }
-            label={ 'Rank progress...' }
-          />
-
-          <FormGroup controlId="skillTier">
-            <Button 
-              onClick={ this.toggleTierChangeModal }>
-              Ready to rank up? Need a break and want to revert to a lower tier?
-            </Button> 
-          </FormGroup>
-
         </Jumbotron>
+
+        {/*--- PROFILE BODY ---*/}
+        <FormGroup controlId="skillTier">
+          <h3>You are currently in Skill Tier { this.props.playerData.tier }</h3>
+          <Button 
+            onClick={ this.toggleTierInfoModal }>
+            Get info on Rally's skill tiers.
+          </Button> 
+        </FormGroup>
+
+        <ProgressBar
+          className="tierProg"
+          min={ 1000 }
+          now={ this.props.playerData.elo }
+          max={ this.state.tierThresholds[this.props.playerData.tier]}
+          active={ true }
+          label={ 'Rank progress...' }
+        />
+
+        <FormGroup controlId="skillTier">
+          <Button 
+            onClick={ this.toggleTierChangeModal }>
+            Ready to rank up? Need a break and want to revert to a lower tier?
+          </Button> 
+        </FormGroup>
+
+        
 
         <TierInfoModal
           tierModal={ this.state.tierInfoModal }
