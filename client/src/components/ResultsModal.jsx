@@ -4,7 +4,7 @@ import { Modal, Button, Form, FormControl, ControlLabel, ButtonToolbar, ToggleBu
 import { Mutation } from 'react-apollo';
 
 import { UPDATE_MATCH } from '../apollo/mutations';
-class ResultsModal extends React.Component {
+class ResultsModal extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -16,7 +16,7 @@ class ResultsModal extends React.Component {
     this.handleWinnerSelect = this.handleWinnerSelect.bind(this);
   }
 
-  componentDidMount () {
+  componentDidUpdate () {
     if ( this.props.match.winner ) {
       if ( this.props.winner === this.props.match.opponent ) {
         var loser = this.props.match.challenger;
@@ -44,6 +44,7 @@ class ResultsModal extends React.Component {
 
 
   render () {
+    console.log(this.props.currentUser, this.props.match.winner, this.state.selectedWinner, this.state.loser);
     return (
       <Modal
         show={ this.props.resultsModalOpen }
@@ -57,8 +58,8 @@ class ResultsModal extends React.Component {
         </Modal.Header>
         
         <Modal.Body>
-          <Form horizontal className="form-width">
 
+          <Form horizontal className="form-width">
             <ControlLabel>Time</ControlLabel>
             <FormControl.Static>
               { moment( new Date( this.props.match.startTime )).calendar() }
@@ -79,38 +80,43 @@ class ResultsModal extends React.Component {
                     </Button>
                     <br/> <br/>
                     <small>
-                      If you did not win this match, wait for your opponent to claim a win then confirm the loss.
+                      If you did not win this match, wait for your opponent to claim victory.
                     </small>
-                  </div>
-                  : null
+                  </div> : null
               } {
                 ( this.state.selectedWinner === '!' )
-
-              } { 
+                  ?
+                  <div>
+                    <Button>
+                      My opponent won this match.
+                    </Button>
+                    <Button>
+                      I won this match.
+                    </Button>
+                  </div> : null
+              } {
                 ( this.props.currentUser === this.state.selectedWinner )
                   ?
                   <div>
                     <Button disabled>
                       Please wait for your opponent to confirm these results.
                     </Button>
-                  </div>
-                  : null
+                  </div> : null
               } {
                 ( this.props.currentUser === this.state.loser )
                   ?
                   <div>
                     <Button>
-                      Confirm that {this.props.winner} won this match.
+                      Confirm that {this.state.selectedWinner} won this match.
                     </Button>
                     <Button>
                       Contest this result.
                     </Button>
-                  </div>
-                  : null
+                  </div> : null
               }
             </ButtonToolbar>
-
           </Form>
+
         </Modal.Body>
 
         <Modal.Footer>
