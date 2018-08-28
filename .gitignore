@@ -1,8 +1,7 @@
 client/.DS_Store
 **/.DS_Store
 node_modules/
-config.js
 client/dist/lib/hashedImages
 client/dist/bundle.js
 package-lock.json
-config/config.js
+config/
