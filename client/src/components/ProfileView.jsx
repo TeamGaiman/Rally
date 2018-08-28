@@ -100,12 +100,12 @@ class ProfileView extends React.Component {
               <OverlayTrigger trigger="click" placement="bottom" overlay={ traveller }>                
                 <img src={ Trophy3 } className="trophies"/>
               </OverlayTrigger>
-              <Badge className="trophy-badge">22</Badge>
+              <Badge className="trophy-badge">2</Badge>
 
               <OverlayTrigger trigger="click" placement="bottom" overlay={ greatServer }>                
                 <img src={ Trophy4 } className="trophies"/>
               </OverlayTrigger>
-              <Badge className="trophy-badge">41</Badge>
+              <Badge className="trophy-badge">0</Badge>
             </div>
           </div>
 
