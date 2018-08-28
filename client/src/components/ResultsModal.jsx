@@ -7,12 +7,16 @@ import { UPDATE_MATCH } from '../apollo/mutations';
 class ResultsModal extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      selectedWinner: ''
+      selectedWinner: '',
+      opponentReview: [],
+      goodSport: false,
+      rally: false,
+      greatServer: false,
     };
 
     this.handleWinnerSelect = this.handleWinnerSelect.bind(this);
+    this.handleOpponentReview = this.handleOpponentReview.bind(this);
   }
 
   componentDidMount () {
@@ -23,7 +27,7 @@ class ResultsModal extends React.Component {
     }
   }
 
-  handleWinnerSelect (value) {
+  handleWinnerSelect ( value ) {
     if ( value === 1 ) {
       this.setState({
         selectedWinner: this.props.match.challenger
@@ -35,6 +39,29 @@ class ResultsModal extends React.Component {
     }
   }
 
+  handleOpponentReview ( e ) {
+    this.setState({
+      opponentReview: e
+    });
+    console.log('e review', e);
+    // if ( value.includes(1) ) {
+    //   this.setState({
+    //     goodSport: !this.state.goodSport
+    //   });
+    // } 
+    // if ( value.includes(2) ) {
+    //   this.setState({
+    //     rally: !this.state.rally
+    //   });
+    // }
+    // if ( value.includes(3) ) {
+    //   this.setState({
+    //     greatServer: !this.state.greatServer
+    //   });
+    // }
+  }
+
+  
 
   render () {
     return (
@@ -75,17 +102,16 @@ class ResultsModal extends React.Component {
               </ToggleButtonGroup>
             </ButtonToolbar>
 
-            <ControlLabel>Reviews</ControlLabel>
-            <ButtonToolbar> 
-              <ToggleButtonGroup
-                type="checkbox"
-                value={ this.state.value }
-                onChange={ this.handleChange }>
-                <ToggleButton value={ 1 }>Good Sport</ToggleButton>
-                <ToggleButton value={ 2 }>Rally</ToggleButton>
-                <ToggleButton value={ 3 }>Great Server</ToggleButton>
-              </ToggleButtonGroup>
-            </ButtonToolbar> 
+            <ControlLabel>Review Opponent</ControlLabel>
+            <ToggleButtonGroup
+              type='checkbox'
+              // value={ this.state.value }
+              onChange={ this.handleOpponentReview }>
+              <ToggleButton value={ 1 }>Good Sport</ToggleButton>
+              <ToggleButton value={ 2 }>Rally</ToggleButton>
+              <ToggleButton value={ 3 }>Great Server</ToggleButton>
+            </ToggleButtonGroup>
+
           </Form>
         </Modal.Body>
 

@@ -45,25 +45,25 @@ class ProfileView extends React.Component {
   render () {
     const goodSport = (
       <Popover id='popover-contained' title='Good Sport Trophy'>
-        <strong>You're a joy to play with!</strong>
+        {/* <strong>You're a joy to play with!</strong> */}
       </Popover>
     );
     
     const rally = (
       <Popover id='popover-contained' title='Rally Trophy'>
-        <strong>You're great to rally with!</strong>
+        {/* <strong>You're great to rally with!</strong> */}
       </Popover>
     );
     
     const traveller = (
       <Popover id='popover-contained' title='Traveller Trophy'>
-        <strong>You love playing at new courts!</strong>
+        {/* <strong>You love playing at new courts!</strong> */}
       </Popover>
     );
     
     const greatServer = (
       <Popover id='popover-contained' title='Great Server Trophy'>
-        <strong>Ace! You love serving people!</strong>
+        {/* <strong>Ace! You love serving people!</strong> */}
       </Popover>
     );
     
