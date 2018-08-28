@@ -33,19 +33,30 @@ const Map = compose(
   withScriptjs,
   withGoogleMap
 )((props) => {
+  let defaultCenter = { lat: 40.72, lng: -73.9 };
+  let singleCourt = false;
+
+  if (props.courts.length === 1 ) {
+    singleCourt = true;
+    defaultCenter = { 
+      lat: Number ( props.courts[0].latitude ), 
+      lng: Number ( props.courts[0].longitude ) 
+    };
+  }
+
   return (
     <GoogleMap
       defaultOptions={{ mapTypeControl: false }}
-      defaultZoom={11}
-      defaultCenter={{ lat: 40.72, lng: -73.9 }}
+      defaultZoom={ 11 }
+      defaultCenter={ defaultCenter }
     >
       { props.courts.map(( court, index ) => {
         court = Object.assign({}, court, { index });
-        let latitude = Number(court.latitude);
-        let longitude = Number(court.longitude);
+        let latitude = Number( court.latitude );
+        let longitude = Number( court.longitude );
         return (
           <Marker
-            key={ court.id }
+            key={ court.index }
             icon={ racketIcon }
             position={{ lat: latitude, lng: longitude }}
             onClick={() => props.showInfo(court.index)}
@@ -59,7 +70,7 @@ const Map = compose(
                     { court.location } <br />
                     { court.numberOfCourts + ' ' + court.courtType + ' Courts' }
                   </p>
-                  <Button
+                  { singleCourt && <Button
                     bsStyle="primary"
                     bsSize="small"
                     onClick={() => {
@@ -67,7 +78,7 @@ const Map = compose(
                       props.showInfo();
                     }}>
                     Choose Court
-                  </Button>
+                  </Button> }
                 </div>
               </InfoWindow>
             )}

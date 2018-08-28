@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, Button, Form, FormControl, ControlLabel } from 'react-bootstrap';
 import moment from 'moment';
 
+import Map from './Map.jsx';
 
 const ChallengeModal = (props) => {
   return (
@@ -28,6 +29,12 @@ const ChallengeModal = (props) => {
             { props.challenge.location }
           </FormControl.Static>
         </Form>
+
+        <Map 
+          courts={ [props.challenge.court] }
+        />
+
+
       </Modal.Body>
 
       <Modal.Footer>
