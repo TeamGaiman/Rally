@@ -2,7 +2,7 @@ import React from 'react';
 import { Query } from 'react-apollo';
 
 import RecommendedOpponents from './RecommendedOpponents.jsx';
-import { GET_USERS_BY_TIER, GET_ALL_USERS } from '../apollo/queries.js';
+import { GET_USERS_BY_TIER, GET_CHALLENGES_BY_USER } from '../apollo/queries.js';
 import Challenges from './Challenges.jsx';
 
 class Matchmaking extends React.Component {
@@ -23,7 +23,8 @@ class Matchmaking extends React.Component {
       return (
         <div>
           <Query query={ GET_USERS_BY_TIER }
-            variables={{ tier: 1, email: this.props.playerData.email }}>
+            variables={{ tier: 1, email: this.props.playerData.email }}
+          >
             {({ loading, error, data }) => {
               if ( loading ) {
                 return <p>Loading...</p>;
@@ -42,9 +43,26 @@ class Matchmaking extends React.Component {
             }}
           </Query>
 
-          <Challenges
-            playerData={ this.props.playerData }
-          />
+          <Query query={ GET_CHALLENGES_BY_USER }
+            variables={{ email: this.props.playerData.email }}
+          >
+            {({ loading, error, data }) => {
+              if ( loading ) {
+                return <p>Loading your Challenges...</p>;
+              } else if ( error ) {
+                return <p>Could not find any Challenges</p>;
+              }
+              return (
+                <div>
+                  <Challenges
+                    challengeData={ data.getUserByEmail }
+                  />
+                  />
+                </div>
+              );
+            }}
+          </Query>
+          
         </div>
       );
     }

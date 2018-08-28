@@ -8,7 +8,7 @@ BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
 const Calendar = (props) => {
 
   //Reformat the upcoming matches array for the calendar
-  let events = props.playerData.pendingMatches.map( ( match ) => {
+  let events = props.scheduledMatches.pendingMatches.map( ( match ) => {
     let endDate = new Date( match.startTime );
     endDate.setHours( endDate.getHours() + 3 );
     return {
