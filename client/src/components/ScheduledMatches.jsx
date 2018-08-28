@@ -48,7 +48,7 @@ class ScheduledMatches extends React.Component {
               <th>Winner</th>
             </tr>
           </thead>
-  
+
           <tbody>
             { combinedMatches.map(( match, index ) => {
               return (

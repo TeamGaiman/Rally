@@ -29,9 +29,7 @@ class RecommendedOpponents extends React.Component {
   componentDidMount () {
     let newMatches = matchmakeByElo( this.props.playerData.elo, this.props.users );
     this.setState({
-      matchedUsers: newMatches.slice(
-        newMatches.length / 2, (newMatches.length / 2) + 5
-      )
+      matchedUsers: newMatches
     });
   }
 
@@ -70,7 +68,7 @@ class RecommendedOpponents extends React.Component {
   }
 
   getWinProbability(elo1, elo2) {
-    return Math.floor( calcProbabilityOfWin( elo1, elo2 ) * 100 );
+    return Math.floor( calcProbabilityOfWin( elo1, elo2 ) * 100 ) || 1;
   }
 
   render () {
