@@ -9,16 +9,23 @@ class ResultsModal extends React.Component {
     super(props);
 
     this.state = {
-      selectedWinner: ''
+      selectedWinner: null,
+      loser: null
     };
 
     this.handleWinnerSelect = this.handleWinnerSelect.bind(this);
   }
 
   componentDidMount () {
-    if ( this.props.winner ) {
+    if ( this.props.match.winner ) {
+      if ( this.props.winner === this.props.match.opponent ) {
+        var loser = this.props.match.challenger;
+      } else if ( this.props.winner === this.props.challenger ) {
+        var loser = this.props.match.opponent;
+      }
       this.setState({
-        selectedWinner: this.props.winner
+        selectedWinner: this.props.match.winner,
+        loser
       });
     }
   }
@@ -40,7 +47,6 @@ class ResultsModal extends React.Component {
     return (
       <Modal
         show={ this.props.resultsModalOpen }
-        onHide={ this.props.hideResultsModal }
         className="results-modal"
       >
 
@@ -63,17 +69,47 @@ class ResultsModal extends React.Component {
               { this.props.match.location }
             </FormControl.Static>
 
-            <ControlLabel>Winner</ControlLabel>
             <ButtonToolbar>
-              <ToggleButtonGroup 
-                type="radio" 
-                name="winner" 
-                onChange={ this.handleWinnerSelect } 
-              >
-                <ToggleButton value={ 1 }>{ this.props.match.challenger }</ToggleButton>
-                <ToggleButton value={ 2 }>{ this.props.match.opponent }</ToggleButton>
-              </ToggleButtonGroup>
+              {
+                ( this.state.selectedWinner === null)
+                  ? 
+                  <div>
+                    <Button bsStyle="primary">
+                      I won this match.
+                    </Button>
+                    <br/> <br/>
+                    <small>
+                      If you did not win this match, wait for your opponent to claim a win then confirm the loss.
+                    </small>
+                  </div>
+                  : null
+              } {
+                ( this.state.selectedWinner === '!' )
+
+              } { 
+                ( this.props.currentUser === this.state.selectedWinner )
+                  ?
+                  <div>
+                    <Button disabled>
+                      Please wait for your opponent to confirm these results.
+                    </Button>
+                  </div>
+                  : null
+              } {
+                ( this.props.currentUser === this.state.loser )
+                  ?
+                  <div>
+                    <Button>
+                      Confirm that {this.props.winner} won this match.
+                    </Button>
+                    <Button>
+                      Contest this result.
+                    </Button>
+                  </div>
+                  : null
+              }
             </ButtonToolbar>
+
           </Form>
         </Modal.Body>
 

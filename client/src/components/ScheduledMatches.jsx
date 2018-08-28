@@ -9,8 +9,7 @@ class ScheduledMatches extends React.Component {
     super(props);
     this.state = {
       resultsModalOpen: false,
-      matchClicked: '',
-      selectedWinner: ''
+      matchClicked: {}, 
     };
 
     this.handleMatchClick = this.handleMatchClick.bind(this);
@@ -78,6 +77,7 @@ class ScheduledMatches extends React.Component {
         </Table>
 
         <ResultsModal
+          currentUser={ this.props.currentUser }
           match={ this.state.matchClicked }
           resultsModalOpen={ this.state.resultsModalOpen }
           hideResultsModal={ this.hideResultsModal }

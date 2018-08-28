@@ -70,6 +70,7 @@ class MatchesView extends React.Component {
                   />
                 ) : (
                   <ScheduledMatches
+                    currentUser={ this.props.playerData.email }
                     scheduledMatches={ data.getUserByEmail }
                   />
                 )

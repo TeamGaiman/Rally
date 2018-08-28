@@ -1,5 +1,6 @@
 import React from 'react';
 import Autosuggest from 'react-autosuggest';
+import { invalid } from 'moment';
 
 class SearchUsers extends React.Component {
   constructor() {
@@ -34,12 +35,13 @@ class SearchUsers extends React.Component {
   
     const regex = new RegExp( '^' + escapedValue, 'i' );
   
-    return this.props.allUsers.filter( user => (
-      !(user.email === this.props.loggedInUser)
-        && regex.test ( user.email )
-        || regex.test( user.name )
-        || regex.test( user.fullName )
-    ));
+    return this.props.allUsers.filter( user => {
+      let notMe = !(this.props.loggedInUser === user.email);
+      let inValidCharacters = regex.test ( user.email )
+          || regex.test( user.name )
+          || regex.test( user.fullName );
+      return (inValidCharacters && notMe);
+    });
   }
   
   getSuggestionValue ( suggestion ) {
@@ -79,7 +81,6 @@ class SearchUsers extends React.Component {
   }
 
   render () {
-
     const { value, suggestions } = this.state;
     const inputProps = {
       placeholder: 'Search for players...',
