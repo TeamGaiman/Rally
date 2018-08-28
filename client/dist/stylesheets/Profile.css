@@ -44,9 +44,11 @@
   width: 65px;
   position: relative;
   right: 5px;
+  display: inline-block;
+  cursor: pointer;
 }
 .trophy-badge {
-  background-color: #ff5c5c;
+  background-color: #ff0000;
   position: relative;
   right: 23px;
   bottom: 22px;

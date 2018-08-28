@@ -1,5 +1,5 @@
 import React from 'react';
-import { Jumbotron, Button, Image, Badge } from 'react-bootstrap';
+import { Jumbotron, Button, Image, Badge, Popover, Overlay } from 'react-bootstrap';
 
 import EditUserInfo from './EditUserInfo.jsx';
 import Stats from './Stats.jsx';
@@ -14,14 +14,23 @@ class ProfileView extends React.Component {
     this.state = {
       upcoming: [],
       history: [],
-      editUserInfo: false
+      editUserInfo: false,
+      showTrophyPopover: false
     };
 
     this.handleEditUserInfo = this.handleEditUserInfo.bind(this);
+    this.handleTrophyClick = this.handleTrophyClick.bind(this);
   }
 
   handleEditUserInfo () {
     this.setState({ editUserInfo: !this.state.editUserInfo });
+  }
+
+  handleTrophyClick ( ) {
+    this.setState({ 
+      // target: e.target, 
+      showTrophyPopover: !this.state.showTrophyPopover
+    });
   }
 
   render () {
@@ -33,7 +42,7 @@ class ProfileView extends React.Component {
     } else {
       view = <Stats playerData={ this.props.playerData }/>;
     }
-    console.log('userdata', this.props.playerData);
+    
     return (
       <div>
         <Jumbotron className="profile-jumbotron">
@@ -52,7 +61,24 @@ class ProfileView extends React.Component {
               <b>Tier:</b> { this.props.playerData.tier }
               <br/>
               <b style={{ paddingRight: '15px' }}>Trophies:</b> 
-              <img src={ Trophy1 } className="trophies"/>
+
+              <img 
+                src={ Trophy1 } 
+                className="trophies" 
+                onClick={ this.handleTrophyClick }/>
+              <Overlay
+                trigger={ ['hover', 'focus', 'click'] }
+                show={ this.state.showTrophyPopover } 
+                // target={ this.state.target }
+                placement="bottom"
+                container={ this }
+                containerPadding={ 20 }
+              >
+                <Popover id="popover-contained" title="Popover bottom">
+                  <strong>Holy guacamole!</strong> Check this info.
+                </Popover>
+              </Overlay>
+
               <Badge className="trophy-badge">42</Badge>
 
               <img src={ Trophy2 } className="trophies"/>
