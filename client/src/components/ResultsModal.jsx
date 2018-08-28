@@ -45,18 +45,19 @@ class ResultsModal extends React.Component {
         <Modal.Body>
           <Form horizontal className="form-width">
 
-            <ControlLabel>Time</ControlLabel>
+            {/* <ControlLabel>Time</ControlLabel> */}
             <FormControl.Static>
-              { moment( new Date( this.props.match.startTime )).calendar() }
+              <b>Time:</b> { moment( new Date( this.props.match.startTime )).calendar() }
             </FormControl.Static>
 
-            <ControlLabel>Court Location</ControlLabel>
+            {/* <ControlLabel>Court Location</ControlLabel> */}
             <FormControl.Static>
-              { this.props.match.location }
+              Court: { this.props.match.location }
             </FormControl.Static>
 
-            <ControlLabel>Winner</ControlLabel>
+            {/* <ControlLabel>Winner</ControlLabel> */}
             <ButtonToolbar>
+              Winner: 
               <ToggleButtonGroup 
                 type="radio" 
                 name="winner" 
