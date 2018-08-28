@@ -1,9 +1,10 @@
 import React from 'react';
 import { Table, Button, ProgressBar } from 'react-bootstrap';
 import { Query, Mutation } from 'react-apollo';
+import { Card, CardHeader, CardBody, CardFooter } from 'react-simple-card';
+
 import { CREATE_MATCH } from '../apollo/mutations.js';
 import { GET_ALL_USERS } from '../apollo/queries.js';
-
 import CreateChallengeModal from './CreateChallengeModal.jsx';
 import SearchUsers from './SearchUsers.jsx';
 import matchmakeByElo from '../../../workers/matchmaking.js';
@@ -71,46 +72,44 @@ class RecommendedOpponents extends React.Component {
   }
 
   render () {
+    console.log('userdata', this.state.matchedUsers);
     return (
       <div className="matches-container">
         <h2>Recommended Opponents</h2>
-        <Table striped bordered condensed hover>
-          <thead>
-            <tr>
-              <th>Email</th>
-              <th>User</th>
-              <th>Win %</th>
-            </tr>
-          </thead>
-          <tbody>
-            { this.state.matchedUsers.slice( 0, 5 ).map( matchedUser => {
-              let winPercent = parseInt(
-                matchedUser.wins / ( matchedUser.wins + matchedUser.losses ) * 100
-              );
-              return (
-                <tr className="match-row" key={ matchedUser.id } >
-                  <td> 
-                    <img style={ {width: '80px'} } src={ matchedUser.image }/>
-                    { matchedUser.email }
-                  </td>
-                  <td>{ matchedUser.name }</td>
-                  <td><ProgressBar
+
+        <div className="scrolling-wrapper scrolling-wrapper-flexbox">
+          { this.state.matchedUsers.slice( 0, 10 ).map( matchedUser => {
+            let winPercent = parseInt(
+              matchedUser.wins / ( matchedUser.wins + matchedUser.losses ) * 100
+            );
+            return (
+              <div className="card" key={ matchedUser.id }>
+                <img src={ matchedUser.image } className="profile-pic-card"/>
+                <div className="card-container text-center">
+                  <h4><b>{ matchedUser.name }</b></h4> 
+                  {/* { matchedUser.email } */}
+                  W: { matchedUser.wins } L: { matchedUser.losses }
+                  <br/>
+                  <br/>
+                  Win %
+                  <ProgressBar
                     bsStyle="warning"
                     now={ winPercent }
-                    label={ `${winPercent}%` } /></td>
-                  <td>
-                    <Button 
-                      bsStyle="primary"
-                      onClick={ () => this.handleMatchClick( matchedUser )}>
-                      Challenge
-                    </Button>
-                  </td>
-                </tr>
-              );
-            })
-            }
-          </tbody>
-        </Table>
+                    label={ `${winPercent}%` } />
+                  <Button 
+                    bsStyle="primary"
+                    onClick={ () => this.handleMatchClick( matchedUser )}>
+                    Challenge
+                  </Button>
+                </div>
+              </div>
+            );
+          })
+          }
+        </div>
+
+        <br/>
+        <br/>
 
         <Query query={ GET_ALL_USERS }>
           {({ loading, error, data }) => {
@@ -158,3 +157,64 @@ class RecommendedOpponents extends React.Component {
 }
 
 export default RecommendedOpponents;
+
+{/* <Card key={ matchedUser.id } className="card">
+  <CardHeader>
+    <img style={ {width: '80px'} } src={ matchedUser.image }/>
+    <br/>
+    <br/>
+    { matchedUser.name }
+  </CardHeader>
+  <CardBody>
+    { matchedUser.email }
+    <ProgressBar
+      bsStyle="warning"
+      now={ winPercent }
+      label={ `${winPercent}%` } />
+  </CardBody>
+  <CardFooter>
+    <Button 
+      bsStyle="primary"
+      onClick={ () => this.handleMatchClick( matchedUser )}>
+      Challenge
+    </Button>
+  </CardFooter>
+</Card> */}
+
+{/* <Table striped bordered condensed hover>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>User</th>
+      <th>Win %</th>
+    </tr>
+  </thead>
+  <tbody>
+    { this.state.matchedUsers.slice( 0, 5 ).map( matchedUser => {
+      let winPercent = parseInt(
+        matchedUser.wins / ( matchedUser.wins + matchedUser.losses ) * 100
+      );
+      return (
+        <tr className="match-row" key={ matchedUser.id } >
+          <td> 
+            <img style={ {width: '80px'} } src={ matchedUser.image }/>
+            { matchedUser.email }
+          </td>
+          <td>{ matchedUser.name }</td>
+          <td><ProgressBar
+            bsStyle="warning"
+            now={ winPercent }
+            label={ `${winPercent}%` } /></td>
+          <td>
+            <Button 
+              bsStyle="primary"
+              onClick={ () => this.handleMatchClick( matchedUser )}>
+              Challenge
+            </Button>
+          </td>
+        </tr>
+      );
+    })
+    }
+  </tbody>
+</Table> */}
