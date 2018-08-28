@@ -3,6 +3,10 @@ import { Jumbotron, Button, Image } from 'react-bootstrap';
 
 import EditUserInfo from './EditUserInfo.jsx';
 import Stats from './Stats.jsx';
+import Trophy1 from '../../dist/lib/trophy1.png';
+import Trophy2 from '../../dist/lib/trophy2.png';
+import Trophy3 from '../../dist/lib/trophy3.png';
+import Trophy4 from '../../dist/lib/trophy4.png';
 
 class ProfileView extends React.Component {
   constructor(props) {
@@ -41,12 +45,16 @@ class ProfileView extends React.Component {
             
             <div className="user-info">
               <h3>{ this.props.googleUserData.displayName }</h3>
-              W: { this.props.playerData.wins } 
-              L: { this.props.playerData.losses }
+              <b>W:</b> { this.props.playerData.wins } {' '}
+              <b>L:</b> { this.props.playerData.losses }
               <br/>
-              Tier: { this.props.playerData.tier }
+              <b>Tier:</b> { this.props.playerData.tier }
               <br/>
-              Trophies:
+              <b>Trophies:</b> 
+              <img src={ Trophy1 } className="trophies"/>
+              <img src={ Trophy2 } className="trophies"/>
+              <img src={ Trophy3 } className="trophies"/>
+              <img src={ Trophy4 } className="trophies"/>
               <br/>
             </div>
           </div>

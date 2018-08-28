@@ -34,7 +34,12 @@
 }
 
 .user-info {
-  margin-top: 40px;
+  /* margin-top: 40px; */
+}
+
+.trophies {
+  margin-left: 10px;
+  margin-right: 5px;
 }
 
 .calendar {
