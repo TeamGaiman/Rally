@@ -8,8 +8,6 @@ import Challenges from './Challenges.jsx';
 class Matchmaking extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
   }
 
   componentDidMount () {
@@ -36,7 +34,6 @@ class Matchmaking extends React.Component {
                   <RecommendedOpponents
                     users={ data.getUsersByTier }
                     playerData={ this.props.playerData }
-                    courts={ this.state.courts }
                   />
                 </div>
               );

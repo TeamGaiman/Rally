@@ -4,8 +4,6 @@ import { Mutation } from 'react-apollo';
 import { UPDATE_USER } from '../apollo/mutations.js';
 import { Form, FormGroup, FormControl, ControlLabel, Button, HelpBlock } from 'react-bootstrap';
 
-import TierModal from './TierModal.jsx';
-
 class EditUserInfo extends React.Component {
   constructor(props) {
     super(props);
@@ -17,7 +15,6 @@ class EditUserInfo extends React.Component {
     };
 
     this.handleFieldChange = this.handleFieldChange.bind(this);
-    this.toggleTierModal = this.toggleTierModal.bind(this);
     this.isValidPhoneNumber = this.isValidPhoneNumber.bind(this);
     this.handlePhoneNumberChange = this.handlePhoneNumberChange.bind(this);
   }
@@ -30,20 +27,11 @@ class EditUserInfo extends React.Component {
         phoneNumber
       });
     }
-    
     if ( name ) {
       this.setState({
         username: name
       });
     }
-
-
-  }
-
-  toggleTierModal () {
-    this.setState({
-      tierModal: !this.state.tierModal 
-    });
   }
 
   handleFieldChange (e) {
@@ -134,26 +122,6 @@ class EditUserInfo extends React.Component {
             />
           </FormGroup>
 
-          <FormGroup controlId="skillTier">
-            <ControlLabel>
-              Matchmaking Tier - 
-              <Button 
-                onClick={ this.toggleTierModal }> 
-              ❔ 
-              </Button> 
-            </ControlLabel>
-
-            <FormControl 
-              componentClass="select" 
-              onChange={ this.handleFieldChange }
-            >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-            </FormControl>
-          </FormGroup>
-
           <FormGroup>
             <Link 
               to='/profile' 
@@ -165,10 +133,10 @@ class EditUserInfo extends React.Component {
                   email: this.props.playerData.email,
                   input: {
                     name: this.state.username,
-                    phoneNumber: this.state.phoneNumber,
-                    tier: this.state.skillTier
+                    phoneNumber: this.state.phoneNumber
                   }
-                }}>
+                }}
+              >
                 { updateUser => (
                   <Button
                     type="submit"
@@ -182,14 +150,7 @@ class EditUserInfo extends React.Component {
               </Mutation>
             </Link>
           </FormGroup>
-
         </Form>
-
-        <TierModal
-          tierModal={ this.state.tierModal }
-          toggleTierModal={ this.toggleTierModal }
-        />
-
       </div>
     );
   }
