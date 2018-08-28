@@ -57,7 +57,6 @@ class Matchmaking extends React.Component {
                   <Challenges
                     challengeData={ data.getUserByEmail }
                   />
-                  />
                 </div>
               );
             }}
