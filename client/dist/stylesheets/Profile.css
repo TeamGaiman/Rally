@@ -8,6 +8,8 @@
   background-image: url('../lib/profilejumbo.jpg');
   background-size: cover;
   background-position: center;
+  padding-top: 25px;
+  padding-bottom: 40px;
 }
 
 .profile-pic {
@@ -23,7 +25,7 @@
 }
 
 .box {
-  /* display: flex; */
+  display: flex;
   align-items: center;
 }
 
@@ -34,12 +36,20 @@
 }
 
 .user-info {
-  /* margin-top: 40px; */
+  position: relative;
+  top: 52px;
 }
 
 .trophies {
-  margin-left: 10px;
-  margin-right: 5px;
+  width: 65px;
+  position: relative;
+  right: 5px;
+}
+.trophy-badge {
+  background-color: #ff5c5c;
+  position: relative;
+  right: 23px;
+  bottom: 22px;
 }
 
 .calendar {

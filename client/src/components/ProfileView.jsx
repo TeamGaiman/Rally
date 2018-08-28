@@ -1,5 +1,5 @@
 import React from 'react';
-import { Jumbotron, Button, Image } from 'react-bootstrap';
+import { Jumbotron, Button, Image, Badge } from 'react-bootstrap';
 
 import EditUserInfo from './EditUserInfo.jsx';
 import Stats from './Stats.jsx';
@@ -51,11 +51,18 @@ class ProfileView extends React.Component {
               <br/>
               <b>Tier:</b> { this.props.playerData.tier }
               <br/>
-              <b>Trophies:</b> 
+              <b style={{ paddingRight: '15px' }}>Trophies:</b> 
               <img src={ Trophy1 } className="trophies"/>
+              <Badge className="trophy-badge">42</Badge>
+
               <img src={ Trophy2 } className="trophies"/>
+              <Badge className="trophy-badge">42</Badge>
+
               <img src={ Trophy3 } className="trophies"/>
+              <Badge className="trophy-badge">42</Badge>
+
               <img src={ Trophy4 } className="trophies"/>
+              <Badge className="trophy-badge">42</Badge>
               <br/>
             </div>
           </div>
