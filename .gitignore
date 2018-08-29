@@ -5,3 +5,4 @@ client/dist/lib/hashedImages
 client/dist/bundle.js
 package-lock.json
 config/
+firebase/firebase_config.js
