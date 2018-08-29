@@ -60,7 +60,6 @@ class MatchesView extends React.Component {
             } else if (error) {
               return <p>Could not find any Matches</p>;
             }
-            console.log(data.getUserByEmail);
             return (
               this.state.showCalendar 
                 ? (
