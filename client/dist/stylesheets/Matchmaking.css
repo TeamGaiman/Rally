@@ -307,3 +307,7 @@ td.rdtYear:hover {
 .rdtTime td {
   cursor: default;
 }
+
+.react-autosuggest__suggestion {
+  display: none;
+}

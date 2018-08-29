@@ -24,9 +24,21 @@ class RecommendedOpponents extends React.Component {
     this.handleHideMatch = this.handleHideMatch.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
+    this.updateMatchedUsers = this.updateMatchedUsers.bind(this);
+    this.getRecommendedOpponents = this.getRecommendedOpponents.bind(this);
   }
 
   componentDidMount () {
+    this.getRecommendedOpponents();
+  }
+
+  updateMatchedUsers ( matchedUsers ) {
+    this.setState({
+      matchedUsers
+    });
+  }
+
+  getRecommendedOpponents () {
     let newMatches = matchmakeByElo( this.props.playerData.elo, this.props.users );
     this.setState({
       matchedUsers: newMatches
@@ -76,6 +88,22 @@ class RecommendedOpponents extends React.Component {
       <div className="matches-container">
         <h2>Recommended Opponents</h2>
 
+        <Query query={ GET_ALL_USERS }>
+          {({ loading, error, data }) => {
+            if ( loading ) { return <p>Loading...</p>; }
+            if ( error ) { console.error( error ); }
+            return (
+              <SearchUsers
+                handleMatchClick={ this.handleMatchClick }
+                loggedInUser={ this.props.playerData.email }
+                allUsers={ data.getAllUsers }
+                updateMatchedUsers={ this.updateMatchedUsers }
+                getRecommendedOpponents={ this.getRecommendedOpponents }
+              />
+            );
+          }}
+        </Query>
+
         <div className="scrolling-wrapper scrolling-wrapper-flexbox">
           { this.state.matchedUsers.slice( 0, 10 ).map( matchedUser => {
             let winPercent = this.getWinProbability( this.props.playerData.elo, matchedUser.elo );
@@ -108,18 +136,7 @@ class RecommendedOpponents extends React.Component {
         <br/>
         <br/>
 
-        <Query query={ GET_ALL_USERS }>
-          {({ loading, error, data }) => {
-            if ( loading ) { return <p>Loading...</p>; }
-            if ( error ) { console.error( error ); }
-            return (
-              <SearchUsers
-                handleMatchClick={ this.handleMatchClick }
-                loggedInUser={ this.props.playerData.email }
-                allUsers={ data.getAllUsers }/>
-            );
-          }}
-        </Query>
+       
 
         { this.state.showMatch
           ? <Mutation

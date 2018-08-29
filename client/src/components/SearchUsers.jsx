@@ -48,17 +48,18 @@ class SearchUsers extends React.Component {
   
   renderSuggestion ( suggestion ) {
     return (
-      <span>
-        {( suggestion.email )
-          ? <span><strong>Email: </strong> { suggestion.email }</span>
-          : null}
-        {( suggestion.name )
-          ? <span><strong> Username: </strong> { suggestion.name }</span>
-          : null}
-        {( suggestion.fullName )
-          ? <span><strong> Full Name: </strong> { suggestion.fullName }</span>
-          : null}
-      </span>
+      null
+      // <span className="suggestion-item">
+      //   {( suggestion.email )
+      //     ? <span><strong>Email: </strong> { suggestion.email }</span>
+      //     : null}
+      //   {( suggestion.name )
+      //     ? <span><strong> Username: </strong> { suggestion.name }</span>
+      //     : null}
+      //   {( suggestion.fullName )
+      //     ? <span><strong> Full Name: </strong> { suggestion.fullName }</span>
+      //     : null}
+      // </span>
     );
   }
 
@@ -66,9 +67,11 @@ class SearchUsers extends React.Component {
     this.setState({
       suggestions: this.getSuggestions(value)
     });
+    this.props.updateMatchedUsers( this.getSuggestions(value) );
   }
 
   onSuggestionsClearRequested () {
+    this.props.getRecommendedOpponents();
     this.setState({
       suggestions: []
     });
