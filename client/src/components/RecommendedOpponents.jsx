@@ -40,6 +40,9 @@ class RecommendedOpponents extends React.Component {
 
   getRecommendedOpponents () {
     let newMatches = this.getMatchedUsers( this.props.playerData.elo, this.props.users );
+    this.setState({
+      matchedUsers: newMatches
+    });
   }
 
   getMatchedUsers (elo, users) {
