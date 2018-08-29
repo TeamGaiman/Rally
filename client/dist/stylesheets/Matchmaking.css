@@ -348,3 +348,14 @@ td.rdtYear:hover {
 .react-autosuggest__suggestion {
   display: none;
 }
+
+.react-autosuggest__container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.react-autosuggest__input {
+  position: relative;
+  top: -35px;
+}
