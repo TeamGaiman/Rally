@@ -3,7 +3,7 @@ import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootst
 import { Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 
-import TierModal from './TierInfoModal.jsx';
+import TierInfoModal from './TierInfoModal.jsx';
 import { CREATE_USER } from '../apollo/mutations.js';
 
 class Signup extends React.Component {
@@ -14,7 +14,7 @@ class Signup extends React.Component {
     };
 
     this.handleFieldChange = this.handleFieldChange.bind(this);
-    this.toggleTierModal = this.toggleTierModal.bind(this);
+    this.toggleTierInfoModal = this.toggleTierInfoModal.bind(this);
   }
 
   toggleTierInfoModal () {
@@ -75,7 +75,7 @@ class Signup extends React.Component {
             <FormGroup controlId="skillTier">
               <ControlLabel>
                 Starting Tier - 
-                <Button onClick={ this.toggleTierModal }> ❔ </Button>
+                <Button onClick={ this.toggleTierInfoModal }> ❔ </Button>
               </ControlLabel>
               <FormControl 
                 componentClass="select"
@@ -91,7 +91,13 @@ class Signup extends React.Component {
               <Link to="/matchmaking">
                 <Mutation
                   mutation={ CREATE_USER }
-                  variables={{ email: this.props.googleUserData.email }}>
+                  variables={{
+                    input: {
+                      email: this.props.googleUserData.email,
+                      image: this.props.googleUserData.photoURL,
+                      fullName: this.props.googleUserData.displayName
+                    }
+                  }}>
                   { createUser => (
                     <Button
                       type="submit"
@@ -106,8 +112,8 @@ class Signup extends React.Component {
 
           </Form>
           <TierInfoModal
-            tierModal={ this.state.tierModal }
-            toggleTierModal={ this.toggleTierModal }/>
+            tierModal={ this.state.tierInfoModal }
+            toggleTierModal={ this.toggleTierInfoModal }/>
         </div>
       );
     } else {

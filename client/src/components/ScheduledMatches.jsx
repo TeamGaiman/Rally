@@ -35,7 +35,7 @@ class ScheduledMatches extends React.Component {
       .concat( this.props.scheduledMatches.completedMatches );
 
     return (
-      <div className="matches-container">
+      <div>
         <h2>Scheduled Matches</h2>
         <Table striped bordered condensed hover>
 
@@ -57,13 +57,13 @@ class ScheduledMatches extends React.Component {
               } else {
                 var matchOpponent = match.opponentUserInfo.fullName
                   || match.opponentUserInfo.name;
-              }
+              }git 
               return (
                 <tr className="match-row" key={ index }>
                   <td>{ matchOpponent }</td>
                   <td>{ moment( new Date( match.startTime )).calendar() }</td>
                   <td>{ match.location }</td>
-                  <td>{ match.completed ? 'Complete' : 'Scheduled'}</td>
+                  <td>{ match.completed ? 'Complete' : match.winner ? 'Awaiting Confirmation' : 'Scheduled'}</td>
                   <td>
                     {( match.completed )
                       ?
@@ -74,7 +74,7 @@ class ScheduledMatches extends React.Component {
                         value={ index }
                         onClick={ ( e ) => this.handleMatchClick( match )}
                       >
-                        Add Results
+                        { match.winner ? 'Confirm Winner' : 'Add Winner' }
                       </Button>
                     }
                   </td>

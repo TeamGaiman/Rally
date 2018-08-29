@@ -39,10 +39,21 @@ class RecommendedOpponents extends React.Component {
   }
 
   getRecommendedOpponents () {
-    let newMatches = matchmakeByElo( this.props.playerData.elo, this.props.users );
+    let newMatches = this.getMatchedUsers( this.props.playerData.elo, this.props.users );
     this.setState({
       matchedUsers: newMatches
     });
+  }
+
+  getMatchedUsers (elo, users) {
+    let matches = matchmakeByElo( elo, users );
+    for (var i = matches.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = matches[i];
+      matches[i] = matches[j];
+      matches[j] = temp;
+    }
+    return matches;
   }
 
   handleMatchClick ( user ) {
@@ -88,8 +99,8 @@ class RecommendedOpponents extends React.Component {
 
   render () {
     return (
-      <div className="matches-container">
-        <h2>Recommended Opponents</h2>
+      <div>
+        {/* <h2>Recommended Opponents</h2> */}
 
         <Query query={ GET_ALL_USERS }>
           {({ loading, error, data }) => {
