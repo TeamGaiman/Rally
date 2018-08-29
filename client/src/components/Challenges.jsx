@@ -30,32 +30,33 @@ class Challenges extends React.Component {
   }
 
   render () {
+    console.log('challengers', this.props.challengeData.challengesReceived);
     return (
       <div>
         {/* <h2>Challenges</h2> */}
 
         <div className="scrolling-wrapper scrolling-wrapper-flexbox">
-          { this.state.matchedUsers.slice( 0, 10 ).map( matchedUser => {
+          { this.props.challengeData.challengesReceived.map(( challenge ) => {
             let winPercent = this.getWinProbability( this.props.playerData.elo, matchedUser.elo );
             return (
-              <div className="card" key={ matchedUser.id }>
-                <Image src={ matchedUser.image } className="image-opacity"/>
-                <Image src={ matchedUser.image } className="profile-pic-card pic-shadow" circle/>
+              <div className="card" key={ challenge.id }>
+                <Image src={ challenge.image } className="image-opacity"/>
+                <Image src={ challenge.image } className="profile-pic-card pic-shadow" circle/>
                 <div className="card-container text-center">
-                  <h4 className="username"><b>{ matchedUser.name }</b></h4> 
-                  W: { matchedUser.wins } L: { matchedUser.losses }
+                  <h4 className="username"><b>{ challenge.name }</b></h4> 
+                  W: { challenge.wins } L: { challenge.losses }
                   <br/>
                   <br/>
                   Win %
-                  <ProgressBar
-                    bsStyle="success"
+                  <ProgressBaChallenges
+                    bsStyle="warning"
                     now={ winPercent }
-                    label={ `${winPercent}%` } />
+                    label={ `${winPerfect}%` } />
                   <Button 
                     bsStyle="primary"
                     className="card-button"
-                    onClick={ () => this.handleMatchClick( matchedUser )}>
-                    Challenge
+                    onClick={ () => this.handleChallengeClick( challenge )}>
+                    View
                   </Button>
                 </div>
               </div>
@@ -63,36 +64,6 @@ class Challenges extends React.Component {
           })
           }
         </div>
-        
-            { this.props.challengeData.challengesReceived.map(( challenge ) => {
-              return (
-                <tr
-                  className="match-row"
-                  key={ challenge.id }
-                >
-                  <td>{ challenge.challenger }</td>
-                  <td>{ moment( new Date( challenge.startTime )).calendar() }</td>
-                  <td>{ challenge.location }</td>
-                  <td>
-                    <ProgressBar
-                      bsStyle="warning"
-                      now={ 50 }
-                      label={ `${50}%` }
-                    />
-                  </td>
-                  <td>
-                    <Button
-                      bsStyle="primary"
-                      onClick={ () => this.handleChallengeClick( challenge )}
-                    >
-                      View
-                    </Button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
 
         <ChallengeModal
           challenge={ this.state.challengeClicked }
