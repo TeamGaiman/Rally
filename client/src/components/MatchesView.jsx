@@ -27,8 +27,8 @@ class MatchesView extends React.Component {
     });
   }
 
-  handleSelect ( key ) {
-    if ( key === 'one' ) {
+  handleSelect ( tabId ) {
+    if ( tabId === 'one' ) {
       this.setState({
         showCalendar: false
       });
@@ -42,15 +42,15 @@ class MatchesView extends React.Component {
   render () {
     return (
       <div className="matches-container">
-          <Tabs
-            defaultTab="one"
-            onChange={(tabId) => { this.handleSelect( tabId ) }}
-          >
-            <TabList>
-              <Tab tabFor="one">Matches</Tab>
-              <Tab tabFor="two">Upcoming Calendar</Tab>
-            </TabList>
-          </Tabs>
+        <Tabs
+          defaultTab="one"
+          onChange={(tabId) => { this.handleSelect( tabId ); }}
+        >
+          <TabList>
+            <Tab tabFor="one">Matches</Tab>
+            <Tab tabFor="two">Upcoming Calendar</Tab>
+          </TabList>
+        </Tabs>
 
         <Query query={ GET_SCHEDULED_BY_USER }
           variables={{ email: this.props.playerData.email }}
