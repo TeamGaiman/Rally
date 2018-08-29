@@ -137,11 +137,6 @@ class RecommendedOpponents extends React.Component {
           }
         </div>
 
-        <br/>
-        <br/>
-
-       
-
         { this.state.showMatch
           ? <Mutation
             mutation={ CREATE_MATCH }

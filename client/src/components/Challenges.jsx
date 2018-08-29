@@ -31,19 +31,39 @@ class Challenges extends React.Component {
 
   render () {
     return (
-      <div className="matches-container">
-        <h2>Challenges</h2>
+      <div>
+        {/* <h2>Challenges</h2> */}
 
-        <Table striped bordered condensed hover>
-          <thead>
-            <tr>
-              <th>Challenger</th>
-              <th>Date</th>
-              <th>Location</th>
-              <th>Win %</th>
-            </tr>
-          </thead>
-          <tbody>
+        <div className="scrolling-wrapper scrolling-wrapper-flexbox">
+          { this.state.matchedUsers.slice( 0, 10 ).map( matchedUser => {
+            let winPercent = this.getWinProbability( this.props.playerData.elo, matchedUser.elo );
+            return (
+              <div className="card" key={ matchedUser.id }>
+                <Image src={ matchedUser.image } className="image-opacity"/>
+                <Image src={ matchedUser.image } className="profile-pic-card pic-shadow" circle/>
+                <div className="card-container text-center">
+                  <h4 className="username"><b>{ matchedUser.name }</b></h4> 
+                  W: { matchedUser.wins } L: { matchedUser.losses }
+                  <br/>
+                  <br/>
+                  Win %
+                  <ProgressBar
+                    bsStyle="success"
+                    now={ winPercent }
+                    label={ `${winPercent}%` } />
+                  <Button 
+                    bsStyle="primary"
+                    className="card-button"
+                    onClick={ () => this.handleMatchClick( matchedUser )}>
+                    Challenge
+                  </Button>
+                </div>
+              </div>
+            );
+          })
+          }
+        </div>
+        
             { this.props.challengeData.challengesReceived.map(( challenge ) => {
               return (
                 <tr
