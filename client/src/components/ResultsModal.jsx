@@ -53,7 +53,13 @@ class ResultsModal extends React.Component {
 
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title">
-            { `Your match vs ${ this.props.match.opponent }` }
+            {`Your match vs ${ 
+              this.props.match.opponent === this.props.currentUser
+                ?
+                this.props.match.challenger
+                :
+                this.props.match.opponent
+            }`}
           </Modal.Title>
         </Modal.Header>
         
