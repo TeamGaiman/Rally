@@ -1,5 +1,6 @@
 import React from 'react';
 import { Query } from 'react-apollo';
+import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 
 import RecommendedOpponents from './RecommendedOpponents.jsx';
 import { GET_USERS_BY_TIER, GET_CHALLENGES_BY_USER } from '../apollo/queries.js';
@@ -16,10 +17,20 @@ class Matchmaking extends React.Component {
 
   render() {
     if ( !this.props.playerData ) {
-      return <div>Loading with Spinner...</div>;
+      return <div>Loading potential opponnents...</div>;
     } else {
       return (
         <div>
+          <Tabs
+            defaultTab="one"
+            onChange={(tabId) => { console.log(tabId) }}
+          >
+            <TabList>
+              <Tab tabFor="one">Potential Opponents</Tab>
+              <Tab tabFor="two">Challenges</Tab>
+            </TabList>
+          </Tabs>
+
           <Query query={ GET_USERS_BY_TIER }
             variables={{
               tier: this.props.playerData.tier,
