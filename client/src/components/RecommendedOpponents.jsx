@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Button, ProgressBar } from 'react-bootstrap';
+import { Button, ProgressBar, Image } from 'react-bootstrap';
 import { Query, Mutation } from 'react-apollo';
 
 import { CREATE_MATCH } from '../apollo/mutations.js';
@@ -81,10 +81,10 @@ class RecommendedOpponents extends React.Component {
             let winPercent = this.getWinProbability( this.props.playerData.elo, matchedUser.elo );
             return (
               <div className="card" key={ matchedUser.id }>
-                <img src={ matchedUser.image } className="profile-pic-card"/>
+                <Image src={ matchedUser.image } className="image-opacity"/>
+                <Image src={ matchedUser.image } className="profile-pic-card pic-shadow" circle/>
                 <div className="card-container text-center">
-                  <h4><b>{ matchedUser.name }</b></h4> 
-                  {/* { matchedUser.email } */}
+                  <h4 className="username"><b>{ matchedUser.name }</b></h4> 
                   W: { matchedUser.wins } L: { matchedUser.losses }
                   <br/>
                   <br/>
@@ -95,6 +95,7 @@ class RecommendedOpponents extends React.Component {
                     label={ `${winPercent}%` } />
                   <Button 
                     bsStyle="primary"
+                    className="card-button btn-grad"
                     onClick={ () => this.handleMatchClick( matchedUser )}>
                     Challenge
                   </Button>
