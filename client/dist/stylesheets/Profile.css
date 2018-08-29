@@ -48,10 +48,11 @@
   cursor: pointer;
 }
 .trophy-badge {
-  background-color: #ff0000;
+  background-color: black;
   position: relative;
   right: 23px;
   bottom: 22px;
+  border:1.5px solid white;
 }
 
 .calendar {

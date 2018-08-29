@@ -85,16 +85,7 @@ const ChangeTierModal = (props) => {
         {
           ( playerMayRankUp ) 
             ?
-            <Mutation
-              mutation={ UPDATE_USER }
-              variables={{
-                email: props.playerEmail,
-                input: {
-                  tier: nextHighestTier,
-                  elo: 2000
-                }
-              }}
-            >
+            <Mutation mutation={ UPDATE_USER }>
               {( updateUser, { data } ) => (
                 <Button
                   type="submit"

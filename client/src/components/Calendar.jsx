@@ -25,18 +25,14 @@ const Calendar = (props) => {
         defaultDate={ moment().toDate() }
         step={ 60 }
         defaultView={ BigCalendar.Views.WEEK }
-        views={ ['day', 'week', 'agenda'] }
+        views={ ['day', 'week'] }
         startAccessor='startDate'
         endAccessor='endDate'
-        // formats={ formats }
-        // showMultiDayTimes
-
         events={ events }
         
         onSelectEvent={ event => {
           props.toggleCalendarModal();
         }}
-        // drilldownView="agenda"
       />
       
       <Modal

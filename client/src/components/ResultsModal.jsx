@@ -4,16 +4,18 @@ import { Modal, Button, Form, FormControl, ControlLabel, ButtonToolbar, ToggleBu
 import { Mutation } from 'react-apollo';
 
 import { UPDATE_MATCH } from '../apollo/mutations';
+
 class ResultsModal extends React.PureComponent {
   constructor(props) {
     super(props);
-
     this.state = {
       selectedWinner: null,
-      loser: null
+      loser: null,
+      opponentReview: [],
     };
 
     this.handleWinnerSelect = this.handleWinnerSelect.bind(this);
+    this.handleOpponentReview = this.handleOpponentReview.bind(this);
   }
 
   componentDidUpdate () {
@@ -30,7 +32,7 @@ class ResultsModal extends React.PureComponent {
     }
   }
 
-  handleWinnerSelect (value) {
+  handleWinnerSelect ( value ) {
     if ( value === 1 ) {
       this.setState({
         selectedWinner: this.props.match.challenger
@@ -42,9 +44,43 @@ class ResultsModal extends React.PureComponent {
     }
   }
 
+  handleOpponentReview ( e ) {
+    this.setState({
+      opponentReview: e
+    });
+  }
+
+  handleUpdateUser ( e ) {
+    const updateVariables = {
+      claimWin: {
+        input: {
+          winner: this.state.selectedWinner
+        }
+      },
+      contestWin: {
+        input: {
+          winner: '!'
+        }
+      },
+      acceptResults: {
+        input: {
+          completed: true
+        }
+      },
+      acceptContest: {
+        input: {
+          completed: true
+        }
+      }
+    };
+
+    updateMatch({
+      variables: updateVariables[e.target.id]
+    });
+    this.props.hideResultsModal();
+  }
 
   render () {
-    console.log(this.props.currentUser, this.props.match.winner, this.state.selectedWinner, this.state.loser);
     return (
       <Modal
         show={ this.props.resultsModalOpen }
@@ -58,7 +94,6 @@ class ResultsModal extends React.PureComponent {
         </Modal.Header>
         
         <Modal.Body>
-
           <Form horizontal className="form-width">
             <ControlLabel>Time</ControlLabel>
             <FormControl.Static>
@@ -69,15 +104,23 @@ class ResultsModal extends React.PureComponent {
             <FormControl.Static>
               { this.props.match.location }
             </FormControl.Static>
-
             <ButtonToolbar>
               {
                 ( this.state.selectedWinner === null)
                   ? 
                   <div>
-                    <Button bsStyle="primary">
-                      I won this match.
-                    </Button>
+                    <Mutation mutation={ UPDATE_MATCH }>
+                      {( updateMatch, { data } ) => (
+                        <Button
+                          id="claimWin"
+                          type="submit"
+                          className="pull-right"
+                          onClick={ this.handleUpdateUser }
+                        >
+                          I won this match!
+                        </Button>
+                      )}
+                    </Mutation>
                     <br/> <br/>
                     <small>
                       If you did not win this match, wait for your opponent to claim victory.
@@ -85,20 +128,16 @@ class ResultsModal extends React.PureComponent {
                   </div> : null
               } {
                 ( this.state.selectedWinner === '!' )
-                  ?
-                  <div>
-                    <Button>
-                      My opponent won this match.
-                    </Button>
-                    <Button>
-                      I won this match.
-                    </Button>
-                  </div> : null
+                  ? null
+                  : null
               } {
-                ( this.props.currentUser === this.state.selectedWinner )
+                ( this.props.currentUser === this.props.match.winner )
                   ?
                   <div>
-                    <Button disabled>
+                    <Button
+                      className="pull-right"
+                      disabled
+                    >
                       Please wait for your opponent to confirm these results.
                     </Button>
                   </div> : null
@@ -106,17 +145,50 @@ class ResultsModal extends React.PureComponent {
                 ( this.props.currentUser === this.state.loser )
                   ?
                   <div>
-                    <Button>
-                      Confirm that {this.state.selectedWinner} won this match.
-                    </Button>
-                    <Button>
-                      Contest this result.
-                    </Button>
+                    <Mutation mutation={ UPDATE_MATCH }>
+                      {( updateMatch, { data } ) => (
+                        <Button
+                          id="acceptResult"
+                          type="submit"
+                          className="pull-right"
+                          onClick={ this.handleUpdateUser }
+                        >
+                          Accept result.
+                          <small>
+                            { this.props.match.winner } won this match.
+                          </small>
+                        </Button>
+                      )}
+                    </Mutation>
+                    <Mutation mutation={ UPDATE_MATCH }>
+                      {( updateMatch, { data } ) => (
+                        <Button
+                          id="contestWin"
+                          type="submit"
+                          className="pull-right"
+                          onClick={ this.handleUpdateUser }
+                        >
+                          Contest result.
+                          <small>
+                            { this.props.match.winner } did not win this match.
+                          </small>
+                        </Button>
+                      )}
+                    </Mutation>
                   </div> : null
               }
             </ButtonToolbar>
-          </Form>
 
+            <ControlLabel>Review Opponent</ControlLabel>
+            <ToggleButtonGroup
+              type='checkbox'
+              onChange={ this.handleOpponentReview }>
+              <ToggleButton value={ 1 }>Good Sport</ToggleButton>
+              <ToggleButton value={ 2 }>Rally</ToggleButton>
+              <ToggleButton value={ 3 }>Great Server</ToggleButton>
+            </ToggleButtonGroup>
+
+          </Form>
         </Modal.Body>
 
         <Modal.Footer>

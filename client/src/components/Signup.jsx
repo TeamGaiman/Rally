@@ -3,7 +3,7 @@ import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootst
 import { Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 
-import TierModal from './TierInfoModal.jsx';
+import TierInfoModal from './TierInfoModal.jsx';
 import { CREATE_USER } from '../apollo/mutations.js';
 
 class Signup extends React.Component {
@@ -14,7 +14,7 @@ class Signup extends React.Component {
     };
 
     this.handleFieldChange = this.handleFieldChange.bind(this);
-    this.toggleTierModal = this.toggleTierModal.bind(this);
+    this.toggleTieInforModal = this.toggleTierInfoModal.bind(this);
   }
 
   toggleTierInfoModal () {
