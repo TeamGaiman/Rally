@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Button, ProgressBar } from 'react-bootstrap';
+import { Button, ProgressBar, Image } from 'react-bootstrap';
 import moment from 'moment';
 
 import ChallengeModal from './ChallengeModal.jsx';
@@ -37,21 +37,26 @@ class Challenges extends React.Component {
 
         <div className="scrolling-wrapper scrolling-wrapper-flexbox">
           { this.props.challengeData.challengesReceived.map(( challenge ) => {
-            let winPercent = this.getWinProbability( this.props.playerData.elo, matchedUser.elo );
+            // let winPercent = this.getWinProbability( this.props.playerData.elo, challenge.challengerUserInfo.elo );
             return (
-              <div className="card" key={ challenge.id }>
-                <Image src={ challenge.image } className="image-opacity"/>
-                <Image src={ challenge.image } className="profile-pic-card pic-shadow" circle/>
+              <div className="card card-margin" key={ challenge.id }>
+                <Image 
+                  src={ challenge.challengerUserInfo.image } 
+                  className="image-opacity"/>
+                <Image 
+                  src={ challenge.challengerUserInfo.image } 
+                  className="profile-pic-card pic-shadow" circle/>
                 <div className="card-container text-center">
-                  <h4 className="username"><b>{ challenge.name }</b></h4> 
-                  W: { challenge.wins } L: { challenge.losses }
+                  <h4 className="username"><b>{ challenge.challengerUserInfo.name }</b></h4> 
+                  W: { challenge.challengerUserInfo.wins } 
+                  L: { challenge.challengerUserInfo.losses }
                   <br/>
                   <br/>
                   Win %
-                  <ProgressBaChallenges
-                    bsStyle="warning"
-                    now={ winPercent }
-                    label={ `${winPerfect}%` } />
+                  <ProgressBar
+                    bsStyle="info"
+                    now={ 50 }
+                    label={ `${50}%` } />
                   <Button 
                     bsStyle="primary"
                     className="card-button"
