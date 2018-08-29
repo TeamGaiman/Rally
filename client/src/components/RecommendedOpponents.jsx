@@ -28,8 +28,15 @@ class RecommendedOpponents extends React.Component {
 
   componentDidMount () {
     let newMatches = matchmakeByElo( this.props.playerData.elo, this.props.users );
+    let filtered = this.getMatchedUsers(newMatches);
     this.setState({
-      matchedUsers: newMatches
+      matchedUsers: filtered
+    });
+  }
+
+  getMatchedUsers (matches) {
+    return matches.filter((match, index) => {
+      return index % 2;
     });
   }
 
@@ -77,7 +84,7 @@ class RecommendedOpponents extends React.Component {
         <h2>Recommended Opponents</h2>
 
         <div className="scrolling-wrapper scrolling-wrapper-flexbox">
-          { this.state.matchedUsers.slice( 0, 10 ).map( matchedUser => {
+          { this.state.matchedUsers.slice( 0, 15 ).map( matchedUser => {
             let winPercent = this.getWinProbability( this.props.playerData.elo, matchedUser.elo );
             return (
               <div className="card" key={ matchedUser.id }>
