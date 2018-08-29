@@ -55,6 +55,10 @@ const resolvers = {
     /*--- MATCH TYPE RESOLVERS ---*/
     court: async ({ location }) => {
       return await models.Court.findOne({ where: { name: location }});
+    },
+
+    challengerUserInfo: async({ challenger }) => {
+      return await models.User.findOne({ where: { email: challenger }});
     }
 
   },
@@ -92,7 +96,8 @@ const resolvers = {
     
     getAllCourts: async ( ) => {
       return await models.Court.findAll({});
-    },
+    }
+
   },
     
   Mutation: {
