@@ -24,9 +24,21 @@ class RecommendedOpponents extends React.Component {
     this.handleHideMatch = this.handleHideMatch.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
+    this.updateMatchedUsers = this.updateMatchedUsers.bind(this);
+    this.getRecommendedOpponents = this.getRecommendedOpponents.bind(this);
   }
 
   componentDidMount () {
+    this.getRecommendedOpponents();
+  }
+
+  updateMatchedUsers ( matchedUsers ) {
+    this.setState({
+      matchedUsers
+    });
+  }
+
+  getRecommendedOpponents () {
     let newMatches = this.getMatchedUsers( this.props.playerData.elo, this.props.users );
     this.setState({
       matchedUsers: newMatches
@@ -62,9 +74,12 @@ class RecommendedOpponents extends React.Component {
   handleSendChallenge () {
     if ( this.state.startTime && this.state.location ) {
       let index = this.state.matchedUsers.indexOf( this.state.matchClickUser );
-      this.state.matchedUsers.splice( index, 1 );
+      let tempMatchedUsers = this.state.matchedUsers.slice();
+      if ( tempMatchedUsers.length > 1 ) {
+        tempMatchedUsers.splice( index, 1 );
+      }
       this.setState({ 
-        matchedUsers: this.state.matchedUsers,
+        matchedUsers: tempMatchedUsers,
         showMatch: false, 
         startTime: '',
         location: null
@@ -86,6 +101,22 @@ class RecommendedOpponents extends React.Component {
     return (
       <div className="matches-container">
         <h2>Recommended Opponents</h2>
+
+        <Query query={ GET_ALL_USERS }>
+          {({ loading, error, data }) => {
+            if ( loading ) { return <p>Loading...</p>; }
+            if ( error ) { console.error( error ); }
+            return (
+              <SearchUsers
+                handleMatchClick={ this.handleMatchClick }
+                loggedInUser={ this.props.playerData.email }
+                allUsers={ data.getAllUsers }
+                updateMatchedUsers={ this.updateMatchedUsers }
+                getRecommendedOpponents={ this.getRecommendedOpponents }
+              />
+            );
+          }}
+        </Query>
 
         <div className="scrolling-wrapper scrolling-wrapper-flexbox">
           { this.state.matchedUsers.slice( 0, 10 ).map( matchedUser => {
@@ -120,18 +151,7 @@ class RecommendedOpponents extends React.Component {
         <br/>
         <br/>
 
-        <Query query={ GET_ALL_USERS }>
-          {({ loading, error, data }) => {
-            if ( loading ) { return <p>Loading...</p>; }
-            if ( error ) { console.error( error ); }
-            return (
-              <SearchUsers
-                handleMatchClick={ this.handleMatchClick }
-                loggedInUser={ this.props.playerData.email }
-                allUsers={ data.getAllUsers }/>
-            );
-          }}
-        </Query>
+       
 
         { this.state.showMatch
           ? <Mutation

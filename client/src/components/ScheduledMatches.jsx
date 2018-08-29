@@ -58,8 +58,9 @@ class ScheduledMatches extends React.Component {
                   <td>{ match.location }</td>
                   <td>{ match.completed ? 'Complete' : 'Scheduled'}</td>
                   <td>
-                    { match.completed ?
-                      match.winner
+                    {( match.completed )
+                      ?
+                      <p>{match.winner}</p>
                       :
                       <Button 
                         bsStyle="primary" 
@@ -78,6 +79,7 @@ class ScheduledMatches extends React.Component {
         </Table>
 
         <ResultsModal
+          currentUser={ this.props.currentUser }
           match={ this.state.matchClicked }
           resultsModalOpen={ this.state.resultsModalOpen }
           hideResultsModal={ this.hideResultsModal }
