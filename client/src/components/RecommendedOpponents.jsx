@@ -27,21 +27,21 @@ class RecommendedOpponents extends React.Component {
   }
 
   componentDidMount () {
-    let newMatches = matchmakeByElo( this.props.playerData.elo, this.props.users );
-    let filtered = this.getMatchedUsers(newMatches);
+    let newMatches = this.getMatchedUsers( this.props.playerData.elo, this.props.users );
     this.setState({
-      matchedUsers: filtered
+      matchedUsers: newMatches
     });
   }
 
-  getMatchedUsers (array) {
-    for (var i = array.length - 1; i > 0; i--) {
+  getMatchedUsers (elo, users) {
+    let matches = matchmakeByElo( elo, users );
+    for (var i = matches.length - 1; i > 0; i--) {
       var j = Math.floor(Math.random() * (i + 1));
-      var temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
+      var temp = matches[i];
+      matches[i] = matches[j];
+      matches[j] = temp;
     }
-    return array;
+    return matches;
   }
 
   handleMatchClick ( user ) {
