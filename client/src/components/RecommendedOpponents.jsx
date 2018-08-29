@@ -63,9 +63,12 @@ class RecommendedOpponents extends React.Component {
   handleSendChallenge () {
     if ( this.state.startTime && this.state.location ) {
       let index = this.state.matchedUsers.indexOf( this.state.matchClickUser );
-      this.state.matchedUsers.splice( index, 1 );
+      let tempMatchedUsers = this.state.matchedUsers.slice();
+      if ( tempMatchedUsers.length > 1 ) {
+        tempMatchedUsers.splice( index, 1 );
+      }
       this.setState({ 
-        matchedUsers: this.state.matchedUsers,
+        matchedUsers: tempMatchedUsers,
         showMatch: false, 
         startTime: '',
         location: null
