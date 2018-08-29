@@ -81,7 +81,7 @@ class RecommendedOpponents extends React.Component {
       this.setState({ 
         matchedUsers: tempMatchedUsers,
         showMatch: false, 
-        startTime: '',
+        startTime: new Date(),
         location: null
       });
     } else {
