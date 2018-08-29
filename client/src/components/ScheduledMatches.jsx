@@ -35,7 +35,7 @@ class ScheduledMatches extends React.Component {
       .concat( this.props.scheduledMatches.completedMatches );
 
     return (
-      <div className="matches-container">
+      <div>
         <h2>Scheduled Matches</h2>
         <Table striped bordered condensed hover>
 
