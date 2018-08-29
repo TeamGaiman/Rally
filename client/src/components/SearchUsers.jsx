@@ -13,10 +13,13 @@ class SearchUsers extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
     this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this);
-    this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
   }
 
   onChange ( event, { newValue, method }) {
+    if (newValue.length === 0 ) {
+      this.props.getRecommendedOpponents();
+    }
+
     this.setState({
       value: newValue
     });
@@ -45,23 +48,6 @@ class SearchUsers extends React.Component {
   getSuggestionValue ( suggestion ) {
     return suggestion.name || suggestion.email;
   }
-  
-  renderSuggestion ( suggestion ) {
-    return (
-      null
-      // <span className="suggestion-item">
-      //   {( suggestion.email )
-      //     ? <span><strong>Email: </strong> { suggestion.email }</span>
-      //     : null}
-      //   {( suggestion.name )
-      //     ? <span><strong> Username: </strong> { suggestion.name }</span>
-      //     : null}
-      //   {( suggestion.fullName )
-      //     ? <span><strong> Full Name: </strong> { suggestion.fullName }</span>
-      //     : null}
-      // </span>
-    );
-  }
 
   onSuggestionsFetchRequested ({ value }) {
     this.setState({
@@ -71,14 +57,9 @@ class SearchUsers extends React.Component {
   }
 
   onSuggestionsClearRequested () {
-    this.props.getRecommendedOpponents();
     this.setState({
       suggestions: []
     });
-  }
-
-  onSuggestionSelected ( event, { suggestion } ) {
-    this.props.handleMatchClick( suggestion );
   }
 
   render () {
@@ -96,9 +77,10 @@ class SearchUsers extends React.Component {
         onSuggestionsFetchRequested={ this.onSuggestionsFetchRequested }
         onSuggestionsClearRequested={ this.onSuggestionsClearRequested }
         getSuggestionValue={ this.getSuggestionValue }
-        renderSuggestion={ this.renderSuggestion }
         inputProps={ inputProps }
-        onSuggestionSelected={ this.onSuggestionSelected }
+        //required props by react-autosuggest but not necessary in our case.
+        renderSuggestion={ () => { return; } }
+        onSuggestionSelected={ () => { return; } }
       />
     );
   }

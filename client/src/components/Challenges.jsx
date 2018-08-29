@@ -30,6 +30,7 @@ class Challenges extends React.Component {
   }
 
   render () {
+    console.log(this.props.challengeData.challengesReceived)
     return (
       <div className="matches-container">
         <h2>Challenges</h2>
