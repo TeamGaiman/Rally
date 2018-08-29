@@ -53,6 +53,18 @@ const MATCH = `
     id
     location
     challenger
+    challengerUserInfo {
+      id
+      email
+      name
+      fullName
+      phoneNumber
+      image
+      elo
+      wins
+      losses
+      tier
+    }
     opponent
     startTime
     winner

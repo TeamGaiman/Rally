@@ -28,6 +28,7 @@ const typeDefs =
     location: String!
     court: Court
     challenger: String!
+    challengerUserInfo: User
     opponent: String!
     startTime: String
     accepted: Boolean
@@ -97,7 +98,7 @@ const typeDefs =
     checkEmailIsUnique( email: String! ): Boolean
     getUserByEmail( email: String! ): User
 
-    getChallengesByUser( email: String ): [Match]
+    getChallengesByUser( email: String! ): [Match]
     getUpcomingMatchesByUser( email: String ): [Match]
 
     getAllCourts: [Court]
@@ -111,7 +112,6 @@ const typeDefs =
     updateMatch( id: ID!, input: MatchUpdateInput ) : Boolean!
     deleteMatch( id: ID!) : Boolean!
    
-
     createCourt( input: CourtInput ) : Boolean!
     updateCourt( location: String, input: CourtInput ) : Boolean!
   }
