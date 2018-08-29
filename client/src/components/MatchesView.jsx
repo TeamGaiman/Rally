@@ -1,6 +1,6 @@
 import React from 'react';
-import { Tabs, Tab } from 'react-bootstrap';
 import { Query } from 'react-apollo';
+import { Tabs, Tab, TabList } from 'react-web-tabs';
 
 import { GET_SCHEDULED_BY_USER } from '../apollo/queries.js';
 import ScheduledMatches from './ScheduledMatches.jsx';
@@ -28,7 +28,7 @@ class MatchesView extends React.Component {
   }
 
   handleSelect ( key ) {
-    if ( key === 1 ) {
+    if ( key === 'one' ) {
       this.setState({
         showCalendar: false
       });
@@ -41,22 +41,24 @@ class MatchesView extends React.Component {
 
   render () {
     return (
-      <div>
-        <Tabs
-          id='search-map'
-          onSelect={ this.handleSelect }
-          activeKey={ this.state.showCalendar ? 2 : 1 }
-        >
-          <Tab eventKey={1} title='Matches'/>
-          <Tab eventKey={2} title='Calendar View'/>
-        </Tabs>
+      <div className="matches-container">
+          <Tabs
+            defaultTab="one"
+            onChange={(tabId) => { this.handleSelect( tabId ) }}
+          >
+            <TabList>
+              <Tab tabFor="one">Matches</Tab>
+              <Tab tabFor="two">Upcoming Calendar</Tab>
+            </TabList>
+          </Tabs>
+
         <Query query={ GET_SCHEDULED_BY_USER }
           variables={{ email: this.props.playerData.email }}
           pollInterval={ 500 }
         >
           {({ loading, error, data }) => {
             if (loading) {
-              return <p>Loading your Scheduled Matches...</p>;
+              return <p></p>;
             } else if (error) {
               return <p>Could not find any Matches</p>;
             }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
+import { Tabs, Tab, TabList } from 'react-web-tabs';
 
 import RecommendedOpponents from './RecommendedOpponents.jsx';
 import { GET_USERS_BY_TIER, GET_CHALLENGES_BY_USER } from '../apollo/queries.js';
