@@ -44,12 +44,12 @@
   bottom: -1px;
 	left: 0;
 	width: 100%;
-	border-bottom: 3px solid #00d8ff;
+	border-bottom: 3px solid rgb(255, 133, 133);
 }
 
 .rwt__tablist[aria-orientation="vertical"] .rwt__tab[aria-selected="true"]:after {
   right: -1px;
   top: 0;
   height: 100%;
-  border-right: 3px solid #00d8ff;
+  border-right: 3px solid rgb(255, 133, 133);
 }

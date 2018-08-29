@@ -88,8 +88,8 @@ class RecommendedOpponents extends React.Component {
 
   render () {
     return (
-      <div className="matches-container">
-        <h2>Recommended Opponents</h2>
+      <div>
+        {/* <h2>Recommended Opponents</h2> */}
 
         <Query query={ GET_ALL_USERS }>
           {({ loading, error, data }) => {

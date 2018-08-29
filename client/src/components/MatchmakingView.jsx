@@ -20,13 +20,13 @@ class Matchmaking extends React.Component {
       return <div>Loading potential opponnents...</div>;
     } else {
       return (
-        <div>
+        <div className="matches-container">
           <Tabs
             defaultTab="one"
             onChange={(tabId) => { console.log(tabId) }}
           >
             <TabList>
-              <Tab tabFor="one">Potential Opponents</Tab>
+              <Tab tabFor="one">Recommended Opponents</Tab>
               <Tab tabFor="two">Challenges</Tab>
             </TabList>
           </Tabs>
