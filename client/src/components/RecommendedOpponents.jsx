@@ -90,12 +90,12 @@ class RecommendedOpponents extends React.Component {
                   <br/>
                   Win %
                   <ProgressBar
-                    bsStyle="warning"
+                    bsStyle="success"
                     now={ winPercent }
                     label={ `${winPercent}%` } />
                   <Button 
                     bsStyle="primary"
-                    className="card-button btn-grad"
+                    className="card-button"
                     onClick={ () => this.handleMatchClick( matchedUser )}>
                     Challenge
                   </Button>
