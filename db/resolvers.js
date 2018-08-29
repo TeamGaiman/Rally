@@ -59,6 +59,10 @@ const resolvers = {
 
     challengerUserInfo: async({ challenger }) => {
       return await models.User.findOne({ where: { email: challenger }});
+    },
+
+    opponentUserInfo: async({ opponent }) => {
+      return await models.User.findOne({ where: { email: opponent }});
     }
 
   },

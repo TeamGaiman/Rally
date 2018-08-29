@@ -44,6 +44,17 @@ class ResultsModal extends React.Component {
   }
 
   render () {
+    let modalOpponent = null;
+    if (this.props.match.opponent) {
+      if (this.props.currentUser === this.props.match.opponent) {
+        modalOpponent = this.props.match.challengerUserInfo.name ||
+        this.props.match.challengerUserInfo.fullName;
+      } else {
+        modalOpponent = this.props.match.opponentUserInfo.name ||
+          this.props.match.opponentUserInfo.fullName;
+      }
+    }
+
     return (
       <Modal
         show={ this.props.resultsModalOpen }
@@ -53,13 +64,7 @@ class ResultsModal extends React.Component {
 
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title">
-            {`Your match vs ${ 
-              this.props.match.opponent === this.props.currentUser
-                ?
-                this.props.match.challenger
-                :
-                this.props.match.opponent
-            }`}
+            { `Your match vs ${ modalOpponent }` }
           </Modal.Title>
         </Modal.Header>
         
