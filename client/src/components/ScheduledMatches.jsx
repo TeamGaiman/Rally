@@ -19,8 +19,8 @@ class ScheduledMatches extends React.Component {
 
   handleMatchClick ( match ) {
     this.setState({
-      resultsModalOpen: true,
-      matchClicked: match
+      matchClicked: match,
+      resultsModalOpen: true
     });
   }
 
@@ -34,6 +34,7 @@ class ScheduledMatches extends React.Component {
     let combinedMatches = this.props.scheduledMatches.pendingMatches
       .concat( this.props.scheduledMatches.completedMatches );
 
+    console.log(combinedMatches);
     return (
       <div>
         <h2>Scheduled Matches</h2>
@@ -52,12 +53,12 @@ class ScheduledMatches extends React.Component {
           <tbody>
             { combinedMatches.map(( match, index ) => {
               if (this.props.currentUser === match.opponent) {
-                var matchOpponent = match.challengerUserInfo.fullName
-                  || match.challengerUserInfo.name;
+                var matchOpponent = match.challengerUserInfo.name ||
+                  match.challengerUserInfo.fullName;
               } else {
-                var matchOpponent = match.opponentUserInfo.fullName
-                  || match.opponentUserInfo.name;
-              }git 
+                var matchOpponent = match.opponentUserInfo.name
+                  || match.opponentUserInfo.fullName;
+              } 
               return (
                 <tr className="match-row" key={ index }>
                   <td>{ matchOpponent }</td>
