@@ -9,7 +9,7 @@ const matchmakeByElo = ( eloToMatch, users ) => {
   });
 
   return sortedUserMatches.filter( ( person ) => {
-    return person.elo > eloToMatch - 125 && person.elo < eloToMatch + 125;
+    return person.elo > eloToMatch - 150 && person.elo < eloToMatch + 150;
   });
 
 };

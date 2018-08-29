@@ -34,10 +34,14 @@ class RecommendedOpponents extends React.Component {
     });
   }
 
-  getMatchedUsers (matches) {
-    return matches.filter((match, index) => {
-      return index % 2;
-    });
+  getMatchedUsers (array) {
+    for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    return array;
   }
 
   handleMatchClick ( user ) {
@@ -84,7 +88,7 @@ class RecommendedOpponents extends React.Component {
         <h2>Recommended Opponents</h2>
 
         <div className="scrolling-wrapper scrolling-wrapper-flexbox">
-          { this.state.matchedUsers.slice( 0, 15 ).map( matchedUser => {
+          { this.state.matchedUsers.slice( 0, 10 ).map( matchedUser => {
             let winPercent = this.getWinProbability( this.props.playerData.elo, matchedUser.elo );
             return (
               <div className="card" key={ matchedUser.id }>
