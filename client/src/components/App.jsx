@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ApolloProvider, Query } from 'react-apollo';
 
+import firebase from '../../../firebase/firebase.js';
 import NavBar from './NavBar.jsx';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
