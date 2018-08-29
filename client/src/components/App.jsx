@@ -35,6 +35,7 @@ class App extends React.Component {
         this.setState({
           googleUserData: Object.assign( {}, user.providerData[0] )
         });
+        console.log(user.providerData[0]);
       } else {
         this.setState({
           googleUserData: null
