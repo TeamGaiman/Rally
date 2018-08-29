@@ -96,15 +96,6 @@ const resolvers = {
     
     getAllCourts: async ( ) => {
       return await models.Court.findAll({});
-    },
-
-    getChallengesByUser: async ({ email }) => {
-      return await models.Match.findAll({
-        where: {
-          opponent: email,
-          accepted: false
-        }
-      });
     }
 
   },
