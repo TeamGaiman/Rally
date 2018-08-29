@@ -53,10 +53,16 @@ class ScheduledMatches extends React.Component {
             { combinedMatches.map(( match, index ) => {
               return (
                 <tr className="match-row" key={ index }>
-                  <td>{ match.opponent }</td>
+                  <td>{ 
+                    match.opponent === this.props.currentUser 
+                      ? 
+                      match.challenger 
+                      : 
+                      match.opponent 
+                  }</td>
                   <td>{ moment( new Date( match.startTime )).calendar() }</td>
                   <td>{ match.location }</td>
-                  <td>{ match.completed ? 'Complete' : 'Scheduled'}</td>
+                  <td>{ match.completed ? 'Complete' : match.winner ? 'Awaiting Confirmation' : 'Scheduled'}</td>
                   <td>
                     {( match.completed )
                       ?
@@ -67,7 +73,7 @@ class ScheduledMatches extends React.Component {
                         value={ index }
                         onClick={ ( e ) => this.handleMatchClick( match )}
                       >
-                        Add Results
+                        { match.winner ? 'Confirm Winner' : 'Add Winner' }
                       </Button>
                     }
                   </td>
