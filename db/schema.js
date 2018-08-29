@@ -30,6 +30,7 @@ const typeDefs =
     challenger: String!
     challengerUserInfo: User
     opponent: String!
+    opponentUserInfo: User
     startTime: String
     accepted: Boolean
     completed: Boolean

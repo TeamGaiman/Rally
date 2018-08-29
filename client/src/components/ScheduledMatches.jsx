@@ -51,9 +51,16 @@ class ScheduledMatches extends React.Component {
 
           <tbody>
             { combinedMatches.map(( match, index ) => {
+              if (this.props.currentUser === match.opponent) {
+                var matchOpponent = match.challengerUserInfo.fullName
+                  || match.challengerUserInfo.name;
+              } else {
+                var matchOpponent = match.opponentUserInfo.fullName
+                  || match.opponentUserInfo.name;
+              }
               return (
                 <tr className="match-row" key={ index }>
-                  <td>{ match.opponent }</td>
+                  <td>{ matchOpponent }</td>
                   <td>{ moment( new Date( match.startTime )).calendar() }</td>
                   <td>{ match.location }</td>
                   <td>{ match.completed ? 'Complete' : 'Scheduled'}</td>
