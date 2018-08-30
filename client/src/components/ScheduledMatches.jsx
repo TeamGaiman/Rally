@@ -68,8 +68,22 @@ class ScheduledMatches extends React.Component {
                     <br/>
                     { matchOpponent.name || matchOpponent.fullName }
                   </td>
-                  <td>{ moment( new Date( match.startTime )).calendar() }</td>
-                  <td>{ match.location }</td>
+                  <td 
+                    className="clickable-td"
+                    onClick={ () => {
+                      this.props.handleChallengeClicked( match );
+                      this.props.toggleChallengeModal();
+                    }}>
+                    { moment( new Date( match.startTime )).calendar() }
+                  </td>
+                  <td
+                    className="clickable-td"
+                    onClick={ () => {
+                      this.props.handleChallengeClicked( match );
+                      this.props.toggleChallengeModal();
+                    }}>
+                    { match.location }
+                  </td>
                   <td>{ match.completed ? 'Complete' : match.winner ? 'Awaiting Confirmation' : 'Scheduled'}</td>
                   <td>
                     {( match.completed )

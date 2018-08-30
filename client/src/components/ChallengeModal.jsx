@@ -17,7 +17,7 @@ const ChallengeModal = (props) => {
 
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title">
-            { `You've been challenged by ${ props.challenge.challenger }` }
+            { `You've been challenged by ${ props.challenge.challengerUserInfo.name }` }
           </Modal.Title>
         </Modal.Header>
         
