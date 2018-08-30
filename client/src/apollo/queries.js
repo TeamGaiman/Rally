@@ -66,6 +66,18 @@ const MATCH = `
       tier
     }
     opponent
+    opponentUserInfo {
+      id
+      email
+      name
+      fullName
+      phoneNumber
+      image
+      elo
+      wins
+      losses
+      tier
+    }
     startTime
     winner
     score
