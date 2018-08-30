@@ -19,4 +19,5 @@
 
 .clickable-td:hover {
   cursor: pointer;
+  font-weight: bold;
 }

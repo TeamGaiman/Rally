@@ -74,6 +74,7 @@ class MatchesView extends React.Component {
               this.state.showCalendar 
                 ? (
                   <Calendar
+                    currentUser={ this.props.playerData.email }
                     calendarModal={ this.state.calendarModal }
                     toggleCalendarModal={ this.toggleCalendarModal }
                     scheduledMatches={ data.getUserByEmail }
