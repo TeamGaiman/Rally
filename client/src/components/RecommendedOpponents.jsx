@@ -5,7 +5,7 @@ import { Query, Mutation } from 'react-apollo';
 import { CREATE_MATCH } from '../apollo/mutations.js';
 import { GET_ALL_USERS } from '../apollo/queries.js';
 import CreateChallengeModal from './CreateChallengeModal.jsx';
-import { matchmakeByElo, calcProbabilityOfWin } from '../../dist/js/index';
+import { matchmakeByElo } from '../../dist/js/index';
 import SearchUsers from './SearchUsers.jsx';
 
 class RecommendedOpponents extends React.Component {
@@ -26,6 +26,7 @@ class RecommendedOpponents extends React.Component {
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.updateMatchedUsers = this.updateMatchedUsers.bind(this);
     this.getRecommendedOpponents = this.getRecommendedOpponents.bind(this);
+    this.getMatchedUsers = this.getMatchedUsers.bind(this);
   }
 
   componentDidMount () {
@@ -93,10 +94,6 @@ class RecommendedOpponents extends React.Component {
     this.setState({ location });
   }
 
-  getWinProbability(elo1, elo2) {
-    return Math.floor( calcProbabilityOfWin( elo1, elo2 ) * 100 ) || 1;
-  }
-
   render () {
     return (
       <div>
@@ -118,7 +115,7 @@ class RecommendedOpponents extends React.Component {
 
         <div className="scrolling-wrapper scrolling-wrapper-flexbox">
           { this.state.matchedUsers.slice( 0, 10 ).map( matchedUser => {
-            let winPercent = this.getWinProbability( this.props.playerData.elo, matchedUser.elo );
+            let winPercent = this.props.getWinProbability( this.props.playerData.elo, matchedUser.elo );
             return (
               <div className="card" key={ matchedUser.id }>
                 <Image src={ matchedUser.image } className="image-opacity"/>
