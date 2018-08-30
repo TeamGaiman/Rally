@@ -25,3 +25,9 @@
   height: 100% !important;
   position: center;
 } */
+
+.loading-spinner {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

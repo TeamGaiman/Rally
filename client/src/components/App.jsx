@@ -18,7 +18,7 @@ class App extends React.Component {
     this.state = {
       googleUserData: null,
       playerData: null,
-      loading: false
+      loading: true
     };
 
     this.authListener = this.authListener.bind(this);
@@ -42,7 +42,8 @@ class App extends React.Component {
         console.log(user.providerData[0]);
       } else {
         this.setState({
-          googleUserData: null
+          googleUserData: null,
+          loading: false
         });
       }
     });
@@ -53,7 +54,7 @@ class App extends React.Component {
     });
 
     var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithRedirec( provider )
+    firebase.auth().signInWithRedirect( provider )
       .then( () => {
         return;
       })
@@ -82,16 +83,17 @@ class App extends React.Component {
   }
 
   render () {
-    // if (this.state.loading) {
-    //   return (
-    //     <BounceLoader
-    //       sizeUnit={'px'}
-    //       size={300}
-    //       color={'#123abc'}
-    //       loading={true}
-    //     />
-    //   );
-    // }
+    if (this.state.loading) {
+      return (
+        <BounceLoader
+          sizeUnit={'px'}
+          size={300}
+          color={'#123abc'}
+          loading={ this.state.loading }
+          className="loading-spinner"
+        />
+      );
+    }
     return (
       <ApolloProvider client={ this.props.client }>
         <NavBar
