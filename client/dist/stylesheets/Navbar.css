@@ -43,3 +43,11 @@
 .nav-margin {
   margin-bottom: 0px;
 }
+
+.rally-logo {
+  /* padding: 2px 2px 2px 2px; */
+  width: 80px;
+  height: 20px;
+  position: relative;
+  top: 12.5px;
+}
