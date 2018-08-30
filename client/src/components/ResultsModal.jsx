@@ -12,12 +12,14 @@ class ResultsModal extends React.Component {
     this.state = {
       selectedWinner: '',
       opponentReview: [],
+      winnerElo: ''
     };
 
     this.handleWinnerSelect = this.handleWinnerSelect.bind(this);
     this.handleOpponentReview = this.handleOpponentReview.bind(this);
     this.handleWinnerMutation = this.handleWinnerMutation.bind(this);
     this.getWinnerElo = this.getWinnerElo.bind(this);
+    this.getLoserElo = this.getLoserElo.bind(this);
   }
 
   componentDidMount () {
@@ -61,11 +63,17 @@ class ResultsModal extends React.Component {
   }
 
   handleWinnerMutation(updateMatch, updateUser) {
+    let winnerElo;
+    if (this.props.currentUser === this.props.match.opponent) {
+      winnerElo = this.props.match.challengerUserInfo.elo
+    } else {
+      winnerElo = this.props.match.opponentUserInfo.elo
+    }
     updateMatch({
       variables: {
         id: this.props.match.id,
         input: {
-          winner: this.props.currentUser
+          completed: true
         }
       }
     })
@@ -74,15 +82,21 @@ class ResultsModal extends React.Component {
           variables: {
             email: this.props.match.winner,
             input: {
-              elo: this.getWinnerElo()
+              elo: this.getWinnerElo(winnerElo, this.props.currentUser.elo)
             }
           }
-        });
-      });
-  }
-
-  handleLoserMutation() {
-    
+        })
+      })
+      .then(({data}) => {
+        updateUser({
+        variables: {
+          email: this.props.currentUser.elo,
+          input: {
+            elo: this.getLoserElo(winnerElo, this.props.currentUser.elo)
+          }
+        }
+      })
+    }) 
   }
 
   render () {
@@ -176,28 +190,19 @@ class ResultsModal extends React.Component {
                 update={ this.props.hideResultsModal }
               >
                 { updateMatch => (
-
-                  <Mutation mutation={ UPDATE_USER }>
-                    {updateUser => (
-                      <Button
-                        bsStyle="primary"
-                        onClick={ () => {
-                          this.handleWinnerMutation(updateMatch, updateUser);
-                        }}
-                      >
-
-                        {/* updateMatch({ variables: {
+                  <Button
+                    bsStyle="primary"
+                    onClick={ () => {
+                      updateMatch({ variables: {
                         id: this.props.match.id,
                         input: {
                           winner: this.props.currentUser
                         }
                       }}); 
                     }}
-                  > */}
+                  >
                     I won this match.
-                      </Button>
-                    )}
-                  </Mutation>
+                  </Button>
                 )}
               </Mutation>
               : null
@@ -220,19 +225,19 @@ class ResultsModal extends React.Component {
                 update={ this.props.hideResultsModal }
               >
                 { updateMatch => (
-                  <Button
-                    bsStyle="primary"
-                    onClick={ () => {
-                      updateMatch({ variables: {
-                        id: this.props.match.id,
-                        input: {
-                          completed: true
-                        }
-                      }}); 
-                    }}
-                  >
-                    Confirm that my opponent won this match.
-                  </Button>
+
+                  <Mutation mutation={ UPDATE_USER }>
+                    {updateUser => (
+                      <Button
+                        bsStyle="primary"
+                        onClick={ () => {
+                          this.handleWinnerMutation(updateMatch, updateUser);
+                        }}
+                      >
+                    Confirm that my opponent won this match
+                      </Button>
+                    )}
+                  </Mutation>
                 )}
               </Mutation>
               : null
