@@ -377,3 +377,7 @@ td.rdtYear:hover {
   top: -35px;
   /* border-radius: 100px; */
 }
+
+.react-autosuggest__suggestions-container {
+  display: none;
+}

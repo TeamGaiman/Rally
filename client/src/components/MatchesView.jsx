@@ -93,6 +93,7 @@ class MatchesView extends React.Component {
         </Query>
 
         <ChallengeModal
+          currentUser={ this.props.playerData.email }
           challenge={ this.state.challengeClicked }
           challengeModalOpen={ this.state.challengeModalOpen }
           hideChallengeModal={ this.toggleChallengeModal }
