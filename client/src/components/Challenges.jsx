@@ -3,8 +3,7 @@ import { Button, ProgressBar, Image } from 'react-bootstrap';
 import moment from 'moment';
 
 import ChallengeModal from './ChallengeModal.jsx';
-import { calcProbabilityOfWin } from '../../dist/js/index';
-
+import Tennisball from '../../dist/lib/tennisball.png';
 
 class Challenges extends React.Component {
   constructor(props) {
@@ -16,7 +15,6 @@ class Challenges extends React.Component {
 
     this.handleChallengeClick = this.handleChallengeClick.bind(this);
     this.hideChallengeModal = this.hideChallengeModal.bind(this);
-    this.getWinProbability = this.getWinProbability.bind(this);
   }
 
   handleChallengeClick ( challenge ) {
@@ -32,19 +30,14 @@ class Challenges extends React.Component {
     });
   }
 
-  getWinProbability(elo1, elo2) {
-    return Math.floor( calcProbabilityOfWin( elo1, elo2 ) * 100 ) || 1;
-  }
-
   render () {
-    // console.log('challengers', this.props.userDataElo);
     return (
       <div>
         <div className="scrolling-wrapper scrolling-wrapper-flexbox">
           { this.props.challengeData.challengesReceived.length 
             ? (
               this.props.challengeData.challengesReceived.map(( challenge ) => {
-                let winPercent = this.getWinProbability( this.props.userDataElo, challenge.challengerUserInfo.elo );
+                let winPercent = this.props.getWinProbability( this.props.userDataElo, challenge.challengerUserInfo.elo );
                 return (
                   <div className="challenge-card card-margin" key={ challenge.id }>
                     <Image
@@ -77,7 +70,14 @@ class Challenges extends React.Component {
                 );
               })
             ) : (
-              <div className="text-center">No Challenges</div>
+              <div>
+                <Image src={ Tennisball } className="no-challenges-display"/>
+                <br/>
+                <br/>
+                <div className="no-challenges-text">
+                  No challenges
+                </div>
+              </div>
             )}
         </div>
 

@@ -5,6 +5,7 @@ import { Tabs, Tab, TabList } from 'react-web-tabs';
 import RecommendedOpponents from './RecommendedOpponents.jsx';
 import { GET_USERS_BY_TIER, GET_CHALLENGES_BY_USER } from '../apollo/queries.js';
 import Challenges from './Challenges.jsx';
+import { calcProbabilityOfWin } from '../../dist/js/index';
 
 class Matchmaking extends React.Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class Matchmaking extends React.Component {
     };
 
     this.handleSelect = this.handleSelect.bind(this);
+    this.getWinProbability = this.getWinProbability.bind(this);
   }
   
   componentDidMount () {
@@ -33,6 +35,9 @@ class Matchmaking extends React.Component {
     }
   }
 
+  getWinProbability (elo1, elo2) {
+    return Math.floor( calcProbabilityOfWin( elo1, elo2 ) * 100 ) || 1;
+  }
 
   render() {
     if ( !this.props.playerData ) {
@@ -66,6 +71,7 @@ class Matchmaking extends React.Component {
                       <Challenges
                         challengeData={ data.getUserByEmail }
                         userDataElo={ this.props.playerData.elo }
+                        getWinProbability={ this.getWinProbability }
                       />
                     </div>
                   );
@@ -89,6 +95,7 @@ class Matchmaking extends React.Component {
                       <RecommendedOpponents
                         users={ data.getUsersByTier }
                         playerData={ this.props.playerData }
+                        getWinProbability={ this.getWinProbability }
                       />
                     </div>
                   );
