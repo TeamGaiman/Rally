@@ -64,7 +64,8 @@ class Matchmaking extends React.Component {
                   return (
                     <div>
                       <Challenges
-                        challengeData={data.getUserByEmail}
+                        challengeData={ data.getUserByEmail }
+                        userDataElo={ this.props.playerData.elo }
                       />
                     </div>
                   );
