@@ -16,3 +16,7 @@
   vertical-align: middle;
   text-align: center;
 }
+
+.clickable-td:hover {
+  cursor: pointer;
+}

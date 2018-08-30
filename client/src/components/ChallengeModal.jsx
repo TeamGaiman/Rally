@@ -38,6 +38,7 @@ const ChallengeModal = (props) => {
           />
         </Modal.Body>
 
+        { !props.challenge.accepted &&
         <Modal.Footer>
           <Mutation
             mutation={ DELETE_MATCH }
@@ -76,7 +77,7 @@ const ChallengeModal = (props) => {
             )}
           </Mutation>
         </Modal.Footer>
-
+        }
       </Modal>    
     );
   } else { 
