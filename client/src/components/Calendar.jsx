@@ -11,10 +11,18 @@ const Calendar = (props) => {
   let events = props.scheduledMatches.pendingMatches.map( ( match ) => {
     let endDate = new Date( match.startTime );
     endDate.setHours( endDate.getHours() + 3 );
+
+    if (props.currentUser === match.opponent) {
+      var matchOpponent = match.challengerUserInfo;
+    } else {
+      var matchOpponent = match.opponentUserInfo;
+    }
+
     return {
-      title: 'Match vs ' + match.opponent,
+      title: 'vs ' + matchOpponent.name,
       startDate: new Date( match.startTime ),
-      endDate
+      endDate,
+      match
     };
   });
 
@@ -31,7 +39,8 @@ const Calendar = (props) => {
         events={ events }
         
         onSelectEvent={ event => {
-          props.toggleCalendarModal();
+          props.handleChallengeClicked( event.match );
+          props.toggleChallengeModal();
         }}
       />
       
