@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { Modal, Button, Form, FormControl, ControlLabel, ButtonToolbar, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { Mutation } from 'react-apollo';
+import { calcNewElos } from '../../dist/js/index';
 
 import { UPDATE_MATCH, UPDATE_USER } from '../apollo/mutations';
 
@@ -16,6 +17,7 @@ class ResultsModal extends React.Component {
     this.handleWinnerSelect = this.handleWinnerSelect.bind(this);
     this.handleOpponentReview = this.handleOpponentReview.bind(this);
     this.handleWinnerMutation = this.handleWinnerMutation.bind(this);
+    this.getWinnerElo = this.getWinnerElo.bind(this);
   }
 
   componentDidMount () {
@@ -44,6 +46,20 @@ class ResultsModal extends React.Component {
     });
   }
 
+  getWinnerElo(winnerElo, loserElo) {
+    let newElos = calcNewElos(winnerElo, loserElo, 32);
+    return newElos[0];
+    // this.setState({
+    //   winnerElo: newElos[0],
+    //   loserElo: newElos[1]
+    // });
+  }
+
+  getLoserElo(winnerElo, loserElo) {
+    let newElos = calcNewElos(winnerElo, loserElo, 32);
+    return newElos[1];
+  }
+
   handleWinnerMutation(updateMatch, updateUser) {
     updateMatch({
       variables: {
@@ -56,9 +72,9 @@ class ResultsModal extends React.Component {
       .then(({data}) => {
         updateUser({
           variables: {
-            email: this.props.currentUser,
+            email: this.props.match.winner,
             input: {
-              elo: 2100
+              elo: this.getWinnerElo()
             }
           }
         });
@@ -66,12 +82,13 @@ class ResultsModal extends React.Component {
   }
 
   handleLoserMutation() {
-
+    
   }
 
   render () {
     let modalOpponent = null;
     if (this.props.match.opponent) {
+      console.log('match:', this.props.match)
       if (this.props.currentUser === this.props.match.opponent) {
         modalOpponent = this.props.match.challengerUserInfo.name ||
         this.props.match.challengerUserInfo.fullName;
