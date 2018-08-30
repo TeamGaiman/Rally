@@ -85,13 +85,14 @@ class App extends React.Component {
   render () {
     if (this.state.loading) {
       return (
-        <BounceLoader
-          sizeUnit={'px'}
-          size={300}
-          color={'#123abc'}
-          loading={ this.state.loading }
-          className="loading-spinner"
-        />
+     <div className="loading-spinner">
+          <BounceLoader
+            sizeUnit={'px'}
+            size={200}
+            color={'#123abc'}
+            loading={ this.state.loading }
+          />
+       </div>
       );
     }
     return (
