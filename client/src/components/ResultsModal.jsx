@@ -3,7 +3,7 @@ import moment from 'moment';
 import { Modal, Button, Form, FormControl, ControlLabel, ButtonToolbar, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { Mutation } from 'react-apollo';
 
-import { UPDATE_MATCH } from '../apollo/mutations';
+import { UPDATE_MATCH, UPDATE_USER } from '../apollo/mutations';
 
 class ResultsModal extends React.Component {
   constructor(props) {
@@ -15,6 +15,7 @@ class ResultsModal extends React.Component {
 
     this.handleWinnerSelect = this.handleWinnerSelect.bind(this);
     this.handleOpponentReview = this.handleOpponentReview.bind(this);
+    this.handleWinnerMutation = this.handleWinnerMutation.bind(this);
   }
 
   componentDidMount () {
@@ -43,8 +44,25 @@ class ResultsModal extends React.Component {
     });
   }
 
-  handleWinnerMutation(matchId, winner) {
-    UPDATE_MATCH
+  handleWinnerMutation(updateMatch, updateUser) {
+    updateMatch({
+      variables: {
+        id: this.props.match.id,
+        input: {
+          winner: this.props.currentUser
+        }
+      }
+    })
+      .then(({data}) => {
+        updateUser({
+          variables: {
+            email: this.props.currentUser,
+            input: {
+              elo: 2100
+            }
+          }
+        });
+      });
   }
 
   handleLoserMutation() {
@@ -141,19 +159,28 @@ class ResultsModal extends React.Component {
                 update={ this.props.hideResultsModal }
               >
                 { updateMatch => (
-                  <Button
-                    bsStyle="primary"
-                    onClick={ () => {
-                      updateMatch({ variables: {
+
+                  <Mutation mutation={ UPDATE_USER }>
+                    {updateUser => (
+                      <Button
+                        bsStyle="primary"
+                        onClick={ () => {
+                          this.handleWinnerMutation(updateMatch, updateUser);
+                        }}
+                      >
+
+                        {/* updateMatch({ variables: {
                         id: this.props.match.id,
                         input: {
                           winner: this.props.currentUser
                         }
                       }}); 
                     }}
-                  >
+                  > */}
                     I won this match.
-                  </Button>
+                      </Button>
+                    )}
+                  </Mutation>
                 )}
               </Mutation>
               : null

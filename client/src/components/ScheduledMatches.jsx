@@ -80,7 +80,8 @@ class ScheduledMatches extends React.Component {
                         bsStyle="primary" 
                         value={ index }
                         onClick={ ( e ) => this.handleMatchClick( match )}
-                        disabled ={ new Date( match.startTime ) > new Date() ? true : false}
+                        // disabled ={ new Date( match.startTime ) > new Date() ? true : false}
+                        disabled={false}
                       >
                         { match.winner ? 'Confirm Winner' : 'Add Winner' }
                       </Button>
