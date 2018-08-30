@@ -32,9 +32,11 @@ class ScheduledMatches extends React.Component {
 
   render () {
     let combinedMatches = this.props.scheduledMatches.pendingMatches
-      .concat( this.props.scheduledMatches.completedMatches );
-
-    console.log(combinedMatches);
+      .concat( this.props.scheduledMatches.completedMatches )
+      .sort (( a, b ) => {
+        return new Date(b.startTime) - new Date(a.startTime);
+      });
+      
     return (
       <div>
         <h2>Scheduled Matches</h2>
@@ -74,6 +76,7 @@ class ScheduledMatches extends React.Component {
                         bsStyle="primary" 
                         value={ index }
                         onClick={ ( e ) => this.handleMatchClick( match )}
+                        disabled ={ new Date( match.startTime ) > new Date() ? true : false}
                       >
                         { match.winner ? 'Confirm Winner' : 'Add Winner' }
                       </Button>
