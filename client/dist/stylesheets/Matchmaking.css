@@ -130,6 +130,9 @@
 .card-margin {
   margin-top: 31px;
 }
+.challenge-card:hover {
+  box-shadow: 0 10px 15px 10px rgba(0,0,0,0.2);
+}
 
 .challenge-button {
   border-radius: 100px;
@@ -372,4 +375,5 @@ td.rdtYear:hover {
 .react-autosuggest__input {
   position: relative;
   top: -35px;
+  /* border-radius: 100px; */
 }
