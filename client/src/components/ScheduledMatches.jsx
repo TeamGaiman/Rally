@@ -34,7 +34,6 @@ class ScheduledMatches extends React.Component {
     let combinedMatches = this.props.scheduledMatches.pendingMatches
       .concat( this.props.scheduledMatches.completedMatches );
 
-    console.log(combinedMatches);
     return (
       <div>
         <h2>Scheduled Matches</h2>

@@ -4,8 +4,6 @@ import { Jumbotron, Button, Image, ProgressBar, FormGroup, FormControl, ControlL
 import EditUserInfo from './EditUserInfo.jsx';
 import TierInfoModal from './TierInfoModal.jsx';
 import ChangeTierModal from './ChangeTierModal.jsx';
-import { Mutation } from 'react-apollo';
-import { UPDATE_USER } from '../apollo/mutations.js';
 import Trophy1 from '../../dist/lib/trophy1.png';
 import Trophy2 from '../../dist/lib/trophy2.png';
 import Trophy3 from '../../dist/lib/trophy3.png';
@@ -24,8 +22,12 @@ class ProfileView extends React.Component {
     this.handleEditUserInfo = this.handleEditUserInfo.bind(this);
     this.toggleTierInfoModal = this.toggleTierInfoModal.bind(this);
     this.toggleTierChangeModal = this.toggleTierChangeModal.bind(this);
+    this.tierGauge = this.tierGauge.bind(this);
   }
 
+  componentDidMount() {
+    this.tierGauge();
+  }
   handleEditUserInfo () {
     this.setState({ editUserInfo: !this.state.editUserInfo });
   }
@@ -39,6 +41,44 @@ class ProfileView extends React.Component {
   toggleTierChangeModal () {
     this.setState({
       tierChangeModal: !this.state.tierChangeModal 
+    });
+  }
+
+  tierGauge () {
+    c3.generate({
+      bindto: '#tier-gauge',
+      data: {
+        columns: [
+          ['Tier progress', 70.4]
+        ],
+        type: 'gauge',
+        onclick: function (d, i) { console.log("onclick", d, i); },
+        // onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+        // onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+      },
+      gauge: {
+               label: {
+                   format: function(value, ratio) {
+                       return value;
+                   },
+                   show: false // to turn off the min/max labels.
+               },
+        //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+        //    max: 100, // 100 is default
+        //    units: ' %',
+        //    width: 39 // for adjusting arc thickness
+      },
+      color: {
+        pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
+        threshold: {
+          //            unit: 'value', // percentage is default
+          //            max: 200, // 100 is default
+          values: [30, 60, 90, 100]
+        }
+      },
+      size: {
+        height: 180
+      }
     });
   }
 
@@ -67,7 +107,36 @@ class ProfileView extends React.Component {
       </Popover>
     );
     
+    // var chart = c3.generate({
+    //   data: {
+    //     columns: [
+    //       ['data1', 300, 350, 300, 0, 0, 0],
+    //       ['data2', 130, 100, 140, 200, 150, 50]
+    //     ],
+    //     types: {
+    //       data1: 'area',
+    //       data2: 'area-spline'
+    //     }
+    //   },
+    //   axis: {
+    //     y: {
+    //       padding: {
+    //         bottom: 0
+    //       },
+    //       min: 0
+    //     },
+    //     x: {
+    //       padding: {
+    //         left: 0
+    //       },
+    //       min: 0,
+    //       show: false
+    //     }
+    //   }
+    // });
+
     return (
+      
       <div>
         {/*--- PROFILE HEADER ---*/}
         <Jumbotron className="profile-jumbotron">
@@ -121,50 +190,57 @@ class ProfileView extends React.Component {
         </Jumbotron>
 
         {/*--- PROFILE BODY ---*/}
-        <FormGroup controlId="skillTier">
-          <h3>You are currently in Skill Tier { this.props.playerData.tier }</h3>
-          <Button 
-            onClick={ this.toggleTierInfoModal }>
-            Get info on Rally's skill tiers.
-          </Button> 
-        </FormGroup>
+        <div className="matches-container">
+          <FormGroup controlId="skillTier">
+            <h3>You are currently in Skill Tier { this.props.playerData.tier }</h3>
+            <Button 
+              onClick={ this.toggleTierInfoModal }>
+              Get info on Rally's skill tiers.
+            </Button> 
+          </FormGroup>
 
-        <ProgressBar
-          className="tierProg"
-          min={ 1000 }
-          now={ this.props.playerData.elo }
-          max={ this.state.tierThresholds[this.props.playerData.tier]}
-          active={ true }
-          label={ 'Rank progress...' }
-        />
+          <ProgressBar
+            className="tierProg"
+            min={ 1000 }
+            now={ this.props.playerData.elo }
+            max={ this.state.tierThresholds[this.props.playerData.tier]}
+            active={ true }
+            label={ 'Rank progress...' }
+          />
 
-        <FormGroup controlId="skillTier">
-          <Button 
-            onClick={ this.toggleTierChangeModal }>
-            Ready to rank up? Need a break and want to revert to a lower tier?
-          </Button> 
-        </FormGroup>
+          <div id="tier-gauge"></div>
+          { this.tierGauge() }
 
-        
+          
 
-        <TierInfoModal
-          tierModal={ this.state.tierInfoModal }
-          toggleTierModal={ this.toggleTierInfoModal }
-        />
+          <FormGroup controlId="skillTier">
+            <Button 
+              onClick={ this.toggleTierChangeModal }>
+              Ready to rank up? Need a break and want to revert to a lower tier?
+            </Button> 
+          </FormGroup>
 
-        <ChangeTierModal
-          playerEmail={ this.props.playerData.email }
-          playerTier={ this.props.playerData.tier }
-          playerElo={ this.props.playerData.elo }
-          playerTierThreshold={ this.state.tierThresholds[this.props.playerData.tier] }
-          tierModal={ this.state.tierChangeModal }
-          toggleTierModal={ this.toggleTierChangeModal }
-        />
+          
 
-        {( this.state.editUserInfo )
-          ? <EditUserInfo { ...this.props } 
-            handleEditUserInfo={ this.handleEditUserInfo }/>
-          : null}
+          <TierInfoModal
+            tierModal={ this.state.tierInfoModal }
+            toggleTierModal={ this.toggleTierInfoModal }
+          />
+
+          <ChangeTierModal
+            playerEmail={ this.props.playerData.email }
+            playerTier={ this.props.playerData.tier }
+            playerElo={ this.props.playerData.elo }
+            playerTierThreshold={ this.state.tierThresholds[this.props.playerData.tier] }
+            tierModal={ this.state.tierChangeModal }
+            toggleTierModal={ this.toggleTierChangeModal }
+          />
+
+          {( this.state.editUserInfo )
+            ? <EditUserInfo { ...this.props } 
+              handleEditUserInfo={ this.handleEditUserInfo }/>
+            : null}
+      </div>
       </div>
     );
   }
