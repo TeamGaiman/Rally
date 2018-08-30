@@ -145,6 +145,13 @@
   color: black;
 }
 
+.no-challenges-display {
+  position:fixed;
+  left: 44%;
+  top:  45%;
+  opacity: 0.50;
+}
+
 
 
 .rdt {
