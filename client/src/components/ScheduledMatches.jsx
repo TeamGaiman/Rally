@@ -61,10 +61,13 @@ class ScheduledMatches extends React.Component {
               } 
               return (
                 <tr className="match-row" key={ index }>
-                  <td className="align-middle"><Image
+                  <td className="align-middle">
+                    <Image
                       src={ matchOpponent.image }
-                      className="profile-pic-card-scheduled pic-shadow" circle /> <br/>
-                      { matchOpponent.name || matchOpponent.fullName }</td>
+                      className="profile-pic-card-scheduled pic-shadow" circle /> 
+                    <br/>
+                    { matchOpponent.name || matchOpponent.fullName }
+                  </td>
                   <td>{ moment( new Date( match.startTime )).calendar() }</td>
                   <td>{ match.location }</td>
                   <td>{ match.completed ? 'Complete' : match.winner ? 'Awaiting Confirmation' : 'Scheduled'}</td>
