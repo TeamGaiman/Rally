@@ -43,6 +43,14 @@ class ResultsModal extends React.Component {
     });
   }
 
+  handleWinnerMutation(matchId, winner) {
+    UPDATE_MATCH
+  }
+
+  handleLoserMutation() {
+
+  }
+
   render () {
     let modalOpponent = null;
     if (this.props.match.opponent) {
