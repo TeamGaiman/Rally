@@ -56,13 +56,18 @@ class ProfileView extends React.Component {
         // onmouseover: function (d, i) { console.log("onmouseover", d, i); },
         // onmouseout: function (d, i) { console.log("onmouseout", d, i); }
       },
+      tooltip: {
+        show: false
+      },
+      legend: {
+        show: false
+      },
       gauge: {
-               label: {
-                   format: function(value, ratio) {
-                       return value;
-                   },
-                   show: false // to turn off the min/max labels.
-               },
+        show: false,
+        label: {
+          show: false,
+          show: false // to turn off the min/max labels.
+        },
         //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
         //    max: 100, // 100 is default
         //    units: ' %',
@@ -106,34 +111,6 @@ class ProfileView extends React.Component {
         <strong>Ace! You love serving people!</strong>
       </Popover>
     );
-    
-    // var chart = c3.generate({
-    //   data: {
-    //     columns: [
-    //       ['data1', 300, 350, 300, 0, 0, 0],
-    //       ['data2', 130, 100, 140, 200, 150, 50]
-    //     ],
-    //     types: {
-    //       data1: 'area',
-    //       data2: 'area-spline'
-    //     }
-    //   },
-    //   axis: {
-    //     y: {
-    //       padding: {
-    //         bottom: 0
-    //       },
-    //       min: 0
-    //     },
-    //     x: {
-    //       padding: {
-    //         left: 0
-    //       },
-    //       min: 0,
-    //       show: false
-    //     }
-    //   }
-    // });
 
     return (
       
