@@ -145,23 +145,13 @@
   color: black;
 }
 
-.no-challenges-text {
-  margin-top: 25%;
-  margin-left: 45%;
-  opacity: 0.50;
-}
 .no-challenges-display {
-  /* -webkit-transform: rotate(90deg);
-  -moz-transform: rotate(90deg);
-  -o-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg); */
-  -webkit-transform: scaleX(-1);
-  transform: scaleX(-1);
-  margin-top: 25%;
-  margin-left: 45.3%;
+  position:fixed;
+  left: 44%;
+  top:  45%;
   opacity: 0.50;
 }
+
 
 
 .rdt {

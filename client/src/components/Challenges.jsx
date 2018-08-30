@@ -70,13 +70,11 @@ class Challenges extends React.Component {
                 );
               })
             ) : (
-              <div>
-                <Image src={ Tennisball } className="no-challenges-display"/>
+              <div className="no-challenges-display">
+                <Image src={ Tennisball }/>
                 <br/>
                 <br/>
-                <div className="no-challenges-text">
                   No challenges
-                </div>
               </div>
             )}
         </div>
