@@ -5,7 +5,7 @@ import { Query, Mutation } from 'react-apollo';
 import { CREATE_MATCH } from '../apollo/mutations.js';
 import { GET_ALL_USERS } from '../apollo/queries.js';
 import CreateChallengeModal from './CreateChallengeModal.jsx';
-import { matchmakeByElo, calcProbabilityOfWin} from '../../dist/js/index';
+import { matchmakeByElo, calcProbabilityOfWin } from '../../dist/js/index';
 import SearchUsers from './SearchUsers.jsx';
 
 class RecommendedOpponents extends React.Component {
@@ -100,8 +100,6 @@ class RecommendedOpponents extends React.Component {
   render () {
     return (
       <div>
-        {/* <h2>Recommended Opponents</h2> */}
-
         <Query query={ GET_ALL_USERS }>
           {({ loading, error, data }) => {
             if ( loading ) { return <p>Loading...</p>; }
@@ -137,7 +135,7 @@ class RecommendedOpponents extends React.Component {
                     label={ `${winPercent}%` } />
                   <Button 
                     bsStyle="primary"
-                    className="card-button"
+                    className="rec-card-button"
                     onClick={ () => this.handleMatchClick( matchedUser )}>
                     Challenge
                   </Button>
