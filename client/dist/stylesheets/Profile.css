@@ -79,3 +79,10 @@
 
 .c3-xgrid-focus { display: none }
 
+.c3-chart-arcs {
+  transform: translate(150,165)
+}
+
+.tier-gauge-container {
+  width: 500px
+}

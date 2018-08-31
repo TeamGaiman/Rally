@@ -45,11 +45,14 @@ class ProfileView extends React.Component {
   }
 
   tierGauge () {
+    let currentProgress = 100 * (this.props.playerData.elo / 
+      this.state.tierThresholds[this.props.playerData.tier]);
+
     c3.generate({
       bindto: '#tier-gauge',
       data: {
         columns: [
-          ['Tier progress', 70.4]
+          ['Tier progress', currentProgress]
         ],
         type: 'gauge',
         onclick: function (d, i) { console.log("onclick", d, i); },
@@ -169,31 +172,26 @@ class ProfileView extends React.Component {
         {/*--- PROFILE BODY ---*/}
         <div className="matches-container">
           <FormGroup controlId="skillTier">
-            <h3>You are currently in Skill Tier { this.props.playerData.tier }</h3>
-            <Button 
-              onClick={ this.toggleTierInfoModal }>
-              Get info on Rally's skill tiers.
-            </Button> 
+            <h3>You are currently in Skill Tier {this.props.playerData.tier + '  '} 
+              <Button className=""
+                onClick={this.toggleTierInfoModal}>
+                ❔
+              </Button> </h3>
+            <h4>Rank Progress</h4>
+           
           </FormGroup>
 
-          <ProgressBar
-            className="tierProg"
-            min={ 1000 }
-            now={ this.props.playerData.elo }
-            max={ this.state.tierThresholds[this.props.playerData.tier]}
-            active={ true }
-            label={ 'Rank progress...' }
-          />
-
+          <div className="tier-gauge-container">
           <div id="tier-gauge"></div>
           { this.tierGauge() }
+          </div>
 
           
 
           <FormGroup controlId="skillTier">
             <Button 
               onClick={ this.toggleTierChangeModal }>
-              Ready to rank up? Need a break and want to revert to a lower tier?
+              Switch Tiers
             </Button> 
           </FormGroup>
 
@@ -217,7 +215,7 @@ class ProfileView extends React.Component {
             ? <EditUserInfo { ...this.props } 
               handleEditUserInfo={ this.handleEditUserInfo }/>
             : null}
-      </div>
+        </div>
       </div>
     );
   }
