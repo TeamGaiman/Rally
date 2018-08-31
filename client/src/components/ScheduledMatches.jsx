@@ -87,7 +87,7 @@ class ScheduledMatches extends React.Component {
                         bsStyle="primary" 
                         value={ index }
                         onClick={ ( e ) => this.handleMatchClick( match )}
-                        disabled ={ new Date( match.startTime ) > new Date() ? true : false}
+                        // disabled ={ new Date( match.startTime ) > new Date() ? true : false}
                       >
                         { match.winner ? 'Confirm Winner' : 'Add Winner' }
                       </Button>
@@ -102,6 +102,7 @@ class ScheduledMatches extends React.Component {
 
         <ResultsModal
           currentUser={ this.props.currentUser }
+          currentElo={ this.props.currentElo }
           match={ this.state.matchClicked }
           resultsModalOpen={ this.state.resultsModalOpen }
           hideResultsModal={ this.hideResultsModal }
