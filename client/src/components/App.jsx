@@ -192,11 +192,11 @@ class App extends React.Component {
           }/>
         </Switch>
         <footer>
-          <div className="pull-left">
+          <div className="pull-left footer-text">
             &copy; RALLY 2018
           </div>
-          <div className="pull-right media-buttons">
-            <img src={ Facebook }/> <img src={ Instagram }/> <img src={ Twitter }/>
+          <div className="pull-right">
+            <img src={ Facebook } className="media-buttons"/> <img src={ Instagram } className="media-buttons"/> <img src={ Twitter } className="media-buttons"/>
           </div>
         </footer>
       </ApolloProvider>

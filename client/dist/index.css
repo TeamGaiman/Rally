@@ -43,12 +43,19 @@ footer {
   bottom: 0;
   left: 0;
   padding: 1rem;
-  background-color: rgb(231, 231, 231);
+  background-color: rgb(237, 237, 237);
   text-align: center;
   color: black;
   padding-top: 10px;
 }
 
+.footer-text {
+  margin-top: 6px;
+  margin-left: 10px;
+}
+
 .media-buttons {
-  margin-left: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  cursor: pointer;
 }
