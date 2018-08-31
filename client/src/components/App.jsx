@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ApolloProvider, Query } from 'react-apollo';
 import { BounceLoader } from 'react-spinners';
+import { Grid, Row, Col } from 'react-bootstrap';
 
 import firebase from '../../../firebase/firebase.js';
 import NavBar from './NavBar.jsx';
@@ -192,11 +193,29 @@ class App extends React.Component {
           }/>
         </Switch>
         <footer>
-          <div className="pull-left footer-text">
-            &copy; RALLY 2018
-          </div>
-          <div className="pull-right">
+          <div >
             <img src={ Facebook } className="media-buttons"/> <img src={ Instagram } className="media-buttons"/> <img src={ Twitter } className="media-buttons"/>
+          </div>
+          <div className="footer-text">
+            <Grid>
+              <Row className="show-grid">
+                <Col xs={12} md={4}>
+                  <div>
+                    &copy; RALLY 2018
+                  </div>
+                </Col>
+                <Col xs={12} md={4}>
+                  <div>
+                    FAQ
+                  </div>
+                </Col>
+                <Col xs={12} md={4}>
+                  <div>
+                    Contact Us
+                  </div>
+                </Col>
+              </Row>
+            </Grid>
           </div>
         </footer>
       </ApolloProvider>
