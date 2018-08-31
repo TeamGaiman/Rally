@@ -172,6 +172,7 @@ class ResultsModal extends React.Component {
 
         <Modal.Footer>
           <Button
+            className="decline-button"
             onClick={ this.props.hideResultsModal }>
             Cancel
           </Button>
@@ -184,6 +185,7 @@ class ResultsModal extends React.Component {
               >
                 { updateMatch => (
                   <Button
+                    className="challenge-button"
                     bsStyle="primary"
                     onClick={ () => {
                       updateMatch({ variables: {
@@ -203,7 +205,7 @@ class ResultsModal extends React.Component {
             ( this.props.match.winner === this.props.currentUser )
               ?
               <Button
-                className="pull-right"
+                className="pull-right decline-button"
                 disabled
               >
                 Please wait for your opponent to confirm these results.
@@ -222,6 +224,7 @@ class ResultsModal extends React.Component {
                   <Mutation mutation={ UPDATE_USER }>
                     {updateUser => (
                       <Button
+                        className="challenge-button"
                         bsStyle="primary"
                         onClick={ () => {
                           this.handleWinnerMutation(updateMatch, updateUser);

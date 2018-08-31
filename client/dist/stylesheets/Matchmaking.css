@@ -153,6 +153,11 @@
   margin-top: 20%;
 }
 
+.decline-button {
+  border-radius: 100px;
+  border: 2px;
+}
+
 
 
 .rdt {

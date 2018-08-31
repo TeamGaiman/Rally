@@ -68,10 +68,11 @@ const CreateChallengeModal = (props) => {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button onClick={ props.handleHideMatch }>
+        <Button onClick={ props.handleHideMatch } className="decline-button">
           Cancel
         </Button>
         <Button
+        className="rec-card-button"
           bsStyle="primary"
           onClick={ props.createMatch }
           disabled={ !(props.startTime && props.location) }

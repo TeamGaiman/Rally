@@ -33,6 +33,15 @@
   margin-left: 10.5%;
   margin-top: -17px;
   background-color: Transparent;
+  border-radius: 100px;
+  border: 0px;
+  color: rgb(201, 201, 201);
+  background-color: black;
+}
+.edit-profile-button:hover {
+  background-color: black;
+  box-shadow: 0px 3px 5px #acacac;
+  color: rgb(201, 201, 201);
 }
 
 .user-info {
