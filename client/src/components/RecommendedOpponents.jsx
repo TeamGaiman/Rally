@@ -76,7 +76,7 @@ class RecommendedOpponents extends React.Component {
     if ( this.state.startTime && this.state.location ) {
       let index = this.state.matchedUsers.indexOf( this.state.matchClickUser );
       let tempMatchedUsers = this.state.matchedUsers.slice();
-      if ( tempMatchedUsers.length > 1 ) {
+      if ( tempMatchedUsers.length > 5 ) {
         tempMatchedUsers.splice( index, 1 );
       }
       this.setState({ 

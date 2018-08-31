@@ -43,7 +43,6 @@ const CreateChallengeModal = (props) => {
             onChange={ props.handleDateChange }
             value={ props.startTime }
           />
-          <br/>
           <FormGroup controlId="formHorizontalEmail">
             <Col sm={12}>
               <ControlLabel>Location</ControlLabel>
