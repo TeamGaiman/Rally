@@ -84,6 +84,7 @@ class ScheduledMatches extends React.Component {
                       <p>{match.winner}</p>
                       :
                       <Button 
+                        className="scheduled-buttons"
                         bsStyle="primary" 
                         value={ index }
                         onClick={ ( e ) => this.handleMatchClick( match )}
