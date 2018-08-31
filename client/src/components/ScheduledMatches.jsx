@@ -102,6 +102,7 @@ class ScheduledMatches extends React.Component {
 
         <ResultsModal
           currentUser={ this.props.currentUser }
+          currentElo={ this.props.currentElo }
           match={ this.state.matchClicked }
           resultsModalOpen={ this.state.resultsModalOpen }
           hideResultsModal={ this.hideResultsModal }
