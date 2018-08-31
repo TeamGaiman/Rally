@@ -61,6 +61,7 @@ const ChallengeModal = (props) => {
           >
             { deleteMatch => (
               <Button
+                className="decline-button"
                 onClick={ deleteMatch }>
                 Decline
               </Button>
@@ -79,6 +80,7 @@ const ChallengeModal = (props) => {
           >
             {acceptMatch => (
               <Button
+                className="challenge-button"
                 bsStyle="primary"
                 onClick={ acceptMatch }>
                 Accept Challenge

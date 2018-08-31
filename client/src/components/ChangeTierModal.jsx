@@ -31,6 +31,7 @@ const ChangeTierModal = (props) => {
 
       <Modal.Header closeButton>
         <Modal.Title
+          className="decline-button"
           id="contained-modal-title">
           Ready to advance?
         </Modal.Title>
@@ -97,6 +98,7 @@ const ChangeTierModal = (props) => {
             >
               {( updateUser, { data } ) => (
                 <Button
+                  className="decline-button"
                   type="submit"
                   className="pull-left"
                   onClick={ e => {
@@ -118,7 +120,7 @@ const ChangeTierModal = (props) => {
             :
             <Button
               type="submit"
-              className="pull-left"
+              className="pull-left decline-button"
               disabled
             >
               Advance to Skill Tier { nextHighestTier }
@@ -130,7 +132,7 @@ const ChangeTierModal = (props) => {
               {( updateUser, { data } ) => (
                 <Button
                   type="submit"
-                  className="pull-left"
+                  className="pull-left decline-button"
                   onClick={ e => {
                     updateUser({
                       variables: {
@@ -150,7 +152,7 @@ const ChangeTierModal = (props) => {
             :
             <Button
               type="submit"
-              className="pull-left"
+              className="pull-left decline-button"
               disabled
             >
               <small>

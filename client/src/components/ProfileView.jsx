@@ -186,7 +186,7 @@ class ProfileView extends React.Component {
 
           <div style={{ visibility: this.state.editUserInfo ? 'hidden' : 'visible' }}>
             <Button
-              className="edit-profile-button"
+              className="edit-profile-button decline-button"
               bsSize="small"
               onClick={ this.handleEditUserInfo }
             >

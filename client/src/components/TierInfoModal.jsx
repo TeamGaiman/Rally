@@ -51,7 +51,7 @@ const TierModal = (props) => (
     </Modal.Body>
 
     <Modal.Footer>
-      <Button onClick={ props.toggleTierModal }>Close</Button>
+      <Button onClick={ props.toggleTierModal } className="decline-button">Close</Button>
     </Modal.Footer>
   </Modal>
 );
