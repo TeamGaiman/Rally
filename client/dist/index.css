@@ -10,3 +10,61 @@
 body {
   font-family: 'Comfortaa', cursive;
 }
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  padding-bottom: 20rem;
+  min-height: 100%;
+}
+
+/* {
+  margin: 0 auto;
+  padding-top: 64px;
+  max-width: 640px;
+  width: 94%;
+} */
+
+footer {
+  position: absolute;
+  display: inline-block;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: rgb(244, 244, 244);
+  text-align: center;
+  color: black;
+  padding-top: 60px;
+  /* border-top: 5px solid black; */
+  box-shadow:
+        inset 0 -8px 4px 4px rgb(244,244,244),
+        inset 0 2px 15px 0px rgba(50, 50, 50, 0.75);
+}
+
+.footer-text {
+  /* margin-top: 6px;
+  margin-left: 10px; */
+  margin-bottom:  20px;
+}
+
+.media-buttons {
+  position: relative;
+  bottom: 30px;
+  margin-left: 25px;
+  margin-right: 25px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
