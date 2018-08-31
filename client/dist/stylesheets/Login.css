@@ -25,3 +25,10 @@
   height: 100% !important;
   position: center;
 } */
+
+.loading-spinner {
+    position: fixed;
+    left: 50%;
+    top: 35%;
+    transform: translateX(-50%);
+}
