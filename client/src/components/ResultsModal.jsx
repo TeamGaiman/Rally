@@ -76,8 +76,6 @@ class ResultsModal extends React.Component {
       }
     })
       .then(({data}) => {
-        console.log('neww elo', newElo1);
-        console.log('new elo2', newElo2);
         return updateUser({
           variables: {
             email: this.props.match.winner,
