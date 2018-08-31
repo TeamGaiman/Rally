@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'aqua_grotesqueregular';
+    src: url('./aqua-webfont.eot');
+    src: 
+    url('./aqua-webfont.woff') format('woff'),
+    url('./aqua-webfont.ttf') format('truetype'),
+    url('./aqua-webfont.svg#aqua_grotesqueregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
