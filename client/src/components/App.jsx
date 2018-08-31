@@ -188,6 +188,7 @@ class App extends React.Component {
             </Query>
           }/>
         </Switch>
+        <footer/>
       </ApolloProvider>
     );
   }
