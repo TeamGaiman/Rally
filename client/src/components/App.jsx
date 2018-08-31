@@ -206,12 +206,12 @@ class App extends React.Component {
                 </Col>
                 <Col xs={12} md={4}>
                   <div>
-                    FAQ
+                    Contact Us
                   </div>
                 </Col>
                 <Col xs={12} md={4}>
                   <div>
-                    Contact Us
+                    FAQ
                   </div>
                 </Col>
               </Row>
