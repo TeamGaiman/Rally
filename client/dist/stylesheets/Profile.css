@@ -77,3 +77,8 @@
   width: 500px;
 }
 
+.c3-xgrid-focus { display: none }
+
+.profile-container {
+  text-align: center
+}
