@@ -18,8 +18,7 @@ class ResultsModal extends React.Component {
     this.handleWinnerSelect = this.handleWinnerSelect.bind(this);
     this.handleOpponentReview = this.handleOpponentReview.bind(this);
     this.handleWinnerMutation = this.handleWinnerMutation.bind(this);
-    this.getWinnerElo = this.getWinnerElo.bind(this);
-    this.getLoserElo = this.getLoserElo.bind(this);
+    this.getNewElos = this.getNewElos.bind(this);
   }
 
   componentDidMount () {
@@ -48,14 +47,11 @@ class ResultsModal extends React.Component {
     });
   }
 
-  getWinnerElo(winnerElo, loserElo) {
+  getNewElos(winnerElo, loserElo) {
     let newElos = calcNewElos(winnerElo, loserElo, 32);
-    return Math.round(newElos[0]);
-  }
-
-  getLoserElo(winnerElo, loserElo) {
-    let newElos = calcNewElos(winnerElo, loserElo, 32);
-    return Math.round(newElos[1]);
+    return newElos.map((elo) => {
+      return Math.round(elo);
+    });
   }
 
   handleWinnerMutation(updateMatch, updateUser) {
@@ -65,8 +61,7 @@ class ResultsModal extends React.Component {
     } else {
       winnerElo = this.props.match.opponentUserInfo.elo;
     }
-    let newElo1 = this.getWinnerElo(winnerElo, this.props.currentElo);
-    let newElo2 = this.getLoserElo(winnerElo, this.props.currentElo);
+    let [ newWinnerElo, newLoserElo ] = this.getNewElos(winnerElo, this.props.currentElo);
     updateMatch({
       variables: {
         id: this.props.match.id,
@@ -80,7 +75,7 @@ class ResultsModal extends React.Component {
           variables: {
             email: this.props.match.winner,
             input: {
-              elo: newElo1
+              elo: newWinnerElo
             }
           }
         });
@@ -90,7 +85,7 @@ class ResultsModal extends React.Component {
           variables: {
             email: this.props.currentUser,
             input: {
-              elo: newElo2
+              elo: newLoserElo
             }
           }
         });
