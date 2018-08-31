@@ -83,7 +83,7 @@ class ResultsModal extends React.Component {
           variables: {
             email: this.props.match.winner,
             input: {
-              elo: 2200
+              elo: this.getWinnerElo(winnerElo, this.props.currentElo)
             }
           }
         });
@@ -94,7 +94,7 @@ class ResultsModal extends React.Component {
           variables: {
             email: this.props.currentUser,
             input: {
-              elo: 2100
+              elo: this.getLoserElo(winnerElo, this.props.currentElo)
             }
           }
         });
