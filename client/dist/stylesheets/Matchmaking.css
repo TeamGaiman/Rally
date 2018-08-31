@@ -381,7 +381,7 @@ td.rdtYear:hover {
 .react-autosuggest__input {
   position: relative;
   top: -35px;
-  /* border-radius: 100px; */
+  border-radius: 100px;
 }
 
 .react-autosuggest__suggestions-container {
