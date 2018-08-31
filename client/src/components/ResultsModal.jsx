@@ -63,11 +63,11 @@ class ResultsModal extends React.Component {
   }
 
   handleWinnerMutation(updateMatch, updateUser) {
-    let winnerElo;
+    var winnerElo = '';
     if (this.props.currentUser === this.props.match.opponent) {
-      winnerElo = this.props.match.challengerUserInfo.elo
+      winnerElo = this.props.match.challengerUserInfo.elo;
     } else {
-      winnerElo = this.props.match.opponentUserInfo.elo
+      winnerElo = this.props.match.opponentUserInfo.elo;
     }
     updateMatch({
       variables: {
@@ -78,31 +78,36 @@ class ResultsModal extends React.Component {
       }
     })
       .then(({data}) => {
-        updateUser({
+        console.log('first run fired', data);
+        return updateUser({
           variables: {
             email: this.props.match.winner,
             input: {
-              elo: this.getWinnerElo(winnerElo, this.props.currentUser.elo)
+              elo: 2200
             }
           }
-        })
+        });
       })
       .then(({data}) => {
-        updateUser({
-        variables: {
-          email: this.props.currentUser.elo,
-          input: {
-            elo: this.getLoserElo(winnerElo, this.props.currentUser.elo)
+        console.log('second run fired', data);
+        return updateUser({
+          variables: {
+            email: this.props.currentUser,
+            input: {
+              elo: 2100
+            }
           }
-        }
+        });
       })
-    }) 
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   render () {
     let modalOpponent = null;
     if (this.props.match.opponent) {
-      console.log('match:', this.props.match)
+      console.log('match:', this.props.match);
       if (this.props.currentUser === this.props.match.opponent) {
         modalOpponent = this.props.match.challengerUserInfo.name ||
         this.props.match.challengerUserInfo.fullName;
