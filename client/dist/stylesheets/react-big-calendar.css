@@ -194,11 +194,12 @@ button.rbc-input::-moz-focus-inner {
 }
 .rbc-event {
   padding: 2px 5px;
-  background-color: #3174ad;
-  border-radius: 5px;
+  background-color:  rgb(123, 94, 212);
+  /* border-radius: 5px; */
   color: #fff;
   cursor: pointer;
 }
+
 .rbc-slot-selecting .rbc-event {
   cursor: inherit;
   pointer-events: none;

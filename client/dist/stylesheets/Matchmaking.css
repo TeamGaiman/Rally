@@ -378,20 +378,23 @@ td.rdtYear:hover {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  height: 26px
 }
 
 .react-autosuggest__input {
   position: relative;
-  top: -40px;
+  top: -32.5px;
   
   display: block;
   box-sizing: border-box;
   margin-bottom: 20px;
   padding: 3px;
+  padding-bottom: 9.5px;
   width: 250px;
   height: 40px;
+  font-size: 15px;
   border: none;
-  border-bottom: 2px solid #AAA;
+  border-bottom: 3px solid #AAA;
   transition: 0.2s ease;
 }
 
