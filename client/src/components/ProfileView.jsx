@@ -1,5 +1,5 @@
 import React from 'react';
-import { Jumbotron, Button, Image, ProgressBar, FormGroup, FormControl, ControlLabel, Badge, Popover, OverlayTrigger } from 'react-bootstrap';
+import { Jumbotron, Button, Image, ProgressBar, FormGroup, FormControl, ControlLabel, Badge, Popover, OverlayTrigger, Grid, Row, Col } from 'react-bootstrap';
 
 import EditUserInfo from './EditUserInfo.jsx';
 import TierInfoModal from './TierInfoModal.jsx';
@@ -22,11 +22,11 @@ class ProfileView extends React.Component {
     this.handleEditUserInfo = this.handleEditUserInfo.bind(this);
     this.toggleTierInfoModal = this.toggleTierInfoModal.bind(this);
     this.toggleTierChangeModal = this.toggleTierChangeModal.bind(this);
-    this.tierGauge = this.tierGauge.bind(this);
+    this.generateUserCharts = this.generateUserCharts.bind(this);
   }
 
   componentDidMount() {
-    this.tierGauge();
+    this.generateUserCharts();
   }
   handleEditUserInfo () {
     this.setState({ editUserInfo: !this.state.editUserInfo });
@@ -44,7 +44,7 @@ class ProfileView extends React.Component {
     });
   }
 
-  tierGauge () {
+  generateUserCharts () {
     let currentProgress = 100 * (this.props.playerData.elo / 
       this.state.tierThresholds[this.props.playerData.tier]);
 
@@ -55,9 +55,6 @@ class ProfileView extends React.Component {
           ['Tier progress', currentProgress]
         ],
         type: 'gauge',
-        onclick: function (d, i) { console.log("onclick", d, i); },
-        // onmouseover: function (d, i) { console.log("onmouseover", d, i); },
-        // onmouseout: function (d, i) { console.log("onmouseout", d, i); }
       },
       tooltip: {
         show: false
@@ -86,6 +83,32 @@ class ProfileView extends React.Component {
       },
       size: {
         height: 180
+      }
+    });
+
+    c3.generate({
+      bindto: '#win-loss',
+      data: {
+        columns: [
+          ['Wins', this.props.playerData.wins ],
+          ['Losses', this.props.playerData.losses ]
+        ],
+        type: 'donut',
+      },
+      tooltip: {
+        show: true
+      },
+      legend: {
+        show: false
+      },
+      donut: {
+        label: {
+          show: false // to turn off the min/max labels.
+        },
+        width: 39
+      },
+      size: {
+        height: 220
       }
     });
   }
@@ -129,11 +152,8 @@ class ProfileView extends React.Component {
             <div className="user-info">
               <h3>{ this.props.playerData.fullName || this.props.googleUserData.displayName }</h3>
               <br/>
-              <b>W: { this.props.playerData.wins }</b>{' '}
-              <b>L: { this.props.playerData.losses }</b>
+              <h4>{ 'Current Tier: ' + this.props.playerData.tier }</h4>
               <br/>
-              {/* <b>Tier: { this.props.playerData.tier }</b> */}
-              {/* <br/> */}
               <b style={{ paddingRight: '15px' }}>Trophies:</b> 
 
               <OverlayTrigger trigger={['hover', 'focus']} placement="bottom" overlay={ goodSport }>                
@@ -170,32 +190,41 @@ class ProfileView extends React.Component {
         </Jumbotron>
 
         {/*--- PROFILE BODY ---*/}
-        <div className="matches-container">
-          <FormGroup controlId="skillTier">
-            <h3>You are currently in Skill Tier {this.props.playerData.tier + '  '} 
-              <Button className=""
-                onClick={this.toggleTierInfoModal}>
-                ❔
-              </Button> </h3>
-            <h4>Rank Progress</h4>
-           
-          </FormGroup>
-
-          <div className="tier-gauge-container">
-          <div id="tier-gauge"></div>
-          { this.tierGauge() }
-          </div>
-
+        <div className="matches-container profile-container">
           
 
-          <FormGroup controlId="skillTier">
-            <Button 
-              onClick={ this.toggleTierChangeModal }>
-              Switch Tiers
-            </Button> 
-          </FormGroup>
+          <Grid>
+            <Row className="show-grid">
+              <Col xs={12} md={4}>
+                <FormGroup controlId="skillTier">
+                  <div className="tier-gauge-container">
+                    <div id="tier-gauge"></div>
+                  </div>
+                  <h4>Progress to next Tier</h4>
+                </FormGroup>
 
-          
+                <FormGroup controlId="skillTier">
+                  <Button
+                    onClick={this.toggleTierChangeModal}>
+                    Switch Tiers
+                  </Button><Button className=""
+                    onClick={ this.toggleTierInfoModal}>
+                    ❔
+                  </Button>
+                </FormGroup>
+              </Col>
+              <Col xs={12} md={4}>
+
+                <div id="win-loss"></div>
+                <h4>{'Wins: ' + this.props.playerData.wins + ' Losses: ' + this.props.playerData.losses }</h4>
+              </Col>
+              <Col xs={12} md={4}>
+
+                <code>{'Trophieees'}</code>
+              </Col>
+            </Row>
+          </Grid>
+
 
           <TierInfoModal
             tierModal={ this.state.tierInfoModal }
