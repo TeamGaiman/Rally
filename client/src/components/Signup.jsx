@@ -80,8 +80,7 @@ class Signup extends React.Component {
 
             <FormGroup 
               controlId="username"
-              validationState={ this.state.username.length > 4 ? 'success' : 'error'}
-            >
+              validationState={ this.state.username.length > 4 ? 'success' : 'error'}>
               <ControlLabel>Username</ControlLabel>
               <FormControl
                 onChange={ this.handleFieldChange }/>
@@ -93,8 +92,7 @@ class Signup extends React.Component {
 
             <FormGroup 
               controlId="phoneNumber"
-              validationState={ this.state.validNumber ? 'success' : 'error'}
-            >
+              validationState={ this.state.validNumber ? 'success' : 'error'}>
               <ControlLabel>Phone Number</ControlLabel>
               <FormControl
                 onChange={ this.handlePhoneNumberChange }
