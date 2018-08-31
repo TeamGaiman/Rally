@@ -4,16 +4,14 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
 
 import GoogleIcon from '../../dist/lib/googleIcon.png';
-import RallyLogo from '../../dist/lib/rallyNavbar.png';
 
 const NavBar = (props) => {
   return (
     <Navbar inverse collapseOnSelect staticTop className='nav-margin'>
       <Navbar.Header>
-        {/* <Link to='/'>Rally</Link> */}
-        <a href="#home" className="rally-logo">
-          <Image src={ RallyLogo } />
-        </a>
+        <Navbar.Brand>
+          <div className="rally-logo">RALLY</div>
+        </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>
 
