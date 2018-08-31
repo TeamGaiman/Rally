@@ -25,9 +25,15 @@ class ProfileView extends React.Component {
     this.generateUserCharts = this.generateUserCharts.bind(this);
   }
 
-  componentDidMount() {
+
+  componentDidMount () {
     this.generateUserCharts();
   }
+  
+  componentDidUpdate () {
+    this.generateUserCharts();
+  }
+
   handleEditUserInfo () {
     this.setState({ editUserInfo: !this.state.editUserInfo });
   }
@@ -192,39 +198,43 @@ class ProfileView extends React.Component {
         {/*--- PROFILE BODY ---*/}
         <div className="matches-container profile-container">
           
+          {( this.state.editUserInfo)
+            ? <EditUserInfo {...this.props}
+              handleEditUserInfo={this.handleEditUserInfo} />
+            :
+            <Grid>
+              <Row className="show-grid">
+                <Col xs={12} md={4}>
+                  <FormGroup controlId="skillTier">
+                    <div className="tier-gauge-container">
+                      <div id="tier-gauge"></div>
+                      { this.generateUserCharts() }
+                    </div>
+                    <h4>Progress to next Tier</h4>
+                  </FormGroup>
 
-          <Grid>
-            <Row className="show-grid">
-              <Col xs={12} md={4}>
-                <FormGroup controlId="skillTier">
-                  <div className="tier-gauge-container">
-                    <div id="tier-gauge"></div>
-                  </div>
-                  <h4>Progress to next Tier</h4>
-                </FormGroup>
+                  <FormGroup controlId="skillTier">
+                    <Button
+                      onClick={this.toggleTierChangeModal}>
+                      Switch Tiers
+                    </Button><Button className=""
+                      onClick={this.toggleTierInfoModal}>
+                      ❔
+                    </Button>
+                  </FormGroup>
+                </Col>
+                <Col xs={12} md={4}>
 
-                <FormGroup controlId="skillTier">
-                  <Button
-                    onClick={this.toggleTierChangeModal}>
-                    Switch Tiers
-                  </Button><Button className=""
-                    onClick={ this.toggleTierInfoModal}>
-                    ❔
-                  </Button>
-                </FormGroup>
-              </Col>
-              <Col xs={12} md={4}>
+                  <div id="win-loss"></div>
+                  <h4>{'Wins: ' + this.props.playerData.wins + ' Losses: ' + this.props.playerData.losses}</h4>
+                </Col>
+                <Col xs={12} md={4}>
 
-                <div id="win-loss"></div>
-                <h4>{'Wins: ' + this.props.playerData.wins + ' Losses: ' + this.props.playerData.losses }</h4>
-              </Col>
-              <Col xs={12} md={4}>
-
-                <code>{'Trophieees'}</code>
-              </Col>
-            </Row>
-          </Grid>
-
+                  <code>{'Trophieees'}</code>
+                </Col>
+              </Row>
+            </Grid>
+          }
 
           <TierInfoModal
             tierModal={ this.state.tierInfoModal }
@@ -240,10 +250,7 @@ class ProfileView extends React.Component {
             toggleTierModal={ this.toggleTierChangeModal }
           />
 
-          {( this.state.editUserInfo )
-            ? <EditUserInfo { ...this.props } 
-              handleEditUserInfo={ this.handleEditUserInfo }/>
-            : null}
+          
         </div>
       </div>
     );
