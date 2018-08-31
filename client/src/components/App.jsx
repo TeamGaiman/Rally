@@ -62,10 +62,11 @@ class App extends React.Component {
         console.error( err );
       });
   }
-  googleSignOut () {
+  googleSignOut() {
     this.setState({
       googleUserData: null
     });
+
     firebase.auth().signOut()
       .then( () => {
         return;
@@ -83,16 +84,16 @@ class App extends React.Component {
   }
 
   render () {
-    if (this.state.loading) {
+    if ( this.state.loading ) {
       return (
-     <div className="loading-spinner">
+        <div className="loading-spinner">
           <BounceLoader
             sizeUnit={'px'}
             size={200}
-            color={'#123abc'}
+            color={'black'}
             loading={ this.state.loading }
           />
-       </div>
+        </div>
       );
     }
     return (
