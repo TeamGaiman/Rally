@@ -12,7 +12,8 @@ class Signup extends React.Component {
     this.state = {
       tierInfoModal: false,
       phoneNumber: '',
-      validNumber: false
+      validNumber: false,
+      username: ''
     };
 
     this.handleFieldChange = this.handleFieldChange.bind(this);
@@ -77,10 +78,17 @@ class Signup extends React.Component {
                 disabled="true"/>
             </FormGroup>
 
-            <FormGroup controlId="username" >
+            <FormGroup 
+              controlId="username"
+              validationState={ this.state.username.length > 4 ? 'success' : 'error'}
+            >
               <ControlLabel>Username</ControlLabel>
               <FormControl
-                onChange={ this.handleFieldChange } />
+                onChange={ this.handleFieldChange }/>
+              <FormControl.Feedback />
+              <HelpBlock>
+                { this.state.username.length > 4 ? null : 'Username must have at least 5 characters' }
+              </HelpBlock> 
             </FormGroup>
 
             <FormGroup 
