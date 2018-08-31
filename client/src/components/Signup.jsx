@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, ControlLabel, Button, HelpBlock } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 
@@ -10,11 +10,15 @@ class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tierInfoModal: false
+      tierInfoModal: false,
+      phoneNumber: '',
+      validNumber: false
     };
 
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.toggleTierInfoModal = this.toggleTierInfoModal.bind(this);
+    this.isValidPhoneNumber = this.isValidPhoneNumber.bind(this);
+    this.handlePhoneNumberChange = this.handlePhoneNumberChange.bind(this);
   }
 
   toggleTierInfoModal () {
@@ -26,6 +30,27 @@ class Signup extends React.Component {
   handleFieldChange ( e ) {
     this.setState({
       [ e.target.id ]: e.target.value
+    });
+  }
+
+  isValidPhoneNumber ( number ) {
+    var phoneRe = /^[2-9]\d{2}[2-9]\d{2}\d{4}$/;
+    var digits = number.replace(/\D/g, '');
+    if ( phoneRe.test( digits ) && number[3] === '-' && number[7] === '-') {
+      this.setState({
+        validNumber: true
+      });
+    } else {
+      this.setState({
+        validNumber: false
+      });
+    }
+  }
+
+  handlePhoneNumberChange ( e ) {
+    this.isValidPhoneNumber (e.target.value);
+    this.setState({
+      phoneNumber: e.target.value,
     });
   }
 
@@ -58,11 +83,18 @@ class Signup extends React.Component {
                 onChange={ this.handleFieldChange } />
             </FormGroup>
 
-            <FormGroup controlId="phone">
+            <FormGroup 
+              controlId="phoneNumber"
+              validationState={ this.state.validNumber ? 'success' : 'error'}
+            >
               <ControlLabel>Phone Number</ControlLabel>
               <FormControl
-                onChange={ this.handleFieldChange }
-                placeholder="optional"/>
+                onChange={ this.handlePhoneNumberChange }
+                value={ this.state.phoneNumber }/>
+              <FormControl.Feedback />
+              <HelpBlock>
+                { this.state.validNumber ? null : 'Please use format: xxx-xxx-xxxx' }
+              </HelpBlock>
             </FormGroup>
 
             <FormGroup controlId="location">
@@ -96,7 +128,7 @@ class Signup extends React.Component {
                       email: this.props.googleUserData.email,
                       image: this.props.googleUserData.photoURL,
                       name: this.state.username,
-                      phoneNumber: this.state.phone,
+                      phoneNumber: this.state.phoneNumber,
                       tier: this.state.skillTier,
                       fullName: this.props.googleUserData.displayName
                     }
