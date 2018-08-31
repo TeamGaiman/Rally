@@ -1,0 +1,23 @@
+.profile-pic-card-scheduled {
+  width: 40px;
+  margin-bottom: 4px;
+  /* margin-top: -75px; */
+  margin-left: auto;
+  margin-right: auto;
+  /* margin-bottom: 20px; */
+  border: 2px solid white;
+  position: relative;
+  z-index: 0;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, 
+.table>tfoot>tr>td, .table>tfoot>tr>th, 
+.table>thead>tr>td, .table>thead>tr>th {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.clickable-td:hover {
+  cursor: pointer;
+  background-image: linear-gradient(to right, rgb(255, 133, 133, .5) , rgb(255, 215, 115, .5));
+}

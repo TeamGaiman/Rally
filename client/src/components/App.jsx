@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ApolloProvider, Query } from 'react-apollo';
+import { BounceLoader } from 'react-spinners';
 
 import firebase from '../../../firebase/firebase.js';
 import NavBar from './NavBar.jsx';
@@ -16,7 +17,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       googleUserData: null,
-      playerData: null
+      playerData: null,
+      loading: true
     };
 
     this.authListener = this.authListener.bind(this);
@@ -34,17 +36,23 @@ class App extends React.Component {
     firebase.auth().onAuthStateChanged( (user) => {
       if (user) {
         this.setState({
-          googleUserData: Object.assign( {}, user.providerData[0] )
+          googleUserData: Object.assign( {}, user.providerData[0] ),
+          loading: false
         });
         console.log(user.providerData[0]);
       } else {
         this.setState({
-          googleUserData: null
+          googleUserData: null,
+          loading: false
         });
       }
     });
   }
   googleSignIn () {
+    this.setState({
+      loading: true
+    });
+
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithRedirect( provider )
       .then( () => {
@@ -54,10 +62,11 @@ class App extends React.Component {
         console.error( err );
       });
   }
-  googleSignOut () {
+  googleSignOut() {
     this.setState({
       googleUserData: null
     });
+
     firebase.auth().signOut()
       .then( () => {
         return;
@@ -75,6 +84,18 @@ class App extends React.Component {
   }
 
   render () {
+    if ( this.state.loading ) {
+      return (
+        <div className="loading-spinner">
+          <BounceLoader
+            sizeUnit={'px'}
+            size={200}
+            color={'black'}
+            loading={ this.state.loading }
+          />
+        </div>
+      );
+    }
     return (
       <ApolloProvider client={ this.props.client }>
         <NavBar

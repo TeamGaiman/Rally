@@ -2,8 +2,9 @@ import React from 'react';
 import moment from 'moment';
 import { Modal, Button, Form, FormControl, ControlLabel, ButtonToolbar, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { Mutation } from 'react-apollo';
+import { calcNewElos } from '../../dist/js/index';
 
-import { UPDATE_MATCH } from '../apollo/mutations';
+import { UPDATE_MATCH, UPDATE_USER } from '../apollo/mutations';
 
 class ResultsModal extends React.Component {
   constructor(props) {
@@ -11,10 +12,13 @@ class ResultsModal extends React.Component {
     this.state = {
       selectedWinner: '',
       opponentReview: [],
+      winnerElo: ''
     };
 
     this.handleWinnerSelect = this.handleWinnerSelect.bind(this);
     this.handleOpponentReview = this.handleOpponentReview.bind(this);
+    this.handleWinnerMutation = this.handleWinnerMutation.bind(this);
+    this.getNewElos = this.getNewElos.bind(this);
   }
 
   componentDidMount () {
@@ -41,6 +45,51 @@ class ResultsModal extends React.Component {
     this.setState({
       opponentReview: e
     });
+  }
+
+  getNewElos(winnerElo, loserElo) {
+    let newElos = calcNewElos(winnerElo, loserElo, 32);
+    return newElos.map((elo) => {
+      return Math.round(elo);
+    });
+  }
+
+  handleWinnerMutation(updateMatch, updateUser) {
+    let winnerElo = '';
+    if (this.props.currentUser === this.props.match.opponent) {
+      winnerElo = this.props.match.challengerUserInfo.elo;
+    } else {
+      winnerElo = this.props.match.opponentUserInfo.elo;
+    }
+    let [ newWinnerElo, newLoserElo ] = this.getNewElos(winnerElo, this.props.currentElo);
+    updateMatch({
+      variables: {
+        id: this.props.match.id,
+        input: {
+          completed: true
+        }
+      }
+    })
+      .then(({data}) => {
+        return updateUser({
+          variables: {
+            email: this.props.match.winner,
+            input: {
+              elo: newWinnerElo
+            }
+          }
+        });
+      })
+      .then(({data}) => {
+        return updateUser({
+          variables: {
+            email: this.props.currentUser,
+            input: {
+              elo: newLoserElo
+            }
+          }
+        });
+      });
   }
 
   render () {
@@ -168,19 +217,19 @@ class ResultsModal extends React.Component {
                 update={ this.props.hideResultsModal }
               >
                 { updateMatch => (
-                  <Button
-                    bsStyle="primary"
-                    onClick={ () => {
-                      updateMatch({ variables: {
-                        id: this.props.match.id,
-                        input: {
-                          completed: true
-                        }
-                      }}); 
-                    }}
-                  >
-                    Confirm that my opponent won this match.
-                  </Button>
+
+                  <Mutation mutation={ UPDATE_USER }>
+                    {updateUser => (
+                      <Button
+                        bsStyle="primary"
+                        onClick={ () => {
+                          this.handleWinnerMutation(updateMatch, updateUser);
+                        }}
+                      >
+                    Confirm that my opponent won this match
+                      </Button>
+                    )}
+                  </Mutation>
                 )}
               </Mutation>
               : null

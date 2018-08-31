@@ -6,6 +6,7 @@
 @import url("./stylesheets/Login.css");
 @import url("./stylesheets/Profile.css");
 @import url("./stylesheets/Signup.css");
+@import url("./stylesheets/Matches.css");
 
 body {
   font-family: 'Comfortaa', cursive;

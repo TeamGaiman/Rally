@@ -15,7 +15,7 @@ const Map = compose(
   withProps({
     googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&v=3.exp&libraries=geometry,drawing,places`,
     loadingElement: <div style={{ height: '100%' }} />,
-    containerElement: <div style={{ height: '425px' }} />,
+    containerElement: <div style={{ height: '365px' }} />,
     mapElement: <div style={{ height: '100%', width: '100%' }} />
   }),
   withStateHandlers(
@@ -35,9 +35,11 @@ const Map = compose(
 )((props) => {
   let defaultCenter = { lat: 40.72, lng: -73.9 };
   let singleCourtRender = false;
+  let defaultZoom = 11;
 
   if (props.courts.length === 1 ) {
     singleCourtRender = true;
+    defaultZoom = 13;
     defaultCenter = { 
       lat: Number ( props.courts[0].latitude ), 
       lng: Number ( props.courts[0].longitude ) 
@@ -47,7 +49,7 @@ const Map = compose(
   return (
     <GoogleMap
       defaultOptions={{ mapTypeControl: false }}
-      defaultZoom={ 11 }
+      defaultZoom={ defaultZoom }
       defaultCenter={ defaultCenter }
     >
       { props.courts.map(( court, index ) => {
@@ -67,7 +69,6 @@ const Map = compose(
                 <div>
                   <h3>{ court.name }</h3>
                   <p>
-                    { court.location } <br />
                     { court.numberOfCourts + ' ' + court.courtType + ' Courts' }
                   </p>
                   { !singleCourtRender && <Button

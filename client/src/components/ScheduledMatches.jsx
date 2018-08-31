@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, Image } from 'react-bootstrap';
 import moment from 'moment';
 
 import ResultsModal from './ResultsModal.jsx';
@@ -32,8 +32,11 @@ class ScheduledMatches extends React.Component {
 
   render () {
     let combinedMatches = this.props.scheduledMatches.pendingMatches
-      .concat( this.props.scheduledMatches.completedMatches );
-
+      .concat( this.props.scheduledMatches.completedMatches )
+      .sort (( a, b ) => {
+        return new Date(b.startTime) - new Date(a.startTime);
+      });
+      
     return (
       <div>
         <h2>Scheduled Matches</h2>
@@ -42,8 +45,7 @@ class ScheduledMatches extends React.Component {
           <thead>
             <tr>
               <th>Opponent</th>
-              <th>Date</th>
-              <th>Location</th>
+              <th>Details</th>
               <th>Status</th>
               <th>Winner</th>
             </tr>
@@ -52,17 +54,29 @@ class ScheduledMatches extends React.Component {
           <tbody>
             { combinedMatches.map(( match, index ) => {
               if (this.props.currentUser === match.opponent) {
-                var matchOpponent = match.challengerUserInfo.name ||
-                  match.challengerUserInfo.fullName;
+                var matchOpponent = match.challengerUserInfo;
               } else {
-                var matchOpponent = match.opponentUserInfo.name
-                  || match.opponentUserInfo.fullName;
+                var matchOpponent = match.opponentUserInfo;
               } 
               return (
                 <tr className="match-row" key={ index }>
-                  <td>{ matchOpponent }</td>
-                  <td>{ moment( new Date( match.startTime )).calendar() }</td>
-                  <td>{ match.location }</td>
+                  <td className="align-middle">
+                    <Image
+                      src={ matchOpponent.image }
+                      className="profile-pic-card-scheduled pic-shadow" circle /> 
+                    <br/>
+                    { matchOpponent.name || matchOpponent.fullName }
+                  </td>
+                  <td 
+                    className="clickable-td"
+                    onClick={ () => {
+                      this.props.handleChallengeClicked( match );
+                      this.props.toggleChallengeModal();
+                    }}>
+                    { moment( new Date( match.startTime )).calendar()}
+                    <br/>
+                    { match.location }
+                  </td>
                   <td>{ match.completed ? 'Complete' : match.winner ? 'Awaiting Confirmation' : 'Scheduled'}</td>
                   <td>
                     {( match.completed )
@@ -73,6 +87,7 @@ class ScheduledMatches extends React.Component {
                         bsStyle="primary" 
                         value={ index }
                         onClick={ ( e ) => this.handleMatchClick( match )}
+                        disabled ={ new Date( match.startTime ) > new Date() ? true : false}
                       >
                         { match.winner ? 'Confirm Winner' : 'Add Winner' }
                       </Button>
@@ -87,6 +102,7 @@ class ScheduledMatches extends React.Component {
 
         <ResultsModal
           currentUser={ this.props.currentUser }
+          currentElo={ this.props.currentElo }
           match={ this.state.matchClicked }
           resultsModalOpen={ this.state.resultsModalOpen }
           hideResultsModal={ this.hideResultsModal }

@@ -10,8 +10,7 @@ const NavBar = (props) => {
     <Navbar inverse collapseOnSelect staticTop className='nav-margin'>
       <Navbar.Header>
         <Navbar.Brand>
-          {/* <Link to='/'>Rally</Link> */}
-          <a href="#home">Rally</a>
+          <div className="rally-logo">RALLY</div>
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>

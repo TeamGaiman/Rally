@@ -95,6 +95,9 @@ class Signup extends React.Component {
                     input: {
                       email: this.props.googleUserData.email,
                       image: this.props.googleUserData.photoURL,
+                      name: this.state.username,
+                      phoneNumber: this.state.phone,
+                      tier: this.state.skillTier,
                       fullName: this.props.googleUserData.displayName
                     }
                   }}>

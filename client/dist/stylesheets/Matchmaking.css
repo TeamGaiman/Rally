@@ -13,7 +13,9 @@
 
 
 .matches-container {
-  margin: 10%;
+  margin-left: 10%;
+  margin-right: 10%;
+  /* margin-bottom: 5%; */
   margin-top: 3%;
 }
 
@@ -143,6 +145,12 @@
 }
 .challenge-button:hover {
   color: black;
+}
+
+.no-challenges-display {
+  opacity: 0.50;
+  margin: auto;
+  margin-top: 20%;
 }
 
 
@@ -374,10 +382,31 @@ td.rdtYear:hover {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  height: 26px
 }
 
 .react-autosuggest__input {
   position: relative;
-  top: -35px;
-  /* border-radius: 100px; */
+  top: -32.5px;
+  
+  display: block;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  padding: 3px;
+  padding-bottom: 9.5px;
+  width: 250px;
+  height: 40px;
+  font-size: 15px;
+  border: none;
+  border-bottom: 3px solid #AAA;
+  transition: 0.2s ease;
+}
+
+.react-autosuggest__input:focus {
+  outline: none;
+  border-bottom: 3px solid rgb(255, 133, 133);
+  transition: 0.2s ease;
+}
+.react-autosuggest__suggestions-container {
+  display: none;
 }
