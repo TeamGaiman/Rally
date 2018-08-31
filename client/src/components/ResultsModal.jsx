@@ -50,25 +50,23 @@ class ResultsModal extends React.Component {
 
   getWinnerElo(winnerElo, loserElo) {
     let newElos = calcNewElos(winnerElo, loserElo, 32);
-    return newElos[0];
-    // this.setState({
-    //   winnerElo: newElos[0],
-    //   loserElo: newElos[1]
-    // });
+    return Math.round(newElos[0]);
   }
 
   getLoserElo(winnerElo, loserElo) {
     let newElos = calcNewElos(winnerElo, loserElo, 32);
-    return newElos[1];
+    return Math.round(newElos[1]);
   }
 
   handleWinnerMutation(updateMatch, updateUser) {
-    var winnerElo = '';
+    let winnerElo = '';
     if (this.props.currentUser === this.props.match.opponent) {
       winnerElo = this.props.match.challengerUserInfo.elo;
     } else {
       winnerElo = this.props.match.opponentUserInfo.elo;
     }
+    let newElo1 = this.getWinnerElo(winnerElo, this.props.currentElo);
+    let newElo2 = this.getLoserElo(winnerElo, this.props.currentElo);
     updateMatch({
       variables: {
         id: this.props.match.id,
@@ -78,36 +76,32 @@ class ResultsModal extends React.Component {
       }
     })
       .then(({data}) => {
-        console.log('first run fired', data);
+        console.log('neww elo', newElo1);
+        console.log('new elo2', newElo2);
         return updateUser({
           variables: {
             email: this.props.match.winner,
             input: {
-              elo: this.getWinnerElo(winnerElo, this.props.currentElo)
+              elo: newElo1
             }
           }
         });
       })
       .then(({data}) => {
-        console.log('second run fired', data);
         return updateUser({
           variables: {
             email: this.props.currentUser,
             input: {
-              elo: this.getLoserElo(winnerElo, this.props.currentElo)
+              elo: newElo2
             }
           }
         });
-      })
-      .catch((err) => {
-        console.log(err);
       });
   }
 
   render () {
     let modalOpponent = null;
     if (this.props.match.opponent) {
-      console.log('match:', this.props.match);
       if (this.props.currentUser === this.props.match.opponent) {
         modalOpponent = this.props.match.challengerUserInfo.name ||
         this.props.match.challengerUserInfo.fullName;
