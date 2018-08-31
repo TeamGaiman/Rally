@@ -69,7 +69,6 @@ const Map = compose(
                 <div>
                   <h3>{ court.name }</h3>
                   <p>
-                    { court.location } <br />
                     { court.numberOfCourts + ' ' + court.courtType + ' Courts' }
                   </p>
                   { !singleCourtRender && <Button
