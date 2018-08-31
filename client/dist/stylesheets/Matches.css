@@ -19,5 +19,5 @@
 
 .clickable-td:hover {
   cursor: pointer;
-  font-weight: bold;
+  background-image: linear-gradient(to right, rgb(255, 133, 133, .5) , rgb(255, 215, 115, .5));
 }
