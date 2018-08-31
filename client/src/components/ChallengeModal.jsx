@@ -8,6 +8,12 @@ import Map from './Map.jsx';
 
 const ChallengeModal = (props) => {
   if (props.challenge) {
+    if (props.currentUser === props.challenge.challenger) {
+      var matchOpponent = props.challenge.opponentUserInfo;
+    } else {
+      var matchOpponent = props.challenge.challengerUserInfo;
+    } 
+
     return (
       <Modal
         show={ props.challengeModalOpen }
@@ -17,12 +23,16 @@ const ChallengeModal = (props) => {
 
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title">
-            { `You've been challenged by ${ props.challenge.challenger }` }
+            { `Match against ${ matchOpponent.name }` }
           </Modal.Title>
         </Modal.Header>
         
         <Modal.Body>
           <Form horizontal className="form-width">
+            <ControlLabel>Opponent</ControlLabel>
+            <FormControl.Static>
+              { matchOpponent.name }
+            </FormControl.Static>
             <ControlLabel>Time</ControlLabel>
             <FormControl.Static>
               { moment( new Date( props.challenge.startTime )).calendar() }
@@ -38,7 +48,7 @@ const ChallengeModal = (props) => {
           />
         </Modal.Body>
 
-        <Modal.Footer>
+        { !props.challenge.accepted && <Modal.Footer>
           <Mutation
             mutation={ DELETE_MATCH }
             update={ props.hideChallengeModal }
@@ -75,9 +85,8 @@ const ChallengeModal = (props) => {
               </Button>
             )}
           </Mutation>
-        </Modal.Footer>
-
-      </Modal>    
+        </Modal.Footer>} 
+      </Modal>   
     );
   } else { 
     return null;

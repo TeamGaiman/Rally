@@ -45,8 +45,7 @@ class ScheduledMatches extends React.Component {
           <thead>
             <tr>
               <th>Opponent</th>
-              <th>Date</th>
-              <th>Location</th>
+              <th>Details</th>
               <th>Status</th>
               <th>Winner</th>
             </tr>
@@ -68,8 +67,16 @@ class ScheduledMatches extends React.Component {
                     <br/>
                     { matchOpponent.name || matchOpponent.fullName }
                   </td>
-                  <td>{ moment( new Date( match.startTime )).calendar() }</td>
-                  <td>{ match.location }</td>
+                  <td 
+                    className="clickable-td"
+                    onClick={ () => {
+                      this.props.handleChallengeClicked( match );
+                      this.props.toggleChallengeModal();
+                    }}>
+                    { moment( new Date( match.startTime )).calendar()}
+                    <br/>
+                    { match.location }
+                  </td>
                   <td>{ match.completed ? 'Complete' : match.winner ? 'Awaiting Confirmation' : 'Scheduled'}</td>
                   <td>
                     {( match.completed )

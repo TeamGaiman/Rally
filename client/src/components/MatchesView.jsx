@@ -5,6 +5,7 @@ import { Tabs, Tab, TabList } from 'react-web-tabs';
 import { GET_SCHEDULED_BY_USER } from '../apollo/queries.js';
 import ScheduledMatches from './ScheduledMatches.jsx';
 import Calendar from './Calendar.jsx';
+import ChallengeModal from './ChallengeModal.jsx';
 
 class MatchesView extends React.Component {
   constructor(props) {
@@ -13,21 +14,28 @@ class MatchesView extends React.Component {
       upcoming: [],
       history: [],
       editUserInfo: false,
-      calendarModal: false,
-      showCalendar: false
+      challengeModalOpen: false,
+      challengeClicked: null
     };
 
-    this.toggleCalendarModal = this.toggleCalendarModal.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
+    this.toggleChallengeModal = this.toggleChallengeModal.bind(this);
+    this.handleTabSelect = this.handleTabSelect.bind(this);
+    this.handleChallengeClicked = this.handleChallengeClicked.bind(this);
   }
 
-  toggleCalendarModal () {
+  toggleChallengeModal () {
     this.setState({
-      calendarModal: !this.state.calendarModal
+      challengeModalOpen: !this.state.challengeModalOpen
     });
   }
 
-  handleSelect ( tabId ) {
+  handleChallengeClicked ( challengeClicked ) {
+    this.setState({
+      challengeClicked
+    });
+  }
+
+  handleTabSelect ( tabId ) {
     if ( tabId === 'one' ) {
       this.setState({
         showCalendar: false
@@ -44,7 +52,7 @@ class MatchesView extends React.Component {
       <div className="matches-container">
         <Tabs
           defaultTab="one"
-          onChange={(tabId) => { this.handleSelect( tabId ); }}
+          onChange={(tabId) => { this.handleTabSelect( tabId ); }}
         >
           <TabList>
             <Tab tabFor="one">Matches</Tab>
@@ -66,20 +74,34 @@ class MatchesView extends React.Component {
               this.state.showCalendar 
                 ? (
                   <Calendar
+                    currentUser={ this.props.playerData.email }
                     calendarModal={ this.state.calendarModal }
                     toggleCalendarModal={ this.toggleCalendarModal }
                     scheduledMatches={ data.getUserByEmail }
+                    handleChallengeClicked={ this.handleChallengeClicked }
+                    toggleChallengeModal={ this.toggleChallengeModal }
                   />
                 ) : (
                   <ScheduledMatches
                     currentUser={ this.props.playerData.email }
                     currentElo={ this.props.playerData.elo}
                     scheduledMatches={ data.getUserByEmail }
+                    handleChallengeClicked={ this.handleChallengeClicked }
+                    toggleChallengeModal={ this.toggleChallengeModal }
                   />
                 )
             );
           }}
         </Query>
+
+        <ChallengeModal
+          currentUser={ this.props.playerData.email }
+          challenge={ this.state.challengeClicked }
+          challengeModalOpen={ this.state.challengeModalOpen }
+          hideChallengeModal={ this.toggleChallengeModal }
+          
+        />
+
       </div>
     );
   }
