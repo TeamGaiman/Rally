@@ -1,11 +1,9 @@
 import React from 'react';
-import { Jumbotron, Button, Image, ProgressBar, FormGroup, FormControl, ControlLabel, Badge, Popover, OverlayTrigger } from 'react-bootstrap';
+import { Jumbotron, Button, Image, ProgressBar, FormGroup, FormControl, ControlLabel, Badge, Popover, OverlayTrigger, Grid, Row, Col } from 'react-bootstrap';
 
 import EditUserInfo from './EditUserInfo.jsx';
 import TierInfoModal from './TierInfoModal.jsx';
 import ChangeTierModal from './ChangeTierModal.jsx';
-import { Mutation } from 'react-apollo';
-import { UPDATE_USER } from '../apollo/mutations.js';
 import Trophy1 from '../../dist/lib/trophy1.png';
 import Trophy2 from '../../dist/lib/trophy2.png';
 import Trophy3 from '../../dist/lib/trophy3.png';
@@ -24,6 +22,16 @@ class ProfileView extends React.Component {
     this.handleEditUserInfo = this.handleEditUserInfo.bind(this);
     this.toggleTierInfoModal = this.toggleTierInfoModal.bind(this);
     this.toggleTierChangeModal = this.toggleTierChangeModal.bind(this);
+    this.generateUserCharts = this.generateUserCharts.bind(this);
+  }
+
+
+  componentDidMount () {
+    this.generateUserCharts();
+  }
+  
+  componentDidUpdate () {
+    this.generateUserCharts();
   }
 
   handleEditUserInfo () {
@@ -39,6 +47,75 @@ class ProfileView extends React.Component {
   toggleTierChangeModal () {
     this.setState({
       tierChangeModal: !this.state.tierChangeModal 
+    });
+  }
+
+  generateUserCharts () {
+    let currentProgress = 100 * (this.props.playerData.elo / 
+      this.state.tierThresholds[this.props.playerData.tier]);
+
+    c3.generate({
+      bindto: '#tier-gauge',
+      data: {
+        columns: [
+          ['Tier progress', currentProgress]
+        ],
+        type: 'gauge',
+      },
+      tooltip: {
+        show: false
+      },
+      legend: {
+        show: false
+      },
+      gauge: {
+        show: false,
+        label: {
+          show: false,
+          show: false // to turn off the min/max labels.
+        },
+        //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+        //    max: 100, // 100 is default
+        //    units: ' %',
+        //    width: 39 // for adjusting arc thickness
+      },
+      color: {
+        pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
+        threshold: {
+          //            unit: 'value', // percentage is default
+          //            max: 200, // 100 is default
+          values: [30, 60, 90, 100]
+        }
+      },
+      size: {
+        height: 180
+      }
+    });
+
+    c3.generate({
+      bindto: '#win-loss',
+      data: {
+        columns: [
+          ['Wins', this.props.playerData.wins ],
+          ['Losses', this.props.playerData.losses ]
+        ],
+        type: 'donut',
+      },
+      tooltip: {
+        show: true
+      },
+      legend: {
+        show: false
+      },
+      donut: {
+        label: {
+          show: false // to turn off the min/max labels.
+        },
+        width: 39
+      },
+      size: {
+        height: 220
+      }
     });
   }
 
@@ -66,8 +143,9 @@ class ProfileView extends React.Component {
         <strong>Ace! You love serving people!</strong>
       </Popover>
     );
-    
+
     return (
+      
       <div>
         {/*--- PROFILE HEADER ---*/}
         <Jumbotron className="profile-jumbotron">
@@ -80,11 +158,8 @@ class ProfileView extends React.Component {
             <div className="user-info">
               <h3>{ this.props.playerData.fullName || this.props.googleUserData.displayName }</h3>
               <br/>
-              <b>W: { this.props.playerData.wins }</b>{' '}
-              <b>L: { this.props.playerData.losses }</b>
+              <h4>{ 'Current Tier: ' + this.props.playerData.tier }</h4>
               <br/>
-              {/* <b>Tier: { this.props.playerData.tier }</b> */}
-              {/* <br/> */}
               <b style={{ paddingRight: '15px' }}>Trophies:</b> 
 
               <OverlayTrigger trigger={['hover', 'focus']} placement="bottom" overlay={ goodSport }>                
@@ -121,50 +196,62 @@ class ProfileView extends React.Component {
         </Jumbotron>
 
         {/*--- PROFILE BODY ---*/}
-        <FormGroup controlId="skillTier">
-          <h3>You are currently in Skill Tier { this.props.playerData.tier }</h3>
-          <Button 
-            onClick={ this.toggleTierInfoModal }>
-            Get info on Rally's skill tiers.
-          </Button> 
-        </FormGroup>
+        <div className="matches-container profile-container">
+          
+          {( this.state.editUserInfo)
+            ? <EditUserInfo {...this.props}
+              handleEditUserInfo={this.handleEditUserInfo} />
+            :
+            <Grid>
+              <Row className="show-grid">
+                <Col xs={12} md={6}>
+                  <FormGroup controlId="skillTier">
+                    <div className="tier-gauge-container">
+                      <div id="tier-gauge"></div>
+                      { this.generateUserCharts() }
+                    </div>
+                    <h4>Progress to next Tier</h4>
+                  </FormGroup>
 
-        <ProgressBar
-          className="tierProg"
-          min={ 1000 }
-          now={ this.props.playerData.elo }
-          max={ this.state.tierThresholds[this.props.playerData.tier]}
-          active={ true }
-          label={ 'Rank progress...' }
-        />
+                  <FormGroup controlId="skillTier">
+                    <Button
+                      onClick={this.toggleTierChangeModal}>
+                      Switch Tiers
+                    </Button><Button className=""
+                      onClick={this.toggleTierInfoModal}>
+                      ❔
+                    </Button>
+                  </FormGroup>
+                </Col>
+                <Col xs={12} md={6}>
 
-        <FormGroup controlId="skillTier">
-          <Button 
-            onClick={ this.toggleTierChangeModal }>
-            Ready to rank up? Need a break and want to revert to a lower tier?
-          </Button> 
-        </FormGroup>
+                  <div id="win-loss"></div>
+                  <h4>{'Wins: ' + this.props.playerData.wins + ' Losses: ' + this.props.playerData.losses}</h4>
+                </Col>
+                {/* <Col xs={12} md={4}>
 
-        
+                  <code>{'Trophieees'}</code>
+                </Col> */}
+              </Row>
+            </Grid>
+          }
 
-        <TierInfoModal
-          tierModal={ this.state.tierInfoModal }
-          toggleTierModal={ this.toggleTierInfoModal }
-        />
+          <TierInfoModal
+            tierModal={ this.state.tierInfoModal }
+            toggleTierModal={ this.toggleTierInfoModal }
+          />
 
-        <ChangeTierModal
-          playerEmail={ this.props.playerData.email }
-          playerTier={ this.props.playerData.tier }
-          playerElo={ this.props.playerData.elo }
-          playerTierThreshold={ this.state.tierThresholds[this.props.playerData.tier] }
-          tierModal={ this.state.tierChangeModal }
-          toggleTierModal={ this.toggleTierChangeModal }
-        />
+          <ChangeTierModal
+            playerEmail={ this.props.playerData.email }
+            playerTier={ this.props.playerData.tier }
+            playerElo={ this.props.playerData.elo }
+            playerTierThreshold={ this.state.tierThresholds[this.props.playerData.tier] }
+            tierModal={ this.state.tierChangeModal }
+            toggleTierModal={ this.toggleTierChangeModal }
+          />
 
-        {( this.state.editUserInfo )
-          ? <EditUserInfo { ...this.props } 
-            handleEditUserInfo={ this.handleEditUserInfo }/>
-          : null}
+          
+        </div>
       </div>
     );
   }
