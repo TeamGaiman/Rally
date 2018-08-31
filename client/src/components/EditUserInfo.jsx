@@ -142,7 +142,7 @@ class EditUserInfo extends React.Component {
                     type="submit"
                     className="pull-right"
                     onClick={ updateUser }
-                    disabled={ !this.state.validNumber }
+                    disabled={ !this.state.validNumber && (this.state.phoneNumber.length > 0) }
                   >
                     Submit
                   </Button>
