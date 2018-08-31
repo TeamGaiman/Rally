@@ -20,9 +20,7 @@
   font-family: 'aqua_grotesqueregular', Helvetica, sans-serif;
   font-size: 14pt;
   color: white;
-  /* position: relative; */
-  /* top: 12.5px; */
-}
-.rally-logo:hover {
-  cursor: default;
+  position: relative;
+  top: 2px;
+  cursor: pointer;
 }

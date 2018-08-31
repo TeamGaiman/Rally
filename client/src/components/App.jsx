@@ -193,26 +193,31 @@ class App extends React.Component {
           }/>
         </Switch>
         <footer>
-          <div >
-            <img src={ Facebook } className="media-buttons"/> <img src={ Instagram } className="media-buttons"/> <img src={ Twitter } className="media-buttons"/>
-          </div>
+          <a href="https://github.com/TeamGaiman/thesis">
+            <img src={ Facebook } 
+              className="media-buttons"/> 
+            <img src={ Instagram } 
+              className="media-buttons"/> 
+            <img src={ Twitter } 
+              className="media-buttons"/>
+          </a>
           <div className="footer-text">
             <Grid>
               <Row className="show-grid">
                 <Col xs={12} md={4}>
                   <div>
                     &copy; RALLY 2018
-                  </div>
+                  </div>  
                 </Col>
                 <Col xs={12} md={4}>
-                  <div>
+                  <a href="https://github.com/TeamGaiman/thesis">
                     Contact Us
-                  </div>
+                  </a>
                 </Col>
                 <Col xs={12} md={4}>
-                  <div>
+                  <a href="https://github.com/TeamGaiman/thesis">
                     FAQ
-                  </div>
+                  </a>
                 </Col>
               </Row>
             </Grid>
