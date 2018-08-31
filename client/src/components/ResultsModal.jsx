@@ -137,6 +137,7 @@ class ResultsModal extends React.Component {
               <ToggleButton value={ 1 }>Good Sport</ToggleButton>
               <ToggleButton value={ 2 }>Rally</ToggleButton>
               <ToggleButton value={ 3 }>Great Server</ToggleButton>
+              <ToggleButton value={ 4 }>No Show</ToggleButton>
             </ToggleButtonGroup>
 
             {
