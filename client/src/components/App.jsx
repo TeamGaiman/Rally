@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ApolloProvider, Query } from 'react-apollo';
 import { BounceLoader } from 'react-spinners';
+import { Grid, Row, Col } from 'react-bootstrap';
 
 import firebase from '../../../firebase/firebase.js';
 import NavBar from './NavBar.jsx';
@@ -11,6 +12,9 @@ import ProfileView from './ProfileView.jsx';
 import MatchmakingView from './MatchmakingView.jsx';
 import MatchesView from './MatchesView.jsx';
 import { CHECK_EMAIL_IS_UNIQUE, GET_USER_BY_EMAIL, GET_USER_PROFILE_DATA } from '../apollo/queries.js';
+import Instagram from '../../dist/lib/Instagram.png';
+import Twitter from '../../dist/lib/Twitter.png';
+import Facebook from '../../dist/lib/Facebook.png';
 
 class App extends React.Component {
   constructor(props) {
@@ -187,6 +191,32 @@ class App extends React.Component {
             </Query>
           }/>
         </Switch>
+        <footer>
+          <div >
+            <img src={ Facebook } className="media-buttons"/> <img src={ Instagram } className="media-buttons"/> <img src={ Twitter } className="media-buttons"/>
+          </div>
+          <div className="footer-text">
+            <Grid>
+              <Row className="show-grid">
+                <Col xs={12} md={4}>
+                  <div>
+                    &copy; RALLY 2018
+                  </div>
+                </Col>
+                <Col xs={12} md={4}>
+                  <div>
+                    Contact Us
+                  </div>
+                </Col>
+                <Col xs={12} md={4}>
+                  <div>
+                    FAQ
+                  </div>
+                </Col>
+              </Row>
+            </Grid>
+          </div>
+        </footer>
       </ApolloProvider>
     );
   }
