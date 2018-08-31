@@ -11,6 +11,9 @@ import ProfileView from './ProfileView.jsx';
 import MatchmakingView from './MatchmakingView.jsx';
 import MatchesView from './MatchesView.jsx';
 import { CHECK_EMAIL_IS_UNIQUE, GET_USER_BY_EMAIL, GET_USER_PROFILE_DATA } from '../apollo/queries.js';
+import Instagram from '../../dist/lib/Instagram.png';
+import Twitter from '../../dist/lib/Twitter.png';
+import Facebook from '../../dist/lib/Facebook.png';
 
 class App extends React.Component {
   constructor(props) {
@@ -188,7 +191,14 @@ class App extends React.Component {
             </Query>
           }/>
         </Switch>
-        <footer/>
+        <footer>
+          <div className="pull-left">
+            &copy; RALLY 2018
+          </div>
+          <div className="pull-right media-buttons">
+            <img src={ Facebook }/> <img src={ Instagram }/> <img src={ Twitter }/>
+          </div>
+        </footer>
       </ApolloProvider>
     );
   }

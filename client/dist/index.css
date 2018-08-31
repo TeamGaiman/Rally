@@ -29,26 +29,26 @@ body {
   min-height: 100%;
 }
 
-.demo {
+/* {
   margin: 0 auto;
   padding-top: 64px;
   max-width: 640px;
   width: 94%;
-}
+} */
 
 footer {
   position: absolute;
+  display: inline-block;
   right: 0;
   bottom: 0;
   left: 0;
   padding: 1rem;
-  background-color: #efefef;
+  background-color: rgb(231, 231, 231);
   text-align: center;
+  color: black;
+  padding-top: 10px;
 }
 
-<div class="demo">
-</div>
-
-<div class="footer">
-  This footer will always be positioned at the bottom of the page, but
-</div>
+.media-buttons {
+  margin-left: 5px;
+}
