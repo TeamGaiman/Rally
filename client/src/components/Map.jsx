@@ -35,9 +35,11 @@ const Map = compose(
 )((props) => {
   let defaultCenter = { lat: 40.72, lng: -73.9 };
   let singleCourtRender = false;
+  let defaultZoom = 11;
 
   if (props.courts.length === 1 ) {
     singleCourtRender = true;
+    defaultZoom = 13;
     defaultCenter = { 
       lat: Number ( props.courts[0].latitude ), 
       lng: Number ( props.courts[0].longitude ) 
@@ -47,7 +49,7 @@ const Map = compose(
   return (
     <GoogleMap
       defaultOptions={{ mapTypeControl: false }}
-      defaultZoom={ 11 }
+      defaultZoom={ defaultZoom }
       defaultCenter={ defaultCenter }
     >
       { props.courts.map(( court, index ) => {

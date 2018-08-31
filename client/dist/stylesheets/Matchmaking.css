@@ -145,6 +145,13 @@
   color: black;
 }
 
+.no-challenges-display {
+  position:fixed;
+  left: 44%;
+  top:  45%;
+  opacity: 0.50;
+}
+
 
 
 .rdt {
@@ -376,4 +383,8 @@ td.rdtYear:hover {
   position: relative;
   top: -35px;
   /* border-radius: 100px; */
+}
+
+.react-autosuggest__suggestions-container {
+  display: none;
 }

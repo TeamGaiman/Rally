@@ -81,6 +81,7 @@ const MATCH = `
     startTime
     winner
     score
+    accepted
     completed
     court {
       location
