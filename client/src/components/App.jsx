@@ -22,6 +22,7 @@ class App extends React.Component {
       loading: true
     };
 
+    this.guestSignIn = this.guestSignIn.bind(this);
     this.authListener = this.authListener.bind(this);
     this.googleSignIn = this.googleSignIn.bind(this);
     this.googleSignOut = this.googleSignOut.bind(this);
@@ -77,7 +78,12 @@ class App extends React.Component {
   }
 
   guestSignIn () {
-
+    this.setState({
+      googleUserData: {
+        email: 'guest@guest.com',
+        displayName: 'Jane Doe'
+      }
+    })
   }
 
   /* --- UPDATING USER INFO FROM DB --- */
@@ -103,6 +109,7 @@ class App extends React.Component {
     return (
       <ApolloProvider client={ this.props.client }>
         <NavBar
+          guestSignIn={ this.guestSignIn }
           googleSignOut={ this.googleSignOut }
           googleSignIn={ this.googleSignIn }
           googleUserData={ this.state.googleUserData }
