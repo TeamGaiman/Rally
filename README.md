@@ -1,6 +1,5 @@
-# <Project Name>
-
-> <Pithy project description>
+# Rally
+> Meet your match.
 
 ## Team
 
@@ -13,39 +12,26 @@
 1. [Usage](#Usage)
 1. [Requirements](#requirements)
 1. [Development](#development)
-    1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
+  1. [Installing Dependencies](#installing-dependencies)
+  1. [Tasks](#tasks)
 1. [Team](#team)
 1. [Contributing](#contributing)
 
 ## Usage
 
-> Some usage instructions
-
-## Requirements
-
-- <TODO>
-
-## Development
-
-- <TODO>
+- Explore the app demo by clicking 'Login as Guest'
 
 ### Installing Dependencies
-
-- <TODO>
 
 From within the root directory:
 
 ```sh
-sudo npm install -g bower
 npm install
-bower install
 ```
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
-
+View the project roadmap [here](https://github.com/TeamGaiman/thesis/issues)
 
 ## Contributing
 
