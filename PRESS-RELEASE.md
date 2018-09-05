@@ -12,4 +12,3 @@ To a software engineer the question of how to handle matchmaking and scheduling 
 "Rally puts the tedium of finding an opponent to rest and gets us on the court doing what really matters: playing the sport." - Parker Muir
 > Join our community to get access to our extensize New York-area court database and schedule a match immediately.
 
-"Match Point makes it easy for me to find local players to match my tennis skills against." - Joseph Martin
