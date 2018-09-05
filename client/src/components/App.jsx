@@ -28,19 +28,18 @@ class App extends React.Component {
     this.mapDBPlayerDataToState = this.mapDBPlayerDataToState.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.authListener();
   }
 
   /* --- GOOGLE AUTH FUNCTIONS --- */
-  authListener() {
+  authListener () {
     firebase.auth().onAuthStateChanged( (user) => {
       if (user) {
         this.setState({
           googleUserData: Object.assign( {}, user.providerData[0] ),
           loading: false
         });
-        console.log(user.providerData[0]);
       } else {
         this.setState({
           googleUserData: null,
@@ -63,7 +62,7 @@ class App extends React.Component {
         console.error( err );
       });
   }
-  googleSignOut() {
+  googleSignOut () {
     this.setState({
       googleUserData: null
     });
@@ -75,6 +74,10 @@ class App extends React.Component {
       .catch( ( err ) => {
         console.error( err );
       });
+  }
+
+  guestSignIn () {
+
   }
 
   /* --- UPDATING USER INFO FROM DB --- */
