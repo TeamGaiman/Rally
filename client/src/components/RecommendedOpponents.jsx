@@ -48,7 +48,6 @@ class RecommendedOpponents extends React.Component {
 
   getMatchedUsers (elo, users) {
     let matches = matchmakeByElo( elo, users );
-    console.log(matches);
     for (var i = matches.length - 1; i > 0; i--) {
       var j = Math.floor(Math.random() * (i + 1));
       var temp = matches[i];

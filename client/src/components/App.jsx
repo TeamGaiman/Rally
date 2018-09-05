@@ -22,25 +22,25 @@ class App extends React.Component {
       loading: true
     };
 
+    this.guestSignIn = this.guestSignIn.bind(this);
     this.authListener = this.authListener.bind(this);
     this.googleSignIn = this.googleSignIn.bind(this);
     this.googleSignOut = this.googleSignOut.bind(this);
     this.mapDBPlayerDataToState = this.mapDBPlayerDataToState.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.authListener();
   }
 
   /* --- GOOGLE AUTH FUNCTIONS --- */
-  authListener() {
+  authListener () {
     firebase.auth().onAuthStateChanged( (user) => {
       if (user) {
         this.setState({
           googleUserData: Object.assign( {}, user.providerData[0] ),
           loading: false
         });
-        console.log(user.providerData[0]);
       } else {
         this.setState({
           googleUserData: null,
@@ -63,7 +63,7 @@ class App extends React.Component {
         console.error( err );
       });
   }
-  googleSignOut() {
+  googleSignOut () {
     this.setState({
       googleUserData: null
     });
@@ -75,6 +75,15 @@ class App extends React.Component {
       .catch( ( err ) => {
         console.error( err );
       });
+  }
+
+  guestSignIn () {
+    this.setState({
+      googleUserData: {
+        email: 'guest@guest.com',
+        displayName: 'Jane Doe'
+      }
+    })
   }
 
   /* --- UPDATING USER INFO FROM DB --- */
@@ -100,6 +109,7 @@ class App extends React.Component {
     return (
       <ApolloProvider client={ this.props.client }>
         <NavBar
+          guestSignIn={ this.guestSignIn }
           googleSignOut={ this.googleSignOut }
           googleSignIn={ this.googleSignIn }
           googleUserData={ this.state.googleUserData }

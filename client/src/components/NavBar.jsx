@@ -23,6 +23,11 @@ const NavBar = (props) => {
                 About
               </NavItem>
               <LinkContainer to='/signup'>
+                <NavItem onClick={ props.guestSignIn }>
+                  Sign in as Guest
+                </NavItem>
+              </LinkContainer>
+              <LinkContainer to='/signup'>
                 <NavItem onClick={ props.googleSignIn }>
                   <Image src={ GoogleIcon } className="google-icon"/>
                   Sign in with Google
